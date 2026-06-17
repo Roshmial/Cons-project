@@ -7,6 +7,7 @@
 - local-95/tg-api: код, конфиги, cron/install-логика и документация TG API контура
 - remote-178: backend/runtime/deploy contour, project code, launcher-скрипты и systemd units
 - deploy/package, docs, scripts, backend/frontend-react/frontend компоненты
+- отдельные root-docs по архитектуре, логике и границам prod-контура
 
 Что исключено:
 - node_modules, dist, .venv
@@ -18,4 +19,4 @@
 - backup полного рабочего контура агента под репозиторий Cons-project
 - хранение frontend 8803, backend 178 и TG API в одном private GitHub repo
 
-Последнее обновление: 2026-06-17 20:07:08 UTC
+Последнее обновление: 2026-06-17 20:15:27 UTC

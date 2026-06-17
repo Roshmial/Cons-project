@@ -1,0 +1,21 @@
+profiles:
+  profile_1:
+    session_name: profile_1
+    date_from: '2026-04-26'
+    date_to: ''
+    limit_per_channel: 1000
+    global_limit: 20000
+    channels:
+    - username: b1_news
+    - username: Axenix_Ru
+    - username: beringpro
+    - username: Softline
+    - username: k2_tech
+    - username: Lanit_life
+    - username: InnotechCompany
+    - username: YakovPartners
+    - username: delret
+    - username: tedo_business
+    - username: kept_business
+    - username: Reksoft_group
+    - username: norbit_ru

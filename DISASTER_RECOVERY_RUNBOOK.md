@@ -23,6 +23,47 @@
 - `remote-178/runtime-systemd/` — unit/drop-in backend/frontend/CopilotKit на 178.
 - `remote-178/project/deploy/package/` — deploy package и server bootstrap docs.
 
+## Минимальная шпаргалка по командам
+
+### Backend/runtime-хост
+
+```bash
+git clone <cons-project-repo> ~/cons-project
+cd ~/cons-project/remote-178/project
+cp deploy/package/env/hermes-web.env.example ~/.hermes/.env   # как шаблон, затем заполнить вручную
+bash deploy/package/bootstrap-hermes-zero-server.sh
+bash deploy/package/install-project-deps.sh
+bash deploy/package/install-systemd-user.sh $(pwd)
+systemctl --user daemon-reload
+systemctl --user enable --now hermes-web-backend-8791.service
+systemctl --user enable --now hermes-web-frontend-8793.service
+systemctl --user enable --now hermes-web-copilotkit-8794.service
+bash deploy/package/verify-deployment.sh
+```
+
+### Frontend/TG-API-хост
+
+```bash
+git clone <cons-project-repo> ~/cons-project
+cd ~/cons-project/local-95/project
+# заполнить локальные env для frontend вручную
+systemctl --user daemon-reload
+systemctl --user enable --now hermes-web-frontend-8803.service
+
+cd ~/cons-project/local-95/tg-api
+# внести private-profile.env / session / auth state вручную
+# затем проверить ручной запуск TG API и только потом включать cron
+```
+
+### Hermes-слой
+
+```bash
+curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash
+hermes setup
+hermes doctor
+hermes cron list
+```
+
 ## Шаг 1. Подготовить backend/runtime-хост
 
 1. Развернуть `remote-178/project/` в целевой project root.
@@ -57,12 +98,35 @@
 5. Если используется deploy package acceptance, выполнить `verify-deployment.sh`.
 6. Только после этого включать периодические jobs и weekly automation.
 
+## Логика fallback для моделей
+
+- Базовый provider: `openai-codex`.
+- Базовая модель: `gpt-5.4`.
+- Configured fallback providers: `["openai-codex"]`.
+- Configured fallback models: `["gemma-4-26b-a4b-it", "gpt-5.4"]`.
+
+### Алгоритм
+
+1. Hermes сначала пытается отработать на основном маршруте: provider `openai-codex`, model `gpt-5.4`.
+2. Если основной вызов недоступен или не проходит по runtime-условиям маршрутизации, используется fallback-цепочка моделей из конфига.
+3. В текущем backup это означает: сначала fallback на `gemma-4-26b-a4b-it`, затем повторный fallback на `gpt-5.4` внутри того же provider-контекста, если маршрут позволяет.
+4. Для auxiliary-задач (`vision`, `web_extract`, `compression`, `skills_hub`, `approval`, `mcp`, `title_generation`) уже зафиксирован отдельный локальный маршрут через `custom` provider и `http://127.0.0.1:8080/v1` с моделью `gemma-4-26b-a4b-it`.
+5. Практическое правило для развёртки: сначала поднимать primary route, затем локальный auxiliary route, и только потом включать jobs, которые зависят от обоих уровней.
+
+### Что проверить после развёртки
+
+- `hermes doctor` не показывает сломанную конфигурацию.
+- `hermes chat -q "ping"` отвечает на primary route.
+- auxiliary/local route отвечает отдельно, если он используется в контуре.
+- cron/jobs, завязанные на локальный auxiliary inference, не падают из-за отсутствия `127.0.0.1:8080/v1`.
+
 ## Что не надо делать
 
 - Не смешивать frontend из одного project root и backend из другого без явной сверки env и unit-файлов.
 - Не копировать в Git и на новую машину старые runtime DB, `.env`, session/auth state как часть backup-репозитория.
 - Не считать, что один сервер полностью описывает весь prod-контур: он split-host по определению.
+- Не включать cron до проверки primary и auxiliary model routes, если контур зависит от обоих.
 
 ## Практический смысл
 
-Этот runbook нужен, чтобы с нуля развернуть рабочий контур, а не только хранить архив кода. Он фиксирует порядок ввода в строй, границы между 95 и 178 и места, где нужны ручные локальные секреты.
+Этот runbook нужен, чтобы с нуля развернуть рабочий контур, а не только хранить архив кода. Он фиксирует порядок ввода в строй, границы между 95 и 178, минимальную командную шпаргалку и места, где нужны ручные локальные секреты.

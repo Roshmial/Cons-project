@@ -1,0 +1,9 @@
+flask
+duckdb
+werkzeug
+waitress
+psycopg[binary]
+python-docx
+openpyxl
+python-pptx
+reportlab

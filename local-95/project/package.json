@@ -1,0 +1,27 @@
+{
+  "name": "hermes-web-mvp",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "react:dev": "vite",
+    "react:build": "vite build",
+    "react:preview": "vite preview",
+    "react:serve-prod": "node scripts/serve_frontend_prod.mjs",
+    "ui:smoke": "node scripts/ui_acceptance_smoke.mjs",
+    "triage:quick": "node scripts/quick_triage.mjs"
+  },
+  "dependencies": {
+    "@copilotkit/react-core": "^1.59.5",
+    "@copilotkit/react-ui": "^1.59.5",
+    "@copilotkit/runtime": "^1.59.5",
+    "@copilotkit/runtime-client-gql": "^1.59.5",
+    "html-to-image": "^1.11.13",
+    "playwright": "^1.60.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.4.1",
+    "vite": "^5.4.19"
+  }
+}

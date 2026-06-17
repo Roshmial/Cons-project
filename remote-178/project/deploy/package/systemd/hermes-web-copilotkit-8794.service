@@ -1,0 +1,15 @@
+[Unit]
+Description=Hermes Web CopilotKit runtime 8794
+After=network.target hermes-gateway.service
+Requires=hermes-gateway.service
+
+[Service]
+Type=simple
+WorkingDirectory=__PROJECT_ROOT__
+ExecStart=/usr/bin/bash __PROJECT_ROOT__/run_copilotkit_runtime_service.sh
+Restart=always
+RestartSec=5
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=default.target

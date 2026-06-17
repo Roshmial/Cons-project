@@ -1,0 +1,1145 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hermes Web</title>
+  <link rel="icon" href="./favicon.ico" sizes="16x16" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --bg-soft: #eef3f9;
+      --panel: #ffffff;
+      --panel-2: #f8fbff;
+      --line: #d8e0ec;
+      --line-strong: #95aed6;
+      --text: #18263d;
+      --muted: #62728d;
+      --accent: #2f6df6;
+      --accent-2: #4f8dff;
+      --good: #2da56a;
+      --bad: #cf4f66;
+      --warn: #c08b14;
+      --shadow: 0 10px 28px rgba(28, 52, 84, 0.08);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #f8fafc 0%, #f3f6fb 100%);
+      color: var(--text);
+    }
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; }
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      border-radius: 12px;
+      padding: 9px 11px;
+    }
+    textarea { resize: vertical; min-height: 72px; }
+    .hidden { display: none !important; }
+    .app-shell { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; height: 100vh; }
+    .sidebar {
+      border-right: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+    .muted { color: var(--muted); }
+    .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 7px 11px;
+      color: var(--text);
+      background: #e9eff9;
+    }
+    .btn.primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; }
+    .btn.ghost { background: #fff; border: 1px solid var(--line); }
+    .btn.good { background: rgba(45, 165, 106, 0.12); color: #1d7650; }
+    .btn.bad { background: rgba(207, 79, 102, 0.1); color: #9b3348; }
+    .btn.small { padding: 6px 9px; border-radius: 10px; font-size: 12px; }
+    .btn.block { width: 100%; }
+    .chip-row, .row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chip.active { color: var(--accent); border-color: var(--line-strong); background: #eef4ff; }
+    .nav-group, .stack { display: flex; flex-direction: column; gap: 10px; }
+    .nav-btn { text-align: left; }
+    .nav-btn.active { background: rgba(84, 130, 255, 0.18); border: 1px solid var(--line-strong); }
+    .sidebar-card, .card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .subtle-card { background: var(--panel-2); }
+    .sidebar-card.compact {
+      padding: 12px 14px;
+      background: transparent;
+      border-style: dashed;
+    }
+    .sidebar-card h4, .card h3, .card h4 { margin: 0 0 10px; }
+    .section-title {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .sidebar-actions { display:grid; grid-template-columns: 1fr; gap:8px; }
+    .sidebar-thread-list { display: flex; flex-direction: column; gap: 6px; overflow: auto; max-height: 48vh; }
+    .thread-item {
+      padding: 10px 11px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      text-align:left;
+    }
+    .thread-item:hover { background:#f4f7fc; border-color:#edf2f8; }
+    .thread-item.active { border-color: #d5e2fb; background: #eef4ff; box-shadow: inset 3px 0 0 var(--accent); }
+    .thread-item.empty-state {
+      border-style:dashed;
+      border-color:#d9e3f2;
+      background:#fbfcfe;
+    }
+    .thread-item.empty-state:hover { background:#fbfcfe; border-color:#d9e3f2; }
+    .thread-item-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:6px; }
+    .thread-item-head h4 { margin:0; flex:1; }
+    .thread-unread-dot { width:10px; height:10px; min-width:10px; border-radius:999px; background:#2563eb; box-shadow:0 0 0 3px rgba(37,99,235,0.14); margin-top:4px; }
+    .thread-preview { margin-top:6px; color: var(--muted); font-size: 13px; line-height:1.45; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; }
+    .thread-item h4 { margin: 0 0 6px; font-size: 15px; line-height:1.4; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; }
+    .thread-item p, .thread-item small { margin: 0; color: var(--muted); line-height: 1.45; }
+    .main {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-width: 0;
+      min-height: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .topbar {
+      padding: 6px 14px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      background: rgba(248,250,252,0.95);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+    .topbar-main { display:flex; flex-direction:column; gap:4px; min-width:0; }
+    .topbar h1 { margin: 0; font-size: 18px; }
+    .topbar p { margin: 0; color: var(--muted); font-size:12px; }
+    .topbar-actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+    .top-tabs { display:flex; flex-wrap:wrap; gap:4px; }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      border: 1px solid #dfe7f3;
+      color: var(--muted);
+      background: #fff;
+      font-size: 12px;
+    }
+    .status-cluster { display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-end; align-items:center; }
+    .topbar-usercard {
+      display:flex;
+      align-items:center;
+      gap:6px;
+      border:1px solid #dfe7f3;
+      background:#fff;
+      border-radius:12px;
+      padding:4px 8px;
+    }
+    .topbar-usercard button { white-space:nowrap; }
+    .topbar-usertext { display:flex; flex-direction:column; min-width:0; }
+    .topbar-usertext strong, .topbar-usertext span { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--good); box-shadow: 0 0 8px rgba(45,165,106,0.28); }
+    .content { min-height: 0; overflow: auto; padding: 14px 16px; display: flex; flex-direction: column; gap: 12px; }
+    .screen.hidden { display: none !important; }
+    .screen { display: flex; flex-direction: column; gap: 14px; }
+    .chat-screen { flex: 1; min-height: 0; }
+    .chat-layout { display:flex; flex-direction:column; gap:12px; min-height:0; }
+    .chat-guide-grid { display:flex; gap:8px; align-items:stretch; }
+    .chat-guide-item { flex:1 1 0; border:1px solid rgba(188, 201, 221, 0.75); border-radius:12px; background:rgba(247,250,255,0.88); padding:10px 12px; }
+    .chat-guide-item strong { display:block; margin-bottom:3px; font-size:12px; }
+    .chat-thread-header { display:flex; justify-content:space-between; align-items:flex-start; gap:10px; padding:14px 16px; }
+    .chat-thread-title { font-size:18px; line-height:1.25; margin:2px 0 0; }
+    .chat-thread-actions { display:flex; flex-wrap:wrap; gap:8px; justify-content:flex-end; }
+    .chat-conversation { position:relative; flex:1; min-height:0; padding:0; overflow:hidden; display:flex; flex-direction:column; background:#eef2f7; }
+    .chat-conversation-scroll { flex:1; min-height:0; overflow:auto; padding:12px 14px; display:flex; flex-direction:column; gap:10px; background:#eef2f7; align-items:center; }
+    .chat-message-list,
+    #chatWelcome { width:min(960px, 100%); }
+    .chat-message-list { display: flex; flex-direction: column; gap: 14px; }
+    .message {
+      max-width: 820px;
+      border-radius: 16px;
+      padding: 14px 16px;
+      line-height: 1.58;
+      box-shadow: var(--shadow);
+    }
+    .message.user { align-self: flex-end; background: linear-gradient(135deg, #2f6df6, #4f8dff); color: #fff; }
+    .message.assistant { align-self: flex-start; background: #f8fbff; border: 1px solid var(--line); }
+    .message-footer { margin-top: 10px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--muted); font-size: 13px; }
+    .message.user .message-footer { color: rgba(255,255,255,0.86); }
+    .message-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .welcome-grid, .metrics-grid, .jobs-grid, .profile-grid, .help-grid, .info-grid { display: grid; gap: 14px; }
+    .welcome-grid { grid-template-columns: 1.6fr 1fr; }
+    .metrics-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .metric strong { display: block; margin-top: 8px; font-size: 24px; }
+    .suggestion-list { display: flex; flex-wrap: wrap; gap: 6px; }
+    .suggestion { padding: 5px 8px; border-radius: 999px; border: 1px solid #dce5f3; background: #fbfcfe; color: var(--text); font-size:12px; }
+    .chat-welcome-shell { display:grid; grid-template-columns:minmax(0, 1fr); gap:8px; align-items:stretch; }
+    .chat-welcome-hero {
+      border:none;
+      border-radius:0;
+      padding:2px 0 0;
+      background:transparent;
+      box-shadow:none;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .chat-welcome-title { margin:0; font-size:17px; line-height:1.18; max-width:720px; }
+    .chat-welcome-lead { font-size:12px; line-height:1.4; color:#47607f; max-width:560px; }
+    .chat-welcome-grid { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:8px; }
+    .chat-welcome-point {
+      border:1px solid rgba(220, 227, 238, 0.82);
+      background:#fbfcfe;
+      border-radius:12px;
+      padding:10px 11px;
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .chat-welcome-point strong { font-size:13px; }
+    .chat-welcome-point span { color:var(--muted); font-size:12px; line-height:1.45; }
+    .chat-welcome-actions { display:flex; gap:6px; flex-wrap:wrap; align-items:center; }
+    .chat-welcome-inline-note { color:var(--muted); font-size:12px; line-height:1.4; }
+    .chat-welcome-side {
+      border:1px solid #e4eaf3;
+      border-radius:16px;
+      background:#fbfcfe;
+      padding:14px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      box-shadow:none;
+    }
+    .chat-welcome-side h4 { margin:0; font-size:16px; }
+    .chat-welcome-side .muted { line-height:1.48; font-size:13px; }
+    .chat-side-list { display:flex; flex-direction:column; gap:8px; }
+    .chat-side-item {
+      display:flex;
+      gap:9px;
+      align-items:flex-start;
+      border-radius:12px;
+      background:var(--panel-2);
+      border:1px solid var(--line);
+      padding:10px 11px;
+    }
+    .chat-side-number {
+      width:24px;
+      height:24px;
+      border-radius:999px;
+      background:#eaf1ff;
+      color:#2458d3;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size:12px;
+      font-weight:700;
+      flex:0 0 auto;
+    }
+    .chat-side-item strong { display:block; margin-bottom:4px; font-size:13px; }
+    .chat-side-item div { color:var(--muted); font-size:13px; line-height:1.45; }
+    .composer {
+      border-top: 1px solid var(--line);
+      padding: 6px 12px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.98);
+      position: sticky;
+      bottom: 0;
+      z-index: 4;
+      box-shadow: 0 -4px 10px rgba(28, 52, 84, 0.04);
+    }
+    .composer textarea { min-height: 64px; }
+    .composer-hint { font-size:11px; color:var(--muted); }
+    .composer-tools { display:flex; justify-content:space-between; gap:8px; flex-wrap:wrap; align-items:center; }
+    .composer-meta { display:flex; flex-direction:column; gap:4px; min-width:0; }
+    .composer-head, .composer-surface, .composer-status, .composer-tools { width:min(960px, 100%); margin:0 auto; }
+    .composer-head { display:flex; justify-content:space-between; gap:10px; align-items:flex-end; flex-wrap:wrap; }
+    .composer-title { margin:0; font-size:15px; }
+    .composer-lead { margin-top:2px; color:#516882; line-height:1.35; max-width:600px; font-size:12px; }
+    .composer-surface {
+      border:1px solid rgba(47,109,246,0.10);
+      border-radius:14px;
+      background:#fbfcfe;
+      padding:8px 10px;
+      box-shadow:none;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .composer-input { width:100%; min-width:0; }
+    .composer-input textarea { border:none; box-shadow:none; background:transparent; padding:0; min-height:64px; resize:vertical; font-size:14px; line-height:1.42; }
+    .composer-input textarea:focus { outline:none; box-shadow:none; }
+    .composer-meta-line { display:flex; align-items:center; gap:8px; flex-wrap:wrap; color:var(--muted); font-size:12px; }
+    .composer-meta-pill {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      border-radius:999px;
+      padding:5px 10px;
+      background:#eef4ff;
+      color:#2458d3;
+      font-weight:600;
+    }
+    .file-list { display:flex; flex-wrap:wrap; gap:8px; }
+    .file-pill {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:999px;
+      padding:7px 10px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .file-pill button { border:none; background:transparent; color:var(--bad); padding:0; }
+    .attachment-list { display:flex; flex-direction:column; gap:8px; margin-top:12px; }
+    .attachment-card {
+      border:1px solid rgba(255,255,255,0.2);
+      background:rgba(255,255,255,0.12);
+      border-radius:14px;
+      padding:10px 12px;
+    }
+    .message.assistant .attachment-card {
+      border-color: var(--line);
+      background: var(--panel-2);
+    }
+    .attachment-head { display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }
+    .attachment-card strong { display:block; margin-bottom:4px; }
+    .attachment-card .muted { color: inherit; opacity: 0.82; }
+    .status-badge { display:inline-flex; align-items:center; gap:6px; border-radius:999px; padding:5px 9px; font-size:12px; border:1px solid var(--line); background:#fff; color:var(--muted); }
+    .status-badge.good { background:#eefaf3; color:#0d5c3b; border-color:#8fd0ae; }
+    .status-badge.good.strong { background:#ffffff; color:#0b6b43; border-color:#5eb488; box-shadow:0 0 0 1px rgba(94,180,136,0.18) inset; font-weight:700; }
+    .status-badge.warn { background:rgba(192,139,20,0.12); color:#8c6513; border-color:rgba(192,139,20,0.25); }
+    .chat-intro-card { position:relative; z-index:1; }
+    .toolbar-surface { border:1px solid var(--line); background:var(--panel-2); border-radius:14px; padding:12px; }
+    .details-block { border:1px solid var(--line); border-radius:12px; background:#fff; padding:10px 12px; }
+    .details-block summary { cursor:pointer; color:var(--muted); }
+    .admin-panel-hidden { display:none !important; }
+    .composer-status { min-height:18px; }
+    .composer-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+    .composer-actions .btn.primary { min-width:140px; }
+    .chat-empty-message {
+      border:1px dashed #c7d6f3;
+      background:linear-gradient(180deg, rgba(255,255,255,0.92), rgba(244,248,255,0.92));
+      padding:14px 16px;
+      border-radius:16px;
+      max-width:720px;
+    }
+    .chat-empty-message h3 { margin:0 0 6px; font-size:18px; }
+    .chat-empty-message .muted { line-height:1.5; font-size:13px; }
+    .jobs-grid { grid-template-columns: 272px 1fr; gap:12px; align-items:start; }
+    .jobs-list { display: flex; flex-direction: column; gap: 6px; }
+    .jobs-panel { display:flex; flex-direction:column; gap:8px; padding:10px; }
+    .jobs-meta-note { font-size:12px; color:var(--muted); padding:0 2px; }
+    .job-item {
+      padding: 8px 9px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      text-align: left;
+      box-shadow:none;
+    }
+    .job-item:hover { background:#f4f7fc; border-color:#edf2f8; }
+    .job-item.active { border-color: #d5e2fb; background: linear-gradient(180deg, #f5f8ff, #eef4ff); box-shadow: inset 4px 0 0 var(--accent); }
+    .job-item h4 { margin: 0; font-size: 15px; line-height: 1.35; }
+    .job-item p, .job-item small { margin: 0; color: var(--muted); line-height: 1.45; }
+    .job-item-top { display:flex; justify-content:space-between; gap:8px; align-items:flex-start; }
+    .job-item-top strong { display:block; font-size:13px; line-height:1.3; font-weight:600; }
+    .job-item-title-wrap { min-width:0; }
+    .job-item-title-wrap strong,
+    .job-item-title-wrap .muted { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .job-item-meta { display:flex; flex-wrap:wrap; gap:5px; margin-top:5px; }
+    .job-item-meta-line { display:flex; flex-direction:column; gap:4px; margin-top:6px; color:var(--muted); font-size:12px; line-height:1.35; }
+    .job-item-next-run { color:#5c6c82; }
+    .job-inline-chip { display:inline-flex; align-items:center; gap:6px; width:max-content; border-radius:999px; padding:4px 8px; font-size:11px; border:1px solid var(--line); background:#fff; color:var(--muted); }
+    .job-inline-chip.good { background:#eefaf3; color:#0d5c3b; border-color:#8fd0ae; }
+    .job-inline-chip.bad { background:rgba(251,113,133,0.10); color:#9f1f3f; border-color:rgba(251,113,133,0.30); }
+    .job-inline-chip.neutral { background:#f7f9fc; color:#5e6b80; border-color:#dbe5f2; }
+    .job-item-subtitle { margin-top:2px; font-size:12px; }
+    .job-detail-stack { display:flex; flex-direction:column; gap:10px; }
+    .job-header-grid { display:grid; grid-template-columns: minmax(320px, 1.12fr) minmax(320px, 1fr); gap:10px; align-items:start; }
+    .job-hero { border:1px solid rgba(214, 223, 235, 0.85); border-radius:14px; background:#fff; padding:12px; box-shadow:0 6px 14px rgba(28,52,84,0.04); }
+    .job-hero h3 { margin:0 0 6px; font-size:20px; line-height:1.3; }
+    .job-side-summary { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:8px; align-content:start; }
+    .job-side-summary .summary-tile { min-height:96px; }
+    .job-side-summary .summary-value { display:block; margin-top:6px; font-size:15px; line-height:1.35; font-weight:600; color:var(--text); }
+    .job-side-summary .summary-kicker,
+    .job-side-summary .summary-note { color:var(--muted); line-height:1.45; }
+    .job-side-summary .summary-kicker { font-size:12px; }
+    .job-side-summary .summary-note { font-size:12px; }
+    .job-identity-meta { display:flex; flex-direction:column; gap:4px; }
+    .job-identity-meta .muted { font-size:13px; line-height:1.45; }
+    .job-hero-block { display:flex; flex-direction:column; gap:10px; }
+    .job-display-name { font-size:17px; line-height:1.35; font-weight:600; color:var(--text); }
+    .job-display-name.is-empty { color:var(--muted); font-weight:500; }
+    .job-display-hint { font-size:12px; line-height:1.45; max-width:520px; }
+    .job-hero-actions { display:flex; flex-wrap:wrap; gap:8px; }
+    .job-alias-row { display:flex; gap:8px; align-items:flex-end; flex-wrap:wrap; margin-top:0; padding-top:0; border-top:none; }
+    .job-alias-row .field { flex:1 1 260px; }
+    .job-support-grid { display:grid; grid-template-columns: minmax(0, 1fr); gap:10px; }
+    .job-access-grid { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:8px 18px; }
+    .job-section-card { border:none; border-top:1px solid #e2e8f2; border-radius:0; background:transparent; padding:12px 0 0; }
+    .job-section-plain {
+      border:none;
+      border-top:1px solid #e2e8f2;
+      border-radius:0;
+      background:transparent;
+      padding:12px 0 0;
+    }
+    .job-section-plain .job-card-head { margin-bottom:6px; }
+    .job-section-plain .list-row,
+    .job-section-plain .details-block {
+      border-color:#e6ebf3;
+      background:rgba(248, 250, 253, 0.72);
+    }
+    .job-card-head { display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:24px; margin-bottom:6px; }
+    .job-section-card h4 { margin:0; font-size:14px; line-height:1.35; font-weight:600; }
+    .job-section-card .list-block { gap:8px; }
+    .job-section-card .list-row strong { font-size:14px; line-height:1.35; margin-bottom:3px; }
+    .job-section-card .list-row .muted { font-size:12px; line-height:1.45; }
+    .job-readonly-note { border:1px dashed #d7e2f0; border-radius:12px; padding:10px 12px; background:#fbfcfe; color:var(--muted); font-size:13px; }
+    .job-access-grid .job-section-card { background:transparent; }
+    .job-access-grid .job-section-plain { background:transparent; }
+    .job-access-grid .list-row,
+    .job-support-grid .list-row { border-color:#e4eaf3; background:#fff; }
+    .job-section-plain .list-row { border-radius:10px; }
+    .job-empty-detail { min-height:220px; display:flex; align-items:center; justify-content:center; }
+    .job-details-group { display:flex; flex-direction:column; gap:8px; }
+    .job-inline-form { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .job-inline-form input { max-width:360px; }
+    .job-params-preview { display:flex; flex-direction:column; gap:8px; }
+    .job-chip-soft { border:1px solid var(--line); background:#fff; color:var(--muted); border-radius:999px; padding:4px 8px; font-size:11px; }
+    .job-meta-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .job-meta-grid div:nth-child(odd) { color: var(--muted); font-size:12px; margin-bottom:2px; }
+    .job-meta-grid div:nth-child(even) { font-size:14px; line-height:1.45; }
+    .split-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .list-block { display: flex; flex-direction: column; gap: 8px; }
+    .list-row {
+      border: 1px solid #e4eaf3;
+      background: #fbfcfe;
+      border-radius: 12px;
+      padding: 10px 12px;
+    }
+    .list-row.tight { padding: 9px 11px; }
+    .summary-grid { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .summary-tile { border:1px solid #e4eaf3; border-radius:12px; background:#fbfcfe; padding:11px; min-height:96px; display:flex; flex-direction:column; justify-content:space-between; }
+    .summary-tile strong,
+    .summary-value { display:block; margin-top:6px; font-size:15px; line-height:1.35; font-weight:600; }
+    .summary-tile .muted,
+    .summary-kicker,
+    .summary-note { font-size:12px; line-height:1.45; color:var(--muted); }
+    .info-grid { grid-template-columns: 1.4fr .9fr; align-items: start; }
+    .mini-list { margin: 0; padding-left: 18px; color: var(--muted); line-height: 1.6; }
+    .mini-list li + li { margin-top: 6px; }
+    .section-note { margin: 4px 0 0; color: var(--muted); }
+    .admin-reference-grid { display:grid; grid-template-columns: 1fr; gap: 12px; }
+    .admin-summary-line { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+    .soft-chip { border:1px solid var(--line); border-radius:999px; padding:6px 10px; background:var(--panel-2); color:var(--muted); font-size:13px; }
+    .help-card-head { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:10px; }
+    .help-card-head strong { display:block; font-size:16px; }
+    .payload-preview { margin-top:8px; white-space:pre-wrap; font-size:13px; }
+    .list-row strong { display: block; margin-bottom: 4px; }
+    .profile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .profile-layout { display:grid; grid-template-columns: 190px minmax(0, 1fr); gap:14px; align-items:start; }
+    .profile-sidebar { display:flex; flex-direction:column; gap:6px; position:sticky; top:0; }
+    .profile-tab { border:1px solid transparent; background:#f6f9fd; border-radius:12px; padding:10px 12px; text-align:left; color:var(--text); }
+    .profile-tab.active { border-color:#d5e2fb; background:#eef4ff; color:var(--accent); box-shadow: inset 3px 0 0 var(--accent); }
+    .profile-content { min-width:0; }
+    .profile-section-block { display:flex; flex-direction:column; gap:12px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field small { color: var(--muted); }
+    .help-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .files-table-wrap, .threads-table-wrap { border:1px solid #e4eaf3; border-radius:14px; overflow:hidden; background:#fff; }
+    .data-table { width:100%; border-collapse:collapse; }
+    .data-table th, .data-table td { padding:12px 14px; border-bottom:1px solid var(--line); vertical-align:top; text-align:left; }
+    .data-table th { background:var(--panel-2); color:var(--muted); font-size:13px; font-weight:600; }
+    .sort-btn { display:inline-flex; align-items:center; gap:6px; border:none; background:transparent; color:inherit; padding:0; font:inherit; }
+    .sort-btn:hover { color:var(--text); }
+    .sort-btn.active { color:var(--accent); }
+    .sort-arrow { font-size:12px; opacity:0.72; }
+    .data-table tr:last-child td { border-bottom:none; }
+    .cell-title { font-weight:600; }
+    .cell-clamp { max-width:360px; color:var(--muted); line-height:1.45; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; overflow:hidden; }
+    .banner {
+      border-radius: 14px;
+      padding: 12px 14px;
+      border: 1px solid rgba(251, 113, 133, 0.45);
+      background: rgba(251, 113, 133, 0.12);
+      color: #ffd7df;
+    }
+    .banner.info-banner { border-color: var(--line); background:#fff; color:var(--text); }
+    .empty-state {
+      border: 1px dashed var(--line-strong);
+      background: #f8fbff;
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .inline-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .admin-blocks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .admin-charts { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:12px; }
+    .admin-chart { border:1px solid var(--line); border-radius:14px; background:#fff; padding:12px; }
+    .admin-chart-head { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom:8px; }
+    .admin-chart-meta { text-align:right; }
+    .admin-chart-svg { width:100%; height:180px; display:block; }
+    .admin-chart-axis { stroke:#dbe5f2; stroke-width:1; }
+    .admin-chart-line { fill:none; stroke:var(--accent); stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+    .admin-chart-area { fill:rgba(78, 133, 255, 0.12); }
+    .admin-chart-point { fill:var(--accent); }
+    .admin-chart-labels { display:flex; justify-content:space-between; gap:8px; color:var(--muted); font-size:12px; margin-top:8px; }
+    .admin-chart-toolbar { display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap; margin-top:14px; }
+    .admin-user-row { display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:start; }
+    .admin-user-row input[type="checkbox"] { width:auto; margin-top:3px; }
+    .admin-reference-dataset.active { border-color:var(--line-strong); background:#eef4ff; }
+    .back-to-top { position:fixed; right:24px; bottom:24px; z-index:12; margin-left:auto; box-shadow:var(--shadow); }
+    .compact-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .section-stack { display: flex; flex-direction: column; gap: 12px; }
+    .section-divider { border-top: 1px solid var(--line); margin: 4px 0 0; padding-top: 16px; }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(31, 52, 82, 0.18);
+      backdrop-filter: blur(6px);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      z-index: 30;
+    }
+    .modal {
+      width: min(940px, 100%);
+      max-height: calc(100vh - 48px);
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+    .modal-header { display: flex; justify-content: space-between; gap: 12px; align-items: start; margin-bottom: 18px; }
+    .modal-header h3 { margin: 0 0 6px; }
+    .template-fields, .access-list, .recipient-list { display: flex; flex-direction: column; gap: 10px; }
+    .access-row, .recipient-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+    .job-toolbar { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: flex-start; }
+    .job-screen-toolbar { display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:flex-end; }
+    .job-screen-intro { max-width:760px; }
+    .job-screen-intro .muted { line-height:1.45; font-size:13px; }
+    .job-screen-meta { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+    .job-screen-meta .jobs-meta-note { font-size:12px; }
+    .job-primary-actions { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+    .job-search-input { min-width:240px; width:280px; }
+    .job-detail-card { padding:14px; }
+    .job-chip-row { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+    .job-mini-meta { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:10px; }
+    .job-mini-meta-item { border:1px solid var(--line); border-radius:12px; background:#fff; padding:10px 11px; }
+    .job-mini-meta-item strong { display:block; margin-top:4px; font-size:14px; }
+    .job-mini-meta-item .muted { font-size:12px; line-height:1.4; }
+    .typing { display: inline-flex; gap: 6px; align-items: center; }
+    .typing span { width: 8px; height: 8px; border-radius: 50%; background: #7fb9ff; animation: bounce 1.2s infinite ease-in-out; }
+    .typing span:nth-child(2) { animation-delay: .15s; }
+    .typing span:nth-child(3) { animation-delay: .3s; }
+    @keyframes bounce { 0%, 80%, 100% { transform: scale(.6); opacity: .35; } 40% { transform: scale(1); opacity: 1; } }
+    @media (max-width: 1180px) {
+      .jobs-grid, .welcome-grid, .help-grid, .profile-grid, .admin-blocks, .metrics-grid, .split-2, .info-grid, .job-support-grid, .job-access-grid, .job-header-grid, .job-mini-meta, .job-side-summary { grid-template-columns: 1fr; }
+      .composer-actions { justify-content: stretch; }
+    }
+    @media (max-width: 920px) {
+      .app-shell { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .status-cluster { justify-content:flex-start; }
+      .content { padding: 18px; }
+      .access-row, .recipient-row { grid-template-columns: 1fr; }
+      .chat-thread-header { flex-direction: column; }
+      .chat-thread-actions { width: 100%; justify-content: flex-start; }
+    }
+    @media (max-width: 760px) {
+      .chat-guide-grid { flex-direction: column; }
+      .chat-welcome-shell, .chat-welcome-grid { grid-template-columns:1fr; }
+      .composer-head { flex-direction:column; }
+      .job-search-input { width:100%; min-width:0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="loginScreen" class="content" style="min-height:100vh;justify-content:center;align-items:center;">
+    <div class="card" style="width:min(560px,100%);padding:26px 24px;">
+      <div class="brand" style="margin-bottom:16px;">
+        <div class="logo">H</div>
+        <div>
+          <h1 style="margin:0 0 6px;">Hermes Web</h1>
+          <div class="muted">Локальный рабочий интерфейс Hermes: чаты, настройки ответа и задачи.</div>
+        </div>
+      </div>
+      <div class="stack">
+        <label class="field"><span>Почта</span><input id="loginInput" placeholder="name@example.com" /></label>
+        <label class="field"><span>Пароль</span><input id="passwordInput" type="password" placeholder="Введите пароль" /></label>
+        <button id="loginBtn" class="btn primary block">Войти</button>
+        <div id="setupCard" class="card hidden" style="padding:14px;">
+          <strong style="display:block;margin-bottom:8px;">Первичная настройка</strong>
+          <div class="muted" style="margin-bottom:12px;">База пустая. Создай первого администратора.</div>
+          <div class="stack">
+            <label class="field"><span>Имя администратора</span><input id="setupNameInput" placeholder="Администратор" /></label>
+            <label class="field"><span>Почта администратора</span><input id="setupEmailInput" placeholder="admin@example.com" /></label>
+            <label class="field"><span>Пароль</span><input id="setupPasswordInput" type="password" placeholder="Не короче 10 символов" /></label>
+            <button id="setupBtn" class="btn ghost block">Создать администратора</button>
+          </div>
+        </div>
+        <div class="card" style="padding:14px;">
+          <strong style="display:block;margin-bottom:6px;">Что доступно</strong>
+        <div class="muted">Чаты, единый профиль ответа, пользователи и задачи с историей запусков.</div>
+        </div>
+        <div id="loginError" class="banner hidden"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="appShell" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">H</div>
+        <div>
+          <strong>Hermes Web</strong>
+          <div class="muted" style="font-size:13px;">локальный рабочий интерфейс</div>
+        </div>
+      </div>
+
+      <button id="newThreadBtn" class="btn primary block">+ Новый чат</button>
+      <div class="sidebar-actions">
+        <button id="allThreadsBtn" class="btn ghost"><strong>Все чаты</strong><div class="muted" style="margin-top:4px;">Полный список в отдельном окне</div></button>
+        <button id="refreshBtn" class="btn ghost"><strong>Обновить данные</strong><div class="muted" style="margin-top:4px;">Чаты, файлы и задачи</div></button>
+      </div>
+
+      <div>
+        <div class="section-title">Чаты</div>
+        <div id="threadList" class="sidebar-thread-list"></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div class="topbar-main">
+          <div>
+            <h1 id="mainTitle">Чат</h1>
+            <p id="mainSubtitle">Рабочий диалог с учётом личных настроек ответа.</p>
+          </div>
+          <div class="top-tabs">
+            <button class="btn ghost nav-btn active" data-screen="chat">Чаты</button>
+            <button class="btn ghost nav-btn" data-screen="jobs">Задачи</button>
+            <button class="btn ghost nav-btn" data-screen="admin" id="adminNavBtn">Управление</button>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <div class="status-cluster">
+            <div class="topbar-usercard">
+              <button id="topbarProfileBtn" class="btn ghost small" type="button">Открыть профиль</button>
+              <div class="topbar-usertext">
+                <strong id="sidebarUserLabel">Пользователь</strong>
+                <span class="muted" id="sidebarUserRole">—</span>
+                <div class="status-pill" style="margin-top:8px;"><span class="dot"></span><span id="statusText">Подключение…</span></div>
+              </div>
+              <button class="btn ghost small" id="logoutBtn" type="button">Выйти</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div id="banner" class="banner hidden"></div>
+
+        <section id="screenChat" class="screen chat-screen">
+          <div class="chat-layout">
+            <div id="topbarChatGuide" class="chat-guide-grid hidden"></div>
+            <div class="card chat-thread-header">
+              <div>
+                <div class="section-title">Название чата</div>
+                <h3 id="chatThreadTitle" class="chat-thread-title">Текущий чат</h3>
+              </div>
+              <div class="chat-thread-actions">
+                <button id="renameThreadBtn" class="btn ghost">Переименовать</button>
+                <button id="archiveThreadBtn" class="btn ghost">В архив</button>
+              </div>
+            </div>
+            <div class="card chat-conversation">
+              <div class="chat-conversation-scroll">
+                <div class="card subtle-card chat-intro-card hidden" style="display:none;">
+                  <strong>Как работать с чатами</strong>
+                  <div class="muted" style="margin-top:6px;">В боковой колонке — последние активные чаты. Полный список открывается отдельно. Для новой темы лучше заводить отдельный чат.</div>
+                </div>
+                <div id="chatWelcome" class="welcome-grid hidden"></div>
+                <div id="chatMessages" class="chat-message-list"></div>
+              </div>
+              <button id="chatScrollTopBtn" class="btn ghost small back-to-top hidden" type="button" data-scroll-top>Вверх</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="screenJobs" class="screen hidden">
+          <div class="card job-detail-card">
+            <div class="job-screen-toolbar">
+              <div class="job-screen-intro">
+                <h3 style="margin:0 0 4px;">Регулярные задачи</h3>
+                <div class="muted">Hermes cron в рабочем формате: список, статус, запуск, доступ и история без лишней перегрузки.</div>
+              </div>
+              <div class="job-primary-actions">
+                <select id="jobScopeFilter" style="width:auto;min-width:180px;">
+                  <option value="all">Все видимые</option>
+                  <option value="paused">На паузе</option>
+                  <option value="issues">С ошибками</option>
+                </select>
+                <input id="jobSearchInput" class="job-search-input" placeholder="Поиск по названию, расписанию или статусу" />
+                <button id="newJobBtn" class="btn primary">+ Новая задача</button>
+              </div>
+            </div>
+            <div class="job-screen-meta">
+              <div id="jobsMetaNote" class="jobs-meta-note"></div>
+            </div>
+          </div>
+          <div class="jobs-grid">
+            <div class="card jobs-panel">
+              <div id="jobsList" class="jobs-list"></div>
+            </div>
+            <div id="jobDetail" class="card job-detail-card"></div>
+          </div>
+          <div class="row" style="margin-top:14px;justify-content:flex-end;"><button class="btn ghost small back-to-top" type="button" data-scroll-top>Вверх</button></div>
+        </section>
+
+        <section id="screenProfile" class="screen hidden">
+          <div class="card">
+            <div class="row" style="justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px;">
+              <div>
+                <h3>Настройки профиля</h3>
+                <div class="muted">Рабочий контекст, стиль ответов и личные файлы в одном месте.</div>
+              </div>
+            </div>
+            <div class="profile-layout">
+              <aside class="profile-sidebar">
+                <button class="profile-tab active" type="button" data-profile-section="identity">Профиль</button>
+                <button class="profile-tab" type="button" data-profile-section="response">Модель взаимодействия</button>
+                <button class="profile-tab" type="button" data-profile-section="files">Мои файлы</button>
+              </aside>
+              <div class="profile-content">
+                <div id="profileSectionSummary" class="profile-section-block hidden">
+                  <div class="info-grid" style="margin-bottom:14px;">
+                    <div id="profileIdentityCard" class="card subtle-card"></div>
+                    <div id="profileResponseCard" class="card subtle-card"></div>
+                    <div id="profileFilesCard" class="card subtle-card"></div>
+                    <div class="card subtle-card">
+                      <div class="section-title">Как это работает</div>
+                      <ul class="mini-list">
+                        <li>Изменения профиля сразу влияют на новые ответы ассистента.</li>
+                        <li>Файлы остаются в личном контуре и могут повторно использоваться в чатах.</li>
+                        <li>Если тема новая, лучше открыть отдельный чат, а не смешивать контексты.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div id="profileSectionIdentity" class="profile-section-block">
+                  <div class="section-title">Основное</div>
+                  <p class="section-note">Базовый рабочий контекст: кто ты, в какой среде работаешь и что для тебя сейчас важно.</p>
+                  <div class="profile-grid">
+                    <label class="field"><span>Имя</span><input id="profileName" /></label>
+                    <label class="field"><span>Таймзона</span><input id="profileTimezone" /></label>
+                    <label class="field"><span>Язык</span><input id="profileLanguage" /></label>
+                    <label class="field"><span>Команда</span><input id="profileTeam" /></label>
+                    <label class="field"><span>Позиционирование</span><input id="profileTitle" /></label>
+                    <label class="field"><span>Цели</span><textarea id="profileGoals"></textarea></label>
+                    <label class="field"><span>Ограничения</span><textarea id="profileConstraints"></textarea></label>
+                    <label class="field"><span>Ключевые акценты</span><textarea id="profilePinned"></textarea><small>По одной мысли на строку.</small></label>
+                  </div>
+                </div>
+                <div id="profileSectionResponse" class="profile-section-block hidden">
+                  <h4>Как отвечать</h4>
+                  <p class="section-note">Эти настройки меняют подачу, но не заменяют саму постановку задачи и контекст.</p>
+                  <div class="split-2">
+                    <label class="field"><span>Тон</span><select id="profileTone"></select></label>
+                    <label class="field"><span>Глубина</span><select id="profileDepth"></select></label>
+                    <label class="field"><span>Манера взаимодействия</span><select id="profileMode"></select></label>
+                    <label class="field"><span>Что полезно знать обо мне</span><textarea id="profileAbout"></textarea></label>
+                  </div>
+                  <div id="profileStylePreview" class="muted" style="margin-top:12px;"></div>
+                </div>
+                <div id="profileSectionFiles" class="profile-section-block hidden">
+                  <div class="row" style="justify-content:space-between;align-items:flex-start;gap:12px;">
+                    <div>
+                      <h4 style="margin-bottom:6px;">Мои файлы</h4>
+                      <div class="muted">Личный список файлов для повторного использования в чатах без повторной загрузки.</div>
+                    </div>
+                  </div>
+                  <div class="split-2" style="margin-top:12px;">
+                    <label class="field"><span>Поиск</span><input id="profileFileSearch" placeholder="Имя файла, фрагмент текста или примечание" /></label>
+                    <div class="split-2">
+                      <label class="field"><span>Срез</span><select id="profileFileScopeFilter"><option value="all">Все файлы</option><option value="current_thread">Только текущий чат</option></select></label>
+                      <label class="field"><span>Статус</span><select id="profileFileTypeFilter"><option value="all">Все</option><option value="text_ready">Текст извлечён</option><option value="stored_only">Только сохранён</option></select></label>
+                    </div>
+                  </div>
+                  <div id="profileFilesMeta" class="muted" style="margin-top:12px;"></div>
+                  <div id="profileFiles" class="files-table-wrap" style="margin-top:12px;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="margin-top:14px;justify-content:flex-end;"><button class="btn ghost small back-to-top" type="button" data-scroll-top>Вверх</button></div>
+            <div class="section-title" style="margin-top:18px;">Безопасность</div>
+            <p class="section-note">Смена пароля выполняется отдельно от сохранения профиля. После смены остальные сессии пользователя будут отозваны.</p>
+            <div class="split-2" style="margin-top:10px;">
+              <label class="field"><span>Текущий пароль</span><input id="profileCurrentPassword" type="password" placeholder="Введите текущий пароль" /></label>
+              <label class="field"><span>Новый пароль</span><input id="profileNewPassword" type="password" placeholder="Не короче 10 символов" /></label>
+            </div>
+            <div class="row" style="margin-top:10px;align-items:center;justify-content:flex-start;">
+              <button id="changePasswordBtn" class="btn ghost">Сменить пароль</button>
+              <div id="profilePasswordHint" class="muted"></div>
+            </div>
+            <div class="row" style="margin-top:16px;align-items:center;">
+              <button id="saveProfileBtn" class="btn primary">Сохранить изменения</button>
+              <div id="profileSaveHint" class="muted"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="screenAdmin" class="screen hidden">
+          <div class="card">
+            <div class="row" style="justify-content:space-between;align-items:flex-start;gap:12px;">
+              <div>
+                <h3>Управление сервисом</h3>
+                <div class="muted">Административный контур: обзор сервиса, пользователи, операции и справочные данные.</div>
+              </div>
+              <div class="chip-row" id="adminSectionTabs">
+                <button class="btn ghost small" type="button" data-admin-section="overview">Обзор</button>
+                <button class="btn ghost small" type="button" data-admin-section="users">Пользователи</button>
+                <button class="btn ghost small" type="button" data-admin-section="operations">Операции</button>
+                <button class="btn ghost small" type="button" data-admin-section="references">Справочники</button>
+              </div>
+            </div>
+          </div>
+          <div class="admin-blocks" data-admin-panel="overview">
+            <div class="card" style="grid-column:1 / -1;">
+              <h4>Обзор</h4>
+              <div id="adminMetrics" class="metrics-grid" style="margin-top:14px;"></div>
+              <div class="admin-chart-toolbar">
+                <div class="muted">Диаграммы отражают динамику событий веб-интерфейса: по горизонтали — время, по вертикали — количество событий за период.</div>
+                <label class="field" style="min-width:180px;margin:0;"><span>Агрегация</span><select id="adminChartGranularity"><option value="day">День</option><option value="week">Неделя</option><option value="month">Месяц</option></select></label>
+              </div>
+              <div id="adminCharts" class="admin-charts" style="margin-top:14px;"></div>
+            </div>
+            <div class="card">
+              <h4>Ключевые сигналы</h4>
+              <div id="adminSources" class="list-block"></div>
+            </div>
+          </div>
+          <div class="admin-blocks" data-admin-panel="users">
+            <div class="card" style="grid-column:1 / -1;">
+              <div class="row" style="justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <h4>Пользователи</h4>
+                  <div class="muted">Основной режим работы — табличный. Карточки создания и редактирования открываются по отдельным действиям.</div>
+                </div>
+                <div class="row" style="flex-wrap:wrap;justify-content:flex-end;">
+                  <button class="btn ghost small" id="adminSelectAllUsersBtn" type="button">Выбрать всех</button>
+                  <button class="btn ghost small" id="adminClearUserSelectionBtn" type="button">Снять выбор</button>
+                  <button class="btn ghost small" id="adminBulkInactiveUsersBtn" type="button">Перевести в неактивные</button>
+                  <button class="btn ghost small" id="adminBulkDeleteUsersBtn" type="button">Удалить из выбора</button>
+                  <button class="btn ghost small" id="adminTemplateBtn" type="button">Подставить шаблон CSV</button>
+                  <button class="btn ghost small" id="adminImportBtn" type="button">Импорт CSV</button>
+                  <button class="btn primary small" id="adminOpenCreateUserBtn" type="button">Создать пользователя</button>
+                </div>
+              </div>
+              <div id="adminUserSelectionStatus" class="muted" style="margin-top:10px;">Ничего не выбрано.</div>
+              <div id="adminUsersTable" class="list-block" style="margin-top:12px;"></div>
+              <div id="adminImportStatus" class="muted" style="margin-top:10px;"></div>
+              <textarea id="adminImportCsv" class="hidden" placeholder="email,name,role,team,title,timezone,language,goals,style,constraints,about_user,pinned,password"></textarea>
+            </div>
+            <div id="adminUserCard" class="modal-backdrop hidden">
+              <div class="modal">
+              <div class="row" style="justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div>
+                  <h4 id="adminUserCardTitle">Создать пользователя</h4>
+                  <div id="adminUserCardSubtitle" class="muted" style="margin-bottom:10px;">Создание и редактирование разделены: новая запись открывается отдельно, изменение — из строки пользователя.</div>
+                </div>
+                <button class="btn ghost small" id="adminCloseUserCardBtn" type="button">Закрыть</button>
+              </div>
+              <div class="split-2">
+                <label class="field hidden"><span>Режим</span><select id="adminUserFormMode"><option value="create">Создать нового</option><option value="edit">Редактировать существующего</option></select></label>
+                <label class="field hidden"><span>Пользователь для редактирования</span><select id="adminUserSelect"></select></label>
+                <label class="field"><span>Email</span><input id="adminUserEmail" /></label>
+                <label class="field"><span>Имя</span><input id="adminUserName" /></label>
+                <label class="field"><span>Роль</span><select id="adminUserRole"><option value="user">Пользователь</option><option value="admin">Администратор</option></select></label>
+                <label class="field"><span>Статус</span><select id="adminUserStatusSelect"><option value="active">Активен</option><option value="inactive">Не активен</option><option value="deleted">Удалён</option></select></label>
+                <label class="field"><span>Пароль</span><input id="adminUserPassword" type="password" placeholder="Для нового обязателен, для редактирования — только если меняем" /></label>
+                <label class="field"><span>Таймзона</span><input id="adminUserTimezone" /></label>
+                <label class="field"><span>Язык</span><input id="adminUserLanguage" /></label>
+                <label class="field"><span>Команда</span><input id="adminUserTeam" /></label>
+                <label class="field"><span>Позиционирование</span><input id="adminUserTitle" /></label>
+                <label class="field"><span>Цели</span><textarea id="adminUserGoals"></textarea></label>
+                <label class="field"><span>Ограничения</span><textarea id="adminUserConstraints"></textarea></label>
+                <label class="field"><span>Тон ответа</span><select id="adminUserTone"></select></label>
+                <label class="field"><span>Глубина ответа</span><select id="adminUserDepth"></select></label>
+                <label class="field"><span>Манера взаимодействия</span><select id="adminUserMode"></select></label>
+                <label class="field"><span>О пользователе</span><textarea id="adminUserAbout"></textarea></label>
+                <label class="field"><span>Ключевые акценты</span><textarea id="adminUserPinned" placeholder="по одной строке"></textarea></label>
+              </div>
+              <div id="adminUserStylePreview" class="muted" style="margin-top:10px;"></div>
+              <div class="row" style="margin-top:10px;">
+                <button class="btn ghost small" id="adminUserResetBtn" type="button">Очистить форму</button>
+                <button class="btn primary small" id="adminUserSaveBtn" type="button">Сохранить пользователя</button>
+              </div>
+              <div id="adminUserStatus" class="muted" style="margin-top:10px;"></div>
+              <details class="details-block" style="margin-top:12px;">
+                <summary>История изменений пользователя</summary>
+                <div id="adminUserHistory" class="list-block" style="margin-top:12px;"></div>
+              </details>
+              </div>
+            </div>
+          </div>
+          <div class="admin-blocks" data-admin-panel="operations">
+            <div class="card" style="grid-column:1 / -1;">
+              <h4>Операции</h4>
+              <div class="muted" style="margin-bottom:10px;">Последние операции в веб-интерфейсе: когда, кто, по какому объекту и что именно произошло.</div>
+              <div class="split-2" style="margin-bottom:12px;align-items:end;">
+                <label class="field"><span>С</span><input id="adminEventsDateFrom" type="datetime-local" /></label>
+                <label class="field"><span>По</span><input id="adminEventsDateTo" type="datetime-local" /></label>
+              </div>
+              <div class="row" style="margin-bottom:12px;flex-wrap:wrap;justify-content:space-between;gap:10px;">
+                <div class="row" style="gap:10px;flex-wrap:wrap;">
+                  <button class="btn ghost small" id="adminEventsApplyBtn" type="button">Применить фильтр</button>
+                  <button class="btn ghost small" id="adminEventsResetBtn" type="button">Сбросить фильтр</button>
+                </div>
+                <div class="row" style="gap:10px;flex-wrap:wrap;">
+                  <button class="btn ghost small" id="adminEventsExportCsvBtn" type="button">Выгрузить CSV</button>
+                  <button class="btn ghost small" id="adminEventsExportJsonBtn" type="button">Выгрузить JSON</button>
+                </div>
+              </div>
+              <div id="adminEventsStatus" class="muted" style="margin-bottom:10px;"></div>
+              <div id="adminEvents" class="files-table-wrap"></div>
+            </div>
+            <div class="card">
+              <h4>Плашка предупреждения в чатах</h4>
+              <div class="muted" style="margin-bottom:10px;">Эту плашку видят все пользователи над лентой сообщений.</div>
+              <label class="field"><span>Статус</span><select id="adminChatNoticeEnabled"><option value="1">Включена</option><option value="0">Выключена</option></select></label>
+              <label class="field"><span>Текст</span><textarea id="adminChatNoticeText"></textarea></label>
+              <div class="row" style="margin-top:10px;"><button class="btn primary small" id="adminChatNoticeSaveBtn" type="button">Сохранить плашку</button></div>
+              <div id="adminChatNoticeStatus" class="muted" style="margin-top:10px;"></div>
+            </div>
+            <div class="card">
+              <h4>Текущая база</h4>
+              <div id="adminDbInfo" class="list-block"></div>
+            </div>
+          </div>
+          <div class="admin-blocks" data-admin-panel="references">
+            <div class="card" style="grid-column:1 / -1;">
+              <h4>Справочники</h4>
+              <div class="muted" style="margin-bottom:10px;">Справочники представлены в табличном виде. Просмотр деталей и редактирование открываются по отдельным действиям.</div>
+              <div id="adminReferenceData" class="list-block"></div>
+              <div id="adminReferenceStatus" class="muted" style="margin-top:10px;"></div>
+            </div>
+            <div id="adminReferenceCard" class="modal-backdrop hidden">
+              <div class="modal">
+                <div class="row" style="justify-content:space-between;align-items:flex-start;gap:12px;">
+                  <div>
+                    <h4 id="adminReferenceCardTitle">Детали справочника</h4>
+                    <div id="adminReferenceCardSubtitle" class="muted">Просмотр состава справочника и управление его элементами.</div>
+                  </div>
+                  <button class="btn ghost small" id="adminCloseReferenceCardBtn" type="button">Закрыть</button>
+                </div>
+                <div id="adminReferenceDetail" class="list-block"></div>
+              </div>
+            </div>
+            <div id="adminReferenceItemCard" class="modal-backdrop hidden">
+              <div class="modal">
+                <div class="row" style="justify-content:space-between;align-items:flex-start;gap:12px;">
+                  <div>
+                    <h4 id="adminReferenceItemCardTitle">Новый элемент справочника</h4>
+                    <div id="adminReferenceItemCardSubtitle" class="muted">Форма создания и редактирования открывается поверх таблицы.</div>
+                  </div>
+                  <button class="btn ghost small" id="adminCloseReferenceItemCardBtn" type="button">Закрыть</button>
+                </div>
+                <input id="adminReferenceItemMode" type="hidden" value="create" />
+                <input id="adminReferenceItemDatasetKey" type="hidden" value="" />
+                <label class="field"><span>Ключ элемента</span><input id="adminReferenceItemKeyInput" placeholder="new_item_key" /></label>
+                <label class="field"><span>Название</span><input id="adminReferenceItemLabelInput" /></label>
+                <div class="split-2">
+                  <label class="field"><span>Порядок</span><input id="adminReferenceItemSortOrderInput" value="0" /></label>
+                  <label class="field"><span>Статус</span><select id="adminReferenceItemStatusSelect"><option value="active">Активен</option><option value="inactive">Не активен</option><option value="deleted">Удалён</option></select></label>
+                </div>
+                <textarea id="adminReferenceItemPayloadInput" class="hidden"></textarea>
+                <div class="muted">Служебные поля для этого справочника заполняются автоматически. Пользователь редактирует только видимые бизнес-поля.</div>
+                <div id="adminReferenceItemStatus" class="muted"></div>
+                <div class="row" style="margin-top:10px;"><button class="btn primary" type="button" id="adminReferenceItemSaveBtn">Сохранить элемент</button></div>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top:14px;justify-content:flex-end;"><button class="btn ghost small back-to-top" type="button" data-scroll-top>Вверх</button></div>
+        </section>
+      </div>
+
+      <div id="composer" class="composer">
+        <div class="composer-head">
+          <div>
+            <h3 class="composer-title">Начните новый запрос или продолжайте диалог</h3>
+            <div class="composer-lead">Коротко опишите задачу, добавьте контекст или приложите материалы. Всё попадёт в текущий рабочий поток чата.</div>
+          </div>
+          <div class="composer-meta-pill">Чат + контекст + файлы</div>
+        </div>
+        <div class="composer-surface">
+          <div class="composer-input">
+            <textarea id="promptInput" placeholder="Например: разберём проблему по шагам, сравним варианты решения или подготовим сообщение для коллеги."></textarea>
+          </div>
+          <input id="fileInput" type="file" multiple class="hidden" />
+          <div class="composer-tools">
+            <div class="composer-meta">
+              <div class="inline-actions">
+                <button id="attachFileBtn" class="btn ghost" type="button">Добавить файлы</button>
+                <div id="fileHint" class="muted">До 5 файлов, каждый до 10 МБ. Текст и PDF разбираются автоматически, остальные форматы сохраняются как вложения.</div>
+              </div>
+              <div id="selectedFiles" class="file-list hidden"></div>
+              <div id="composerStatus" class="muted composer-status"></div>
+              <div class="composer-meta-line">
+                <span>Можно начать с текста, файла или обоих сразу.</span>
+                <span class="composer-hint">Enter — отправить, Shift+Enter — новая строка.</span>
+              </div>
+            </div>
+            <div class="composer-actions">
+              <button id="sendBtn" class="btn primary">Отправить</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="threadsModalBackdrop" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h3>Все чаты</h3>
+          <div class="muted">Полный список в аккуратном табличном виде: статус, обновление и фрагмент.</div>
+        </div>
+        <button id="closeThreadsModalBtn" class="btn ghost small">Закрыть</button>
+      </div>
+      <div id="threadsModalList" class="threads-table-wrap"></div>
+    </div>
+  </div>
+
+  <div id="jobModalBackdrop" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <h3 id="jobModalTitle">Новая задача</h3>
+          <div class="muted">Только основные настройки, доступ и создание отдельных чатов задач.</div>
+        </div>
+        <button id="closeJobModalBtn" class="btn ghost small">Закрыть</button>
+      </div>
+      <div class="stack">
+        <div class="split-2">
+          <label class="field"><span>Название</span><input id="jobNameInput" /></label>
+          <label class="field"><span>Тип</span><select id="jobTypeSelect"></select></label>
+        </div>
+        <label class="field"><span>Описание</span><textarea id="jobDescriptionInput"></textarea></label>
+        <label class="field"><span>Текст задачи</span><textarea id="jobPromptInput" placeholder="Что именно делать по расписанию"></textarea></label>
+        <div class="split-2">
+          <label class="field"><span>Видимость</span><select id="jobVisibilitySelect"><option value="private">Приватно</option><option value="shared">По доступу</option><option value="workspace">Для рабочей области</option></select></label>
+          <label class="field"><span>Статус</span><select id="jobStatusSelect"><option value="active">Активна</option><option value="paused">На паузе</option></select></label>
+        </div>
+        <div class="card">
+          <h4>Когда запускать</h4>
+          <div class="split-2">
+            <label class="field"><span>Режим</span><select id="jobScheduleKindSelect"><option value="daily">Каждый день</option><option value="weekdays">По будням</option><option value="weekly">Еженедельно</option><option value="monthly">Ежемесячно</option></select></label>
+            <label class="field"><span>Время</span><input id="jobTimeInput" type="time" value="09:00" /></label>
+            <label class="field"><span>Таймзона</span><input id="jobTimezoneInput" /></label>
+            <label class="field"><span>Дата старта</span><input id="jobStartDateInput" type="date" /></label>
+          </div>
+          <div id="jobWeeklyDays" class="row hidden" style="margin-top:12px;"></div>
+          <div class="card" style="margin-top:14px;background:#111a31;">
+            <strong style="display:block;margin-bottom:8px;">Предпросмотр расписания</strong>
+            <div id="jobSchedulePreview" class="muted"></div>
+          </div>
+        </div>
+        <div class="card" id="jobParamsCard">
+          <div id="jobTemplateFields" class="template-fields"></div>
+        </div>
+        <div class="card" id="jobAccessCard">
+          <div id="jobAccessList" class="access-list"></div>
+          <button id="addAccessBtn" class="btn ghost small" type="button" style="margin-top:10px;">+ Добавить доступ</button>
+        </div>
+        <div class="card" id="jobSelfSubscribeCard">
+          <h4>Самоподписка пользователей</h4>
+          <div class="split-2">
+            <label class="field"><span>Режим</span><select id="jobSelfSubscribeEnabledSelect"><option value="disabled">Выключена</option><option value="enabled">Разрешена</option></select></label>
+            <label class="field"><span>Кому доступна</span><select id="jobSelfSubscribeScopeSelect"><option value="visible_users">Тем, кто видит задачу</option><option value="workspace">Любому активному пользователю рабочей области</option></select></label>
+          </div>
+          <div class="muted" id="jobSelfSubscribeHint" style="margin-top:8px;">Самоподписка не заменяет ручное назначение получателей. Назначенных получателей создатель и администратор задают отдельно.</div>
+        </div>
+        <div class="card hidden" id="jobCronDeliveryCard">
+          <h4>Куда отправлять результат cron</h4>
+          <label class="field"><span>Получатель</span><select id="jobCronDeliverSelect"><option value="origin">В исходный чат запуска</option><option value="telegram">В Telegram home</option><option value="local">Только локально</option></select></label>
+          <div class="muted" id="jobCronDeliverHint" style="margin-top:8px;">Для Hermes cron здесь настраивается target доставки. Это не список локальных чатов задач Web MVP.</div>
+        </div>
+        <div class="card" id="jobRecipientsCard">
+          <h4>Кому отправлять рассылку</h4>
+          <div class="muted" style="margin-bottom:10px;">Можно выбрать пользователей и отдельные чаты. Для каждого получателя создаётся свой чат задачи.</div>
+          <div id="jobRecipientList" class="recipient-list"></div>
+        </div>
+        <div class="row">
+          <button id="saveJobBtn" class="btn primary">Сохранить задачу</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./config.js?v=chat-jobs-polish-final"></script>
+  <script src="./app.js?v=chat-jobs-polish-final"></script>
+</body>
+</html>

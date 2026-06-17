@@ -1,0 +1,17 @@
+[Unit]
+Description=Hermes Web backend 8791
+After=network.target hermes-gateway.service
+Requires=hermes-gateway.service
+
+[Service]
+Type=simple
+WorkingDirectory=__PROJECT_ROOT__
+ExecStart=/usr/bin/bash __PROJECT_ROOT__/run_backend_service.sh
+Restart=always
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+KillMode=mixed
+TimeoutStopSec=20
+
+[Install]
+WantedBy=default.target

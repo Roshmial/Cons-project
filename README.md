@@ -11,11 +11,11 @@
 Что исключено:
 - node_modules, dist, .venv
 - services/backend/data и runtime DB
-- TG API session/runtime/raw_logs/exports/reports и секретные env/state-файлы
+- TG API session/runtime/raw_logs/exports/reports/analytics и секретные env/state-файлы
 - .env*, логи, кэши, __pycache__, runtime-артефакты
 
 Назначение:
 - backup полного рабочего контура агента под репозиторий Cons-project
 - хранение frontend 8803, backend 178 и TG API в одном private GitHub repo
 
-Последнее обновление: 2026-06-17 20:04:55 UTC
+Последнее обновление: 2026-06-17 20:07:08 UTC

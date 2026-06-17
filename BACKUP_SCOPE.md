@@ -7,4 +7,4 @@
 - `remote-178/runtime-systemd/**` — systemd units и backend drop-ins 178
 
 Осознанно исключено:
-- runtime-данные, БД, логи, кэши, `.env*`, TG API session и export-артефакты
+- runtime-данные, БД, логи, кэши, `.env*`, TG API session/export-артефакты и generated analytics

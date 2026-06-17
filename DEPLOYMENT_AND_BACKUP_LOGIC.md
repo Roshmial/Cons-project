@@ -33,5 +33,5 @@
 
 - secrets и `.env*`;
 - runtime DB и локальные state-файлы;
-- TG API `session/`, `runtime/`, `raw_logs/`, `exports/`, `reports/`;
+- TG API `session/`, `runtime/`, `raw_logs/`, `exports/`, `reports/`, `analytics/`;
 - кэши, `node_modules`, `.venv`, build artifacts, логи.

@@ -1,0 +1,48 @@
+{
+  "project_dir": "/home/hermes/workspace/TG-API",
+  "wrappers": {
+    "tg_it_collect_daily.py": "import runpy\nimport subprocess\nimport sys\n\nPROJECT_DIR = '/home/hermes/workspace/TG-API'\nREFRESH_SCRIPT = '/home/hermes/workspace/eva-data/refresh_eva_hub.py'\n\nif PROJECT_DIR not in sys.path:\n    sys.path.insert(0, PROJECT_DIR)\n\nrunpy.run_path(f'{PROJECT_DIR}/collect_daily_pipeline.py', run_name='__main__')\nsubprocess.run([sys.executable, REFRESH_SCRIPT], check=True)\n",
+    "tg_it_build_digest_context.py": "import runpy\nimport sys\n\nPROJECT_DIR = '/home/hermes/workspace/TG-API'\nif PROJECT_DIR not in sys.path:\n    sys.path.insert(0, PROJECT_DIR)\nrunpy.run_path(f'{PROJECT_DIR}/build_digest_context.py', run_name='__main__')\n",
+    "tg_it_weekly_qa.py": "import runpy\nimport sys\n\nPROJECT_DIR = '/home/hermes/workspace/TG-API'\nif PROJECT_DIR not in sys.path:\n    sys.path.insert(0, PROJECT_DIR)\nrunpy.run_path(f'{PROJECT_DIR}/weekly_monitor_qa.py', run_name='__main__')\n"
+  },
+  "jobs": [
+    {
+      "name": "daily-telegram-it-consulting-collector",
+      "schedule": "55 14 * * *",
+      "deliver": "local",
+      "script": "tg_it_collect_daily.py",
+      "no_agent": true,
+      "workdir": "/home/hermes/workspace/TG-API",
+      "skills": [],
+      "enabled_toolsets": null,
+      "prompt": ""
+    },
+    {
+      "name": "daily-telegram-it-consulting-digest",
+      "schedule": "0 15 * * *",
+      "deliver": "origin",
+      "script": "tg_it_build_digest_context.py",
+      "no_agent": false,
+      "workdir": "/home/hermes/workspace/TG-API",
+      "skills": [
+        "telegram-it-consulting-monitor",
+        "scheduled-hermes-monitoring"
+      ],
+      "enabled_toolsets": [
+        "file"
+      ],
+      "prompt": "Ежедневный digest Telegram-каналов по ИТ-консалтингу для Миши.\n\nРабочая папка: /home/hermes/workspace/TG-API.\n\nСкрипт перед этим сообщением уже вывел JSON-контекст. Используй его как источник фактов о последнем collector run.\n\nПорядок работы:\n1. Если в JSON-контексте `collector_status` = `no_new_messages`, верни только:\n   `Дайджест ИТ-консалтинга за DD.MM.YYYY. Важных обновлений по мониторингу сегодня не найдено.`\n2. Если `collector_status` не `ok`, коротко сообщи, что digest не собран из-за ошибки в сборщике.\n3. Если `collector_status` = `ok`, открой файл `digest_payload_path` из JSON-контекста.\n4. Используй только данные из этого payload и не придумывай факты.\n5. Статистику показывай только по непустым сообщениям: строка вида `Обработано непустых сообщений: N; в дайджесте: M.`\n6. Отбери до 10 самых сильных пунктов по `top_candidates` в payload.\n7. Для каждого пункта покажи:\n   - короткую тему;\n   - канал;\n   - нормализованное время;\n   - ссылку на оригинальный Telegram-пост как [пост](url);\n   - блок `Краткое содержание` в 2–3 коротких фразах строго по `саммари`/`краткому содержанию` из payload;\n   - блок `Ссылки` только если `external_links` непустой, показывай домен как текст ссылки.\n8. Не показывай Telegram-метрики.\n9. Не добавляй `Почему важно`, reasoning, техлоги, QA-комментарии и внутренние `selection_reasons`.\n10. Если `requires_review_count` > 0, после дайджеста добавь одну короткую строку: `Есть сообщения, которым может понадобиться уточнение классификации.`\n11. В конце отдельной строкой приложи CSV-файл из `csv_path` как `MEDIA:/absolute/path`.\n\nФормат:\n- Заголовок: `Дайджест ИТ-консалтинга за DD.MM.YYYY`\n- Затем строка статистики.\n- Затем пункты дайджеста.\n- Затем при необходимости строка про уточнение классификации.\n- Затем строка `MEDIA:...`\n\nДополнительные правила:\n- Финальный текст должен быть полностью готов к отправке сразу.\n- Не добавляй комментарии, мета-пояснения, варианты, идеи для улучшения, служебные заметки или техразметку сверх обязательной строки `MEDIA:/...` для CSV-вложения.\n- Не используй данные старых запусков, если они не указаны в текущем JSON-контексте скрипта."
+    },
+    {
+      "name": "weekly-telegram-it-consulting-qa",
+      "schedule": "30 15 * * 0",
+      "deliver": "origin",
+      "script": "tg_it_weekly_qa.py",
+      "no_agent": true,
+      "workdir": "/home/hermes/workspace/TG-API",
+      "skills": [],
+      "enabled_toolsets": null,
+      "prompt": ""
+    }
+  ]
+}

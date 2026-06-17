@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<title>Telegram digest dashboard — last 7d current</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 24px; background:#f6f8fb; color:#1f2937; }
+.grid { display:grid; grid-template-columns: repeat(4, minmax(180px, 1fr)); gap:16px; margin:20px 0 28px; }
+.card { background:#fff; border-radius:12px; padding:16px; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+.card .k { font-size:12px; color:#6b7280; margin-bottom:8px; text-transform:uppercase; }
+.card .v { font-size:28px; font-weight:700; }
+section { background:#fff; border-radius:12px; padding:18px; margin:16px 0; box-shadow:0 1px 4px rgba(0,0,0,.08); }
+table { width:100%; border-collapse:collapse; margin-top:10px; font-size:14px; }
+th, td { border-bottom:1px solid #e5e7eb; padding:8px 10px; text-align:left; vertical-align:top; }
+th { background:#f9fafb; }
+small, .muted { color:#6b7280; }
+a { color:#2563eb; text-decoration:none; }
+</style>
+</head>
+<body>
+<h1>Telegram-дайджест: дашборд за последние 7 завершённых дней</h1>
+<p class="muted">Окно: 2026-05-31T00:00:00+03:00 — 2026-06-06T23:59:59.999999+03:00. Логика: last_7_completed_calendar_days_by_latest_message_datetime. Сгенерировано: 2026-06-07T00:25:25.104255+03:00.</p>
+<div class="grid">
+  <div class="card"><div class="k">Непустых сообщений</div><div class="v">100</div></div>
+  <div class="card"><div class="k">Активных каналов</div><div class="v">13</div></div>
+  <div class="card"><div class="k">Типов постов</div><div class="v">10</div></div>
+  <div class="card"><div class="k">Требует уточнения</div><div class="v">39 (39.0%)</div></div>
+</div>
+<section>
+<h2>Покрытие и нагрузка по дням</h2>
+<table><tr><th>День</th><th>Сообщений</th></tr><tr><td>2026-05-31</td><td>1</td></tr>
+<tr><td>2026-06-01</td><td>18</td></tr>
+<tr><td>2026-06-02</td><td>16</td></tr>
+<tr><td>2026-06-03</td><td>17</td></tr>
+<tr><td>2026-06-04</td><td>22</td></tr>
+<tr><td>2026-06-05</td><td>23</td></tr>
+<tr><td>2026-06-06</td><td>3</td></tr></table>
+</section>
+<section>
+<h2>Топ каналов по объёму</h2>
+<table><tr><th>Канал</th><th>Сообщений</th></tr><tr><td>tadviser</td><td>19</td></tr>
+<tr><td>kept_business</td><td>14</td></tr>
+<tr><td>Axenix_Ru</td><td>12</td></tr>
+<tr><td>b1_news</td><td>11</td></tr>
+<tr><td>YakovPartners</td><td>9</td></tr>
+<tr><td>tedo_business</td><td>8</td></tr>
+<tr><td>Lanit_life</td><td>7</td></tr>
+<tr><td>Reksoft_group</td><td>7</td></tr>
+<tr><td>delret</td><td>4</td></tr>
+<tr><td>Softline</td><td>4</td></tr>
+<tr><td>norbit_ru</td><td>3</td></tr>
+<tr><td>k2_tech</td><td>1</td></tr>
+<tr><td>beringpro</td><td>1</td></tr></table>
+</section>
+<section>
+<h2>Распределение по типам</h2>
+<table><tr><th>Тип</th><th>Сообщений</th></tr><tr><td>требует уточнения</td><td>39</td></tr>
+<tr><td>обзор рынка</td><td>11</td></tr>
+<tr><td>мероприятие</td><td>11</td></tr>
+<tr><td>корпоративная новость</td><td>9</td></tr>
+<tr><td>продукт/решение</td><td>8</td></tr>
+<tr><td>кейс</td><td>7</td></tr>
+<tr><td>исследование</td><td>7</td></tr>
+<tr><td>аналитика</td><td>3</td></tr>
+<tr><td>партнерство</td><td>3</td></tr>
+<tr><td>интервью/комментарий</td><td>2</td></tr></table>
+</section>
+<section>
+<h2>Средний score по каналам</h2>
+<table><tr><th>Канал</th><th>Средний score</th></tr><tr><td>k2_tech</td><td>10.105</td></tr>
+<tr><td>Axenix_Ru</td><td>9.286</td></tr>
+<tr><td>Reksoft_group</td><td>8.886</td></tr>
+<tr><td>YakovPartners</td><td>8.764</td></tr>
+<tr><td>tedo_business</td><td>8.412</td></tr>
+<tr><td>delret</td><td>8.047</td></tr>
+<tr><td>b1_news</td><td>7.791</td></tr>
+<tr><td>Softline</td><td>7.087</td></tr>
+<tr><td>kept_business</td><td>6.89</td></tr>
+<tr><td>norbit_ru</td><td>6.339</td></tr>
+<tr><td>Lanit_life</td><td>6.273</td></tr>
+<tr><td>tadviser</td><td>6.17</td></tr>
+<tr><td>beringpro</td><td>4.773</td></tr></table>
+</section>
+<section>
+<h2>Средний score по типам</h2>
+<table><tr><th>Тип</th><th>Средний score</th></tr><tr><td>исследование</td><td>10.719</td></tr>
+<tr><td>кейс</td><td>10.117</td></tr>
+<tr><td>аналитика</td><td>9.86</td></tr>
+<tr><td>партнерство</td><td>9.712</td></tr>
+<tr><td>продукт/решение</td><td>9.595</td></tr>
+<tr><td>обзор рынка</td><td>9.43</td></tr>
+<tr><td>мероприятие</td><td>8.282</td></tr>
+<tr><td>интервью/комментарий</td><td>7.913</td></tr>
+<tr><td>корпоративная новость</td><td>7.605</td></tr>
+<tr><td>требует уточнения</td><td>5.054</td></tr></table>
+</section>
+<section>
+<h2>Топ доменов</h2>
+<table><tr><th>Домен</th><th>Упоминаний</th></tr><tr><td>max.ru</td><td>47</td></tr>
+<tr><td>t.me</td><td>42</td></tr>
+<tr><td>vk.com</td><td>34</td></tr>
+<tr><td>tadviser.ru</td><td>16</td></tr>
+<tr><td>forum-spb.ru</td><td>9</td></tr>
+<tr><td>vk.ru</td><td>6</td></tr>
+<tr><td>kommersant.ru</td><td>6</td></tr>
+<tr><td>b1.ru</td><td>5</td></tr>
+<tr><td>softline.ru</td><td>4</td></tr>
+<tr><td>axenix.pro</td><td>4</td></tr>
+<tr><td>events.kommersant.ru</td><td>3</td></tr>
+<tr><td>tedo.ru</td><td>3</td></tr>
+<tr><td>forbes.ru</td><td>3</td></tr>
+<tr><td>vedomosti.ru</td><td>3</td></tr>
+<tr><td>kept.ru</td><td>3</td></tr></table>
+</section>
+<section>
+<h2>Топ постов</h2>
+<table><tr><th>Канал</th><th>Дата</th><th>Тип</th><th>Score</th><th>Ссылка</th><th>Краткое содержание</th></tr><tr><td>delret</td><td>01.06.2026 18:02 МСК</td><td>исследование</td><td>11.21</td><td><a href="https://t.me/delret/2817" target="_blank">пост</a></td><td>Pillar 2: готовимся к первой отчетной кампании вместе с экспертами ДРТ</td></tr>
+<tr><td>Axenix_Ru</td><td>02.06.2026 18:52 МСК</td><td>исследование</td><td>11.098</td><td><a href="https://t.me/Axenix_Ru/3234" target="_blank">пост</a></td><td>2026 год меняет правила: бизнес требует эффективности, сотрудники — персонализированного опыта, соответствующего их ожиданиям и усиливающего результативность…</td></tr>
+<tr><td>Axenix_Ru</td><td>05.06.2026 15:34 МСК</td><td>исследование</td><td>11.079</td><td><a href="https://t.me/Axenix_Ru/3255" target="_blank">пост</a></td><td>Вы решили внедрить управление опытом сотрудников. С чего начать?</td></tr>
+<tr><td>YakovPartners</td><td>03.06.2026 18:16 МСК</td><td>кейс</td><td>10.8</td><td><a href="https://t.me/YakovPartners/3789" target="_blank">пост</a></td><td>Новая реальность фармацевтики: ИИ трансформирует здравоохранение</td></tr>
+<tr><td>kept_business</td><td>02.06.2026 13:05 МСК</td><td>исследование</td><td>10.749</td><td><a href="https://t.me/kept_business/3333" target="_blank">пост</a></td><td>Подготовка первой МСФО-отчетности: что важно знать</td></tr>
+<tr><td>b1_news</td><td>05.06.2026 16:56 МСК</td><td>исследование</td><td>10.749</td><td><a href="https://t.me/b1_news/3488" target="_blank">пост</a></td><td>Импортозамещение в России: свой путь – новое исследование Б1🔍</td></tr>
+<tr><td>tadviser</td><td>05.06.2026 13:22 МСК</td><td>кейс</td><td>10.45</td><td><a href="https://t.me/tadviser/5885" target="_blank">пост</a></td><td>ЭЛАР внедрил «цифрового кадровика» в нефтяной отрасли</td></tr>
+<tr><td>Axenix_Ru</td><td>04.06.2026 16:34 МСК</td><td>кейс</td><td>10.424</td><td><a href="https://t.me/Axenix_Ru/3250" target="_blank">пост</a></td><td>AXENIX и Yandex B2B Tech, подразделение «Яндекса» по разработке технологий для корпоративного рынка, подписали соглашение о стратегическом партнерстве.</td></tr>
+<tr><td>tadviser</td><td>02.06.2026 10:51 МСК</td><td>кейс</td><td>10.35</td><td><a href="https://t.me/tadviser/5875" target="_blank">пост</a></td><td>ИИ-трансформация без катастроф: как безопасно внедрить корпоративный ИИ?</td></tr>
+<tr><td>YakovPartners</td><td>05.06.2026 13:21 МСК</td><td>аналитика</td><td>10.3</td><td><a href="https://t.me/YakovPartners/3794" target="_blank">пост</a></td><td>Инновации без права на отставание</td></tr>
+<tr><td>YakovPartners</td><td>31.05.2026 17:57 МСК</td><td>обзор рынка</td><td>10.15</td><td><a href="https://t.me/YakovPartners/3786" target="_blank">пост</a></td><td>Главные материалы мая: большой дайджест</td></tr>
+<tr><td>tedo_business</td><td>05.06.2026 19:45 МСК</td><td>партнерство</td><td>10.117</td><td><a href="https://t.me/tedo_business/4436" target="_blank">пост</a></td><td>Михаил Баженов, партнер, руководитель практики бизнес-консультирования ТеДо, выступил модератором сессии «Новые горизонты глобальной логистики и логистический…</td></tr></table>
+</section>
+<section>
+<h2>Посты, которые стоит доклассифицировать</h2>
+<table><tr><th>Канал</th><th>Дата</th><th>Score</th><th>Ссылка</th><th>Краткое содержание</th><th>Альтернативный тип</th></tr><tr><td>kept_business</td><td>01.06.2026 13:45 МСК</td><td>5.945</td><td><a href="https://t.me/kept_business/3322" target="_blank">пост</a></td><td>Kept включена в перечень верификаторов в рамках СОКБ</td><td>корпоративная новость</td></tr>
+<tr><td>tadviser</td><td>01.06.2026 15:15 МСК</td><td>5.05</td><td><a href="https://t.me/tadviser/5871" target="_blank">пост</a></td><td>Искусственный интеллект принес Х5 дополнительную прибыль в 5 млрд рублей за год https://www.tadviser.ru/a/410902</td><td></td></tr>
+<tr><td>kept_business</td><td>01.06.2026 16:43 МСК</td><td>4.353</td><td><a href="https://t.me/kept_business/3323" target="_blank">пост</a></td><td>Май – особенно активный месяц для Kept. И не только в работе:</td><td></td></tr>
+<tr><td>tadviser</td><td>01.06.2026 16:53 МСК</td><td>5.05</td><td><a href="https://t.me/tadviser/5873" target="_blank">пост</a></td><td>Сбербанк оценил финансовый эффект от применения ИИ в 1,75 трлн рублей https://www.tadviser.ru/a/513192</td><td></td></tr>
+<tr><td>Softline</td><td>01.06.2026 19:09 МСК</td><td>5.134</td><td><a href="https://t.me/Softline/3299" target="_blank">пост</a></td><td>Коллеги, собрали для вас самые интересные статьи блога «Софтлайн Решений» за прошлый месяц.</td><td>продукт/решение</td></tr>
+<tr><td>kept_business</td><td>02.06.2026 09:35 МСК</td><td>6.1</td><td><a href="https://t.me/kept_business/3330" target="_blank">пост</a></td><td>Какие регионы сегодня готовы к новым туристическим проектам</td><td>кейс</td></tr>
+<tr><td>tadviser</td><td>02.06.2026 10:10 МСК</td><td>5.05</td><td><a href="https://t.me/tadviser/5874" target="_blank">пост</a></td><td>Технологии интеллектуальной обработки документов: тенденции, перспективы, ключевые решения. Обзор TAdviser https://www.tadviser.ru/a/944567</td><td>обзор рынка</td></tr>
+<tr><td>tadviser</td><td>02.06.2026 14:47 МСК</td><td>5.05</td><td><a href="https://t.me/tadviser/5876" target="_blank">пост</a></td><td>Конец распределенной ответственности: что сегодня крупный заказчик ждет от системного интегратора</td><td>продукт/решение</td></tr>
+<tr><td>tadviser</td><td>02.06.2026 15:58 МСК</td><td>5.05</td><td><a href="https://t.me/tadviser/5877" target="_blank">пост</a></td><td>«Росатом» запланировал начало продаж квантовых компьютеров после 2027 года https://www.tadviser.ru/a/532605</td><td></td></tr>
+<tr><td>norbit_ru</td><td>02.06.2026 15:59 МСК</td><td>4.692</td><td><a href="https://t.me/norbit_ru/784" target="_blank">пост</a></td><td>В РНПК — одной из ключевых компаний страхового рынка России — отсутствовала единая система управления метаданными, процессы не были автоматизированы.</td><td>продукт/решение</td></tr>
+<tr><td>Lanit_life</td><td>02.06.2026 16:23 МСК</td><td>4.866</td><td><a href="https://t.me/Lanit_life/3763" target="_blank">пост</a></td><td>Детский шахматный турнир 2026 ♠️</td><td>корпоративная новость</td></tr>
+<tr><td>tadviser</td><td>02.06.2026 17:05 МСК</td><td>4.672</td><td><a href="https://t.me/tadviser/5878" target="_blank">пост</a></td><td>В разбирательстве из-за товарных знаков на компьютеры ARBYTE всплыл вопрос о фальсификации доказательств https://www.tadviser.ru/a/908446</td><td></td></tr>
+<tr><td>tadviser</td><td>02.06.2026 18:14 МСК</td><td>5.05</td><td><a href="https://t.me/tadviser/5879" target="_blank">пост</a></td><td>Сбер поручил киберзащиту ИИ-агентам. Они автономно отрабатывают 70% киберинцидентов https://www.tadviser.ru/a/271539</td><td></td></tr>
+<tr><td>kept_business</td><td>03.06.2026 11:45 МСК</td><td>5.249</td><td><a href="https://t.me/kept_business/3339" target="_blank">пост</a></td><td>1 июня Московская биржа объявила о начале приема заявок от компаний для участия в 29-м ежегодном Конкурсе годовых отчетов – ключевом IR-событии года в области…</td><td>мероприятие</td></tr>
+<tr><td>kept_business</td><td>03.06.2026 14:20 МСК</td><td>4.829</td><td><a href="https://t.me/kept_business/3340" target="_blank">пост</a></td><td>Почему одни проекты бюджетирования в «1С: Управление Холдингом» достигают поставленных целей, а другие сталкиваются с доработками, переносом сроков и…</td><td>кейс</td></tr></table>
+</section>
+<section>
+<h2>Покрытие запусков</h2>
+<table><tr><th>Summary input</th><th>Run MSK</th><th>Total</th><th>Непустых</th><th>Пустых</th><th>В окне</th></tr>
+<tr><td>raw_2026-05-26_23-59-05_summary_input.json</td><td>2026-05-27T17:52:41.509423+03:00</td><td>71</td><td>29</td><td>42</td><td>0</td></tr><tr><td>raw_2026-05-27_00-25-47_summary_input.json</td><td>2026-05-27T17:52:42.416426+03:00</td><td>71</td><td>29</td><td>42</td><td>0</td></tr><tr><td>raw_2026-05-27_15-42-55_summary_input.json</td><td>2026-05-27T18:42:55.238227+03:00</td><td>17</td><td>13</td><td>4</td><td>0</td></tr><tr><td>raw_2026-05-28_13-23-57_summary_input.json</td><td>2026-05-28T16:23:57.259533+03:00</td><td>20</td><td>15</td><td>5</td><td>0</td></tr><tr><td>raw_2026-05-28_14-55-36_summary_input.json</td><td>2026-05-28T17:55:36.467688+03:00</td><td>10</td><td>3</td><td>7</td><td>0</td></tr><tr><td>raw_2026-05-29_14-55-19_summary_input.json</td><td>2026-05-29T17:55:19.097802+03:00</td><td>26</td><td>15</td><td>11</td><td>0</td></tr><tr><td>raw_2026-05-30_14-55-25_summary_input.json</td><td>2026-05-30T17:55:25.900220+03:00</td><td>11</td><td>4</td><td>7</td><td>0</td></tr><tr><td>raw_2026-05-31_14-55-58_summary_input.json</td><td>2026-05-31T17:55:58.734142+03:00</td><td>1</td><td>1</td><td>0</td><td>0</td></tr><tr><td>raw_2026-06-01_14-55-14_summary_input.json</td><td>2026-06-01T17:55:14.422434+03:00</td><td>23</td><td>11</td><td>12</td><td>11</td></tr><tr><td>raw_2026-06-02_14-55-26_summary_input.json</td><td>2026-06-02T17:55:26.510639+03:00</td><td>58</td><td>47</td><td>11</td><td>20</td></tr><tr><td>raw_2026-06-03_14-55-54_summary_input.json</td><td>2026-06-03T17:55:54.560643+03:00</td><td>24</td><td>15</td><td>9</td><td>15</td></tr><tr><td>raw_2026-06-04_14-56-06_summary_input.json</td><td>2026-06-04T17:56:06.238896+03:00</td><td>40</td><td>22</td><td>18</td><td>22</td></tr><tr><td>raw_2026-06-05_14-55-25_summary_input.json</td><td>2026-06-05T17:55:25.715789+03:00</td><td>45</td><td>25</td><td>20</td><td>25</td></tr><tr><td>raw_2026-06-06_14-55-22_summary_input.json</td><td>2026-06-06T17:55:22.280991+03:00</td><td>9</td><td>7</td><td>2</td><td>7</td></tr>
+</table>
+</section>
+</body></html>

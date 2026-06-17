@@ -1,0 +1,26 @@
+profiles:
+  profile_1:
+    session_name: "profile_1"
+    mode: "historical"
+    date_from: "2026-01-01"
+    date_to: ""
+    limit_per_channel: 400
+    global_limit: 6000
+
+    channels:
+      - username: "b1_news"
+      - username: "Axenix_Ru"
+      - username: "beringpro"
+      - username: "Softline"
+      - username: "k2_tech"
+      - username: "Lanit_life"
+      - username: "InnotechCompany"
+      - username: "YakovPartners"
+      - username: "delret"
+      - username: "tedo_business"
+      - username: "kept_business"
+      - username: "Reksoft_group"
+      - username: "norbit_ru"
+
+# Шаблон для разовых ретроспективных выгрузок.
+# Использовать отдельно от daily-контура, без изменения tg-since-id-it_consulting.json.

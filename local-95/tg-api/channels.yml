@@ -1,0 +1,25 @@
+profiles:
+  profile_1:
+    session_name: "profile_1"
+
+    # Общие настройки профиля
+    date_from: "2026-05-25"      # начальная дата (включительно), поправь под себя
+    date_to:   ""      # конечная дата (исключительно), поправь под себя
+    limit_per_channel: 150    # максимум сообщений на канал
+    global_limit:      3000   # общий максимум сообщений за один проход
+
+    channels:
+      - username: "b1_news"
+      - username: "Axenix_Ru"
+      - username: "beringpro"
+      - username: "Softline"
+      - username: "k2_tech"
+      - username: "Lanit_life"
+      - username: "InnotechCompany"
+      - username: "YakovPartners"
+      - username: "delret"
+      - username: "tedo_business"
+      - username: "kept_business"
+      - username: "Reksoft_group"
+      - username: "norbit_ru"
+      - username: "tadviser"

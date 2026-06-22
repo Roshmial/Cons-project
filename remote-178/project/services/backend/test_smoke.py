@@ -7,6 +7,7 @@ import os
 import shutil
 import sys
 import tempfile
+import threading
 import time
 import unittest
 import urllib.error
@@ -481,6 +482,125 @@ class HermesWebBackendSmokeTest(unittest.TestCase):
         self.assertEqual(latest["time_of_day"], "09:00")
         self.assertEqual(json.loads(latest["days_of_week_json"]), ["mon"])
 
+    def test_chat_recurring_request_uses_explicit_subject_from_current_message(self):
+        with self.backend.db_connect() as conn:
+            user_row = conn.execute("SELECT id FROM users WHERE email = ?", ("misha@demo.local",)).fetchone()
+        user_id = int(user_row["id"])
+        thread_id, message_ids = self.create_thread_with_messages(
+            user_id,
+            "Мониторинг LegalAI",
+            [
+                ("user", "Поставь еженедельный мониторинг источников в интернете по теме LegalAI", {"user_text": "Поставь еженедельный мониторинг источников в интернете по теме LegalAI"}),
+                ("assistant", "⏳", {"pending": True, "processing_status": "pending"}),
+            ],
+        )
+        with self.backend.db_connect() as conn:
+            ts = self.backend.now_iso()
+            cur = conn.execute(
+                """
+                INSERT INTO chat_tasks (
+                    thread_id, user_id, user_message_id, assistant_message_id, status, request_policy_json, created_at, started_at, finished_at, last_error
+                ) VALUES (?, ?, ?, ?, 'pending', ?, ?, NULL, NULL, '') RETURNING id
+                """,
+                (thread_id, user_id, message_ids[0], message_ids[1], "{}", ts),
+            )
+            task_id = int(cur.fetchone()[0])
+
+        self.assertTrue(self.backend.process_chat_task(task_id))
+
+        with self.backend.db_connect() as conn:
+            latest = conn.execute(
+                "SELECT name, description FROM jobs WHERE user_id = ? ORDER BY id DESC LIMIT 1",
+                (user_id,),
+            ).fetchone()
+            assistant = conn.execute("SELECT content, meta_json FROM messages WHERE id = ?", (message_ids[1],)).fetchone()
+
+        self.assertIn("LegalAI", latest["name"])
+        self.assertIn("LegalAI", latest["description"])
+        self.assertIn("LegalAI", assistant["content"])
+
+    def test_chat_recurring_request_reuses_existing_job_in_another_thread(self):
+        with self.backend.db_connect() as conn:
+            user_row = conn.execute(
+                "SELECT id, email, role FROM users WHERE email IN (?, ?) ORDER BY CASE WHEN email = ? THEN 0 ELSE 1 END LIMIT 1",
+                ("misha@demo.local", "admin@demo.local", "misha@demo.local"),
+            ).fetchone()
+            auth = self.backend.AuthUser(id=int(user_row["id"]), role=user_row["role"], email=user_row["email"])
+            existing = self.backend.create_or_update_job(
+                conn,
+                auth,
+                {
+                    "name": "Мониторинг: Собери информацию из СМИ по упоминанию Астра Линукса",
+                    "description": "Регулярный мониторинг по запросу из чата",
+                    "job_type": "research_watch",
+                    "visibility": "private",
+                    "status": "active",
+                    "schedule_kind": "weekly",
+                    "days_of_week": ["mon"],
+                    "time_of_day": "09:00",
+                    "timezone": "Europe/Moscow",
+                    "start_date": self.backend.now_utc().astimezone(self.backend.ZoneInfo("Europe/Moscow")).date().isoformat(),
+                    "prompt_template": self.backend.build_default_job_template("research_watch"),
+                    "parameters": {
+                        "subject": "Собери информацию из СМИ по упоминанию Астра Линукса",
+                        "angle": "упоминания в СМИ, значимые события, сигналы рынка и изменения позиции",
+                        "output": "структурированная краткая сводка без лишней воды",
+                    },
+                    "recipients": [{"recipient_type": "owner", "target_value": "self", "label": "Только владелец"}],
+                },
+            )
+        user_id = int(user_row["id"])
+        second_thread_id, second_message_ids = self.create_thread_with_messages(
+            user_id,
+            "Мониторинг Астры 2",
+            [
+                ("user", "Собери информацию из СМИ по упоминанию Астра Линукса", {"user_text": "Собери информацию из СМИ по упоминанию Астра Линукса"}),
+                ("assistant", "Подготовила обзор по теме.", {}),
+                ("user", "Можешь поставить сбор этой информации на еженедельной основе?", {"user_text": "Можешь поставить сбор этой информации на еженедельной основе?"}),
+                ("assistant", "⏳", {"pending": True, "processing_status": "pending"}),
+            ],
+        )
+
+        with self.backend.db_connect() as conn:
+            ts = self.backend.now_iso()
+            before_count = int(
+                conn.execute(
+                    "SELECT COUNT(*) AS c FROM jobs WHERE user_id = ? AND job_type = 'research_watch' AND name = ?",
+                    (user_id, "Мониторинг: Собери информацию из СМИ по упоминанию Астра Линукса"),
+                ).fetchone()["c"]
+            )
+            cur = conn.execute(
+                """
+                INSERT INTO chat_tasks (
+                    thread_id, user_id, user_message_id, assistant_message_id, status, request_policy_json, created_at, started_at, finished_at, last_error
+                ) VALUES (?, ?, ?, ?, 'pending', ?, ?, NULL, NULL, '') RETURNING id
+                """,
+                (second_thread_id, user_id, second_message_ids[2], second_message_ids[3], "{}", ts),
+            )
+            second_task_id = int(cur.fetchone()[0])
+
+        self.assertTrue(self.backend.process_chat_task(second_task_id))
+
+        with self.backend.db_connect() as conn:
+            after_count = int(
+                conn.execute(
+                    "SELECT COUNT(*) AS c FROM jobs WHERE user_id = ? AND job_type = 'research_watch' AND name = ?",
+                    (user_id, "Мониторинг: Собери информацию из СМИ по упоминанию Астра Линукса"),
+                ).fetchone()["c"]
+            )
+            jobs = conn.execute(
+                "SELECT id, name FROM jobs WHERE user_id = ? AND job_type = 'research_watch' AND name = ? ORDER BY id ASC",
+                (user_id, "Мониторинг: Собери информацию из СМИ по упоминанию Астра Линукса"),
+            ).fetchall()
+            second_assistant = conn.execute("SELECT content, meta_json FROM messages WHERE id = ?", (second_message_ids[3],)).fetchone()
+
+        self.assertEqual(after_count, before_count)
+        self.assertIn(existing["id"], [row["id"] for row in jobs])
+        self.assertIn("Такая задача уже есть", second_assistant["content"])
+        second_meta = json.loads(second_assistant["meta_json"] or "{}")
+        self.assertEqual(second_meta.get("message_kind"), "job_reused")
+        self.assertIn(second_meta.get("created_job_id"), [row["id"] for row in jobs])
+
     def test_chat_recurring_request_uses_recent_messages_context(self):
         with self.backend.db_connect() as conn:
             user_row = conn.execute("SELECT id FROM users WHERE email = ?", ("misha@demo.local",)).fetchone()
@@ -514,10 +634,12 @@ class HermesWebBackendSmokeTest(unittest.TestCase):
         self.assertTrue(processed)
 
         with self.backend.db_connect() as conn:
-            assistant = conn.execute("SELECT content FROM messages WHERE id = ?", (assistant_message_id,)).fetchone()
+            assistant = conn.execute("SELECT content, meta_json FROM messages WHERE id = ?", (assistant_message_id,)).fetchone()
             jobs = conn.execute("SELECT name, timezone, schedule_kind, time_of_day, days_of_week_json FROM jobs WHERE user_id = ? ORDER BY id DESC", (user_id,)).fetchall()
 
-        self.assertIn("Создала задачу", assistant["content"])
+        assistant_meta = json.loads(assistant["meta_json"] or "{}")
+        self.assertEqual(assistant_meta.get("message_kind"), "job_created")
+        self.assertEqual(assistant_meta.get("downstream"), "chat:job_created")
         self.assertTrue(jobs)
         latest = jobs[0]
         self.assertIn("Виктории", latest["name"])
@@ -525,6 +647,49 @@ class HermesWebBackendSmokeTest(unittest.TestCase):
         self.assertEqual(latest["schedule_kind"], "weekly")
         self.assertEqual(latest["time_of_day"], "08:30")
         self.assertEqual(json.loads(latest["days_of_week_json"]), ["fri"])
+
+    def test_chat_research_request_does_not_create_recurring_job_without_explicit_schedule_intent(self):
+        with self.backend.db_connect() as conn:
+            user_row = conn.execute("SELECT id FROM users WHERE email = ?", ("misha@demo.local",)).fetchone()
+        user_id = int(user_row["id"])
+        thread_id, message_ids = self.create_thread_with_messages(
+            user_id,
+            "Подбор каналов",
+            [
+                ("user", "Какой массив данных по телеграмм каналам у тебя есть?", {"user_text": "Какой массив данных по телеграмм каналам у тебя есть?"}),
+                ("assistant", "Могу подобрать актуальную выборку по теме.", {}),
+                ("user", "Подбери перечень телеграмм-каналов, который актуально мониторить для технологической практики", {"user_text": "Подбери перечень телеграмм-каналов, который актуально мониторить для технологической практики"}),
+                ("assistant", "Вот стартовая подборка.", {}),
+                ("user", "найди перечень каналов крупных вендоров и интеграторов для мониторинга", {"user_text": "найди перечень каналов крупных вендоров и интеграторов для мониторинга"}),
+                ("assistant", "⏳", {"pending": True, "processing_status": "pending"}),
+            ],
+        )
+        user_message_id = message_ids[4]
+        assistant_message_id = message_ids[5]
+        with self.backend.db_connect() as conn:
+            ts = self.backend.now_iso()
+            before_jobs = int(conn.execute("SELECT COUNT(*) AS c FROM jobs WHERE user_id = ?", (user_id,)).fetchone()["c"])
+            cur = conn.execute(
+                """
+                INSERT INTO chat_tasks (
+                    thread_id, user_id, user_message_id, assistant_message_id, status, request_policy_json, created_at, started_at, finished_at, last_error
+                ) VALUES (?, ?, ?, ?, 'pending', ?, ?, NULL, NULL, '') RETURNING id
+                """,
+                (thread_id, user_id, user_message_id, assistant_message_id, "{}", ts),
+            )
+            task_id = int(cur.fetchone()[0])
+
+        processed = self.backend.process_chat_task(task_id)
+        self.assertTrue(processed)
+
+        with self.backend.db_connect() as conn:
+            assistant = conn.execute("SELECT content, meta_json FROM messages WHERE id = ?", (assistant_message_id,)).fetchone()
+            after_jobs = int(conn.execute("SELECT COUNT(*) AS c FROM jobs WHERE user_id = ?", (user_id,)).fetchone()["c"])
+
+        self.assertEqual(before_jobs, after_jobs)
+        self.assertNotIn("Создала задачу", assistant["content"])
+        meta = json.loads(assistant["meta_json"] or "{}")
+        self.assertNotEqual(meta.get("message_kind"), "job_created")
 
     def test_profile_threads_and_jobs_read_only_mode(self):
         token = self.login()
@@ -710,6 +875,21 @@ class HermesWebBackendSmokeTest(unittest.TestCase):
         self.assertEqual(global_only_json["meta"]["dashboard"].get("grammar_version"), "adaptive_v1")
         self.assertIn("selection_policy", global_only_json["meta"]["dashboard"])
         self.assertGreaterEqual(len(global_only_json["meta"]["dashboard"].get("sections", [])), 3)
+
+        internet_dashboard = self.client.post(
+            f"/api/threads/{thread_id}/messages",
+            headers=self.auth_headers(token),
+            json={"content": "Собери из интернета данные по рынку LegalAI и дай дашборд."},
+        )
+        self.assertEqual(internet_dashboard.status_code, 201)
+        internet_dashboard_body = internet_dashboard.get_json()
+        self.assertEqual(internet_dashboard_body["assistant_message"]["meta"]["message_kind"], "processing_status")
+        self.assertTrue(self.backend.process_chat_task(internet_dashboard_body["chat_task"]["id"]))
+        internet_dashboard_json = self.client.get(f"/api/threads/{thread_id}", headers=self.auth_headers(token)).get_json()["messages"][-1]
+        self.assertEqual(internet_dashboard_json["meta"]["message_kind"], "dashboard_result")
+        self.assertEqual(internet_dashboard_json["meta"]["dashboard"]["kind"], "external_research_dashboard")
+        self.assertEqual(internet_dashboard_json["meta"]["dashboard_policy"]["source_mode"], "local_first")
+        self.assertEqual(internet_dashboard_json["meta"]["dashboard_builder"], "web_research")
 
         local_only_dashboard = self.client.post(
             f"/api/threads/{thread_id}/messages",
@@ -2002,6 +2182,92 @@ class HermesWebBackendSmokeTest(unittest.TestCase):
         self.assertIsNone(self.backend.detect_message_export_format('Проанализируй файл ТЗ2.docx'))
         self.assertIsNone(self.backend.detect_message_export_format('Разбери приложенный документ docx и дай выводы в чат'))
         self.assertEqual(self.backend.detect_message_export_format('Отправь мне файл в docx'), 'docx')
+        self.assertEqual(self.backend.detect_message_export_format('А где файл?'), 'docx')
+
+    def test_process_chat_task_exports_previous_answer_for_where_file_followup(self):
+        with self.backend.app.test_client() as client:
+            with self.backend.db_connect() as conn:
+                token = self.backend.issue_session(conn, 1)
+            thread_response = client.post(
+                '/api/threads',
+                headers=self.auth_headers(token),
+                json={'title': 'Where file thread', 'preview': 'Preview'},
+            )
+            self.assertEqual(thread_response.status_code, 201)
+            thread_id = thread_response.get_json()['thread']['id']
+
+            first_response = client.post(
+                f'/api/threads/{thread_id}/messages',
+                headers=self.auth_headers(token),
+                json={'content': 'Подготовь итоговый текст по Flatpak'},
+            )
+            self.assertEqual(first_response.status_code, 201)
+            first_body = first_response.get_json()
+            first_task_id = first_body['chat_task']['id']
+
+            original_process = self.backend.process_chat_task
+            original_call = self.backend.call_hermes_api
+            try:
+                self.backend.call_hermes_api = lambda *args, **kwargs: ('Вот итоговый текст по Flatpak', {'source': 'test'})
+                self.assertTrue(original_process(first_task_id))
+            finally:
+                self.backend.call_hermes_api = original_call
+
+            export_response = client.post(
+                f'/api/threads/{thread_id}/messages',
+                headers=self.auth_headers(token),
+                json={'content': 'А где файл?'},
+            )
+            self.assertEqual(export_response.status_code, 201)
+            export_body = export_response.get_json()
+            export_task_id = export_body['chat_task']['id']
+            export_assistant_id = export_body['assistant_message']['id']
+
+        self.assertTrue(self.backend.process_chat_task(export_task_id))
+        with self.backend.db_connect() as conn:
+            row = conn.execute('SELECT content, meta_json FROM messages WHERE id = ?', (export_assistant_id,)).fetchone()
+        meta = json.loads(row['meta_json'])
+        self.assertEqual(meta['message_kind'], 'file_response')
+        self.assertEqual(meta['export_format'], 'docx')
+        self.assertEqual(meta['exported_message_id'], first_body['assistant_message']['id'])
+        self.assertIn('Собрала предыдущий ответ в файл', row['content'])
+
+    def test_process_chat_task_exports_previous_answer_for_where_file_followup_without_http(self):
+        with self.backend.db_connect() as conn:
+            user_row = conn.execute(
+                "SELECT id FROM users ORDER BY id ASC LIMIT 1"
+            ).fetchone()
+        user_id = int(user_row['id'])
+        thread_id, message_ids = self.create_thread_with_messages(
+            user_id,
+            'Where file direct thread',
+            [
+                ('user', 'Подготовь итоговый текст по Flatpak', {'user_text': 'Подготовь итоговый текст по Flatpak'}),
+                ('assistant', 'Вот итоговый текст по Flatpak', {'source': 'test'}),
+                ('user', 'А где файл?', {'user_text': 'А где файл?'}),
+                ('assistant', '⏳', {'pending': True, 'processing_status': 'pending'}),
+            ],
+        )
+        with self.backend.db_connect() as conn:
+            ts = self.backend.now_iso()
+            cur = conn.execute(
+                """
+                INSERT INTO chat_tasks (
+                    thread_id, user_id, user_message_id, assistant_message_id, status, request_policy_json, created_at, started_at, finished_at, last_error
+                ) VALUES (?, ?, ?, ?, 'pending', ?, ?, NULL, NULL, '') RETURNING id
+                """,
+                (thread_id, user_id, message_ids[2], message_ids[3], '{}', ts),
+            )
+            task_id = int(cur.fetchone()[0])
+
+        self.assertTrue(self.backend.process_chat_task(task_id))
+        with self.backend.db_connect() as conn:
+            row = conn.execute('SELECT content, meta_json FROM messages WHERE id = ?', (message_ids[3],)).fetchone()
+        meta = json.loads(row['meta_json'])
+        self.assertEqual(meta['message_kind'], 'file_response')
+        self.assertEqual(meta['export_format'], 'docx')
+        self.assertEqual(meta['exported_message_id'], message_ids[1])
+        self.assertIn('Собрала предыдущий ответ в файл', row['content'])
 
     def test_build_attachment_context_prefers_full_extracted_text_over_preview(self):
         attachment = {
@@ -2570,6 +2836,889 @@ class HermesWebBackendSmokeTest(unittest.TestCase):
         final_messages = seen_payloads[-1]
         self.assertEqual(final_messages[1]['role'], 'system')
         self.assertIn('Сводка предыдущей части этого же чата', final_messages[1]['content'])
+
+    def test_is_dashboard_request_requires_explicit_dashboard_intent(self):
+        self.assertFalse(self.backend.is_dashboard_request(
+            'Проверь общую текстовку письма: в тексте есть Telegram, интернет и глубокая аналитика, но задача — просто отредактировать письмо.'
+        ))
+        self.assertTrue(self.backend.is_dashboard_request(
+            'Построй дашборд по основным трендам, вопросам, кейсам и потенциальной аудитории каналов.'
+        ))
+
+    def test_postprocess_assistant_reply_strips_non_executable_action_promises_for_generic_chat(self):
+        reply = (
+            'Да, это возможно.\n\n'
+            '**Что я сделаю сейчас:**\n'
+            '1. Проверю наличие рабочей директории и текущее состояние сессии.\n'
+            '2. Создам файл конфигурации с вашим списком вендоров и интеграторов.\n'
+            '3. Запущу выгрузку данных.\n\n'
+            'Приступаю к проверке инфраструктуры.'
+        )
+        cleaned = self.backend.postprocess_assistant_reply(
+            'У тебя есть доступ к коннектору TG API. Проверь возможность создания отдельного списка каналов для него',
+            reply,
+            {'downstream': 'hermes-api-server'},
+        )
+        self.assertEqual(cleaned, 'Да, это возможно.')
+
+    def test_short_followup_confirmation_detection(self):
+        self.assertTrue(self.backend.is_short_followup_confirmation('Да, сделай'))
+        self.assertTrue(self.backend.is_short_followup_confirmation('запускай'))
+        self.assertFalse(self.backend.is_short_followup_confirmation('Сделай отдельный список каналов TG API и сохрани его в новый конфиг-файл'))
+
+    def test_short_problem_followup_detection(self):
+        self.assertTrue(self.backend.is_short_problem_followup('Не работает'))
+        self.assertTrue(self.backend.is_short_problem_followup('А где файл?'))
+        self.assertTrue(self.backend.is_short_problem_followup('Непонятно, повтори ещё раз'))
+        self.assertFalse(self.backend.is_short_problem_followup('Сделай отдельный CSV со списком подрядчиков и оцени стоимость'))
+
+    def test_should_use_focused_followup_context_for_long_assistant_plan(self):
+        rows = [
+            {'role': 'user', 'content': 'Проверь возможность создания отдельного списка каналов для TG API'},
+            {'role': 'assistant', 'content': 'План. ' + ('Шаг. ' * 80)},
+            {'role': 'user', 'content': 'Да, сделай'},
+        ]
+        self.assertTrue(self.backend.should_use_focused_followup_context(rows, {}))
+        self.assertIn('План.', self.backend.latest_substantive_assistant_message_text(rows[:-1]))
+
+    def test_should_use_focused_followup_context_for_short_problem_reply(self):
+        rows = [
+            {'role': 'user', 'content': 'Собери файл по предыдущему ответу'},
+            {'role': 'assistant', 'content': 'Готово. ' + ('Файл будет приложен. ' * 20)},
+            {'role': 'user', 'content': 'А где файл?'},
+        ]
+        self.assertTrue(self.backend.should_use_focused_followup_context(rows, {}))
+
+    def test_should_use_focused_followup_context_for_problem_reply_after_short_answer(self):
+        rows = [
+            {'role': 'user', 'content': 'Подготовь короткий план запуска weekly monitoring'},
+            {'role': 'assistant', 'content': 'Сделай три шага: выбери тему, задай расписание, проверь доставку в чат.'},
+            {'role': 'user', 'content': 'не работает'},
+        ]
+        self.assertTrue(self.backend.should_use_focused_followup_context(rows, {}))
+        self.assertTrue(self.backend.should_use_focused_followup_context(rows, {'source_mode': '', 'model_preference': 'auto', 'explicit_source_ids': [], 'allowed_source_ids': [], 'connector_targets': {}}))
+
+    def test_normalize_public_error_text_timeout_is_generic_not_file_specific(self):
+        text = self.backend.normalize_public_error_text('timed out')
+        self.assertIn('Не удалось получить ответ', text)
+        self.assertNotIn('сформировать файл', text)
+
+    def test_reply_violates_expected_language_for_russian_profile(self):
+        profile = {'language': 'ru'}
+        self.assertTrue(self.backend.reply_violates_expected_language('Based on the search results, here is the information.', profile))
+        self.assertTrue(self.backend.reply_violates_expected_language('uma resposta detalhada e estruturada, sem enrolação', profile))
+        self.assertFalse(self.backend.reply_violates_expected_language('Собрала краткий вывод и следующий шаг.', profile))
+
+    def test_build_generated_file_reply_rejects_fake_structured_exports(self):
+        with self.assertRaises(self.backend.ApiError) as cm:
+            self.backend.build_generated_file_reply(
+                assistant_message_id=1,
+                reply_text='обычный текст ответа',
+                reply_meta={},
+                thread_title='Тест',
+                export_format='csv',
+                created_at=self.backend.now_iso(),
+            )
+        self.assertEqual(cm.exception.message, 'structured_generated_file_not_supported')
+
+    def test_recurring_job_detection_catches_weekly_media_collection(self):
+        self.assertTrue(self.backend.looks_like_recurring_job_request('Поставь еженедельный сбор информации из СМИ в чате.'))
+        self.assertTrue(self.backend.looks_like_recurring_job_followup('Да, давай поставь еженедельный обзор новостей по этой теме.'))
+
+    def test_collection_request_without_source_and_fields_returns_clarification(self):
+        with self.backend.db_connect() as conn:
+            user_row = conn.execute("SELECT id FROM users WHERE email = ?", ("misha@demo.local",)).fetchone()
+        user_id = int(user_row["id"])
+        thread_id, message_ids = self.create_thread_with_messages(
+            user_id,
+            "Сбор данных",
+            [
+                ("user", "Собери данные по LegalAI в csv", {"user_text": "Собери данные по LegalAI в csv"}),
+                ("assistant", "⏳", {"pending": True, "processing_status": "pending"}),
+            ],
+        )
+        user_message_id = message_ids[0]
+        assistant_message_id = message_ids[1]
+        with self.backend.db_connect() as conn:
+            ts = self.backend.now_iso()
+            cur = conn.execute(
+                """
+                INSERT INTO chat_tasks (
+                    thread_id, user_id, user_message_id, assistant_message_id, status, request_policy_json, created_at, started_at, finished_at, last_error
+                ) VALUES (?, ?, ?, ?, 'pending', ?, ?, NULL, NULL, '') RETURNING id
+                """,
+                (thread_id, user_id, user_message_id, assistant_message_id, "{}", ts),
+            )
+            task_id = int(cur.fetchone()[0])
+        processed = self.backend.process_chat_task(task_id)
+        self.assertTrue(processed)
+        with self.backend.db_connect() as conn:
+            assistant = conn.execute("SELECT content, meta_json FROM messages WHERE id = ?", (assistant_message_id,)).fetchone()
+        meta = json.loads(assistant["meta_json"] or "{}")
+        self.assertEqual(meta.get("message_kind"), "clarification_request")
+        self.assertEqual(meta.get("downstream"), "chat:data_collection_clarification")
+        self.assertIn("контракт сбора", assistant["content"])
+        contract = meta.get("collection_contract") or {}
+        self.assertIn("источник", contract.get("missing_fields") or [])
+        self.assertIn("поля / колонки результата", contract.get("missing_fields") or [])
+
+    def test_collection_request_with_source_format_and_fields_returns_contract(self):
+        text = "Собери данные из СМИ по теме LegalAI в csv с полями дата, источник, ссылка, summary"
+        reply = self.backend.build_collection_clarification_or_contract_reply(text, None)
+        self.assertIsNotNone(reply)
+        reply_text, meta = reply
+        self.assertEqual(meta.get("message_kind"), "collection_contract")
+        self.assertEqual(meta.get("downstream"), "chat:data_collection_contract")
+        self.assertIn("Живой алгоритм выполнения", reply_text)
+        contract = meta.get("collection_contract") or {}
+        self.assertEqual(contract.get("source_kind"), "media")
+        self.assertEqual(contract.get("output_format"), "csv")
+        self.assertEqual(contract.get("subject"), "LegalAI")
+        self.assertEqual(contract.get("fields"), ["дата", "источник", "ссылка", "summary"])
+        self.assertEqual(contract.get("missing_fields"), [])
+
+
+
+    def test_collection_request_with_real_tender_prompt_returns_contract(self):
+        text = """Мне нужно, чтобы ты настроил выгрузку данных с тендерных площадок (указанных выше). Нужны данные в формате excel (csv). Данные нужны по закупкам в части ИТ-деятельности. Нужны все закупки с 01.06.2026.
+Нужна информация:
+
+Заказчик (кто является инициатором или для кого делается процедура)
+Стоимость
+Срок размещения
+Срок подачи
+Город поставки
+Объект закупки
+Ссылка на закупку
+Различные комментарии, которые есть к закупке, которые позволяют уточнить.
+Источники - bidzaar.com/, roseltorg.ru/, fabrikant.ru, b2b-center.ru, etp.gpb.ru, zakupki.mos.ru, zakupki.gov.ru"""
+        reply = self.backend.build_collection_clarification_or_contract_reply(text, None)
+        self.assertIsNotNone(reply)
+        reply_text, meta = reply
+        self.assertEqual(meta.get("message_kind"), "collection_contract")
+        self.assertEqual(meta.get("downstream"), "chat:data_collection_contract")
+        contract = meta.get("collection_contract") or {}
+        self.assertEqual(contract.get("source_kind"), "tenders")
+        self.assertEqual(contract.get("output_format"), "csv")
+        self.assertEqual(contract.get("subject"), "ИТ-деятельности")
+        self.assertEqual(contract.get("missing_fields"), [])
+        self.assertEqual(
+            contract.get("fields"),
+            [
+                "Заказчик (кто является инициатором или для кого делается процедура)",
+                "Стоимость",
+                "Срок размещения",
+                "Срок подачи",
+                "Город поставки",
+                "Объект закупки",
+                "Ссылка на закупку",
+                "Различные комментарии, которые есть к закупке, которые позволяют уточнить",
+            ],
+        )
+        self.assertIn("Источник:", reply_text)
+
+    def test_maybe_execute_collection_request_runs_telegram_api_with_task_channel_list(self):
+        text = "Собери данные из Telegram-каналов @legal_ai_news, @robotics_digest в csv с полями дата, канал, ссылка, summary с 01.06.2026"
+        contract = self.backend.build_collection_contract_meta(text, None)
+        tg_dir = Path(self.tempdir) / "tg-api"
+        tg_dir.mkdir(parents=True, exist_ok=True)
+        os.environ["TG_API_CONFIG_DIR"] = str(tg_dir)
+        with patch.object(self.backend.urllib.request, "urlopen") as mocked_urlopen:
+            response_mock = mocked_urlopen.return_value.__enter__.return_value
+            response_mock.status = 200
+            response_mock.read.return_value = json.dumps({
+                "count": 12,
+                "profile": "profile_1",
+                "config": "demo",
+                "messages": [
+                    {
+                        "id": 101,
+                        "date": "2026-06-01T10:00:00+00:00",
+                        "chat": "legal_ai_news",
+                        "message": "Legal AI update",
+                        "original_url": "https://t.me/legal_ai_news/101"
+                    }
+                ],
+            }, ensure_ascii=False).encode("utf-8")
+            reply_text, meta = self.backend.execute_telegram_collection_contract(contract)
+        self.assertEqual(meta.get("message_kind"), "collection_execution_result")
+        self.assertEqual(meta.get("downstream"), "chat:telegram_collection_result")
+        source_list = meta.get("task_source_list") or {}
+        self.assertEqual(source_list.get("kind"), "telegram_channels")
+        self.assertTrue(Path(source_list.get("config_path")).exists())
+        config_text = Path(source_list.get("config_path")).read_text(encoding="utf-8")
+        self.assertIn("legal_ai_news", config_text)
+        self.assertIn("robotics_digest", config_text)
+        self.assertIn("Сообщений получено: 12", reply_text)
+        attachments = meta.get("attachments") or []
+        self.assertEqual(len(attachments), 1)
+        attachment = attachments[0]
+        self.assertTrue(Path(attachment.get("local_path")).exists())
+        csv_text = Path(attachment.get("local_path")).read_text(encoding="utf-8")
+        self.assertIn("дата,канал,ссылка,summary,source_url", csv_text)
+        self.assertIn("legal_ai_news", csv_text)
+        execution_lock = meta.get("execution_lock") or {}
+        self.assertEqual(execution_lock.get("kind"), "telegram_collection_singleflight")
+
+    def test_execute_telegram_collection_contract_waits_for_singleflight_lock(self):
+        text = "Собери данные из Telegram-каналов @legal_ai_news в csv с полями дата, канал, ссылка, summary с 01.06.2026"
+        contract = self.backend.build_collection_contract_meta(text, None)
+        tg_dir = Path(self.tempdir) / "tg-api-lock"
+        tg_dir.mkdir(parents=True, exist_ok=True)
+        os.environ["TG_API_CONFIG_DIR"] = str(tg_dir)
+        original_timeout = self.backend.TELEGRAM_COLLECTION_LOCK_TIMEOUT
+        original_lock = self.backend._telegram_collection_lock
+        self.backend.TELEGRAM_COLLECTION_LOCK_TIMEOUT = 5
+        self.backend._telegram_collection_lock = threading.Lock()
+        entered = threading.Event()
+        result: dict[str, object] = {}
+
+        def fake_urlopen(*args, **kwargs):
+            entered.set()
+            class _Resp:
+                status = 200
+                def __enter__(self_inner):
+                    return self_inner
+                def __exit__(self_inner, exc_type, exc, tb):
+                    return False
+                def read(self_inner):
+                    return b'{"count": 3, "profile": "profile_1", "config": "demo"}'
+            return _Resp()
+
+        def worker():
+            try:
+                reply_text, meta = self.backend.execute_telegram_collection_contract(contract)
+                result["reply_text"] = reply_text
+                result["meta"] = meta
+            except Exception as exc:  # pragma: no cover
+                result["error"] = exc
+
+        try:
+            self.backend._telegram_collection_lock.acquire()
+            with patch.object(self.backend.urllib.request, "urlopen", side_effect=fake_urlopen):
+                thread = threading.Thread(target=worker, daemon=True)
+                thread.start()
+                thread.join(0.2)
+                self.assertFalse(entered.is_set())
+                self.backend._telegram_collection_lock.release()
+                thread.join(2)
+        finally:
+            if self.backend._telegram_collection_lock.locked():
+                self.backend._telegram_collection_lock.release()
+            self.backend._telegram_collection_lock = original_lock
+            self.backend.TELEGRAM_COLLECTION_LOCK_TIMEOUT = original_timeout
+
+        self.assertNotIn("error", result)
+        self.assertTrue(entered.is_set())
+        execution_lock = (result.get("meta") or {}).get("execution_lock") or {}
+        self.assertEqual(execution_lock.get("kind"), "telegram_collection_singleflight")
+        self.assertGreaterEqual(float(execution_lock.get("wait_seconds") or 0.0), 0.0)
+
+    def test_normalize_public_error_text_for_telegram_busy_timeout(self):
+        text = self.backend.normalize_public_error_text('telegram_collection_busy_timeout')
+        self.assertIn('Telegram-выгрузка ещё занята', text)
+
+    def test_tender_prompt_with_setup_wording_is_still_collection_request(self):
+        text = "Мне нужно, чтобы ты настроил выгрузку данных с тендерных площадок в csv по закупкам в части ИТ-деятельности с 01.06.2026"
+        self.assertTrue(self.backend.looks_like_collection_request(text))
+        contract = self.backend.build_collection_contract_meta(text, None)
+        self.assertEqual(contract.get("source_kind"), "tenders")
+        self.assertEqual(contract.get("output_format"), "csv")
+        self.assertEqual(contract.get("since_date"), "2026-06-01")
+
+        text = """Мне нужно, чтобы ты настроил выгрузку данных с тендерных площадок. Нужны данные в формате csv по закупкам в части ИТ-деятельности с 01.06.2026.
+Нужна информация:
+Заказчик
+Стоимость
+Срок подачи
+Ссылка на закупку
+Источники - bidzaar.com, roseltorg.ru, fabrikant.ru, b2b-center.ru, zakupki.gov.ru"""
+        contract = self.backend.build_collection_contract_meta(text, None)
+        fake_dir = Path(self.backend.DATA_DIR) / "test-tender-run"
+        fake_dir.mkdir(parents=True, exist_ok=True)
+        csv_path = fake_dir / "it_tenders_2026-06-01.csv"
+        status_path = fake_dir / "tender_sources_status_2026-06-01.csv"
+        csv_path.write_text("кто;что\nA;B\n", encoding="utf-8")
+        status_path.write_text("источник;статус\nzakupki.gov.ru;собрано\n", encoding="utf-8")
+        with patch.object(self.backend, "run_tender_pipeline_snapshot", return_value={
+            "target_date": "01.06.2026",
+            "run_dir": str(fake_dir),
+            "summary_path": str(fake_dir / "last_run_summary.json"),
+            "summary": {"total_rows": 1, "by_source": {"zakupki.gov.ru": 1}, "status_by_source": {"zakupki.gov.ru": "собрано"}},
+            "csv_attachment": self.backend.build_existing_file_attachment(str(csv_path), source="tender_pipeline"),
+            "status_attachment": self.backend.build_existing_file_attachment(str(status_path), kind="collection_status_artifact", source="tender_pipeline"),
+        }):
+            reply_text, meta = self.backend.execute_tender_collection_contract(contract)
+        self.assertEqual(meta.get("message_kind"), "collection_execution_result")
+        self.assertEqual(meta.get("downstream"), "chat:tender_collection_result")
+        source_list = meta.get("task_source_list") or {}
+        self.assertEqual(source_list.get("kind"), "tender_sources")
+        self.assertTrue(Path(source_list.get("path")).exists())
+        payload = json.loads(Path(source_list.get("path")).read_text(encoding="utf-8"))
+        self.assertIn("zakupki.gov.ru", payload.get("requested_sources") or [])
+        attachments = meta.get("attachments") or []
+        self.assertEqual(len(attachments), 2)
+        self.assertTrue(Path(attachments[0].get("local_path")).exists())
+        self.assertIn("Файл выгрузки", reply_text)
+
+    def test_execute_web_collection_contract_creates_real_csv_artifact(self):
+        text = "Собери данные с https://example.org и https://example.com в csv по теме test dataset с полями title, summary"
+        contract = self.backend.build_collection_contract_meta(text, None)
+        documents = [
+            {
+                "requested_url": "https://example.org",
+                "final_url": "https://example.org",
+                "title": "Example Org",
+                "text": "Example Org text about test dataset and overview.",
+            },
+            {
+                "requested_url": "https://example.com",
+                "final_url": "https://example.com",
+                "title": "Example Com",
+                "text": "Example Com text about dataset details.",
+            },
+        ]
+        with patch.object(self.backend, "fetch_web_source_document", side_effect=documents), patch.object(
+            self.backend,
+            "call_hermes_messages",
+            return_value=(json.dumps({"rows": [
+                {"source_url": "https://example.org", "title": "Example Org", "summary": "overview"},
+                {"source_url": "https://example.com", "title": "Example Com", "summary": "details"},
+            ]}, ensure_ascii=False), {}),
+        ):
+            reply_text, meta = self.backend.execute_web_collection_contract(contract)
+        self.assertEqual(meta.get("message_kind"), "collection_execution_result")
+        self.assertEqual(meta.get("downstream"), "chat:web_collection_result")
+        attachments = meta.get("attachments") or []
+        self.assertEqual(len(attachments), 1)
+        attachment = attachments[0]
+        self.assertTrue(Path(attachment.get("local_path")).exists())
+        csv_text = Path(attachment.get("local_path")).read_text(encoding="utf-8")
+        self.assertIn("title,summary,source_url", csv_text)
+        self.assertIn("Example Org", csv_text)
+        self.assertIn("Файл:", reply_text)
+
+    def test_execute_web_collection_contract_returns_dashboard_result_for_dashboard_output(self):
+        text = "Собери данные из интернета по теме LegalAI и построй дашборд с полями компания, type, summary"
+        contract = self.backend.build_collection_contract_meta(text, None)
+        self.assertEqual(contract.get("subject"), "LegalAI")
+        self.assertEqual(contract.get("output_format"), "dashboard")
+        self.assertEqual(contract.get("source_kind"), "web")
+        self.assertFalse(contract.get("missing_fields"))
+
+        market_text = "Собери из интернета данные по рынку LegalAI и дай дашборд."
+        market_contract = self.backend.build_collection_contract_meta(market_text, None)
+        self.assertEqual(market_contract.get("subject"), "LegalAI")
+        self.assertEqual(market_contract.get("output_format"), "dashboard")
+        self.assertEqual(market_contract.get("source_kind"), "web")
+        self.assertFalse(market_contract.get("missing_fields"))
+
+        documents = [
+            {
+                "requested_url": "https://legal.example/one",
+                "final_url": "https://legal.example/one",
+                "title": "Legal One",
+                "text": "Legal One platform for contract review.",
+            },
+            {
+                "requested_url": "https://legal.example/two",
+                "final_url": "https://legal.example/two",
+                "title": "Legal Two",
+                "text": "Legal Two platform for legal workflow automation.",
+            },
+        ]
+        llm_payload = {
+            "reply_text": "Собрала данные и подготовила dashboard по теме LegalAI.",
+            "dashboard": {
+                "title": "LegalAI overview",
+                "summary_cards": [{"label": "Компаний", "value": "2", "note": "demo"}],
+                "sections": [{"title": "Сегменты", "items": [{"label": "Contract review", "value": "1"}, {"label": "Workflow", "value": "1"}]}],
+                "sources": [{"label": "Legal One", "url": "https://legal.example/one"}],
+            },
+        }
+        with patch.object(self.backend, "search_web_source_candidates", return_value=["https://legal.example/one", "https://legal.example/two"]), patch.object(
+            self.backend,
+            "fetch_web_source_document",
+            side_effect=documents,
+        ), patch.object(
+            self.backend,
+            "call_hermes_messages",
+            side_effect=[
+                (json.dumps({"rows": [
+                    {"source_url": "https://legal.example/one", "компания": "Legal One", "type": "Contract review", "summary": "overview"},
+                    {"source_url": "https://legal.example/two", "компания": "Legal Two", "type": "Workflow", "summary": "overview"},
+                ]}, ensure_ascii=False), {}),
+                (json.dumps(llm_payload, ensure_ascii=False), {}),
+            ],
+        ):
+            reply_text, meta = self.backend.execute_web_collection_contract(contract)
+        self.assertEqual(meta.get("message_kind"), "dashboard_result")
+        self.assertEqual(meta.get("dashboard_builder"), "collection_execution_dashboard")
+        self.assertTrue((meta.get("downstream") or "").startswith("dashboard:"))
+        self.assertEqual((meta.get("dashboard") or {}).get("kind"), "external_research_dashboard")
+        self.assertGreaterEqual(len((meta.get("dashboard") or {}).get("sections") or []), 1)
+        self.assertIn("dashboard", reply_text.lower())
+
+    def test_post_message_dispatches_chat_task_immediately(self):
+        with self.backend.app.test_client() as client:
+            with self.backend.db_connect() as conn:
+                token = self.backend.issue_session(conn, 1)
+            thread_response = client.post(
+                '/api/threads',
+                headers=self.auth_headers(token),
+                json={'title': 'Immediate dispatch', 'preview': 'Preview'},
+            )
+            self.assertEqual(thread_response.status_code, 201)
+            thread_id = thread_response.get_json()['thread']['id']
+            with patch.object(self.backend, 'dispatch_chat_task_now', return_value=True) as dispatch_mock:
+                response = client.post(
+                    f'/api/threads/{thread_id}/messages',
+                    headers=self.auth_headers(token),
+                    json={'content': 'Расскажи про Flatpak'},
+                )
+        self.assertEqual(response.status_code, 201)
+        payload = response.get_json()
+        dispatch_mock.assert_called_once_with(payload['chat_task']['id'])
+
+    def test_process_chat_task_collection_route_preempts_dashboard_and_recurring(self):
+        with self.backend.db_connect() as conn:
+            user_row = conn.execute("SELECT id FROM users WHERE email = ?", ("misha@demo.local",)).fetchone()
+        user_id = int(user_row["id"])
+        thread_id, message_ids = self.create_thread_with_messages(
+            user_id,
+            "Collection priority",
+            [
+                (
+                    "user",
+                    "Собери данные с https://example.org в csv по теме LegalAI с полями title, summary и поставь еженедельный мониторинг",
+                    {"user_text": "Собери данные с https://example.org в csv по теме LegalAI с полями title, summary и поставь еженедельный мониторинг"},
+                ),
+                ("assistant", "Готовлю ответ…", {"message_kind": "processing_status", "pending": True}),
+            ],
+        )
+        user_message_id = message_ids[0]
+        assistant_message_id = message_ids[1]
+        with self.backend.db_connect() as conn:
+            baseline_jobs = conn.execute("SELECT COUNT(*) AS cnt FROM jobs WHERE user_id = ?", (user_id,)).fetchone()["cnt"]
+            ts = self.backend.now_iso()
+            task_id = int(
+                conn.execute(
+                    """
+                    INSERT INTO chat_tasks (
+                        thread_id, user_id, user_message_id, assistant_message_id, status, request_policy_json, created_at, started_at, finished_at, last_error
+                    ) VALUES (?, ?, ?, ?, 'pending', ?, ?, NULL, NULL, '') RETURNING id
+                    """,
+                    (thread_id, user_id, user_message_id, assistant_message_id, "{}", ts),
+                ).fetchone()[0]
+            )
+        with patch.object(self.backend, "execute_web_collection_contract", return_value=(
+            "Готово. Собрала данные.",
+            {"message_kind": "collection_execution_result", "downstream": "chat:web_collection_result", "attachments": []},
+        )) as execute_mock, patch.object(self.backend, "maybe_build_dashboard_reply", wraps=self.backend.maybe_build_dashboard_reply) as dashboard_mock, patch.object(
+            self.backend,
+            "maybe_create_recurring_job_from_chat",
+            wraps=self.backend.maybe_create_recurring_job_from_chat,
+        ) as recurring_mock:
+            self.assertTrue(self.backend.process_chat_task(task_id))
+        self.assertEqual(execute_mock.call_count, 1)
+        self.assertEqual(dashboard_mock.call_count, 0)
+        self.assertEqual(recurring_mock.call_count, 0)
+        with self.backend.db_connect() as conn:
+            assistant_message = conn.execute("SELECT meta_json FROM messages WHERE id = ?", (assistant_message_id,)).fetchone()
+            jobs_after = conn.execute("SELECT COUNT(*) AS cnt FROM jobs WHERE user_id = ?", (user_id,)).fetchone()["cnt"]
+        self.assertEqual(json.loads(assistant_message["meta_json"])["message_kind"], "collection_execution_result")
+        self.assertEqual(jobs_after, baseline_jobs)
+
+    def test_generic_web_collection_contract_does_not_require_explicit_urls(self):
+        text = "Собери информацию из источников в интернете в csv по теме LegalAI с полями компания, продукт, ссылка, summary"
+        contract = self.backend.build_collection_contract_meta(text, None)
+        self.assertEqual(contract.get("source_kind"), "web")
+        self.assertEqual(contract.get("output_format"), "csv")
+        self.assertEqual(contract.get("subject"), "LegalAI")
+        self.assertEqual(contract.get("fields"), ["компания", "продукт", "ссылка", "summary"])
+        self.assertNotIn("список URL / сайтов", contract.get("missing_fields") or [])
+
+    def test_combined_collection_request_extracts_analysis_layers(self):
+        text = "Собери данные из источников в интернете в csv по теме LegalAI, классифицируй компании по типу и подбери похожие продукты с полями компания, тип, похожий_продукт, summary"
+        contract = self.backend.build_collection_contract_meta(text)
+        self.assertEqual(contract.get("source_kind"), "web")
+        self.assertEqual(contract.get("output_format"), "csv")
+        self.assertEqual(contract.get("subject"), "LegalAI")
+        self.assertCountEqual(contract.get("analysis_modes") or [], ["classification", "selection", "comparison"])
+        self.assertEqual((contract.get("task_layers") or {}).get("root_class"), "data_pipeline")
+        self.assertEqual((contract.get("task_layers") or {}).get("stages"), ["acquisition", "analysis", "delivery"])
+
+    def test_attach_assistant_token_accounting_uses_exact_usage_when_available(self):
+        meta = self.backend.attach_assistant_token_accounting(
+            {"usage": {"prompt_tokens": 111, "completion_tokens": 29, "total_tokens": 140}},
+            "Короткий ответ",
+        )
+        accounting = meta.get("token_accounting") or {}
+        self.assertEqual(accounting.get("prompt_tokens"), 111)
+        self.assertEqual(accounting.get("completion_tokens"), 29)
+        self.assertEqual(accounting.get("total_tokens"), 140)
+        self.assertTrue(accounting.get("llm_usage_exact"))
+        self.assertGreater(accounting.get("response_text_tokens_estimated") or 0, 0)
+
+    def test_process_chat_task_collection_result_stores_token_accounting(self):
+        with self.backend.db_connect() as conn:
+            user_row = conn.execute("SELECT id FROM users WHERE email = ?", ("misha@demo.local",)).fetchone()
+        user_id = int(user_row["id"])
+        thread_id, message_ids = self.create_thread_with_messages(
+            user_id,
+            "Token accounting dashboard clarification",
+            [
+                ("user", "Сделай дашборд по теме LegalAI", {"user_text": "Сделай дашборд по теме LegalAI"}),
+                ("assistant", "⏳", {"pending": True, "processing_status": "pending"}),
+            ],
+        )
+        with self.backend.db_connect() as conn:
+            ts = self.backend.now_iso()
+            cur = conn.execute(
+                """
+                INSERT INTO chat_tasks (
+                    thread_id, user_id, user_message_id, assistant_message_id, status, request_policy_json, created_at, started_at, finished_at, last_error
+                ) VALUES (?, ?, ?, ?, 'pending', ?, ?, NULL, NULL, '') RETURNING id
+                """,
+                (thread_id, user_id, message_ids[0], message_ids[1], "{}", ts),
+            )
+            task_id = int(cur.fetchone()[0])
+
+        self.assertTrue(self.backend.process_chat_task(task_id))
+
+        with self.backend.db_connect() as conn:
+            assistant_message = conn.execute("SELECT meta_json FROM messages WHERE id = ?", (message_ids[1],)).fetchone()
+        meta = json.loads(assistant_message["meta_json"] or "{}")
+        accounting = meta.get("token_accounting") or {}
+        self.assertGreater(accounting.get("response_text_tokens_estimated") or 0, 0)
+        self.assertFalse(accounting.get("llm_usage_exact"))
+        self.assertEqual(meta.get("message_kind"), "dashboard_result")
+        self.assertTrue((meta.get("downstream") or "").startswith("dashboard:"))
+
+    def test_attachment_analysis_file_request_routes_as_collection_pipeline(self):
+        text = "Проанализируй эти файлы, классифицируй записи по типам и отдай csv с полями тип, summary"
+        attachments = [{"original_name": "input.txt", "relative_path": "uploads/demo/input.txt", "mime_type": "text/plain"}]
+        self.assertTrue(self.backend.looks_like_collection_request(text, attachments))
+        contract = self.backend.build_collection_contract_meta(text, attachments)
+        self.assertEqual(contract.get("source_kind"), "attachment")
+        self.assertEqual(contract.get("output_format"), "csv")
+        self.assertEqual(contract.get("analysis_modes"), ["classification"])
+        self.assertEqual((contract.get("task_layers") or {}).get("stages"), ["acquisition", "analysis", "delivery"])
+
+    def test_enrich_assistant_meta_sets_chat_response_kind_for_generic_llm_reply(self):
+        text, meta = self.backend.enrich_assistant_meta(
+            {"downstream": "hermes-api-server", "hermes_model": "demo-model"},
+            "Готовый аналитический ответ.",
+            message_id=123,
+        )
+        self.assertEqual(text, "Готовый аналитический ответ.")
+        self.assertEqual(meta.get("message_kind"), "chat_response")
+
+    def test_uploaded_file_analysis_request_completes_with_collection_artifact(self):
+        email = f"upload-smoke-{int(time.time() * 1000)}@demo.local"
+        self.create_user(email)
+        token = self.login(email)
+        thread = self.client.post("/api/threads", headers=self.auth_headers(token), json={"title": "Upload analysis"})
+        self.assertEqual(thread.status_code, 201)
+        thread_id = thread.get_json()["thread"]["id"]
+        with patch.object(
+            self.backend,
+            "call_hermes_messages",
+            return_value=(json.dumps({"rows": [
+                {"source_url": "note.txt", "тип": "contract", "summary": "Alpha contract"},
+                {"source_url": "note.txt", "тип": "litigation", "summary": "Beta litigation"},
+            ]}, ensure_ascii=False), {}),
+        ):
+            upload_message = self.client.post(
+                f"/api/threads/{thread_id}/messages",
+                headers=self.auth_headers(token),
+                data={
+                    "content": "Собери из этих файлов csv, классифицируй записи по типам и отдай файл с полями тип, summary",
+                    "files": (io.BytesIO("Alpha contract\nBeta litigation".encode("utf-8")), "note.txt"),
+                },
+                content_type='multipart/form-data',
+            )
+            self.assertEqual(upload_message.status_code, 201)
+            body = upload_message.get_json()
+            self.assertEqual(body["assistant_message"]["meta"]["message_kind"], "processing_status")
+            for _ in range(20):
+                final_message = self.client.get(f"/api/threads/{thread_id}", headers=self.auth_headers(token)).get_json()["messages"][-1]
+                if final_message["meta"].get("message_kind") != "processing_status":
+                    break
+                time.sleep(0.05)
+            else:
+                self.fail("uploaded file analysis task did not finish in time")
+        self.assertEqual(final_message["meta"]["message_kind"], "collection_execution_result")
+        attachments = final_message["meta"].get("attachments") or []
+        self.assertEqual(len(attachments), 1)
+        csv_text = Path(attachments[0]["local_path"]).read_text(encoding="utf-8")
+        self.assertIn("тип,summary,source_url", csv_text)
+        self.assertIn("contract", csv_text)
+
+    def test_execute_web_collection_contract_searches_sources_when_urls_not_provided(self):
+        text = "Собери информацию из источников в интернете в csv по теме LegalAI с полями компания, продукт, ссылка, summary"
+        contract = self.backend.build_collection_contract_meta(text, None)
+        documents = [
+            {
+                "requested_url": "https://legal.example/one",
+                "final_url": "https://legal.example/one",
+                "title": "Legal One",
+                "text": "Legal One overview about LegalAI products.",
+            },
+            {
+                "requested_url": "https://legal.example/two",
+                "final_url": "https://legal.example/two",
+                "title": "Legal Two",
+                "text": "Legal Two overview about LegalAI products.",
+            },
+        ]
+        with patch.object(self.backend, "search_web_source_candidates", return_value=["https://legal.example/one", "https://legal.example/two"]), patch.object(
+            self.backend,
+            "fetch_web_source_document",
+            side_effect=documents,
+        ), patch.object(
+            self.backend,
+            "call_hermes_messages",
+            return_value=(json.dumps({"rows": [
+                {"source_url": "https://legal.example/one", "компания": "Legal One", "продукт": "Suite", "ссылка": "https://legal.example/one", "summary": "overview"},
+                {"source_url": "https://legal.example/two", "компания": "Legal Two", "продукт": "Flow", "ссылка": "https://legal.example/two", "summary": "overview"},
+            ]}, ensure_ascii=False), {}),
+        ):
+            reply_text, meta = self.backend.execute_web_collection_contract(contract)
+        self.assertEqual(meta.get("message_kind"), "collection_execution_result")
+        manifest = meta.get("task_source_list") or {}
+        self.assertEqual(manifest.get("kind"), "web_sources")
+        self.assertEqual(len(manifest.get("items") or []), 2)
+        self.assertIn("Legal One", Path((meta.get("attachments") or [])[0]["local_path"]).read_text(encoding="utf-8"))
+        self.assertIn("Файл:", reply_text)
+
+    def test_search_web_source_candidates_via_hermes_cli_parses_json_urls(self):
+        completed = type("Completed", (), {"returncode": 0, "stdout": 'session_id: abc\n["https://legal.example/one", "https://legal.example/two"]', "stderr": ""})()
+        with patch.object(self.backend.shutil, "which", return_value="/usr/bin/hermes"), patch.object(self.backend.subprocess, "run", return_value=completed):
+            urls = self.backend.search_web_source_candidates_via_hermes_cli("LegalAI", limit=5)
+        self.assertEqual(urls, ["https://legal.example/one", "https://legal.example/two"])
+
+    def test_search_web_source_candidates_via_hermes_cli_uses_explicit_home_bin_fallback(self):
+        completed = type("Completed", (), {"returncode": 0, "stdout": '["https://legal.example/one"]', "stderr": ""})()
+        with patch.object(self.backend.shutil, "which", return_value=None), patch.object(self.backend.os.path, "isfile", return_value=True), patch.object(self.backend.os, "access", return_value=True), patch.object(self.backend.subprocess, "run", return_value=completed) as run_mock:
+            urls = self.backend.search_web_source_candidates_via_hermes_cli("LegalAI", limit=5)
+        self.assertEqual(urls, ["https://legal.example/one"])
+        self.assertIn("/home/hermes/.local/bin/hermes", run_mock.call_args.args[0])
+
+    def test_build_web_search_queries_expands_camelcase_subject(self):
+        contract = {"subject": "LegalAI", "fields": ["компания", "продукт", "ссылка"]}
+        queries = self.backend.build_web_search_queries(contract)
+        self.assertIn("LegalAI", queries)
+        self.assertIn('"LegalAI" OR "Legal AI"', queries)
+        self.assertTrue(any("company product software" in item for item in queries))
+
+    def test_search_web_source_candidates_falls_back_to_bing_after_duckduckgo_challenge(self):
+        ddg_html = '<div class="anomaly-modal__title">Unfortunately, bots use DuckDuckGo too.</div>'
+        bing_html = (
+            '<li class="b_algo">'
+            '<h2><a href="https://www.bing.com/ck/a?!&amp;&amp;u=a1aHR0cHM6Ly9mb3JnZW9mZW1waXJlcy5jb20vc3RhcnQvdmFsaWRhdGU=&amp;ntb=1">Bad</a></h2>'
+            '</li>'
+            '<li class="b_algo">'
+            '<h2><a href="https://www.bing.com/ck/a?!&amp;&amp;u=a1aHR0cHM6Ly9sZWdhbC5leGFtcGxlL29uZQ==&amp;ntb=1">One</a></h2>'
+            '</li>'
+            '<li class="b_algo">'
+            '<h2><a href="https://www.bing.com/ck/a?!&amp;&amp;u=a1aHR0cHM6Ly9sZWdhbC5leGFtcGxlL3R3bw==&amp;ntb=1">Two</a></h2>'
+            '</li>'
+        )
+
+        class DummyResponse:
+            def __init__(self, body: str):
+                self._body = body.encode("utf-8")
+
+            def read(self):
+                return self._body
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, exc_type, exc, tb):
+                return False
+
+        with patch.object(self.backend.urllib.request, "urlopen", side_effect=[DummyResponse(ddg_html), DummyResponse(bing_html)]):
+            urls = self.backend.search_web_source_candidates("LegalAI", limit=5)
+        self.assertEqual(urls[:2], ["https://legal.example/one", "https://legal.example/two"])
+        self.assertTrue(all("forgeofempires" not in url for url in urls))
+
+    def test_select_relevant_web_documents_prefers_subject_matching_docs(self):
+        contract = {"subject": "LegalAI"}
+        docs = [
+            {"requested_url": "https://example.com/privacy", "final_url": "https://example.com/privacy", "title": "Privacy statement", "text": "general privacy text"},
+            {"requested_url": "https://legal.example/overview", "final_url": "https://legal.example/overview", "title": "LegalAI platform overview", "text": "LegalAI platform for legal operations and contract review."},
+        ]
+        selected = self.backend.select_relevant_web_documents(contract, docs)
+        self.assertEqual(len(selected), 1)
+        self.assertEqual(selected[0]["final_url"], "https://legal.example/overview")
+
+    def test_execute_web_collection_contract_skips_forbidden_source_if_others_succeed(self):
+        text = "Собери информацию из источников в интернете в csv по теме LegalAI с полями компания, продукт, ссылка, summary"
+        contract = self.backend.build_collection_contract_meta(text, None)
+        good_doc = {
+            "requested_url": "https://legal.example/good",
+            "final_url": "https://legal.example/good",
+            "title": "Legal Good",
+            "text": "Legal Good overview about LegalAI products.",
+        }
+        with patch.object(self.backend, "search_web_source_candidates", return_value=["https://bad.example/blocked", "https://legal.example/good"]), patch.object(
+            self.backend,
+            "fetch_web_source_document",
+            side_effect=[urllib.error.HTTPError("https://bad.example/blocked", 403, "Forbidden", hdrs=None, fp=io.BytesIO(b"")), good_doc],
+        ), patch.object(
+            self.backend,
+            "call_hermes_messages",
+            return_value=(json.dumps({"rows": [
+                {"source_url": "https://legal.example/good", "компания": "Legal Good", "продукт": "Suite", "ссылка": "https://legal.example/good", "summary": "overview"},
+            ]}, ensure_ascii=False), {}),
+        ):
+            reply_text, meta = self.backend.execute_web_collection_contract(contract)
+        self.assertEqual(meta.get("message_kind"), "collection_execution_result")
+        self.assertEqual(len(meta.get("web_sources") or []), 1)
+        self.assertEqual(len(meta.get("web_sources_skipped") or []), 1)
+        self.assertIn("Пропущено источников: 1", reply_text)
+
+    def test_execute_attachment_collection_contract_creates_real_csv_artifact(self):
+        text = "Собери из этих файлов в csv по теме проект КП с полями workstream, estimate_hours, source_note"
+        attachments = [
+            {
+                "original_name": "tz.txt",
+                "relative_path": "uploads/demo/tz.txt",
+                "mime_type": "text/plain",
+                "text_extracted": True,
+                "preview_text": "ТЗ по внедрению CRM",
+                "extracted_text": "Нужно внедрение CRM, интеграция с 1С, обучение пользователей.",
+            },
+            {
+                "original_name": "prior-kp.txt",
+                "relative_path": "uploads/demo/prior-kp.txt",
+                "mime_type": "text/plain",
+                "text_extracted": True,
+                "preview_text": "Прошлое КП",
+                "extracted_text": "В похожем проекте были workstreams: discovery, integration, training.",
+            },
+        ]
+        contract = self.backend.build_collection_contract_meta(text, attachments)
+        with patch.object(
+            self.backend,
+            "call_hermes_messages",
+            return_value=(json.dumps({"rows": [
+                {"source_url": "tz.txt", "workstream": "integration", "estimate_hours": "120", "source_note": "1С integration"},
+                {"source_url": "prior-kp.txt", "workstream": "training", "estimate_hours": "24", "source_note": "analogue"},
+            ]}, ensure_ascii=False), {}),
+        ):
+            reply_text, meta = self.backend.execute_attachment_collection_contract(contract, attachments)
+        self.assertEqual(meta.get("message_kind"), "collection_execution_result")
+        self.assertEqual(meta.get("downstream"), "chat:attachment_collection_result")
+        bundle = meta.get("task_source_list") or {}
+        self.assertEqual(bundle.get("kind"), "attachment_bundle")
+        csv_text = Path((meta.get("attachments") or [])[0]["local_path"]).read_text(encoding="utf-8")
+        self.assertIn("workstream,estimate_hours,source_note,source_url", csv_text)
+        self.assertIn("integration", csv_text)
+        self.assertIn("Файлов в bundle: 2", reply_text)
+
+    def test_execute_api_collection_contract_creates_real_csv_artifact(self):
+        text = "Собери через API https://api.example.test/items в csv по теме catalog с полями id, name, status"
+        contract = self.backend.build_collection_contract_meta(text, None)
+        payload = [{"id": 1, "name": "Alpha", "status": "active"}, {"id": 2, "name": "Beta", "status": "draft"}]
+        with patch.object(self.backend, "fetch_api_source_payload", return_value=("https://api.example.test/items", payload)):
+            reply_text, meta = self.backend.execute_api_collection_contract(contract)
+        self.assertEqual(meta.get("message_kind"), "collection_execution_result")
+        self.assertEqual(meta.get("downstream"), "chat:api_collection_result")
+        task_config = meta.get("task_source_list") or {}
+        self.assertEqual(task_config.get("kind"), "api_task")
+        csv_text = Path((meta.get("attachments") or [])[0]["local_path"]).read_text(encoding="utf-8")
+        self.assertIn("id,name,status,source_url", csv_text)
+        self.assertIn("Alpha", csv_text)
+        self.assertIn("API-источников обработано: 1", reply_text)
+
+    def test_proposal_intent_is_not_triggered_for_regular_collection_request(self):
+        text = "Собери данные с https://example.org в csv по теме LegalAI с полями title, summary"
+        contract = self.backend.build_collection_contract_meta(text, None)
+        self.assertEqual(contract.get("composition_mode"), "")
+        self.assertEqual(contract.get("output_format"), "csv")
+
+    def test_proposal_contract_extracts_budget_timeline_and_team_hints(self):
+        text = "Подготовь проект КП по внедрению CRM: бюджет до 3 млн руб, срок 8 недель, команда solution architect и backend developer"
+        contract = self.backend.build_collection_contract_meta(text, None)
+        self.assertEqual(contract.get("composition_mode"), "proposal_bundle")
+        self.assertIn("3 млн", contract.get("budget_hint") or "")
+        self.assertIn("8 недель", contract.get("timeline_hint") or "")
+        self.assertTrue(any("solution architect" in item.lower() or "backend developer" in item.lower() for item in (contract.get("team_constraints") or [])))
+
+    def test_execute_attachment_collection_contract_creates_proposal_artifact_only_on_explicit_intent(self):
+        text = "Собери из этих файлов и подготовь проект КП с оценкой стоимости и ресурсов по теме CRM внедрение"
+        attachments = [
+            {
+                "original_name": "tz.txt",
+                "relative_path": "uploads/demo/tz.txt",
+                "mime_type": "text/plain",
+                "text_extracted": True,
+                "preview_text": "ТЗ по внедрению CRM",
+                "extracted_text": "Нужно внедрение CRM, интеграция с 1С, обучение пользователей.",
+            },
+            {
+                "original_name": "prior-kp.txt",
+                "relative_path": "uploads/demo/prior-kp.txt",
+                "mime_type": "text/plain",
+                "text_extracted": True,
+                "preview_text": "Прошлое КП",
+                "extracted_text": "В похожем проекте были workstreams: discovery, integration, training.",
+            },
+        ]
+        contract = self.backend.build_collection_contract_meta(text, attachments)
+        self.assertEqual(contract.get("composition_mode"), "proposal_bundle")
+        self.assertEqual(contract.get("output_format"), "md")
+        with patch.object(
+            self.backend,
+            "call_hermes_messages",
+            side_effect=[
+                (json.dumps({"rows": [{"source_url": "tz.txt"}, {"source_url": "prior-kp.txt"}]}, ensure_ascii=False), {}),
+                (json.dumps({
+                    "title": "Проект КП по CRM",
+                    "executive_summary": "Подготовлен черновик КП на основе ТЗ и аналогов.",
+                    "confirmed_facts": ["Есть запрос на внедрение CRM и интеграцию с 1С"],
+                    "analogs": ["В прошлой подаче были discovery, integration, training"],
+                    "hypotheses": ["Оценка часов требует уточнения по числу пользователей"],
+                    "workstreams": [{"name": "Integration", "scope": "1С integration", "estimate_hours": "120", "team_role": "Solution Architect", "notes": "Предварительная оценка"}],
+                    "cost_notes": ["Стоимость зависит от глубины интеграции"],
+                    "resource_plan": ["Architect", "Backend Engineer"],
+                    "risks": ["Неполное ТЗ"],
+                    "open_questions": ["Сколько пользователей в первом контуре?"]
+                }, ensure_ascii=False), {}),
+            ],
+        ):
+            reply_text, meta = self.backend.execute_attachment_collection_contract(contract, attachments)
+        self.assertEqual(meta.get("message_kind"), "collection_composition_result")
+        self.assertEqual(meta.get("downstream"), "chat:attachment_collection_result:proposal")
+        prepared_attachments = meta.get("attachments") or []
+        self.assertGreaterEqual(len(prepared_attachments), 1)
+        proposal_attachment = prepared_attachments[0]
+        self.assertTrue(Path(proposal_attachment.get("local_path")).exists())
+        proposal_text = Path(proposal_attachment.get("local_path")).read_text(encoding="utf-8")
+        self.assertIn("# Проект КП по CRM", proposal_text)
+        self.assertIn("Подтверждённые факты", proposal_text)
+        self.assertIn("Режим: proposal_bundle", reply_text)
+
+    def test_serialize_message_injects_attachment_download_url(self):
+        with self.backend.db_connect() as conn:
+            user_row = conn.execute("SELECT id FROM users WHERE email = ?", ("misha@demo.local",)).fetchone()
+        user_id = int(user_row["id"])
+        thread_id, message_ids = self.create_thread_with_messages(
+            user_id,
+            "Attachment test",
+            [
+                ("assistant", "Готово", {"attachments": [{"original_name": "demo.csv", "local_path": __file__, "mime_type": "text/csv"}]})
+            ],
+        )
+        with self.backend.db_connect() as conn:
+            row = conn.execute("SELECT * FROM messages WHERE id = ?", (message_ids[0],)).fetchone()
+        payload = self.backend.serialize_message(row)
+        attachments = payload.get("meta", {}).get("attachments") or []
+        self.assertEqual(len(attachments), 1)
+        self.assertIn(f"/api/messages/{message_ids[0]}/attachments/0", attachments[0].get("download_url", ""))
 
 
 if __name__ == "__main__":

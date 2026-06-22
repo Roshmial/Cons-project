@@ -1,0 +1,13 @@
+profiles:
+  profile_1:
+    session_name: profile_1
+    mode: task
+    date_from: "2026-06-15"
+    date_to: ''
+    limit_per_channel: 150
+    global_limit: 1000
+    channels:
+      - username: b1_news
+        task_subject: "ИТ-консалтинг"
+      - username: Axenix_Ru
+        task_subject: "ИТ-консалтинг"

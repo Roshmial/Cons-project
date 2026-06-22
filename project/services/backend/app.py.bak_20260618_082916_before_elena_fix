@@ -2,13 +2,10 @@ from __future__ import annotations
 
 import html
 import json
-import math
 import mimetypes
 import os
 import re
 import secrets
-import subprocess
-import sys
 import sqlite3
 import threading
 import uuid
@@ -25,7 +22,6 @@ import urllib.error
 import urllib.parse
 import urllib.request
 import csv
-import base64
 import io
 import shutil
 import zipfile
@@ -35,7 +31,7 @@ from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
 
-from flask import Flask, Response, jsonify, request, send_file, has_request_context
+from flask import Flask, Response, jsonify, request, send_file
 from werkzeug.exceptions import HTTPException
 from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
@@ -59,11 +55,6 @@ try:
     import pptx  # type: ignore
 except Exception:  # pragma: no cover - optional dependency
     pptx = None
-
-try:
-    from bs4 import BeautifulSoup  # type: ignore
-except Exception:  # pragma: no cover - optional dependency
-    BeautifulSoup = None
 
 try:
     from reportlab.lib.pagesizes import A4  # type: ignore
@@ -114,8 +105,6 @@ HERMES_REASONING_MODEL_CANDIDATES_RAW = os.getenv("HERMES_WEB_REASONING_MODEL_CA
 HERMES_API_TIMEOUT = int(os.getenv("HERMES_WEB_HERMES_API_TIMEOUT", "180"))
 HERMES_API_RETRY_TIMEOUT = max(1, int(os.getenv("HERMES_WEB_HERMES_API_RETRY_TIMEOUT", str(HERMES_API_TIMEOUT))))
 HERMES_REASONING_TIMEOUT = max(1, int(os.getenv("HERMES_WEB_REASONING_TIMEOUT", str(HERMES_API_TIMEOUT))))
-TELEGRAM_COLLECTION_API_TIMEOUT = max(60, int(os.getenv("HERMES_WEB_TELEGRAM_COLLECTION_API_TIMEOUT", "420")))
-TELEGRAM_COLLECTION_LOCK_TIMEOUT = max(60, int(os.getenv("HERMES_WEB_TELEGRAM_COLLECTION_LOCK_TIMEOUT", str(TELEGRAM_COLLECTION_API_TIMEOUT + 120))))
 HERMES_REASONING_ROUTING_ENABLED = os.getenv("HERMES_WEB_REASONING_ROUTING_ENABLED", "1") != "0"
 HERMES_REASONING_MANUAL_ONLY = os.getenv("HERMES_WEB_REASONING_MANUAL_ONLY", "0") == "1"
 HERMES_REASONING_ENABLED = os.getenv("HERMES_WEB_REASONING_ENABLED", "1") != "0"
@@ -147,21 +136,6 @@ REFERENCE_DATASET_ASSISTANT_TONES = "assistant_tones"
 REFERENCE_DATASET_ASSISTANT_ANSWER_DEPTHS = "assistant_answer_depths"
 REFERENCE_DATASET_ASSISTANT_INTERACTION_MODES = "assistant_interaction_modes"
 REFERENCE_DATASET_DATA_SOURCES = "data_sources"
-CHAT_ROUTING_POLICY_PATH = SERVICE_DIR / "policies" / "chat_routing_policy.json"
-
-
-def load_chat_routing_policy() -> dict[str, Any]:
-    payload = json.loads(CHAT_ROUTING_POLICY_PATH.read_text(encoding="utf-8"))
-    if not isinstance(payload, dict):
-        raise RuntimeError(f"Invalid chat routing policy at {CHAT_ROUTING_POLICY_PATH}")
-    return payload
-
-
-CHAT_ROUTING_POLICY = load_chat_routing_policy()
-MESSAGE_EXPORT_POLICY = CHAT_ROUTING_POLICY.get("message_export") or {}
-COLLECTION_ROUTING_POLICY = CHAT_ROUTING_POLICY.get("collection") or {}
-MONITORING_ROUTING_POLICY = CHAT_ROUTING_POLICY.get("monitoring") or {}
-FOLLOWUP_ROUTING_POLICY = CHAT_ROUTING_POLICY.get("followup") or {}
 MESSAGE_EXPORT_FORMATS = {"txt", "md", "html", "json", "csv", "xml", "rtf", "docx", "xlsx", "pdf"}
 MESSAGE_EXPORT_MIME_TYPES = {
     "txt": "text/plain; charset=utf-8",
@@ -176,15 +150,79 @@ MESSAGE_EXPORT_MIME_TYPES = {
     "pdf": "application/pdf",
 }
 MESSAGE_EXPORT_FORMAT_KEYWORDS = {
-    export_format: tuple(keywords)
-    for export_format, keywords in (MESSAGE_EXPORT_POLICY.get("format_keywords") or {}).items()
+    "pdf": ("pdf",),
+    "docx": ("docx", "word"),
+    "xlsx": ("xlsx", "excel"),
+    "csv": ("csv",),
+    "json": ("json",),
+    "xml": ("xml",),
+    "html": ("html",),
+    "rtf": ("rtf",),
+    "md": ("md", "markdown"),
+    "txt": ("txt", "текстов"),
 }
-MESSAGE_EXPORT_GENERIC_DOCX_MARKERS = tuple(MESSAGE_EXPORT_POLICY.get("generic_docx_markers") or [])
-MESSAGE_EXPORT_NON_CONTENT_MARKERS = tuple(MESSAGE_EXPORT_POLICY.get("non_content_markers") or [])
-MESSAGE_EXPORT_DISCUSSION_MARKERS = tuple(MESSAGE_EXPORT_POLICY.get("discussion_markers") or [])
-MESSAGE_EXPORT_ACTION_MARKERS = tuple(MESSAGE_EXPORT_POLICY.get("action_markers") or [])
-MESSAGE_EXPORT_TARGET_MARKERS = tuple(MESSAGE_EXPORT_POLICY.get("target_markers") or [])
-MESSAGE_EXPORT_REQUEST_PATTERNS = tuple(MESSAGE_EXPORT_POLICY.get("request_patterns") or [])
+MESSAGE_EXPORT_GENERIC_DOCX_MARKERS = (
+    "в файл",
+    "сразу в файл",
+    "лучше в файл",
+    "файлом",
+    "скач",
+    "пришли файл",
+    "пришли документ",
+    "отправь файл",
+    "отправь документ",
+    "направь файл",
+    "направь документ",
+    "дай файл",
+    "давай файл",
+    "дай документ",
+    "давай документ",
+)
+MESSAGE_EXPORT_NON_CONTENT_MARKERS = (
+    "не могу создавать бинарные файлы",
+    "инструмент для генерации бинарных файлов",
+    "пытался создать текстовые файлы",
+    "присвоить им расширение",
+    "ошибочными обещаниями",
+    "вставить в word",
+    "прикрепить файл",
+    "признаю ошибку",
+    "признаю: ситуация критическая",
+    "исправляю ситуацию",
+    "критический технический сбой генерации",
+)
+MESSAGE_EXPORT_DISCUSSION_MARKERS = (
+    "исправь баг",
+    "исправить баг",
+    "некорректной генераци",
+    "генераци файлов",
+    "создаваться автоматически",
+    "не просил ничего собирать",
+    "триггер на слово",
+    "включи лог",
+    "включить лог",
+    "проверь баг",
+    "скорректируй",
+    "алгоритм",
+    "логик",
+)
+MESSAGE_EXPORT_ACTION_MARKERS = (
+    "отправ",
+    "пришл",
+    "направ",
+    "дай",
+    "давай",
+    "собер",
+    "сформир",
+    "выгруз",
+    "экспорт",
+)
+MESSAGE_EXPORT_TARGET_MARKERS = (
+    "файл",
+    "документ",
+    "docx",
+    "word",
+)
 MESSAGE_EXPORT_LIMITATION_REPLY_MARKERS = (
     *MESSAGE_EXPORT_NON_CONTENT_MARKERS,
     "не могу гарантировать создание",
@@ -223,46 +261,52 @@ GENERIC_LLM_BAD_REPLY_MARKERS = (
     "ошибка при попытке записать файл",
     "повторю операцию",
 )
-SHORT_PROBLEM_FOLLOWUP_PATTERNS = tuple(FOLLOWUP_ROUTING_POLICY.get("short_problem_patterns") or [])
-MESSAGE_EXPORT_REQUEST_STOPWORDS = set(MESSAGE_EXPORT_POLICY.get("request_stopwords") or [])
-COLLECTION_STRUCTURED_FORMATS = set(COLLECTION_ROUTING_POLICY.get("structured_formats") or [])
-COLLECTION_PROPOSAL_TRIGGER_PATTERNS = tuple(COLLECTION_ROUTING_POLICY.get("proposal_trigger_patterns") or [])
-COLLECTION_COST_PATTERNS = tuple(COLLECTION_ROUTING_POLICY.get("cost_patterns") or [])
-COLLECTION_RESOURCE_PATTERNS = tuple(COLLECTION_ROUTING_POLICY.get("resource_patterns") or [])
-COLLECTION_ESTIMATE_ACTION_PATTERNS = tuple(COLLECTION_ROUTING_POLICY.get("estimate_action_patterns") or [])
-COLLECTION_PROPOSAL_ACTION_PATTERNS = tuple(COLLECTION_ROUTING_POLICY.get("proposal_action_patterns") or [])
-COLLECTION_REQUEST_ACTION_PATTERNS = tuple(COLLECTION_ROUTING_POLICY.get("collection_action_patterns") or [])
-COLLECTION_REQUEST_DATA_TARGET_PATTERNS = tuple(COLLECTION_ROUTING_POLICY.get("collection_data_target_patterns") or [])
-COLLECTION_SOURCE_HINT_PATTERNS = tuple(COLLECTION_ROUTING_POLICY.get("source_hint_patterns") or [])
-COLLECTION_SOURCE_KEYWORD_RULES = tuple(COLLECTION_ROUTING_POLICY.get("source_keyword_rules") or [])
-COLLECTION_SUBJECT_EXPLICIT_PATTERNS = tuple(COLLECTION_ROUTING_POLICY.get("subject_explicit_patterns") or [])
-COLLECTION_SUBJECT_PATTERNS = tuple(COLLECTION_ROUTING_POLICY.get("subject_patterns") or [])
-COLLECTION_FIELD_PATTERNS = tuple(COLLECTION_ROUTING_POLICY.get("field_patterns") or [])
-COLLECTION_FIELD_BLOCK_PATTERN = str(COLLECTION_ROUTING_POLICY.get("field_block_pattern") or "")
-COLLECTION_FIELD_SPLIT_PATTERN = str(COLLECTION_ROUTING_POLICY.get("field_split_pattern") or ",|;|/|\\|")
-COLLECTION_FIELD_TRIM_CHARS = str(COLLECTION_ROUTING_POLICY.get("field_trim_chars") or " \t\n\r.,;:|/\\-—").replace("\\t", "\t").replace("\\n", "\n").replace("\\r", "\r").replace("\\\\", "\\")
-COLLECTION_FIELD_CUTOFF_PATTERN = str(COLLECTION_ROUTING_POLICY.get("field_cutoff_pattern") or "")
-COLLECTION_BUDGET_PATTERNS = tuple(COLLECTION_ROUTING_POLICY.get("budget_patterns") or [])
-COLLECTION_ANALYSIS_ACTION_PATTERNS = tuple(COLLECTION_ROUTING_POLICY.get("analysis_action_patterns") or [])
-COLLECTION_CLASSIFICATION_PATTERNS = tuple(COLLECTION_ROUTING_POLICY.get("classification_patterns") or [])
-COLLECTION_SELECTION_PATTERNS = tuple(COLLECTION_ROUTING_POLICY.get("selection_patterns") or [])
-COLLECTION_COMPARISON_PATTERNS = tuple(COLLECTION_ROUTING_POLICY.get("comparison_patterns") or [])
-COLLECTION_TIMELINE_PATTERNS = tuple(COLLECTION_ROUTING_POLICY.get("timeline_patterns") or [])
-COLLECTION_TEAM_CONSTRAINT_PATTERNS = tuple(COLLECTION_ROUTING_POLICY.get("team_constraint_patterns") or [])
-MONITORING_REQUEST_ACTION_PATTERNS = tuple(MONITORING_ROUTING_POLICY.get("request_action_patterns") or [])
-MONITORING_REQUEST_SCHEDULE_PATTERNS = tuple(MONITORING_ROUTING_POLICY.get("request_schedule_patterns") or [])
-MONITORING_REQUEST_TARGET_PATTERNS = tuple(MONITORING_ROUTING_POLICY.get("request_target_patterns") or [])
-MONITORING_FOLLOWUP_TARGET_PATTERNS = tuple(MONITORING_ROUTING_POLICY.get("followup_target_patterns") or [])
-MONITORING_FOLLOWUP_REFERENCE_PATTERNS = tuple(MONITORING_ROUTING_POLICY.get("followup_reference_patterns") or [])
-MONITORING_DEFAULT_SCHEDULE = MONITORING_ROUTING_POLICY.get("default_schedule") or {
-    "schedule_kind": "weekly",
-    "days_of_week": ["mon"],
-    "time_of_day": "09:00",
-    "timezone": "Europe/Moscow",
+MESSAGE_EXPORT_REQUEST_STOPWORDS = {
+    "мне",
+    "пожалуйста",
+    "плиз",
+    "в",
+    "во",
+    "на",
+    "по",
+    "про",
+    "для",
+    "и",
+    "или",
+    "сразу",
+    "просто",
+    "итоговый",
+    "готовый",
+    "виде",
+    "формате",
+    "файла",
+    "файл",
+    "документ",
+    "word",
+    "docx",
+    "pdf",
+    "xlsx",
+    "csv",
+    "json",
+    "xml",
+    "html",
+    "rtf",
+    "md",
+    "txt",
+    "пришли",
+    "пришлите",
+    "отправь",
+    "отправьте",
+    "направь",
+    "направьте",
+    "дай",
+    "давай",
+    "выдай",
+    "собери",
+    "сформируй",
+    "выгрузи",
+    "экспортируй",
 }
-MONITORING_SCHEDULE_KIND_RULES = tuple(MONITORING_ROUTING_POLICY.get("schedule_kinds") or [])
-MONITORING_WEEKDAY_RULES = tuple(MONITORING_ROUTING_POLICY.get("weekday_rules") or [])
-MONITORING_TIME_PATTERN = str(MONITORING_ROUTING_POLICY.get("time_pattern") or r"\b([01]?\d|2[0-3])[:.]([0-5]\d)\b")
 MESSAGE_EXPORT_GENERATE_INTENT_MARKERS = (
     "собери один файл",
     "в одном файле",
@@ -274,19 +318,6 @@ MESSAGE_EXPORT_GENERATE_INTENT_MARKERS = (
     "с суммаризац",
     "где будет summary",
     "with summary",
-)
-SHORT_FOLLOWUP_CONFIRMATION_PATTERNS = (
-    "да, сделай",
-    "да сделай",
-    "сделай",
-    "да, давай",
-    "давай",
-    "запускай",
-    "ок, делай",
-    "ок делай",
-    "хорошо, делай",
-    "хорошо делай",
-    "подтверждаю",
 )
 LLM_USAGE_REASONING_MODEL = "reasoning"
 LLM_USAGE_DEFAULT_MODEL = "default"
@@ -424,11 +455,6 @@ DEFAULT_REFERENCE_DATA: dict[str, dict[str, Any]] = {
                 {"key": "subject", "label": "Тема мониторинга", "type": "text", "placeholder": "Например: LegalAI, multi-agent, Telegram"},
                 {"key": "angle", "label": "Угол обзора", "type": "text", "placeholder": "Рынок, архитектура, конкуренты, риски"},
                 {"key": "output", "label": "Форма результата", "type": "text", "placeholder": "Короткий дайджест, выводы, список действий"},
-            ]},
-            {"item_key": "data_collection", "label": "Сбор данных", "description": "One-shot или повторяемый сбор данных из конкретных источников с фиксированным форматом результата.", "fields": [
-                {"key": "source_kind", "label": "Тип источника", "type": "text", "placeholder": "telegram / tenders / web / media"},
-                {"key": "subject", "label": "Что собираем", "type": "text", "placeholder": "Например: ИТ-закупки или посты по LegalAI"},
-                {"key": "output_format", "label": "Формат результата", "type": "text", "placeholder": "csv / json / xlsx"},
             ]},
             {"item_key": "custom", "label": "Своя задача", "description": "Свободная постановка задачи для регулярного запуска.", "fields": [
                 {"key": "goal", "label": "Что нужно делать", "type": "textarea", "placeholder": "Опиши задачу простыми словами"},
@@ -671,16 +697,13 @@ app = Flask(__name__)
 _scheduler_started = False
 _scheduler_lock = threading.Lock()
 _scheduler_stop = threading.Event()
-_scheduler_thread: threading.Thread | None = None
 _chat_processor_started = False
 _chat_processor_lock = threading.Lock()
 _chat_processor_stop = threading.Event()
-_chat_processor_thread: threading.Thread | None = None
 _running_jobs: set[int] = set()
 _running_jobs_lock = threading.Lock()
 _running_chat_tasks: set[int] = set()
 _running_chat_tasks_lock = threading.Lock()
-_telegram_collection_lock = threading.Lock()
 _session_write_lock = threading.RLock()
 _session_cleanup_state = {"last_run_monotonic": 0.0}
 _interaction_memory_state = {"last_run_monotonic": 0.0}
@@ -2688,33 +2711,8 @@ def trim_summary_followup_sections(reply_text: str) -> str:
     return text.rstrip()
 
 
-def strip_non_executable_action_promises(reply_text: str) -> str:
-    text = safe_text(reply_text)
-    if not text:
-        return ""
-    patterns = [
-        r"(?is)\n{0,2}\*\*что я сделаю сейчас:?\*\*.*$",
-        r"(?im)^\s*что я сделаю сейчас:?\s*$.*",
-        r"(?im)^\s*\d+[.)]\s*(проверю|создам|запущу|соберу|выгружу|настрою)\b.*$",
-        r"(?im)^\s*(проверю|создам|запущу|соберу|выгружу|настрою)\b.*$",
-        r"(?im)^\s*приступаю(?:\s+к\s+[^\n.!?]+)?[.!?]?\s*$",
-    ]
-    cleaned = text
-    for pattern in patterns:
-        cleaned = re.sub(pattern, "", cleaned, flags=re.IGNORECASE | re.MULTILINE | re.DOTALL)
-    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
-    return cleaned.strip()
-
-
 def postprocess_assistant_reply(user_text: str, reply_text: str, meta: dict[str, Any] | None = None) -> str:
     cleaned = sanitize_local_path_leakage(reply_text, meta)
-    meta = meta if isinstance(meta, dict) else {}
-    message_kind = safe_text(meta.get("message_kind")).lower()
-    downstream = safe_text(meta.get("downstream")).lower()
-    generated_file = bool(meta.get("generated_from_request")) or message_kind == "file_response"
-    actionable_route = bool(message_kind in {"dashboard_result", "clarification_request", "approval_request", "collection_contract"} or generated_file or downstream.startswith("dashboard:"))
-    if not actionable_route:
-        cleaned = strip_non_executable_action_promises(cleaned)
     if looks_like_summary_request(user_text):
         cleaned = trim_summary_followup_sections(cleaned)
     return cleaned.strip() or safe_text(reply_text).strip()
@@ -2747,10 +2745,6 @@ def enrich_assistant_meta(meta: dict[str, Any], text: str, *, message_id: int | 
             }
             for index, item in enumerate(attachments)
         ]
-    if not safe_text(payload.get('message_kind')):
-        downstream = safe_text(payload.get('downstream')).lower()
-        if downstream.startswith('hermes-api-server') or payload.get('hermes_model'):
-            payload['message_kind'] = 'chat_response'
     return cleaned_text, payload
 
 
@@ -3421,18 +3415,7 @@ def bulk_update_reference_item_status(
 
 
 def serialize_message(row: sqlite3.Row) -> dict[str, Any]:
-    meta = authorize_attachment_payload(json_loads(row["meta_json"], {})) if has_request_context() else json_loads(row["meta_json"], {})
-    attachments = meta.get('attachments') if isinstance(meta.get('attachments'), list) else []
-    if attachments:
-        normalized_attachments = []
-        request_token = try_get_auth_token() if has_request_context() else None
-        for index, item in enumerate(attachments):
-            if not isinstance(item, dict):
-                normalized_attachments.append(item)
-                continue
-            download_url = safe_text(item.get('download_url')) or f"{API_PREFIX}/messages/{int(row['id'])}/attachments/{index}"
-            normalized_attachments.append({**item, 'download_url': append_access_token(download_url, request_token)})
-        meta = {**meta, 'attachments': normalized_attachments}
+    meta = authorize_attachment_payload(json_loads(row["meta_json"], {}))
     return {
         "id": row["id"],
         "role": row["role"],
@@ -3881,7 +3864,13 @@ def is_message_export_request(text: str) -> bool:
         return False
     if any(marker in lowered for marker in MESSAGE_EXPORT_GENERIC_DOCX_MARKERS):
         return True
-    return regex_matches_any(lowered, MESSAGE_EXPORT_REQUEST_PATTERNS)
+    export_phrases = (
+        r'(?:отправ|пришл|направ|собер|сформир|выгруз|экспорт|выда)\w*\s+(?:мне\s+)?(?:\w+\s+){0,2}(?:файл|документ|docx|word)',
+        r'(?:\w+\s+){0,2}(?:файл|документ|docx|word)\s+(?:мне\s+)?(?:отправ|пришл|направ|выда)\w*',
+        r'(?:дай|давай|выдай)\s+(?:мне\s+)?(?:\w+\s+){0,2}(?:файл|документ)',
+        r'\b(?:в|как)\s+(?:docx|word|pdf|xlsx|csv|md|markdown|txt|html|json|xml)\b',
+    )
+    return any(re.search(pattern, lowered) for pattern in export_phrases)
 
 
 def detect_message_export_format(text: str) -> str | None:
@@ -4004,8 +3993,6 @@ def maybe_build_export_reply(message_rows: list[sqlite3.Row], user_text: str, th
 
 
 def build_generated_file_reply(*, assistant_message_id: int, reply_text: str, reply_meta: dict[str, Any], thread_title: str, export_format: str, created_at: str) -> tuple[str, dict[str, Any]]:
-    if export_format in {"csv", "xlsx", "json", "xml"}:
-        raise ApiError("structured_generated_file_not_supported", 409)
     export_message_row = {
         "id": int(assistant_message_id),
         "created_at": created_at,
@@ -4179,39 +4166,6 @@ def response_looks_like_generic_llm_failure(reply_text: str) -> bool:
     return False
 
 
-def text_cyrillic_ratio(text: str) -> float:
-    raw = safe_text(text)
-    if not raw:
-        return 0.0
-    letters = [ch for ch in raw if ch.isalpha()]
-    if not letters:
-        return 0.0
-    cyrillic = sum(1 for ch in letters if 'а' <= ch.lower() <= 'я' or ch.lower() == 'ё')
-    return cyrillic / max(1, len(letters))
-
-
-def reply_violates_expected_language(reply_text: str, profile: dict[str, Any]) -> bool:
-    language = safe_text(profile.get("language") or "").lower()
-    if language != "ru":
-        return False
-    lowered = safe_text(reply_text).lower()
-    if not lowered:
-        return False
-    ratio = text_cyrillic_ratio(lowered)
-    if ratio >= 0.55:
-        return False
-    foreign_markers = [
-        "based on the",
-        "here is the information",
-        "uma resposta detalhada",
-        "estruturada",
-        "sem enrolação",
-        "conclusão direta",
-        "próximo passo",
-    ]
-    return any(marker in lowered for marker in foreign_markers) or ratio < 0.35
-
-
 def ensure_llm_reply_is_publishable(reply_text: str, *, generated_file: bool = False) -> None:
     if generated_file and response_looks_like_tool_transcript(reply_text):
         raise ApiError("llm_generated_tool_transcript", 502)
@@ -4250,29 +4204,6 @@ def call_generated_file_content(message_rows: list[sqlite3.Row], profile: dict[s
     return reply_text, meta
 
 
-def enforce_russian_retry(messages: list[dict[str, str]], reply_text: str, meta: dict[str, Any], profile: dict[str, Any], *, model_name: str) -> tuple[str, dict[str, Any]]:
-    if not reply_violates_expected_language(reply_text, profile):
-        return reply_text, meta
-    retry_messages = [
-        *messages,
-        {
-            "role": "system",
-            "content": (
-                "Критично: предыдущий ответ ушёл не на русском языке. "
-                "Повтори ответ строго на русском, женским родом, без английских и португальских фрагментов, "
-                "кроме неизбежных технических терминов, команд, URL и названий продуктов."
-            ),
-        },
-    ]
-    retried_text, retried_meta = call_hermes_messages(retry_messages, model_name=model_name)
-    retried_meta = dict(retried_meta or {})
-    retried_meta["language_retry"] = True
-    retried_meta["language_retry_reason"] = "non_russian_output"
-    if reply_violates_expected_language(retried_text, profile):
-        raise ApiError("llm_reply_language_guard_failed", 502)
-    return retried_text, retried_meta
-
-
 def process_chat_task(task_id: int) -> bool:
     with _running_chat_tasks_lock:
         if task_id in _running_chat_tasks:
@@ -4305,33 +4236,10 @@ def process_chat_task(task_id: int) -> bool:
             user_text = json_loads(user_message["meta_json"], {}).get("user_text") or (user_message["content"] if user_message else "")
             requested_export_format = detect_message_export_format(user_text)
             generate_and_attach_file = bool(requested_export_format and is_generate_and_attach_file_request(user_text))
-            export_reply = None
-            collection_reply = build_collection_clarification_or_contract_reply(user_text, attachments)
-            collection_execution_reply = None
-            if collection_reply is not None:
-                collection_execution_reply = maybe_execute_collection_request(conn, task, user_row, message_rows, user_text, attachments)
-            dashboard_reply = None if collection_reply is not None or collection_execution_reply is not None or export_reply is not None else maybe_build_dashboard_reply(conn, user_text, attachments, request_policy)
-            recurring_job_reply = None if collection_reply is not None or collection_execution_reply is not None or export_reply is not None or dashboard_reply is not None else maybe_create_recurring_job_from_chat(conn, task, user_row, message_rows, user_text)
-            if collection_reply is None and collection_execution_reply is None:
-                export_reply = maybe_build_export_reply(message_rows, user_text, thread["title"])
-                if export_reply is not None:
-                    dashboard_reply = None
-                    recurring_job_reply = None
-        if collection_execution_reply is not None:
-            reply_text, meta = collection_execution_reply
-            meta.update({
-                "personalization_used": False,
-                "thread_title": thread["title"],
-                "personalization_preview": "data-collection-execution-route",
-            })
-        elif collection_reply is not None:
-            reply_text, meta = collection_reply
-            meta.update({
-                "personalization_used": False,
-                "thread_title": thread["title"],
-                "personalization_preview": "data-collection-contract-route",
-            })
-        elif export_reply is not None:
+            export_reply = maybe_build_export_reply(message_rows, user_text, thread["title"])
+            dashboard_reply = None if export_reply is not None else maybe_build_dashboard_reply(conn, user_text, attachments, request_policy)
+            recurring_job_reply = None if export_reply is not None or dashboard_reply is not None else maybe_create_recurring_job_from_chat(conn, task, user_row, message_rows, user_text)
+        if export_reply is not None:
             reply_text, meta = export_reply
             meta.update({
                 "personalization_used": False,
@@ -4373,7 +4281,6 @@ def process_chat_task(task_id: int) -> bool:
         with db_connect() as conn:
             reply_text = postprocess_assistant_reply(user_text, reply_text, meta)
             reply_text, meta = enrich_assistant_meta(meta, reply_text, message_id=int(task["assistant_message_id"]))
-            meta = attach_assistant_token_accounting(meta, reply_text)
             meta.update({
                 "pending": False,
                 "processing_status": "completed",
@@ -4413,24 +4320,6 @@ def active_chat_task_slots() -> int:
     with _running_chat_tasks_lock:
         running = len(_running_chat_tasks)
     return max(0, CHAT_PROCESSOR_MAX_CONCURRENCY - running)
-
-
-def dispatch_chat_task_now(task_id: int) -> bool:
-    with _running_chat_tasks_lock:
-        if task_id in _running_chat_tasks:
-            return False
-    with db_connect() as conn:
-        task_row = conn.execute(
-            "UPDATE chat_tasks SET status = 'running', started_at = COALESCE(started_at, ?), last_error = '' WHERE id = ? AND status = 'pending' RETURNING id",
-            (now_iso(), task_id),
-        ).fetchone()
-        if task_row is None:
-            existing = conn.execute("SELECT status FROM chat_tasks WHERE id = ?", (task_id,)).fetchone()
-            if not existing or existing["status"] != "running":
-                return False
-    thread = threading.Thread(target=run_chat_task_background, args=(task_id,), name=f"chat-task-immediate-{task_id}", daemon=True)
-    thread.start()
-    return True
 
 
 def serialize_user_file(row: sqlite3.Row) -> dict[str, Any]:
@@ -4658,7 +4547,7 @@ def get_thread_or_404(conn: sqlite3.Connection, thread_id: int, user_id: int) ->
 
 
 def build_personalization_block(profile: dict[str, Any]) -> str:
-    assistant_profile = profile.get("assistant_profile") or {}
+    assistant_profile = profile["assistant_profile"]
     memory_notes = "; ".join(profile["pinned"])
     interaction_memory = "; ".join(profile.get("interaction_memory") or [])
     parts = [
@@ -4682,27 +4571,10 @@ def build_personalization_block(profile: dict[str, Any]) -> str:
     return "; ".join(parts)
 
 
-def request_policy_has_explicit_constraints(request_policy: dict[str, Any] | None) -> bool:
-    if not isinstance(request_policy, dict) or not request_policy:
-        return False
-    if safe_text(request_policy.get("source_mode") or ""):
-        return True
-    if normalize_chat_model_preference(request_policy.get("model_preference")) != "auto":
-        return True
-    if any(safe_text(item) for item in (request_policy.get("explicit_source_ids") or [])):
-        return True
-    if any(safe_text(item) for item in (request_policy.get("allowed_source_ids") or request_policy.get("allowed_sources") or [])):
-        return True
-    connector_targets = request_policy.get("connector_targets") if isinstance(request_policy.get("connector_targets"), dict) else {}
-    return any(isinstance(keys, list) and any(safe_text(item) for item in keys) for keys in connector_targets.values())
-
-
 def build_hermes_system_prompt(profile: dict[str, Any], thread_title: str, request_policy: dict[str, Any] | None = None) -> str:
     policy_text = ""
-    if request_policy_has_explicit_constraints(request_policy):
+    if isinstance(request_policy, dict) and request_policy:
         allowed_sources = request_policy.get("allowed_sources") if isinstance(request_policy.get("allowed_sources"), list) else []
-        if not allowed_sources:
-            allowed_sources = request_policy.get("allowed_source_ids") if isinstance(request_policy.get("allowed_source_ids"), list) else []
         connector_targets = request_policy.get("connector_targets") if isinstance(request_policy.get("connector_targets"), dict) else {}
         connector_parts = []
         for group_key, keys in connector_targets.items():
@@ -4769,96 +4641,11 @@ def text_matches_any(text: str, patterns: tuple[str, ...]) -> bool:
     return bool(lowered) and any(pattern in lowered for pattern in patterns)
 
 
-def regex_matches_any(text: str, patterns: tuple[str, ...]) -> bool:
-    raw_text = safe_text(text)
-    return bool(raw_text) and any(re.search(pattern, raw_text, flags=re.IGNORECASE) for pattern in patterns)
-
-
 def latest_user_message_text(message_rows: list[sqlite3.Row]) -> str:
     for row in reversed(message_rows):
         if row["role"] == "user":
             return safe_text(row["content"])
     return ""
-
-
-def latest_substantive_assistant_message_text(message_rows: list[sqlite3.Row]) -> str:
-    for row in reversed(message_rows):
-        if row["role"] != "assistant":
-            continue
-        content = safe_text(row["content"]).strip()
-        if not content:
-            continue
-        lowered = content.lower()
-        if lowered in {"готовлю ответ…", "готовлю ответ..."}:
-            continue
-        if lowered.startswith("не удалось получить ответ") or lowered.startswith("не удалось сформировать файл"):
-            continue
-        return content
-    return ""
-
-
-def is_short_followup_confirmation(text: str) -> bool:
-    lowered = safe_text(text).strip().lower()
-    if not lowered:
-        return False
-    if len(lowered) > 40:
-        return False
-    normalized = re.sub(r"\s+", " ", lowered)
-    if normalized in SHORT_FOLLOWUP_CONFIRMATION_PATTERNS:
-        return True
-    return normalized.startswith("да, ") and any(token in normalized for token in ("сделай", "давай", "запускай"))
-
-
-def is_short_problem_followup(text: str) -> bool:
-    lowered = safe_text(text).strip().lower()
-    if not lowered:
-        return False
-    if len(lowered) > 80:
-        return False
-    normalized = re.sub(r"\s+", " ", lowered)
-    return any(marker in normalized for marker in SHORT_PROBLEM_FOLLOWUP_PATTERNS)
-
-
-def should_use_focused_followup_context(message_rows: list[sqlite3.Row], request_policy: dict[str, Any] | None = None) -> bool:
-    if request_policy_has_explicit_constraints(request_policy):
-        return False
-    user_text = latest_user_message_text(message_rows)
-    is_confirmation = is_short_followup_confirmation(user_text)
-    is_problem = is_short_problem_followup(user_text)
-    if not (is_confirmation or is_problem):
-        return False
-    assistant_text = latest_substantive_assistant_message_text(message_rows[:-1])
-    if not assistant_text:
-        return False
-    if is_problem:
-        return len(assistant_text) >= 60
-    return len(assistant_text) >= 180
-
-
-def build_focused_followup_messages(message_rows: list[sqlite3.Row], profile: dict[str, Any], thread_title: str, request_policy: dict[str, Any] | None = None) -> list[dict[str, str]]:
-    system_prompt = build_hermes_system_prompt(profile, thread_title, request_policy)
-    user_text = latest_user_message_text(message_rows)
-    assistant_text = latest_substantive_assistant_message_text(message_rows[:-1])
-    previous_user_text = ""
-    for row in reversed(message_rows[:-1]):
-        if row["role"] == "user":
-            previous_user_text = safe_text(row["content"]).strip()
-            if previous_user_text:
-                break
-    followup_prompt = (
-        "Продолжи диалог по короткой уточняющей или проблемной реплике пользователя. "
-        "Опирайся только на последний содержательный запрос пользователя и последний содержательный ответ ассистента. "
-        "Не обещай выполнить внешнее действие, если в этом runtime нет явного action-route. "
-        "Если пользователь показывает, что предыдущий результат не сработал, не потерялось ли вложение или ответ непонятен, сначала адресуй именно этот сбой, а не начинай новый длинный ответ. "
-        "Если для реального выполнения не хватает параметров — коротко запроси только недостающие данные.\n\n"
-        f"Последний содержательный запрос пользователя:\n{previous_user_text or '—'}\n\n"
-        f"Последний содержательный ответ ассистента:\n{assistant_text or '—'}\n\n"
-        f"Короткая следующая реплика пользователя:\n{user_text}"
-    )
-    return [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": followup_prompt},
-    ]
 
 
 MEMORY_SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?\n])\s+")
@@ -5242,66 +5029,6 @@ def extract_usage_cost_usd(usage_payload: Any) -> float | None:
     return None
 
 
-def extract_usage_token_counts(usage_payload: Any) -> dict[str, int]:
-    if not isinstance(usage_payload, dict):
-        return {}
-
-    def pick_int(*keys: str) -> int | None:
-        for key in keys:
-            value = usage_payload.get(key)
-            if isinstance(value, bool):
-                continue
-            if isinstance(value, int):
-                return int(value)
-            if isinstance(value, float):
-                return int(value)
-            if isinstance(value, str):
-                raw = value.strip()
-                if raw.isdigit():
-                    return int(raw)
-        return None
-
-    prompt_tokens = pick_int('prompt_tokens', 'input_tokens')
-    completion_tokens = pick_int('completion_tokens', 'output_tokens')
-    total_tokens = pick_int('total_tokens')
-    if total_tokens is None and (prompt_tokens is not None or completion_tokens is not None):
-        total_tokens = int(prompt_tokens or 0) + int(completion_tokens or 0)
-    payload: dict[str, int] = {}
-    if prompt_tokens is not None:
-        payload['prompt_tokens'] = int(prompt_tokens)
-    if completion_tokens is not None:
-        payload['completion_tokens'] = int(completion_tokens)
-    if total_tokens is not None:
-        payload['total_tokens'] = int(total_tokens)
-    return payload
-
-
-def estimate_text_token_count(text: str) -> int:
-    raw = safe_text(text)
-    if not raw:
-        return 0
-    normalized = re.sub(r'\s+', ' ', raw).strip()
-    if not normalized:
-        return 0
-    char_estimate = math.ceil(len(normalized) / 4)
-    piece_estimate = len(re.findall(r"\w+|[^\w\s]", normalized, flags=re.UNICODE))
-    return max(1, min(max(char_estimate, piece_estimate // 2), max(char_estimate, piece_estimate)))
-
-
-def attach_assistant_token_accounting(meta: dict[str, Any], text: str) -> dict[str, Any]:
-    payload = dict(meta or {})
-    usage_tokens = extract_usage_token_counts(payload.get('usage'))
-    accounting = {
-        'response_text_tokens_estimated': estimate_text_token_count(text),
-        'response_text_tokens_estimator': 'char_div4_with_piece_floor',
-        'llm_usage_exact': bool(usage_tokens),
-    }
-    if usage_tokens:
-        accounting.update(usage_tokens)
-    payload['token_accounting'] = accounting
-    return payload
-
-
 def parse_model_candidates(raw_value: str, primary_model: str) -> list[str]:
     items = [safe_text(item).strip() for item in safe_text(raw_value).split(",")]
     ordered: list[str] = []
@@ -5490,7 +5217,6 @@ def call_hermes_api(message_rows: list[sqlite3.Row], profile: dict[str, Any], th
         )
         reasoning_messages = build_reasoning_execution_messages(profile, thread_title, compressed_context, task_description, request_policy)
         reply_text, meta = call_hermes_messages(reasoning_messages, model_name=HERMES_REASONING_MODEL)
-        reply_text, meta = enforce_russian_retry(reasoning_messages, reply_text, meta, profile, model_name=HERMES_REASONING_MODEL)
         note_prefix = reasoning_engaged_notice(route["route_reason"])
         actual_cost = extract_usage_cost_usd(meta.get("usage"))
         with db_connect() as conn:
@@ -5509,13 +5235,8 @@ def call_hermes_api(message_rows: list[sqlite3.Row], profile: dict[str, Any], th
             "compressed_context_chars": len(compressed_context),
         })
     else:
-        if should_use_focused_followup_context(message_rows, request_policy):
-            effective_messages = build_focused_followup_messages(message_rows, profile, thread_title, request_policy)
-            compaction_meta = {"history_compacted": False, "focused_followup_context": True}
-        else:
-            effective_messages, compaction_meta = maybe_compact_chat_messages(base_messages, task_description, profile, thread_title, request_policy)
+        effective_messages, compaction_meta = maybe_compact_chat_messages(base_messages, task_description, profile, thread_title, request_policy)
         reply_text, meta = call_hermes_messages(effective_messages, model_name=HERMES_API_MODEL)
-        reply_text, meta = enforce_russian_retry(effective_messages, reply_text, meta, profile, model_name=HERMES_API_MODEL)
         meta.update(compaction_meta)
         if route.get("limit_reason"):
             note_prefix = reasoning_limit_notice(route["limit_reason"], usage_stats)
@@ -5607,1831 +5328,6 @@ def build_dashboard_clarification_reply(allow_global_fallback: bool = False) -> 
     return prompt, meta
 
 
-def dashboard_request_prefers_global_sources(text: str) -> bool:
-    lowered = safe_text(text).lower()
-    if not lowered:
-        return False
-    global_markers = (
-        "из интернета",
-        "в интернете",
-        "по открытым источникам",
-        "из открытых источников",
-        "внешний обзор",
-        "внешние источники",
-        "сайты компаний",
-        "сми",
-        "новости",
-        "research",
-        "web",
-        "http://",
-        "https://",
-    )
-    return any(marker in lowered for marker in global_markers)
-
-
-def infer_composition_mode(text: str) -> str:
-    lowered = safe_text(text).lower()
-    if not lowered:
-        return ""
-    has_explicit_proposal_phrase = regex_matches_any(lowered, COLLECTION_PROPOSAL_TRIGGER_PATTERNS)
-    has_cost = regex_matches_any(lowered, COLLECTION_COST_PATTERNS)
-    has_resources = regex_matches_any(lowered, COLLECTION_RESOURCE_PATTERNS)
-    if has_explicit_proposal_phrase and (has_cost or has_resources):
-        return "proposal_bundle"
-    if has_explicit_proposal_phrase:
-        return "proposal_draft"
-    has_estimate_action = regex_matches_any(lowered, COLLECTION_ESTIMATE_ACTION_PATTERNS)
-    if has_cost and has_resources and has_estimate_action:
-        return "estimate_bundle"
-    if has_cost and has_estimate_action:
-        return "cost_estimate"
-    if has_resources and has_estimate_action:
-        return "resource_estimate"
-    return ""
-
-
-def looks_like_proposal_composition_request(text: str) -> bool:
-    lowered = safe_text(text).lower()
-    if not lowered:
-        return False
-    if not regex_matches_any(lowered, COLLECTION_PROPOSAL_ACTION_PATTERNS):
-        return False
-    return bool(infer_composition_mode(text))
-
-
-def infer_collection_output_format(text: str) -> str:
-    if looks_like_proposal_composition_request(text):
-        return "md"
-    export_format = detect_message_export_format(text)
-    if export_format:
-        return export_format
-    lowered = safe_text(text).lower()
-    if re.search(r"\b(csv|xlsx|json|xml)\b", lowered):
-        return re.search(r"\b(csv|xlsx|json|xml)\b", lowered).group(1)
-    if re.search(r"\bexcel\b|\bэксел\b", lowered):
-        return "csv"
-    if is_dashboard_request(lowered):
-        return "dashboard"
-    if re.search(r"\b(таблиц|table)\w*\b", lowered):
-        return "table"
-    if re.search(r"\bспис(ок|ком)\b", lowered):
-        return "list"
-    return ""
-
-
-def infer_collection_analysis_modes(text: str) -> list[str]:
-    lowered = safe_text(text).lower()
-    if not lowered:
-        return []
-    modes: list[str] = []
-    if regex_matches_any(lowered, COLLECTION_CLASSIFICATION_PATTERNS):
-        modes.append('classification')
-    if regex_matches_any(lowered, COLLECTION_SELECTION_PATTERNS):
-        modes.append('selection')
-    if regex_matches_any(lowered, COLLECTION_COMPARISON_PATTERNS):
-        modes.append('comparison')
-    if not modes and regex_matches_any(lowered, COLLECTION_ANALYSIS_ACTION_PATTERNS):
-        modes.append('analysis')
-    return modes
-
-
-def looks_like_collection_request(text: str, attachments: list[dict[str, Any]] | None = None) -> bool:
-    lowered = safe_text(text).lower()
-    if not lowered:
-        return False
-    has_collection_action = regex_matches_any(lowered, COLLECTION_REQUEST_ACTION_PATTERNS)
-    has_analysis_action = regex_matches_any(lowered, COLLECTION_ANALYSIS_ACTION_PATTERNS)
-    if not has_collection_action and not has_analysis_action:
-        return False
-    has_data_target = regex_matches_any(lowered, COLLECTION_REQUEST_DATA_TARGET_PATTERNS)
-    has_output = bool(infer_collection_output_format(lowered))
-    has_source_hint = bool(attachments) or regex_matches_any(lowered, COLLECTION_SOURCE_HINT_PATTERNS)
-    return (has_data_target and (has_output or has_source_hint)) or (has_output and has_source_hint)
-
-
-def infer_collection_source(text: str, attachments: list[dict[str, Any]] | None = None) -> dict[str, Any]:
-    lowered = safe_text(text).lower()
-    if attachments:
-        first = attachments[0]
-        label = safe_text(first.get("original_name") or "Файл пользователя")
-        if len(attachments) > 1:
-            label = f"Файлы пользователя: {label} и ещё {len(attachments) - 1}"
-        return {
-            "source_kind": "attachment",
-            "source_label": label,
-        }
-    url_match = re.search(r"https?://\S+|www\.\S+", text, flags=re.IGNORECASE)
-    if url_match:
-        return {"source_kind": "url", "source_label": url_match.group(0).rstrip(').,;')}
-    for rule in COLLECTION_SOURCE_KEYWORD_RULES:
-        pattern = safe_text((rule or {}).get("pattern"))
-        source_kind = safe_text((rule or {}).get("source_kind"))
-        label = safe_text((rule or {}).get("label"))
-        if pattern and re.search(pattern, lowered, flags=re.IGNORECASE):
-            return {"source_kind": source_kind, "source_label": label}
-    return {"source_kind": "", "source_label": ""}
-
-
-def infer_collection_subject(text: str) -> str:
-    raw_text = safe_text(text).strip()
-    if not raw_text:
-        return ""
-    quoted = re.search(r"[«\"]([^»\"]{3,160})[»\"]", raw_text)
-    if quoted:
-        return safe_text(quoted.group(1)).strip()
-    for pattern in COLLECTION_SUBJECT_EXPLICIT_PATTERNS:
-        match = re.search(pattern, raw_text, flags=re.IGNORECASE)
-        if match:
-            return safe_text(match.group(1)).strip(" .,!?:;»\"")
-    for pattern in COLLECTION_SUBJECT_PATTERNS:
-        match = re.search(pattern, raw_text, flags=re.IGNORECASE)
-        if match:
-            return safe_text(match.group(1)).strip(" .,!?:;»\"")
-    return ""
-
-
-def infer_collection_fields(text: str) -> list[str]:
-    raw_text = safe_text(text)
-    for pattern in COLLECTION_FIELD_PATTERNS:
-        match = re.search(pattern, raw_text, flags=re.IGNORECASE)
-        if not match:
-            continue
-        chunk = safe_text(match.group(1))
-        if COLLECTION_FIELD_CUTOFF_PATTERN:
-            chunk = re.split(COLLECTION_FIELD_CUTOFF_PATTERN, chunk, maxsplit=1, flags=re.IGNORECASE)[0]
-        fields = [
-            item.strip(COLLECTION_FIELD_TRIM_CHARS)
-            for item in re.split(COLLECTION_FIELD_SPLIT_PATTERN, chunk)
-        ]
-        fields = [item for item in fields if item and len(item) >= 2]
-        if fields:
-            return fields
-    block_match = re.search(COLLECTION_FIELD_BLOCK_PATTERN, raw_text, flags=re.IGNORECASE) if COLLECTION_FIELD_BLOCK_PATTERN else None
-    if block_match:
-        lines = [line.strip(" \t\r-—•*0123456789.") for line in block_match.group(1).splitlines()]
-        fields = [line.rstrip(" .;:") for line in lines if line and len(line) >= 2]
-        if fields:
-            return fields
-    return []
-
-
-def infer_budget_hint(text: str) -> str:
-    raw = safe_text(text)
-    for pattern in COLLECTION_BUDGET_PATTERNS:
-        match = re.search(pattern, raw, flags=re.IGNORECASE)
-        if match:
-            return safe_text(match.group(1)).strip(" .,!?:;»\"")
-    return ""
-
-
-def infer_timeline_hint(text: str) -> str:
-    raw = safe_text(text)
-    for pattern in COLLECTION_TIMELINE_PATTERNS:
-        match = re.search(pattern, raw, flags=re.IGNORECASE)
-        if match:
-            return safe_text(match.group(1)).strip(" .,!?:;»\"")
-    return ""
-
-
-def infer_team_constraints(text: str) -> list[str]:
-    raw = safe_text(text)
-    constraints: list[str] = []
-    for pattern in COLLECTION_TEAM_CONSTRAINT_PATTERNS:
-        match = re.search(pattern, raw, flags=re.IGNORECASE)
-        if not match:
-            continue
-        value = safe_text(match.group(1)).strip(" .,!?:;»\"")
-        if value and value not in constraints:
-            constraints.append(value)
-    return constraints
-
-
-def normalize_source_token(value: str) -> str:
-    token = safe_text(value).strip().strip(',;')
-    token = token.replace('https://', '').replace('http://', '').replace('www.', '')
-    token = token.strip('/').strip()
-    return token.lower()
-
-
-def extract_telegram_channels(text: str) -> list[str]:
-    raw = safe_text(text)
-    candidates: list[str] = []
-    candidates.extend(re.findall(r'(?:https?://)?t\.me/([A-Za-z0-9_]{4,})', raw, flags=re.IGNORECASE))
-    candidates.extend(re.findall(r'(?<!\w)@([A-Za-z0-9_]{4,})', raw))
-    seen: set[str] = set()
-    result: list[str] = []
-    for item in candidates:
-        normalized = safe_text(item).strip().lstrip('@')
-        key = normalized.lower()
-        if not normalized or key in seen:
-            continue
-        seen.add(key)
-        result.append(normalized)
-    return result
-
-
-def extract_domain_sources(text: str) -> list[str]:
-    raw = safe_text(text)
-    candidates = re.findall(r'(?:https?://)?(?:www\.)?([A-Za-z0-9.-]+\.[A-Za-z]{2,})(?:/[^\s,;)]*)?', raw, flags=re.IGNORECASE)
-    known = ['bidzaar.com', 'roseltorg.ru', 'fabrikant.ru', 'b2b-center.ru', 'etp.gpb.ru', 'zakupki.mos.ru', 'zakupki.gov.ru']
-    for domain in known:
-        if domain.lower() in raw.lower():
-            candidates.append(domain)
-    seen: set[str] = set()
-    result: list[str] = []
-    for item in candidates:
-        normalized = normalize_source_token(item)
-        if not normalized or '.' not in normalized or normalized in seen:
-            continue
-        seen.add(normalized)
-        result.append(normalized)
-    return result
-
-
-def extract_web_sources(text: str) -> list[str]:
-    raw = safe_text(text)
-    url_candidates = re.findall(r'https?://[^\s,;)]+' , raw, flags=re.IGNORECASE)
-    cleaned_urls: list[str] = []
-    seen_urls: set[str] = set()
-    for item in url_candidates:
-        normalized = safe_text(item).rstrip(').,;')
-        if not normalized:
-            continue
-        key = normalized.lower()
-        if key in seen_urls:
-            continue
-        seen_urls.add(key)
-        cleaned_urls.append(normalized)
-    if cleaned_urls:
-        return cleaned_urls
-    return extract_domain_sources(text)
-
-
-def extract_attachment_source_items(attachments: list[dict[str, Any]] | None) -> list[str]:
-    result: list[str] = []
-    for item in attachments or []:
-        name = safe_text((item or {}).get('original_name'))
-        if name and name not in result:
-            result.append(name)
-    return result
-
-
-def infer_attachment_subject(text: str, attachments: list[dict[str, Any]] | None) -> str:
-    explicit = infer_collection_subject(text)
-    if explicit:
-        return explicit
-    items = extract_attachment_source_items(attachments)
-    if not items:
-        return ''
-    if len(items) == 1:
-        return items[0]
-    return f"Набор файлов ({len(items)})"
-
-
-def materialize_web_search_task_sources(contract: dict[str, Any], source_items: list[str]) -> dict[str, Any]:
-    base_dir = collection_task_artifacts_root('web')
-    base_dir.mkdir(parents=True, exist_ok=True)
-    slug = build_collection_task_slug(contract)
-    stamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    task_path = base_dir / f'web_sources_{slug}_{stamp}.json'
-    payload = {
-        'kind': 'web_sources',
-        'subject': contract.get('subject'),
-        'output_format': contract.get('output_format'),
-        'fields': contract.get('fields') or [],
-        'since_date': contract.get('since_date') or '',
-        'items': source_items,
-    }
-    task_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding='utf-8')
-    return {'kind': 'web_sources', 'path': str(task_path), 'items': source_items}
-
-
-WEB_SEARCH_BLOCKED_HOST_FRAGMENTS = {
-    'forgeofempires',
-}
-
-WEB_SEARCH_BLOCKED_PATH_FRAGMENTS = {
-    '/privacy',
-    '/privacystatement',
-    '/servicesagreement',
-    '/terms',
-    '/policy',
-    '/policies',
-    '/login',
-    '/signin',
-    '/account',
-    '/validate',
-    '/help',
-    '/support',
-}
-
-WEB_COLLECTION_SUBJECT_STOPWORDS = {
-    'the', 'and', 'for', 'with', 'from', 'this', 'that', 'into', 'about', 'over', 'under',
-    'как', 'для', 'про', 'или', 'что', 'это', 'при', 'без', 'под', 'над', 'из', 'на', 'по',
-    'рынок', 'рынка', 'обзор', 'источников', 'интернете', 'данные', 'тема', 'теме',
-}
-HERMES_CLI_SEARCH_TIMEOUT_SECONDS = max(15, int(os.getenv('HERMES_WEB_HERMES_CLI_SEARCH_TIMEOUT_SECONDS', '90')))
-
-
-def tokenize_collection_subject(value: str) -> list[str]:
-    normalized = re.sub(r'[^\w\sа-яё-]+', ' ', safe_text(value).lower(), flags=re.IGNORECASE)
-    result: list[str] = []
-    for token in normalized.split():
-        cleaned = token.strip('-_')
-        if not cleaned or len(cleaned) < 3 or cleaned in WEB_COLLECTION_SUBJECT_STOPWORDS:
-            continue
-        if cleaned not in result:
-            result.append(cleaned)
-    return result
-
-
-def is_low_value_search_candidate(url: str) -> bool:
-    parsed = urllib.parse.urlparse(normalize_web_source_url(url))
-    host = parsed.netloc.lower()
-    path = parsed.path.lower()
-    if any(fragment in host for fragment in WEB_SEARCH_BLOCKED_HOST_FRAGMENTS):
-        return True
-    return any(fragment in path for fragment in WEB_SEARCH_BLOCKED_PATH_FRAGMENTS)
-
-
-def filter_search_result_urls(urls: list[str], *, limit: int = 5) -> list[str]:
-    preferred = [item for item in urls if not is_low_value_search_candidate(item)]
-    filtered = preferred or urls
-    deduped: list[str] = []
-    seen: set[str] = set()
-    for item in filtered:
-        normalized = normalize_web_source_url(item)
-        if not normalized or normalized in seen:
-            continue
-        seen.add(normalized)
-        deduped.append(normalized)
-        if len(deduped) >= limit:
-            break
-    return deduped
-
-
-def extract_json_array_from_text(raw: str) -> list[str]:
-    text = safe_text(raw)
-    if not text:
-        return []
-    match = re.search(r'(\[[\s\S]*\])\s*$', text)
-    if not match:
-        return []
-    try:
-        payload = json.loads(match.group(1))
-    except Exception:
-        return []
-    if not isinstance(payload, list):
-        return []
-    return [normalize_web_source_url(item) for item in payload if normalize_web_source_url(item)]
-
-
-def build_web_search_queries(contract: dict[str, Any]) -> list[str]:
-    subject = safe_text(contract.get('subject'))
-    if not subject:
-        return []
-    fields = [safe_text(item).lower() for item in (contract.get('fields') or []) if safe_text(item)]
-    queries: list[str] = []
-
-    def add(query: str) -> None:
-        normalized = safe_text(query)
-        if normalized and normalized not in queries:
-            queries.append(normalized)
-
-    add(subject)
-    split_subject = re.sub(r'(?<=[a-z])(?=[A-Z])', ' ', subject).strip()
-    if split_subject and split_subject != subject:
-        add(f'"{subject}" OR "{split_subject}"')
-    if any(field in {'компания', 'продукт', 'company', 'product'} for field in fields):
-        add(f'"{subject}" company product software')
-        if split_subject and split_subject != subject:
-            add(f'"{subject}" OR "{split_subject}" company product software')
-    add(f'"{subject}" overview')
-    return queries
-
-
-def search_web_source_candidates_via_hermes_cli(query: str, limit: int = 5) -> list[str]:
-    hermes_bin = shutil.which('hermes')
-    if not hermes_bin:
-        for candidate in (
-            os.path.expanduser('~/.local/bin/hermes'),
-            '/home/hermes/.local/bin/hermes',
-        ):
-            if os.path.isfile(candidate) and os.access(candidate, os.X_OK):
-                hermes_bin = candidate
-                break
-    if not hermes_bin:
-        return []
-    prompt = (
-        f'Используй web_search. Для запроса {query} верни только JSON-массив из не более чем {limit} URL. '
-        'Нужны максимально релевантные предметные страницы, а не login/privacy/help/terms и не сервисные redirect-страницы. '
-        'Без пояснений и без markdown.'
-    )
-    try:
-        completed = subprocess.run(
-            [
-                hermes_bin,
-                'chat',
-                '-q',
-                prompt,
-                '-t',
-                'web',
-                '-Q',
-                '--max-turns',
-                '6',
-                '--source',
-                'tool',
-            ],
-            capture_output=True,
-            text=True,
-            timeout=HERMES_CLI_SEARCH_TIMEOUT_SECONDS,
-            check=False,
-        )
-    except Exception:
-        return []
-    if completed.returncode != 0:
-        return []
-    urls = extract_json_array_from_text(completed.stdout)
-    return filter_search_result_urls(urls, limit=limit)
-
-
-def score_web_document_relevance(contract: dict[str, Any], document: dict[str, Any]) -> int:
-    subject_tokens = tokenize_collection_subject(safe_text(contract.get('subject')))
-    haystack = ' '.join([
-        safe_text(document.get('title')),
-        safe_text(document.get('text'))[:4000],
-        safe_text(document.get('final_url') or document.get('requested_url')),
-    ]).lower()
-    score = 0
-    for token in subject_tokens:
-        if token in haystack:
-            score += 3
-    title = safe_text(document.get('title'))
-    text = safe_text(document.get('text'))
-    if title:
-        score += 1
-    if len(text) >= 200:
-        score += 1
-    if not is_low_value_search_candidate(safe_text(document.get('final_url') or document.get('requested_url'))):
-        score += 1
-    return score
-
-
-def select_relevant_web_documents(contract: dict[str, Any], documents: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    if not documents:
-        return []
-    scored = [(score_web_document_relevance(contract, doc), doc) for doc in documents]
-    preferred = [doc for score, doc in scored if score >= 2]
-    if preferred:
-        return preferred
-    non_empty = [doc for _, doc in scored if safe_text(doc.get('title')) or len(safe_text(doc.get('text'))) >= 120]
-    return non_empty or documents
-
-
-def _decode_bing_result_url(candidate: str) -> str:
-    parsed = urllib.parse.urlparse(safe_text(candidate))
-    if not parsed.netloc.lower().endswith('bing.com'):
-        return safe_text(candidate)
-    params = urllib.parse.parse_qs(parsed.query)
-    encoded = safe_text((params.get('u') or [''])[0])
-    if not encoded.startswith('a1'):
-        return safe_text(candidate)
-    raw = encoded[2:]
-    try:
-        padding = '=' * (-len(raw) % 4)
-        decoded = base64.b64decode(raw + padding).decode('utf-8', errors='replace')
-    except Exception:
-        return safe_text(candidate)
-    return safe_text(decoded or candidate)
-
-
-def _extract_search_result_urls(body: str, *, limit: int = 5) -> list[str]:
-    urls: list[str] = []
-    patterns = [
-        r'href="//duckduckgo\\.com/l/\\?uddg=([^"#]+)',
-        r"href='//duckduckgo\\.com/l/\\?uddg=([^'#]+)",
-        r'href="(https?://[^"#]+)"',
-        r"href='(https?://[^'#]+)'",
-    ]
-    skip_hosts = {'duckduckgo.com', 'duck.com'}
-    for pattern in patterns:
-        for match in re.finditer(pattern, body, flags=re.IGNORECASE):
-            candidate = safe_text(match.group(1))
-            if not candidate:
-                continue
-            candidate = urllib.parse.unquote(candidate)
-            candidate = html.unescape(candidate)
-            if candidate.startswith('//'):
-                candidate = 'https:' + candidate
-            if not candidate.startswith(('http://', 'https://')):
-                continue
-            candidate = _decode_bing_result_url(candidate).rstrip(').,;')
-            parsed = urllib.parse.urlparse(candidate)
-            host = parsed.netloc.lower()
-            if not host or host in skip_hosts or host.endswith('.bing.com'):
-                continue
-            if candidate not in urls:
-                urls.append(candidate)
-            if len(urls) >= limit:
-                return urls
-    return urls
-
-
-def search_web_source_candidates(query: str, limit: int = 5) -> list[str]:
-    normalized_query = safe_text(query).strip()
-    if not normalized_query:
-        return []
-    cli_urls = search_web_source_candidates_via_hermes_cli(normalized_query, limit=limit)
-    if cli_urls:
-        return cli_urls
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) HermesWebSearch/1.0',
-        'Accept': 'text/html,application/xhtml+xml',
-    }
-    errors: list[str] = []
-    search_urls = [
-        f"https://duckduckgo.com/html/?{urllib.parse.urlencode({'q': normalized_query})}",
-        f"https://www.bing.com/search?{urllib.parse.urlencode({'q': normalized_query})}",
-    ]
-    raw_limit = max(limit * 3, 10)
-    for search_url in search_urls:
-        request = urllib.request.Request(search_url, headers=headers, method='GET')
-        try:
-            with urllib.request.urlopen(request, timeout=30) as response:
-                body = response.read().decode('utf-8', errors='replace')
-        except Exception as exc:
-            errors.append(f'{search_url}: {safe_text(exc)}')
-            continue
-        if 'anomaly-modal__title' in body or 'bots use DuckDuckGo too' in body:
-            errors.append(f'{search_url}: bot_challenge')
-            continue
-        urls = filter_search_result_urls(_extract_search_result_urls(body, limit=raw_limit), limit=limit)
-        if urls:
-            return urls
-        errors.append(f'{search_url}: empty_results')
-    raise ApiError('web_search_stage_failed:' + ' | '.join(errors), 502)
-
-
-def resolve_web_collection_sources(contract: dict[str, Any]) -> tuple[list[str], dict[str, Any] | None]:
-    explicit = [normalize_web_source_url(item) for item in (contract.get('source_items') or []) if normalize_web_source_url(item)]
-    if explicit:
-        manifest = materialize_web_search_task_sources(contract, explicit)
-        return explicit, manifest
-    queries = build_web_search_queries(contract)
-    since_date = safe_text(contract.get('since_date'))
-    if since_date:
-        queries = [f'{item} после {since_date}' if item else item for item in queries]
-    errors: list[str] = []
-    for query in queries:
-        try:
-            candidates = search_web_source_candidates(query, limit=5)
-        except ApiError as exc:
-            errors.append(safe_text(exc))
-            continue
-        if candidates:
-            manifest = materialize_web_search_task_sources(contract, candidates)
-            return candidates, manifest
-    if errors:
-        raise ApiError('web_search_stage_failed:' + ' | '.join(errors), 502)
-    raise ApiError('web_collection_sources_not_found', 409)
-
-
-def infer_collection_since_date(text: str) -> str:
-    raw = safe_text(text)
-    match = re.search(r'с\s+(\d{2}\.\d{2}\.\d{4})', raw)
-    if match:
-        day, month, year = match.group(1).split('.')
-        return f'{year}-{month}-{day}'
-    match = re.search(r'from\s+(\d{4}-\d{2}-\d{2})', raw, flags=re.IGNORECASE)
-    return safe_text(match.group(1)) if match else ''
-
-
-def summarize_collection_source_label(source_kind: str, source_items: list[str], fallback: str) -> str:
-    if not source_items:
-        if source_kind in {'web', 'media'}:
-            return fallback or 'Веб-поиск / открытые источники'
-        return fallback
-    if source_kind == 'telegram':
-        preview = ', '.join('@' + item for item in source_items[:4])
-        suffix = '' if len(source_items) <= 4 else f' и ещё {len(source_items) - 4}'
-        return f'Telegram-каналы: {preview}{suffix}'
-    preview = ', '.join(source_items[:4])
-    suffix = '' if len(source_items) <= 4 else f' и ещё {len(source_items) - 4}'
-    return f'{preview}{suffix}'
-
-
-def build_collection_task_layers(contract: dict[str, Any]) -> dict[str, Any]:
-    analysis_modes = [safe_text(item) for item in (contract.get('analysis_modes') or []) if safe_text(item)]
-    stages = ['acquisition']
-    if analysis_modes or safe_text(contract.get('composition_mode')):
-        stages.append('analysis')
-    stages.append('delivery')
-    return {
-        'root_class': 'data_pipeline',
-        'stages': stages,
-        'source_kind': safe_text(contract.get('source_kind')),
-        'deliverable_kind': 'document' if safe_text(contract.get('composition_mode')) else 'dataset',
-        'analysis_modes': analysis_modes,
-        'cadence': 'once',
-    }
-
-
-def collection_task_artifacts_root(source_kind: str) -> Path:
-    if source_kind == 'telegram':
-        return Path(os.getenv('TG_API_CONFIG_DIR', '/home/hermes/workspace/TG-API'))
-    if source_kind == 'tenders':
-        return Path('/home/hermes/workspace/tenders/tasks')
-    return DATA_DIR / 'collection_tasks'
-
-
-def build_collection_task_slug(contract: dict[str, Any]) -> str:
-    subject = safe_text(contract.get('subject') or 'collection').lower()
-    slug = re.sub(r'[^a-z0-9а-яё]+', '-', subject, flags=re.IGNORECASE).strip('-')
-    return slug[:48] or 'collection'
-
-
-def build_collection_contract_meta(text: str, attachments: list[dict[str, Any]] | None = None) -> dict[str, Any]:
-    source = infer_collection_source(text, attachments)
-    source_kind = safe_text(source.get('source_kind'))
-    if source_kind == 'telegram':
-        source_items = extract_telegram_channels(text)
-    elif source_kind in {'web', 'url', 'media', 'api'}:
-        source_items = extract_web_sources(text)
-    elif source_kind == 'attachment':
-        source_items = extract_attachment_source_items(attachments)
-    else:
-        source_items = extract_domain_sources(text)
-    composition_mode = infer_composition_mode(text)
-    output_format = infer_collection_output_format(text)
-    subject = infer_attachment_subject(text, attachments) if source_kind == 'attachment' else infer_collection_subject(text)
-    fields = infer_collection_fields(text)
-    analysis_modes = infer_collection_analysis_modes(text)
-    since_date = infer_collection_since_date(text)
-    budget_hint = infer_budget_hint(text)
-    timeline_hint = infer_timeline_hint(text)
-    team_constraints = infer_team_constraints(text)
-    missing_fields: list[str] = []
-    if not source_kind:
-        missing_fields.append('источник')
-    if source_kind == 'telegram' and not source_items:
-        missing_fields.append('список Telegram-каналов')
-    if source_kind == 'url' and not source_items:
-        missing_fields.append('список URL / сайтов')
-    if source_kind == 'api' and not source_items:
-        missing_fields.append('API endpoint / URL')
-    if not subject:
-        missing_fields.append('что именно собирать')
-    if not output_format:
-        missing_fields.append('формат результата')
-    if output_format in COLLECTION_STRUCTURED_FORMATS and not fields and not composition_mode:
-        missing_fields.append('поля / колонки результата')
-    contract = {
-        'source_kind': source_kind,
-        'source_label': summarize_collection_source_label(source_kind, source_items, safe_text(source.get('source_label'))),
-        'source_items': source_items,
-        'subject': subject,
-        'output_format': output_format,
-        'fields': fields,
-        'analysis_modes': analysis_modes,
-        'since_date': since_date,
-        'budget_hint': budget_hint,
-        'timeline_hint': timeline_hint,
-        'team_constraints': team_constraints,
-        'composition_mode': composition_mode,
-        'request_text': safe_text(text),
-        'missing_fields': missing_fields,
-    }
-    contract['task_layers'] = build_collection_task_layers(contract)
-    return contract
-
-
-def build_collection_clarification_or_contract_reply(text: str, attachments: list[dict[str, Any]] | None = None) -> tuple[str, dict[str, Any]] | None:
-    if not looks_like_collection_request(text, attachments):
-        return None
-    contract = build_collection_contract_meta(text, attachments)
-    missing_fields = list(contract.get('missing_fields') or [])
-    if missing_fields:
-        prompt = (
-            'Могу собрать данные по этому запросу, но сначала нужно зафиксировать контракт сбора. '
-            f"Сейчас не хватает: {', '.join(missing_fields)}. "
-            'Напишите одним сообщением: 1) откуда собираем, 2) что именно ищем, 3) в каком формате нужен результат, 4) какие поля обязательны в выдаче.'
-        )
-        meta = {
-            'message_kind': 'clarification_request',
-            'downstream': 'chat:data_collection_clarification',
-            'clarification_title': 'Уточните параметры сбора данных',
-            'clarification_prompt': prompt,
-            'clarification_options': [
-                'Уточнить источник и тему',
-                'Уточнить формат и поля результата',
-            ],
-            'collection_contract': contract,
-        }
-        return prompt, meta
-    fields_text = ', '.join(contract['fields']) if contract['fields'] else 'без фиксированного списка полей'
-    analysis_modes = ', '.join(contract.get('analysis_modes') or []) or 'базовая обработка'
-    layers = contract.get('task_layers') or {}
-    stages_text = ' → '.join(layers.get('stages') or ['acquisition', 'delivery'])
-    reply_text = (
-        'Зафиксировала контракт сбора данных.\n\n'
-        f"Источник: {contract['source_label']}.\n"
-        f"Что собираем: {contract['subject']}.\n"
-        f"Формат результата: {contract['output_format']}.\n"
-        f"Поля результата: {fields_text}.\n"
-        f"Слои выполнения: {safe_text(layers.get('root_class')) or 'data_pipeline'} / {stages_text}.\n"
-        f"Компоненты анализа: {analysis_modes}.\n\n"
-        'Живой алгоритм выполнения: проверить источник, создать отдельный список источников под задачу, собрать сырые данные, нормализовать строки, выполнить нужные анализ/классификацию/подбор, затем отдать реальный артефакт в согласованном формате.'
-    )
-    meta = {
-        'message_kind': 'collection_contract',
-        'downstream': 'chat:data_collection_contract',
-        'collection_contract': contract,
-    }
-    return reply_text, meta
-
-
-def materialize_telegram_task_config(contract: dict[str, Any]) -> dict[str, Any]:
-    base_dir = collection_task_artifacts_root('telegram')
-    base_dir.mkdir(parents=True, exist_ok=True)
-    slug = build_collection_task_slug(contract)
-    stamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    config_name = f'task_{slug}_{stamp}'
-    config_path = base_dir / f'channels_{config_name}.yml'
-    profile_name = safe_text(os.getenv('TG_API_DEFAULT_PROFILE') or 'profile_1')
-    date_from = safe_text(contract.get('since_date') or date.today().isoformat())
-    subject = safe_text(contract.get('subject') or '').replace('"', '\\"')
-    limit_per_channel = max(10, int(os.getenv('HERMES_WEB_TELEGRAM_LIMIT_PER_CHANNEL', '150')))
-    global_limit = max(limit_per_channel, int(os.getenv('HERMES_WEB_TELEGRAM_GLOBAL_LIMIT', '1000')))
-    channel_lines = '\n'.join(
-        f"      - username: {item}\n        task_subject: \"{subject}\""
-        for item in (contract.get('source_items') or [])
-    )
-    yaml_text = (
-        f"profiles:\n"
-        f"  {profile_name}:\n"
-        f"    session_name: {profile_name}\n"
-        f"    mode: task\n"
-        f"    date_from: \"{date_from}\"\n"
-        f"    date_to: ''\n"
-        f"    limit_per_channel: {limit_per_channel}\n"
-        f"    global_limit: {global_limit}\n"
-        f"    channels:\n{channel_lines}\n"
-    )
-    config_path.write_text(yaml_text, encoding='utf-8')
-    return {
-        'config_name': config_name,
-        'config_path': str(config_path),
-        'profile_name': profile_name,
-        'channels': contract.get('source_items') or [],
-    }
-
-
-def telegram_api_base_url() -> str:
-    return safe_text(os.getenv('TELEGRAM_API_BASE_URL') or os.getenv('TG_API_REMOTE_BASE_URL') or 'http://127.0.0.1:8001').rstrip('/')
-
-
-def normalize_telegram_collection_rows(contract: dict[str, Any], messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    requested_fields = [safe_text(item) for item in (contract.get('fields') or []) if safe_text(item)]
-    if not requested_fields:
-        requested_fields = ['дата', 'канал', 'ссылка', 'summary']
-
-    def clean_field_name(value: str) -> str:
-        field = safe_text(value)
-        field = re.sub(r'\s+с\s+\d{1,2}\.\d{1,2}\.\d{2,4}\s*$', '', field, flags=re.IGNORECASE)
-        return field.strip(' .,:;')
-
-    cleaned_fields: list[str] = []
-    seen_fields: set[str] = set()
-    for item in requested_fields:
-        cleaned = clean_field_name(item)
-        if not cleaned:
-            continue
-        key = cleaned.lower()
-        if key in seen_fields:
-            continue
-        seen_fields.add(key)
-        cleaned_fields.append(cleaned)
-    if not cleaned_fields:
-        cleaned_fields = ['дата', 'канал', 'ссылка', 'summary']
-
-    rows: list[dict[str, Any]] = []
-    for message in messages:
-        text_value = safe_text(message.get('message'))
-        summary_value = text_value.replace('\r', ' ').replace('\n', ' ').strip()
-        row: dict[str, Any] = {'source_url': safe_text(message.get('original_url'))}
-        for field in cleaned_fields:
-            normalized = normalize_source_token(field)
-            if normalized in {'дата', 'date'}:
-                row[field] = safe_text(message.get('date'))
-            elif normalized in {'канал', 'channel', 'chat', 'источник', 'source'}:
-                row[field] = safe_text(message.get('chat'))
-            elif normalized in {'ссылка', 'url', 'link', 'source_url'}:
-                row[field] = safe_text(message.get('original_url'))
-            elif normalized in {'summary', 'summary_text', 'текст', 'message', 'описание'}:
-                row[field] = summary_value
-            elif normalized in {'id', 'message_id'}:
-                row[field] = safe_text(message.get('id'))
-            elif normalized in {'views', 'просмотры'}:
-                row[field] = safe_text(message.get('views'))
-            elif normalized in {'forwards', 'репосты'}:
-                row[field] = safe_text(message.get('forwards'))
-            else:
-                row[field] = safe_text(message.get(field))
-        rows.append(row)
-    contract['fields'] = cleaned_fields
-    return rows
-
-
-def execute_telegram_collection_contract(contract: dict[str, Any]) -> tuple[str, dict[str, Any]]:
-    config = materialize_telegram_task_config(contract)
-    query = urllib.parse.urlencode({'profile': config['profile_name'], 'config': config['config_name']})
-    target_url = f"{telegram_api_base_url()}/export?{query}"
-    lock_wait_started = time.monotonic()
-    acquired = _telegram_collection_lock.acquire(timeout=TELEGRAM_COLLECTION_LOCK_TIMEOUT)
-    if not acquired:
-        raise ApiError('telegram_collection_busy_timeout', 409)
-    try:
-        lock_wait_seconds = max(0.0, time.monotonic() - lock_wait_started)
-        try:
-            with urllib.request.urlopen(target_url, timeout=TELEGRAM_COLLECTION_API_TIMEOUT) as response:
-                status_code = int(getattr(response, 'status', 200) or 200)
-                body = response.read().decode('utf-8')
-        except urllib.error.HTTPError as exc:
-            raise ApiError(f'telegram_collection_api_failed:{exc.code}', 502) from exc
-        except urllib.error.URLError as exc:
-            raise ApiError('telegram_collection_api_unreachable', 502) from exc
-    finally:
-        _telegram_collection_lock.release()
-    if status_code != 200:
-        raise ApiError(f'telegram_collection_api_failed:{status_code}', 502)
-    payload = json.loads(body or '{}')
-    count = int(payload.get('count') or 0)
-    messages = payload.get('messages') if isinstance(payload.get('messages'), list) else []
-    rows = normalize_telegram_collection_rows(contract, messages)
-    raw_attachment = build_collection_artifact_attachment(contract, rows) if safe_text(contract.get('output_format')) in COLLECTION_STRUCTURED_FORMATS else None
-    attachments = [raw_attachment] if raw_attachment else []
-    reply_text = (
-        'Готово. Запустила Telegram API по отдельному списку каналов для этой задачи.\n\n'
-        f"Каналов в task-list: {len(config['channels'])}.\n"
-        f"Профиль API: {config['profile_name']}.\n"
-        f"Конфиг задачи: {config['config_name']}.\n"
-        f"Сообщений получено: {count}.\n"
-        f"Период с: {contract.get('since_date') or 'не задан явно'}."
-    )
-    if attachments:
-        reply_text += f"\nФайл: {attachments[0].get('original_name')}"
-    meta = {
-        'message_kind': 'collection_execution_result',
-        'downstream': 'chat:telegram_collection_result',
-        'collection_contract': contract,
-        'task_source_list': {
-            'kind': 'telegram_channels',
-            'config_name': config['config_name'],
-            'config_path': config['config_path'],
-            'items': config['channels'],
-        },
-        'api_result': {'count': count, 'profile': payload.get('profile'), 'config': payload.get('config')},
-        'execution_lock': {
-            'kind': 'telegram_collection_singleflight',
-            'wait_seconds': round(lock_wait_seconds, 3),
-            'timeout_seconds': TELEGRAM_COLLECTION_LOCK_TIMEOUT,
-        },
-        'attachments': attachments,
-    }
-    return reply_text, meta
-
-
-def materialize_tender_task_sources(contract: dict[str, Any]) -> dict[str, Any]:
-    base_dir = collection_task_artifacts_root('tenders')
-    base_dir.mkdir(parents=True, exist_ok=True)
-    slug = build_collection_task_slug(contract)
-    stamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    task_path = base_dir / f'tender_sources_{slug}_{stamp}.json'
-    registry_path = Path('/home/hermes/workspace/tenders/it_tender_sources.json')
-    registry = json.loads(registry_path.read_text(encoding='utf-8')) if registry_path.exists() else {'sources': []}
-    requested = set(contract.get('source_items') or [])
-    alias_map = {
-        'zakupki.gov.ru': {'zakupki.gov.ru', 'zakupki', 'goszakupki'},
-        'zakupki.mos.ru': {'zakupki.mos.ru', 'zakupki_mos', 'mos_zakupki'},
-        'b2b-center.ru': {'b2b-center.ru', 'b2b-center', 'b2b'},
-        'fabrikant.ru': {'fabrikant.ru', 'fabrikant'},
-        'bidzaar.com': {'bidzaar.com', 'bidzaar'},
-        'roseltorg.ru': {'roseltorg.ru', 'roseltorg'},
-        'etp.gpb.ru': {'etp.gpb.ru', 'gpb', 'etp_gpb'},
-    }
-    requested_aliases: set[str] = set()
-    for item in requested:
-        requested_aliases.add(item)
-        requested_aliases.update(alias_map.get(item, set()))
-    matched = []
-    for item in registry.get('sources') or []:
-        candidates = {
-            normalize_source_token(safe_text(item.get('name'))),
-            normalize_source_token(safe_text(item.get('key'))),
-            normalize_source_token(safe_text(item.get('kind'))),
-        }
-        if not requested_aliases or candidates & requested_aliases:
-            matched.append(item)
-    payload = {
-        'subject': contract.get('subject'),
-        'since_date': contract.get('since_date'),
-        'output_format': contract.get('output_format'),
-        'fields': contract.get('fields') or [],
-        'requested_sources': list(contract.get('source_items') or []),
-        'matched_sources': matched,
-    }
-    task_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding='utf-8')
-    return {'task_path': str(task_path), 'matched_sources': matched}
-
-
-def build_existing_file_attachment(path_value: str, *, kind: str = 'collection_artifact', source: str = 'tender_pipeline') -> dict[str, Any]:
-    resolved = Path(path_value).expanduser().resolve()
-    if not resolved.exists() or not resolved.is_file():
-        raise ApiError('artifact_file_missing', 409)
-    relative_path = ''
-    try:
-        relative_path = str(resolved.relative_to(DATA_DIR))
-    except ValueError:
-        relative_path = ''
-    return {
-        'kind': kind,
-        'assistant_generated': True,
-        'source': source,
-        'original_name': resolved.name,
-        'stored_name': resolved.name,
-        'relative_path': relative_path,
-        'local_path': str(resolved),
-        'mime_type': guess_mime_type(resolved.name),
-        'size_bytes': resolved.stat().st_size,
-        'download_url': None,
-    }
-
-
-def run_tender_pipeline_snapshot(contract: dict[str, Any]) -> dict[str, Any]:
-    script_path = Path('/home/hermes/workspace/eva-github-backup/hermes-runtime/scripts/it_tender_pipeline.py')
-    if not script_path.exists():
-        raise ApiError('tender_pipeline_script_missing', 409)
-    since_date = safe_text(contract.get('since_date')) or datetime.now().strftime('%Y-%m-%d')
-    until_date = datetime.now().strftime('%Y-%m-%d')
-    try:
-        target_date = datetime.strptime(since_date, '%Y-%m-%d').strftime('%d.%m.%Y')
-        until_target_date = datetime.strptime(until_date, '%Y-%m-%d').strftime('%d.%m.%Y')
-    except ValueError as exc:
-        raise ApiError('tender_collection_since_date_invalid', 409) from exc
-    run_dir = collection_task_artifacts_root('tenders') / 'pipeline_runs' / f"{build_collection_task_slug(contract)}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-    run_dir.mkdir(parents=True, exist_ok=True)
-    command = [sys.executable, str(script_path), '--date', target_date, '--until-date', until_target_date, '--out-dir', str(run_dir)]
-    env = os.environ.copy()
-    env.setdefault('TENDER_PIPELINE_SKIP_REFRESH', '1')
-    try:
-        completed = subprocess.run(command, capture_output=True, text=True, timeout=300, check=False, env=env)
-    except subprocess.TimeoutExpired as exc:
-        raise ApiError('tender_collection_timeout', 504) from exc
-    if completed.returncode != 0:
-        raise ApiError(f"tender_collection_runtime_failed:{completed.returncode}", 502)
-    summary_path = run_dir / 'last_run_summary.json'
-    if not summary_path.exists():
-        raise ApiError('tender_collection_summary_missing', 502)
-    summary = json.loads(summary_path.read_text(encoding='utf-8'))
-    csv_path = Path(safe_text(summary.get('csv_path')))
-    status_csv_path = Path(safe_text(summary.get('status_csv_path')))
-    if not csv_path.exists():
-        raise ApiError('tender_collection_csv_missing', 502)
-    if not status_csv_path.exists():
-        raise ApiError('tender_collection_status_csv_missing', 502)
-    return {
-        'target_date': target_date,
-        'until_target_date': until_target_date,
-        'run_dir': str(run_dir),
-        'summary_path': str(summary_path),
-        'summary': summary,
-        'stdout': safe_text(completed.stdout),
-        'stderr': safe_text(completed.stderr),
-        'csv_attachment': build_existing_file_attachment(str(csv_path), kind='collection_artifact', source='tender_pipeline'),
-        'status_attachment': build_existing_file_attachment(str(status_csv_path), kind='collection_status_artifact', source='tender_pipeline'),
-    }
-
-
-def execute_tender_collection_contract(contract: dict[str, Any]) -> tuple[str, dict[str, Any]]:
-    task = materialize_tender_task_sources(contract)
-    matched = task['matched_sources']
-    active = [item for item in matched if bool(item.get('enabled'))]
-    placeholders = [item for item in matched if not bool(item.get('enabled'))]
-    if not active:
-        reply_text = (
-            'Готово. Зафиксировала исполнимый tender-task и отдельный список источников под него, '
-            'но в текущем локальном контуре нет ни одного реально включённого tender-collector.\n\n'
-            f"Источников в task-list: {len(matched)}.\n"
-            f"Пока placeholders / требуют отдельный collector: {len(placeholders)}.\n"
-            f"Task source list: {task['task_path']}."
-        )
-        meta = {
-            'message_kind': 'collection_execution_plan',
-            'downstream': 'chat:tender_collection_plan',
-            'collection_contract': contract,
-            'task_source_list': {
-                'kind': 'tender_sources',
-                'path': task['task_path'],
-                'items': [safe_text(item.get('name')) for item in matched],
-            },
-            'source_status': {
-                'active_sources': [],
-                'placeholder_sources': [safe_text(item.get('name')) for item in placeholders],
-            },
-        }
-        return reply_text, meta
-    pipeline = run_tender_pipeline_snapshot(contract)
-    summary = pipeline['summary']
-    total_rows = int(summary.get('total_rows') or 0)
-    period_end = safe_text(pipeline.get('until_target_date')) or safe_text(pipeline.get('target_date'))
-    reply_text = (
-        'Готово. Собрала выгрузку по тендерам через текущий локальный tender-pipeline и подготовила реальные файлы.\n\n'
-        f"Период: с {pipeline['target_date']} по {period_end}.\n"
-        f"Источников в task-list: {len(matched)}.\n"
-        f"Реально включённых в локальном контуре: {len(active)}.\n"
-        f"Строк в выгрузке: {total_rows}.\n"
-        f"Файл выгрузки: {pipeline['csv_attachment']['original_name']}.\n"
-        f"Файл статусов: {pipeline['status_attachment']['original_name']}."
-    )
-    if placeholders:
-        placeholder_labels = ', '.join(safe_text(item.get('name')) for item in placeholders[:4])
-        reply_text += f"\nОграничения текущего локального контура: {placeholder_labels}."
-    meta = {
-        'message_kind': 'collection_execution_result',
-        'downstream': 'chat:tender_collection_result',
-        'collection_contract': contract,
-        'task_source_list': {
-            'kind': 'tender_sources',
-            'path': task['task_path'],
-            'items': [safe_text(item.get('name')) for item in matched],
-        },
-        'source_status': {
-            'active_sources': [safe_text(item.get('name')) for item in active],
-            'placeholder_sources': [safe_text(item.get('name')) for item in placeholders],
-        },
-        'attachments': [pipeline['csv_attachment'], pipeline['status_attachment']],
-        'pipeline_summary': {
-            'run_dir': pipeline['run_dir'],
-            'summary_path': pipeline['summary_path'],
-            'total_rows': total_rows,
-            'by_source': summary.get('by_source') or {},
-            'status_by_source': summary.get('status_by_source') or {},
-        },
-    }
-    return reply_text, meta
-
-
-def normalize_web_source_url(value: str) -> str:
-    raw = safe_text(value).strip()
-    if not raw:
-        return ''
-    if raw.startswith(('http://', 'https://')):
-        return raw
-    if raw.startswith('www.') or '.' in raw:
-        return 'https://' + raw.lstrip('/')
-    return raw
-
-
-def html_to_visible_text(payload: bytes, content_type: str) -> tuple[str, str]:
-    decoded = payload.decode('utf-8', errors='replace')
-    if 'html' not in safe_text(content_type).lower() and '<html' not in decoded.lower():
-        cleaned = re.sub(r'\s+', ' ', decoded).strip()
-        return '', cleaned[:12000]
-    if BeautifulSoup is None:
-        title_match = re.search(r'<title[^>]*>(.*?)</title>', decoded, flags=re.IGNORECASE | re.DOTALL)
-        title = html.unescape(title_match.group(1)).strip() if title_match else ''
-        text = re.sub(r'<(script|style)[^>]*>[\s\S]*?</\1>', ' ', decoded, flags=re.IGNORECASE)
-        text = re.sub(r'<[^>]+>', ' ', text)
-        text = re.sub(r'\s+', ' ', html.unescape(text)).strip()
-        return title[:300], text[:12000]
-    soup = BeautifulSoup(decoded, 'lxml')
-    for node in soup(['script', 'style', 'noscript']):
-        node.decompose()
-    title = safe_text(soup.title.string if soup.title and soup.title.string else '').strip()
-    text = soup.get_text('\n', strip=True)
-    text = re.sub(r'\n{3,}', '\n\n', text)
-    text = re.sub(r'[ \t]{2,}', ' ', text)
-    return title[:300], text[:12000]
-
-
-def fetch_web_source_document(source: str) -> dict[str, Any]:
-    target_url = normalize_web_source_url(source)
-    if not target_url:
-        raise ApiError('web_collection_source_missing', 409)
-    request = urllib.request.Request(
-        target_url,
-        headers={
-            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) HermesWebCollection/1.0',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,text/plain;q=0.8,*/*;q=0.5',
-        },
-        method='GET',
-    )
-    with urllib.request.urlopen(request, timeout=40) as response:
-        content_type = safe_text(response.headers.get('Content-Type') or '')
-        final_url = safe_text(getattr(response, 'url', target_url) or target_url)
-        body = response.read(1024 * 1024)
-    title, text = html_to_visible_text(body, content_type)
-    return {
-        'requested_url': source,
-        'final_url': final_url,
-        'title': title,
-        'content_type': content_type,
-        'text': text,
-    }
-
-
-def build_web_collection_rows_prompt(contract: dict[str, Any], documents: list[dict[str, Any]]) -> list[dict[str, str]]:
-    fields = list(contract.get('fields') or [])
-    field_list = ', '.join(fields) if fields else 'source_url, title, summary'
-    docs_payload = []
-    for item in documents:
-        docs_payload.append({
-            'source_url': item.get('final_url') or item.get('requested_url'),
-            'requested_url': item.get('requested_url'),
-            'title': item.get('title'),
-            'text_excerpt': safe_text(item.get('text'))[:8000],
-        })
-    system_prompt = (
-        'Ты извлекаешь структурированные данные только из предоставленных фрагментов страниц. '
-        'Не придумывай факты и не дополняй их из памяти. '
-        'Верни строго JSON-объект вида {"rows": [...]} без markdown. '
-        'Каждая строка должна содержать source_url. '
-        'Если какого-то поля нет в тексте страницы, оставляй пустую строку. '
-        'Если по странице не получается извлечь ни одной содержательной строки, верни одну строку с source_url и пустыми остальными полями.'
-    )
-    user_prompt = json.dumps({
-        'subject': contract.get('subject'),
-        'fields': fields,
-        'field_list': field_list,
-        'documents': docs_payload,
-    }, ensure_ascii=False)
-    return [
-        {'role': 'system', 'content': system_prompt},
-        {'role': 'user', 'content': user_prompt},
-    ]
-
-
-def structure_web_collection_rows(contract: dict[str, Any], documents: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    if not documents:
-        raise ApiError('web_collection_no_documents', 409)
-    reply_text, _ = call_hermes_messages(build_web_collection_rows_prompt(contract, documents), model_name=HERMES_API_MODEL)
-    payload = extract_json_object(reply_text)
-    rows = payload.get('rows') if isinstance(payload.get('rows'), list) else []
-    normalized_rows: list[dict[str, Any]] = []
-    fields = list(contract.get('fields') or [])
-    for row in rows:
-        if not isinstance(row, dict):
-            continue
-        normalized = {field: safe_text(row.get(field)) for field in fields}
-        source_url = safe_text(row.get('source_url') or row.get('url') or '')
-        if not source_url:
-            source_url = safe_text(documents[min(len(normalized_rows), len(documents)-1)].get('final_url') or '')
-        normalized['source_url'] = source_url
-        normalized_rows.append(normalized)
-    if normalized_rows:
-        return normalized_rows
-    fallback_rows: list[dict[str, Any]] = []
-    for doc in documents:
-        row = {field: '' for field in fields}
-        row['source_url'] = safe_text(doc.get('final_url') or doc.get('requested_url'))
-        fallback_rows.append(row)
-    return fallback_rows
-
-
-def build_collection_artifact_attachment(contract: dict[str, Any], rows: list[dict[str, Any]]) -> dict[str, Any]:
-    export_format = safe_text(contract.get('output_format') or 'json').lower()
-    subject = build_collection_task_slug(contract)
-    stamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    base_dir = collection_task_artifacts_root('web') / 'artifacts'
-    base_dir.mkdir(parents=True, exist_ok=True)
-    fields = list(contract.get('fields') or [])
-    column_order = [*fields]
-    if 'source_url' not in column_order:
-        column_order.append('source_url')
-    file_path = base_dir / f'collection_{subject}_{stamp}.{export_format}'
-    if export_format == 'json':
-        payload = {'contract': contract, 'rows': rows}
-        file_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding='utf-8')
-        mime_type = 'application/json'
-    elif export_format == 'csv':
-        with file_path.open('w', encoding='utf-8', newline='') as handle:
-            writer = csv.DictWriter(handle, fieldnames=column_order)
-            writer.writeheader()
-            for row in rows:
-                writer.writerow({key: safe_text(row.get(key)) for key in column_order})
-        mime_type = 'text/csv'
-    elif export_format == 'xlsx':
-        if openpyxl is None:
-            raise ApiError('collection_xlsx_runtime_unavailable', 409)
-        workbook = openpyxl.Workbook()
-        sheet = workbook.active
-        sheet.title = 'collection'
-        sheet.append(column_order)
-        for row in rows:
-            sheet.append([safe_text(row.get(key)) for key in column_order])
-        workbook.save(file_path)
-        mime_type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    else:
-        raise ApiError('collection_output_format_unsupported', 409)
-    size_bytes = file_path.stat().st_size
-    return {
-        'kind': 'collection_artifact',
-        'original_name': file_path.name,
-        'stored_name': file_path.name,
-        'relative_path': str(file_path.relative_to(DATA_DIR)),
-        'local_path': str(file_path),
-        'mime_type': mime_type,
-        'size_bytes': size_bytes,
-        'download_url': f"{API_PREFIX}/artifacts/collection/{urllib.parse.quote(file_path.name)}",
-    }
-
-
-def build_proposal_composition_prompt(contract: dict[str, Any], documents: list[dict[str, Any]], rows: list[dict[str, Any]]) -> list[dict[str, str]]:
-    docs_payload = [
-        {
-            'source': safe_text(item.get('final_url') or item.get('requested_url') or item.get('title')),
-            'title': safe_text(item.get('title')),
-            'text_excerpt': safe_text(item.get('text'))[:6000],
-        }
-        for item in documents[:8]
-    ]
-    rows_payload = rows[:20]
-    system_prompt = (
-        'Ты готовишь проект коммерческого предложения или оценку по собранным материалам. '
-        'Нельзя выдумывать факты. Нужно жёстко разделять: confirmed_facts, analogs, hypotheses. '
-        'Если точных данных нет, пиши аккуратную гипотезу или открытый вопрос. '
-        'Верни строго JSON без markdown. '
-        'Формат: '
-        '{"title":"...","executive_summary":"...","confirmed_facts":[...],"analogs":[...],'
-        '"hypotheses":[...],"workstreams":[{"name":"...","scope":"...","estimate_hours":"...","team_role":"...","notes":"..."}],'
-        '"cost_notes":[...],"resource_plan":[...],"risks":[...],"open_questions":[...]}'
-    )
-    user_prompt = json.dumps({
-        'composition_mode': contract.get('composition_mode'),
-        'subject': contract.get('subject'),
-        'source_kind': contract.get('source_kind'),
-        'request_text': contract.get('request_text'),
-        'fields': contract.get('fields') or [],
-        'budget_hint': contract.get('budget_hint') or '',
-        'timeline_hint': contract.get('timeline_hint') or '',
-        'team_constraints': contract.get('team_constraints') or [],
-        'documents': docs_payload,
-        'rows_preview': rows_payload,
-    }, ensure_ascii=False)
-    return [
-        {'role': 'system', 'content': system_prompt},
-        {'role': 'user', 'content': user_prompt},
-    ]
-
-
-def compose_proposal_payload(contract: dict[str, Any], documents: list[dict[str, Any]], rows: list[dict[str, Any]]) -> dict[str, Any]:
-    reply_text, _ = call_hermes_messages(build_proposal_composition_prompt(contract, documents, rows), model_name=HERMES_API_MODEL)
-    payload = extract_json_object(reply_text)
-    if not isinstance(payload, dict):
-        raise ApiError('proposal_composition_invalid_payload', 502)
-    return payload
-
-
-def render_proposal_markdown(contract: dict[str, Any], payload: dict[str, Any]) -> str:
-    title = safe_text(payload.get('title') or contract.get('subject') or 'Проект КП')
-    summary = safe_text(payload.get('executive_summary'))
-    lines = [f'# {title}', '']
-    if summary:
-        lines.extend(['## Краткий вывод', summary, ''])
-    lines.extend([
-        '## Параметры запроса',
-        f"- Режим композиции: {safe_text(contract.get('composition_mode')) or 'не указан'}",
-        f"- Источник: {safe_text(contract.get('source_label')) or safe_text(contract.get('source_kind'))}",
-        f"- Тема: {safe_text(contract.get('subject'))}",
-        f"- Бюджет / cost hint: {safe_text(contract.get('budget_hint')) or 'не указан'}",
-        f"- Срок / timeline hint: {safe_text(contract.get('timeline_hint')) or 'не указан'}",
-        '',
-    ])
-    team_constraints = contract.get('team_constraints') or []
-    if team_constraints:
-        lines.append('## Ограничения по команде')
-        for item in team_constraints:
-            lines.append(f"- {safe_text(item)}")
-        lines.append('')
-    sections = [
-        ('Подтверждённые факты', 'confirmed_facts'),
-        ('Аналоги', 'analogs'),
-        ('Гипотезы и допущения', 'hypotheses'),
-        ('Заметки по стоимости', 'cost_notes'),
-        ('Ресурсный план', 'resource_plan'),
-        ('Риски', 'risks'),
-        ('Открытые вопросы', 'open_questions'),
-    ]
-    for section_title, key in sections:
-        items = payload.get(key) or []
-        if not items:
-            continue
-        lines.append(f'## {section_title}')
-        for item in items:
-            lines.append(f"- {safe_text(item)}")
-        lines.append('')
-    workstreams = payload.get('workstreams') or []
-    if workstreams:
-        lines.append('## Workstreams / состав работ')
-        for item in workstreams:
-            if not isinstance(item, dict):
-                continue
-            name = safe_text(item.get('name') or 'Workstream')
-            scope = safe_text(item.get('scope'))
-            hours = safe_text(item.get('estimate_hours'))
-            team_role = safe_text(item.get('team_role'))
-            notes = safe_text(item.get('notes'))
-            lines.append(f"### {name}")
-            if scope:
-                lines.append(f"- Scope: {scope}")
-            if hours:
-                lines.append(f"- Estimate hours: {hours}")
-            if team_role:
-                lines.append(f"- Team role: {team_role}")
-            if notes:
-                lines.append(f"- Notes: {notes}")
-            lines.append('')
-    return '\n'.join(lines).strip() + '\n'
-
-
-def build_proposal_artifact_attachment(contract: dict[str, Any], payload: dict[str, Any]) -> dict[str, Any]:
-    subject = build_collection_task_slug(contract)
-    stamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    base_dir = collection_task_artifacts_root(contract.get('source_kind') or 'web') / 'artifacts'
-    base_dir.mkdir(parents=True, exist_ok=True)
-    file_path = base_dir / f'proposal_{subject}_{stamp}.md'
-    file_path.write_text(render_proposal_markdown(contract, payload), encoding='utf-8')
-    return {
-        'kind': 'proposal_artifact',
-        'original_name': file_path.name,
-        'stored_name': file_path.name,
-        'relative_path': str(file_path.relative_to(DATA_DIR)),
-        'local_path': str(file_path),
-        'mime_type': 'text/markdown',
-        'size_bytes': file_path.stat().st_size,
-        'download_url': f"{API_PREFIX}/artifacts/collection/{urllib.parse.quote(file_path.name)}",
-    }
-
-
-def maybe_attach_proposal_artifact(contract: dict[str, Any], documents: list[dict[str, Any]], rows: list[dict[str, Any]], attachments: list[dict[str, Any]], base_downstream: str) -> tuple[str, dict[str, Any]] | None:
-    composition_mode = safe_text(contract.get('composition_mode'))
-    if not composition_mode:
-        return None
-    payload = compose_proposal_payload(contract, documents, rows)
-    proposal_attachment = build_proposal_artifact_attachment(contract, payload)
-    reply_text = (
-        'Готово. Собрала материалы и подготовила composition-артефакт по явному запросу на КП / оценку.\n\n'
-        f"Режим: {composition_mode}.\n"
-        f"Источников / документов обработано: {len(documents)}.\n"
-        f"Файл проекта: {proposal_attachment['original_name']}."
-    )
-    meta = {
-        'message_kind': 'collection_composition_result',
-        'downstream': f'{base_downstream}:proposal',
-        'collection_contract': contract,
-        'attachments': [proposal_attachment, *attachments],
-        'composition_payload_preview': {
-            'title': safe_text(payload.get('title')),
-            'executive_summary': safe_text(payload.get('executive_summary'))[:500],
-            'confirmed_facts': (payload.get('confirmed_facts') or [])[:5],
-            'analogs': (payload.get('analogs') or [])[:5],
-            'hypotheses': (payload.get('hypotheses') or [])[:5],
-        },
-    }
-    return reply_text, meta
-
-
-def build_attachment_collection_documents(attachments: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    documents: list[dict[str, Any]] = []
-    for item in attachments:
-        extracted_text = safe_text(item.get('extracted_text') or item.get('preview_text'))
-        if not extracted_text:
-            continue
-        source_name = safe_text(item.get('original_name') or item.get('stored_name') or 'attachment')
-        documents.append({
-            'requested_url': source_name,
-            'final_url': source_name,
-            'title': source_name,
-            'text': extracted_text,
-        })
-    return documents
-
-
-def materialize_attachment_task_bundle(contract: dict[str, Any], attachments: list[dict[str, Any]]) -> dict[str, Any]:
-    base_dir = collection_task_artifacts_root('attachment')
-    base_dir.mkdir(parents=True, exist_ok=True)
-    slug = build_collection_task_slug(contract)
-    stamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    task_path = base_dir / f'attachment_bundle_{slug}_{stamp}.json'
-    payload = {
-        'kind': 'attachment_bundle',
-        'subject': contract.get('subject'),
-        'output_format': contract.get('output_format'),
-        'fields': contract.get('fields') or [],
-        'items': [
-            {
-                'original_name': safe_text(item.get('original_name')),
-                'relative_path': safe_text(item.get('relative_path')),
-                'mime_type': safe_text(item.get('mime_type')),
-                'text_extracted': bool(item.get('text_extracted')),
-            }
-            for item in attachments
-        ],
-    }
-    task_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding='utf-8')
-    return {'kind': 'attachment_bundle', 'path': str(task_path), 'items': payload['items']}
-
-
-def execute_attachment_collection_contract(contract: dict[str, Any], attachments: list[dict[str, Any]]) -> tuple[str, dict[str, Any]]:
-    task_bundle = materialize_attachment_task_bundle(contract, attachments)
-    documents = build_attachment_collection_documents(attachments)
-    if not documents:
-        raise ApiError('attachment_collection_no_text', 409)
-    rows = structure_web_collection_rows(contract, documents)
-    raw_attachment = build_collection_artifact_attachment(contract, rows) if safe_text(contract.get('output_format')) in COLLECTION_STRUCTURED_FORMATS else None
-    proposal_reply = maybe_attach_proposal_artifact(
-        contract,
-        documents,
-        rows,
-        [raw_attachment] if raw_attachment else [],
-        'chat:attachment_collection_result',
-    )
-    if proposal_reply is not None:
-        reply_text, meta = proposal_reply
-        meta['task_source_list'] = task_bundle
-        meta['collection_rows_preview'] = rows[:5]
-        return reply_text, meta
-    attachment = raw_attachment
-    reply_text = (
-        'Готово. Собрала данные из файлов пользователя и подготовила реальный файл.\n\n'
-        f"Файлов в bundle: {len(attachments)}.\n"
-        f"Файлов с извлечённым текстом: {len(documents)}.\n"
-        f"Строк в результате: {len(rows)}.\n"
-        f"Файл: {attachment['original_name']}."
-    )
-    meta = {
-        'message_kind': 'collection_execution_result',
-        'downstream': 'chat:attachment_collection_result',
-        'collection_contract': contract,
-        'task_source_list': task_bundle,
-        'attachments': [attachment],
-        'collection_rows_preview': rows[:5],
-    }
-    return reply_text, meta
-
-
-def fetch_api_source_payload(source: str) -> tuple[str, Any]:
-    target_url = normalize_web_source_url(source)
-    if not target_url:
-        raise ApiError('api_collection_source_missing', 409)
-    request = urllib.request.Request(
-        target_url,
-        headers={
-            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) HermesApiCollection/1.0',
-            'Accept': 'application/json,text/json,text/plain,*/*',
-        },
-        method='GET',
-    )
-    try:
-        with urllib.request.urlopen(request, timeout=40) as response:
-            body = response.read().decode('utf-8', errors='replace')
-            final_url = safe_text(getattr(response, 'url', target_url) or target_url)
-    except urllib.error.HTTPError as exc:
-        raise ApiError(f'api_collection_http_error:{exc.code}', 502) from exc
-    except urllib.error.URLError as exc:
-        raise ApiError('api_collection_unreachable', 502) from exc
-    try:
-        payload = json.loads(body)
-    except Exception as exc:
-        raise ApiError('api_collection_invalid_json', 409) from exc
-    return final_url, payload
-
-
-def normalize_api_payload_rows(payload: Any) -> list[dict[str, Any]]:
-    if isinstance(payload, list):
-        return [item for item in payload if isinstance(item, dict)]
-    if isinstance(payload, dict):
-        candidate_lists = [value for value in payload.values() if isinstance(value, list) and all(isinstance(item, dict) for item in value)]
-        if candidate_lists:
-            return list(candidate_lists[0])
-        return [payload]
-    return []
-
-
-def materialize_api_task_config(contract: dict[str, Any]) -> dict[str, Any]:
-    base_dir = collection_task_artifacts_root('api')
-    base_dir.mkdir(parents=True, exist_ok=True)
-    slug = build_collection_task_slug(contract)
-    stamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-    task_path = base_dir / f'api_task_{slug}_{stamp}.json'
-    payload = {
-        'kind': 'api_task',
-        'subject': contract.get('subject'),
-        'since_date': contract.get('since_date') or '',
-        'output_format': contract.get('output_format'),
-        'fields': contract.get('fields') or [],
-        'source_items': contract.get('source_items') or [],
-    }
-    task_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding='utf-8')
-    return {'kind': 'api_task', 'path': str(task_path), 'items': payload['source_items']}
-
-
-def execute_api_collection_contract(contract: dict[str, Any]) -> tuple[str, dict[str, Any]]:
-    task_config = materialize_api_task_config(contract)
-    rows: list[dict[str, Any]] = []
-    documents: list[dict[str, Any]] = []
-    fields = list(contract.get('fields') or [])
-    for source in (contract.get('source_items') or [])[:5]:
-        final_url, payload = fetch_api_source_payload(source)
-        payload_rows = normalize_api_payload_rows(payload)
-        documents.append({
-            'requested_url': source,
-            'final_url': final_url,
-            'title': final_url,
-            'text': json.dumps(payload, ensure_ascii=False)[:12000],
-        })
-        for item in payload_rows:
-            row = {field: safe_text(item.get(field)) for field in fields}
-            row['source_url'] = final_url
-            rows.append(row)
-    raw_attachment = build_collection_artifact_attachment(contract, rows) if safe_text(contract.get('output_format')) in COLLECTION_STRUCTURED_FORMATS else None
-    proposal_reply = maybe_attach_proposal_artifact(
-        contract,
-        documents,
-        rows,
-        [raw_attachment] if raw_attachment else [],
-        'chat:api_collection_result',
-    )
-    if proposal_reply is not None:
-        reply_text, meta = proposal_reply
-        meta['task_source_list'] = task_config
-        meta['collection_rows_preview'] = rows[:5]
-        return reply_text, meta
-    attachment = raw_attachment
-    reply_text = (
-        'Готово. Собрала данные из API и подготовила реальный файл.\n\n'
-        f"API-источников обработано: {len(task_config['items'])}.\n"
-        f"Строк в результате: {len(rows)}.\n"
-        f"Файл: {attachment['original_name']}."
-    )
-    meta = {
-        'message_kind': 'collection_execution_result',
-        'downstream': 'chat:api_collection_result',
-        'collection_contract': contract,
-        'task_source_list': task_config,
-        'attachments': [attachment],
-        'collection_rows_preview': rows[:5],
-    }
-    return reply_text, meta
-
-
-def build_collection_dashboard_fallback_payload(contract: dict[str, Any], documents: list[dict[str, Any]], rows: list[dict[str, Any]]) -> dict[str, Any]:
-    subject = safe_text(contract.get('subject') or contract.get('request_text') or 'Собранные данные')
-    source_label = {
-        'web': 'Веб-источники',
-        'telegram': 'Telegram',
-        'api': 'API',
-        'attachment': 'Файлы',
-    }.get(safe_text(contract.get('source_kind')), 'Источник')
-    top_titles = [safe_text(item.get('title') or item.get('final_url') or item.get('requested_url')) for item in documents[:5]]
-    summary_cards = [
-        {'label': 'Источник', 'value': source_label, 'note': safe_text(contract.get('source_kind') or 'mixed')},
-        {'label': 'Документов', 'value': str(len(documents)), 'note': 'Реально обработано'},
-        {'label': 'Строк', 'value': str(len(rows)), 'note': 'После нормализации'},
-    ]
-    sections: list[dict[str, Any]] = [
-        {
-            'kind': 'text_list',
-            'title': 'Что вошло в анализ',
-            'items': top_titles or ['Собранные документы без явных заголовков'],
-        }
-    ]
-    category_field = next((field for field in contract.get('fields') or [] if field in {'type', 'category', 'segment', 'product_type', 'class'}), '')
-    if category_field:
-        counts: dict[str, int] = {}
-        for row in rows:
-            label = safe_text(row.get(category_field)) or 'Не указано'
-            counts[label] = counts.get(label, 0) + 1
-        if counts:
-            total = sum(counts.values()) or 1
-            sections.append({
-                'kind': 'bar_list',
-                'title': 'Распределение по категориям',
-                'items': [
-                    {'label': label, 'value': str(value), 'ratio': round(value / total, 4)}
-                    for label, value in sorted(counts.items(), key=lambda item: (-item[1], item[0]))[:8]
-                ],
-            })
-    sections.append({
-        'kind': 'text_list',
-        'title': 'Ограничения',
-        'items': [
-            {'text': 'Часть выводов может быть ориентировочной, если в источниках мало структурированных данных.', 'meta': 'Fallback dashboard payload'},
-        ],
-    })
-    return {
-        'reply_text': f'Собрала данные по теме {subject} и подготовила dashboard по собранным источникам.',
-        'dashboard': {
-            'kind': 'external_research_dashboard',
-            'grammar_version': EXTERNAL_DASHBOARD_GRAMMAR_VERSION,
-            'intent': infer_external_dashboard_intent(subject),
-            'title': f'Дашборд: {subject[:80]}',
-            'subtitle': f'Собранные документы: {len(documents)} · строки: {len(rows)}',
-            'summary_cards': summary_cards,
-            'sections': sections,
-            'sources': [
-                {'label': safe_text(item.get('title') or item.get('final_url') or item.get('requested_url')), 'url': safe_text(item.get('final_url') or item.get('requested_url'))}
-                for item in documents[:8]
-            ],
-            'notes': 'Dashboard построен на собранном dataset-path без отдельного file artifact.',
-        },
-    }
-
-
-def maybe_build_collection_dashboard_reply(
-    contract: dict[str, Any],
-    documents: list[dict[str, Any]],
-    rows: list[dict[str, Any]],
-    *,
-    downstream: str,
-) -> tuple[str, dict[str, Any]] | None:
-    if safe_text(contract.get('output_format')).lower() != 'dashboard':
-        return None
-    source_label = {
-        'web': 'Интернет-исследование',
-        'telegram': 'Telegram-выгрузка',
-        'api': 'API-источник',
-        'attachment': 'Файлы пользователя',
-    }.get(safe_text(contract.get('source_kind')), 'Собранные данные')
-    source_meta = {
-        'label': source_label,
-        'item_key': safe_text(contract.get('source_kind') or 'collection_dashboard'),
-        'route': downstream.split(':', 1)[-1] if ':' in downstream else downstream,
-    }
-    policy = {
-        'source_mode': 'global_only' if safe_text(contract.get('source_kind')) in {'web', 'api', 'telegram'} else 'local_only',
-        'notes': 'Dashboard построен после execution-path сбора данных.',
-    }
-    try:
-        prompt_messages = build_web_collection_rows_prompt(contract, documents)
-        prompt_messages[0] = {
-            'role': 'system',
-            'content': (
-                'Ты строишь dashboard_result для уже собранных данных Hermes Web. '
-                'Используй только rows_preview и documents. '
-                'Верни строго JSON-объект вида {"reply_text":"...","dashboard":{...}} без markdown. '
-                'В dashboard нужны summary_cards, sections, sources и честные оговорки, если данных мало.'
-            ),
-        }
-        prompt_messages[1] = {
-            'role': 'user',
-            'content': json.dumps({
-                'request_text': contract.get('request_text'),
-                'subject': contract.get('subject'),
-                'analysis_modes': contract.get('analysis_modes') or [],
-                'rows_preview': rows[:30],
-                'documents': [
-                    {
-                        'source_url': item.get('final_url') or item.get('requested_url'),
-                        'title': item.get('title'),
-                        'text_excerpt': safe_text(item.get('text'))[:3000],
-                    }
-                    for item in documents[:8]
-                ],
-            }, ensure_ascii=False),
-        }
-        payload = extract_json_object(call_hermes_messages(prompt_messages, model_name=HERMES_API_MODEL)[0])
-        if not isinstance(payload, dict):
-            payload = build_collection_dashboard_fallback_payload(contract, documents, rows)
-    except Exception:
-        payload = build_collection_dashboard_fallback_payload(contract, documents, rows)
-    reply_text = safe_text(payload.get('reply_text') or f'Собрала данные и подготовила dashboard по теме {safe_text(contract.get("subject") or "запрос")}.' )
-    dashboard = normalize_external_dashboard_payload(
-        payload.get('dashboard') if isinstance(payload.get('dashboard'), dict) else {},
-        reply_text,
-        source_meta,
-        policy,
-        safe_text(contract.get('request_text') or contract.get('subject')),
-    )
-    return reply_text, {
-        'message_kind': 'dashboard_result',
-        'downstream': downstream,
-        'dashboard_builder': 'collection_execution_dashboard',
-        'dashboard_label': source_label,
-        'dashboard_grammar': EXTERNAL_DASHBOARD_GRAMMAR_VERSION,
-        'analytics_source': source_meta,
-        'dashboard_policy': policy,
-        'dashboard': dashboard,
-        'collection_contract': contract,
-        'collection_rows_preview': rows[:5],
-        'web_sources': [
-            {'requested_url': doc.get('requested_url'), 'final_url': doc.get('final_url'), 'title': doc.get('title')}
-            for doc in documents
-        ],
-    }
-
-
-def execute_web_collection_contract(contract: dict[str, Any]) -> tuple[str, dict[str, Any]]:
-    source_items, source_manifest = resolve_web_collection_sources(contract)
-    if not source_items:
-        raise ApiError('web_collection_sources_not_found', 409)
-    documents: list[dict[str, Any]] = []
-    skipped_sources: list[dict[str, str]] = []
-    last_error: Exception | None = None
-    for item in source_items[:5]:
-        try:
-            documents.append(fetch_web_source_document(item))
-        except Exception as exc:
-            last_error = exc
-            skipped_sources.append({'source_url': safe_text(item), 'error': safe_text(exc)})
-    if not documents:
-        if isinstance(last_error, ApiError):
-            raise last_error
-        raise ApiError('web_collection_documents_unavailable', 409)
-    documents = select_relevant_web_documents(contract, documents)
-    rows = structure_web_collection_rows(contract, documents)
-    dashboard_reply = maybe_build_collection_dashboard_reply(contract, documents, rows, downstream='dashboard:web_collection_result')
-    raw_attachment = build_collection_artifact_attachment(contract, rows) if safe_text(contract.get('output_format')) in COLLECTION_STRUCTURED_FORMATS else None
-    if dashboard_reply is not None:
-        reply_text, meta = dashboard_reply
-        meta['task_source_list'] = source_manifest
-        if skipped_sources:
-            meta['web_sources_skipped'] = skipped_sources
-        return reply_text, meta
-    proposal_reply = maybe_attach_proposal_artifact(
-        contract,
-        documents,
-        rows,
-        [raw_attachment] if raw_attachment else [],
-        'chat:web_collection_result',
-    )
-    if proposal_reply is not None:
-        reply_text, meta = proposal_reply
-        meta['task_source_list'] = source_manifest
-        meta['collection_rows_preview'] = rows[:5]
-        meta['web_sources'] = [
-            {'requested_url': doc.get('requested_url'), 'final_url': doc.get('final_url'), 'title': doc.get('title')}
-            for doc in documents
-        ]
-        if skipped_sources:
-            meta['web_sources_skipped'] = skipped_sources
-        return reply_text, meta
-    if raw_attachment is None:
-        raise ApiError('collection_output_format_unsupported', 409)
-    attachment = raw_attachment
-    reply_text = (
-        'Готово. Собрала данные из веб-источников и подготовила реальный файл.\n\n'
-        f"Источников обработано: {len(documents)}.\n"
-        f"Строк в результате: {len(rows)}.\n"
-        f"Формат: {contract.get('output_format')}.\n"
-        f"Файл: {attachment['original_name']}."
-    )
-    if skipped_sources:
-        reply_text += f"\nПропущено источников: {len(skipped_sources)}."
-    meta = {
-        'message_kind': 'collection_execution_result',
-        'downstream': 'chat:web_collection_result',
-        'collection_contract': contract,
-        'task_source_list': source_manifest,
-        'attachments': [attachment],
-        'collection_rows_preview': rows[:5],
-        'web_sources': [
-            {'requested_url': doc.get('requested_url'), 'final_url': doc.get('final_url'), 'title': doc.get('title')}
-            for doc in documents
-        ],
-    }
-    if skipped_sources:
-        meta['web_sources_skipped'] = skipped_sources
-    return reply_text, meta
-
-
-def maybe_execute_collection_request(
-    conn: sqlite3.Connection,
-    task: sqlite3.Row,
-    user_row: sqlite3.Row,
-    message_rows: list[sqlite3.Row],
-    user_text: str,
-    attachments: list[dict[str, Any]] | None = None,
-) -> tuple[str, dict[str, Any]] | None:
-    if not looks_like_collection_request(user_text, attachments):
-        return None
-    contract = build_collection_contract_meta(user_text, attachments)
-    if contract.get('missing_fields'):
-        return None
-    source_kind = safe_text(contract.get('source_kind'))
-    if source_kind == 'attachment' and attachments:
-        return execute_attachment_collection_contract(contract, attachments)
-    if source_kind == 'telegram':
-        return execute_telegram_collection_contract(contract)
-    if source_kind == 'tenders':
-        return execute_tender_collection_contract(contract)
-    if source_kind == 'api':
-        return execute_api_collection_contract(contract)
-    if source_kind in {'web', 'url', 'media'}:
-        return execute_web_collection_contract(contract)
-    return None
-
-
 def telegram_post_type(text: str) -> str:
     lowered = safe_text(text).lower()
     if not lowered:
@@ -7475,16 +5371,10 @@ def normalize_public_error_text(error_text: str) -> str:
     normalized_html = html.unescape(lowered)
     if cleaned == "message_export_unfulfilled_by_model":
         return "Не удалось сформировать файл: модель вернула служебный или непригодный ответ вместо содержимого документа. Повторите запрос."
-    if cleaned == "structured_generated_file_not_supported":
-        return "Не удалось сформировать файл: для CSV/XLSX/JSON/XML нужен структурированный набор данных, а не просто текст ответа. Уточните источник и формат выгрузки."
-    if cleaned == "llm_reply_language_guard_failed":
-        return "Не удалось получить ответ в корректном русском формате. Повторите запрос."
     if cleaned.startswith("message_export_"):
         return "Не удалось сформировать файл по предыдущему ответу. Повторите запрос после того, как в чате появится содержательный ответ."
-    if cleaned == 'telegram_collection_busy_timeout':
-        return "Telegram-выгрузка ещё занята предыдущей задачей. Дождитесь завершения текущего сбора и повторите запрос."
     if "timed out" in lowered:
-        return "Не удалось получить ответ: upstream-источник превысил лимит ожидания. Повторите запрос."
+        return "Не удалось сформировать файл: upstream-ответ превысил лимит ожидания."
     html_markers = (
         "<html",
         "<!doctype html",
@@ -8279,12 +6169,9 @@ def maybe_build_dashboard_reply(
         return prompt, meta
     preferred_key = policy.get("default_global_source")
     global_source = next((item for item in global_candidates if item["item_key"] == preferred_key), global_candidates[0])
-    prefers_global_sources = dashboard_request_prefers_global_sources(text)
     if local_reply is not None and policy["source_mode"] == DASHBOARD_SOURCE_MODE_LOCAL_FIRST:
         reply_text, meta = local_reply
         if local_reply_kind == "clarification_request":
-            if prefers_global_sources:
-                return build_global_dashboard_reply(text, global_source, policy)
             prompt, meta = build_dashboard_clarification_reply(allow_global_fallback=True)
             meta["dashboard_policy"] = policy
             return prompt, meta
@@ -8317,44 +6204,57 @@ def normalize_days_of_week(values: list[str] | None) -> list[str]:
     return items
 
 
+SCHEDULE_REQUEST_PATTERNS = [
+    r"\bежедневн",
+    r"\bеженедельн",
+    r"\bежемесячн",
+    r"\bпо будням\b",
+    r"\bна регулярн[а-я]+ основе\b",
+    r"\bкажд(?:ый|ую|ое|ые)\b",
+]
+
+
 def looks_like_recurring_job_request(text: str) -> bool:
     lowered = safe_text(text).lower()
     if not lowered:
         return False
-    if not regex_matches_any(lowered, MONITORING_REQUEST_ACTION_PATTERNS):
+    if not re.search(r"\b(постав|настро|запуст|сдела|организ|добав)\w*", lowered):
         return False
-    if regex_matches_any(lowered, MONITORING_REQUEST_SCHEDULE_PATTERNS):
-        return True
-    setup_target = regex_matches_any(lowered, MONITORING_REQUEST_TARGET_PATTERNS)
-    return setup_target and bool(re.search(r"\b(кажд|регулярн|по будням|ежедневн|еженедельн|ежемесячн)\w*", lowered))
+    return any(re.search(pattern, lowered) for pattern in SCHEDULE_REQUEST_PATTERNS)
 
 
 def infer_schedule_from_text(text: str) -> dict[str, Any]:
     lowered = safe_text(text).lower()
-    schedule_kind = safe_text(MONITORING_DEFAULT_SCHEDULE.get("schedule_kind") or "weekly")
-    days = list(MONITORING_DEFAULT_SCHEDULE.get("days_of_week") or ["mon"])
-    time_of_day = safe_text(MONITORING_DEFAULT_SCHEDULE.get("time_of_day") or "09:00")
-    timezone = safe_text(MONITORING_DEFAULT_SCHEDULE.get("timezone") or "Europe/Moscow")
-    for rule in MONITORING_SCHEDULE_KIND_RULES:
-        marker = safe_text((rule or {}).get("match"))
-        if marker and marker in lowered:
-            schedule_kind = safe_text((rule or {}).get("schedule_kind") or schedule_kind)
-            days = list((rule or {}).get("days_of_week") or [])
-            break
-    if schedule_kind == "weekly":
-        for rule in MONITORING_WEEKDAY_RULES:
-            marker = safe_text((rule or {}).get("match"))
-            if marker and marker in lowered:
-                days = list((rule or {}).get("days_of_week") or days)
-                break
-    time_match = re.search(MONITORING_TIME_PATTERN, lowered)
-    if time_match:
-        time_of_day = f"{int(time_match.group(1)):02d}:{time_match.group(2)}"
+    schedule_kind = "weekly"
+    days = ["mon"]
+    if "ежеднев" in lowered:
+        schedule_kind = "daily"
+        days = []
+    elif "по будням" in lowered:
+        schedule_kind = "weekdays"
+        days = []
+    elif "ежемесяч" in lowered:
+        schedule_kind = "monthly"
+        days = []
+    elif "вторник" in lowered:
+        days = ["tue"]
+    elif "сред" in lowered:
+        days = ["wed"]
+    elif "четверг" in lowered:
+        days = ["thu"]
+    elif "пятниц" in lowered:
+        days = ["fri"]
+    elif "суббот" in lowered:
+        days = ["sat"]
+    elif "воскрес" in lowered:
+        days = ["sun"]
+    time_match = re.search(r"\b([01]?\d|2[0-3])[:.]([0-5]\d)\b", lowered)
+    time_of_day = f"{int(time_match.group(1)):02d}:{time_match.group(2)}" if time_match else "09:00"
     return {
         "schedule_kind": schedule_kind,
         "days_of_week": days,
         "time_of_day": time_of_day,
-        "timezone": timezone,
+        "timezone": "Europe/Moscow",
     }
 
 
@@ -8364,17 +6264,13 @@ def looks_like_recurring_job_followup(text: str) -> bool:
         return False
     if looks_like_recurring_job_request(lowered):
         return True
-    has_action = regex_matches_any(lowered, MONITORING_REQUEST_ACTION_PATTERNS)
-    has_setup_target = regex_matches_any(lowered, MONITORING_FOLLOWUP_TARGET_PATTERNS)
-    refers_to_existing_topic = regex_matches_any(lowered, MONITORING_FOLLOWUP_REFERENCE_PATTERNS)
-    has_schedule_hint = regex_matches_any(lowered, MONITORING_REQUEST_SCHEDULE_PATTERNS)
-    return (has_action and has_setup_target and refers_to_existing_topic) or (has_action and has_schedule_hint)
+    has_action = bool(re.search(r"\b(постав|настро|запуст|сдела|организ|добав)\w*", lowered))
+    has_setup_target = bool(re.search(r"\b(регулярн|мониторинг|рассыл|подписк|сбор)\w*", lowered))
+    refers_to_existing_topic = bool(re.search(r"\b(это|этого|эту|этот|такое|такой)\b", lowered))
+    return has_action and has_setup_target and refers_to_existing_topic
 
 
-def infer_research_subject_from_thread(messages: list[sqlite3.Row], current_user_message_id: int, current_user_text: str = '') -> str:
-    explicit_current_subject = infer_collection_subject(current_user_text)
-    if explicit_current_subject:
-        return explicit_current_subject.strip().rstrip(" ?.!")
+def infer_research_subject_from_thread(messages: list[sqlite3.Row], current_user_message_id: int) -> str:
     prior_user_messages = [
         safe_text(row["content"])
         for row in messages
@@ -8384,9 +6280,6 @@ def infer_research_subject_from_thread(messages: list[sqlite3.Row], current_user
         lowered = candidate.lower()
         if looks_like_recurring_job_followup(lowered):
             continue
-        explicit_subject = infer_collection_subject(candidate)
-        if explicit_subject:
-            return explicit_subject.strip().rstrip(" ?.!")
         if len(candidate.strip()) >= 8:
             return candidate.strip().rstrip(" ?.!")
     return "отслеживай тему из текущего чата"
@@ -8417,62 +6310,13 @@ def maybe_create_recurring_job_from_chat(
     user_text: str,
 ) -> tuple[str, dict[str, Any]] | None:
     recent_context = build_recent_recurring_request_context(message_rows, int(task["user_message_id"]))
-    if looks_like_recurring_job_request(user_text):
-        schedule_source_text = user_text
-    elif looks_like_recurring_job_followup(user_text):
-        schedule_source_text = recent_context or user_text
-    elif regex_matches_any(safe_text(user_text).lower(), MONITORING_REQUEST_SCHEDULE_PATTERNS) and recent_context and looks_like_recurring_job_followup(recent_context):
-        schedule_source_text = f"{recent_context}\n{user_text}".strip()
-    else:
+    classification_text = recent_context or user_text
+    if not looks_like_recurring_job_request(classification_text):
         return None
     auth = AuthUser(id=int(user_row["id"]), role=safe_text(user_row["role"] or "user"), email=safe_text(user_row["email"]))
-    schedule = infer_schedule_from_text(schedule_source_text)
-    subject = infer_research_subject_from_thread(message_rows, int(task["user_message_id"]), user_text)
+    schedule = infer_schedule_from_text(classification_text)
+    subject = infer_research_subject_from_thread(message_rows, int(task["user_message_id"]))
     subject_short = subject[:120]
-
-    def normalize_recurring_subject(value: str) -> str:
-        return re.sub(r"\s+", " ", safe_text(value).strip().lower())
-
-    normalized_subject = normalize_recurring_subject(subject_short)
-    existing_rows = conn.execute(
-        """
-        SELECT *
-        FROM jobs
-        WHERE user_id = ? AND job_type = 'research_watch' AND status IN ('active', 'paused')
-        ORDER BY id DESC
-        """,
-        (int(user_row["id"]),),
-    ).fetchall()
-    for existing_row in existing_rows:
-        existing = row_to_job_dict(conn, existing_row, auth=auth, include_details=True)
-        existing_subject = normalize_recurring_subject((existing.get("parameters") or {}).get("subject") or "")
-        if existing_subject != normalized_subject:
-            continue
-        if safe_text(existing.get("schedule_kind") or "") != safe_text(schedule["schedule_kind"] or ""):
-            continue
-        if normalize_time_of_day(existing.get("time_of_day") or "09:00") != normalize_time_of_day(schedule["time_of_day"] or "09:00"):
-            continue
-        if normalize_timezone(existing.get("timezone") or "Europe/Moscow") != normalize_timezone(schedule["timezone"] or "Europe/Moscow"):
-            continue
-        if normalize_days_of_week(existing.get("days_of_week")) != normalize_days_of_week(schedule["days_of_week"]):
-            continue
-        summary = safe_text(existing.get("schedule_summary") or build_schedule_summary(existing))
-        reply_text = (
-            f"Такая задача уже есть: «{existing['name']}».\n\n"
-            f"Расписание: {summary}.\n"
-            f"Тема мониторинга: {subject_short}.\n\n"
-            "Новый дубликат не создаю. Если нужно, могу отдельно изменить расписание или формулировку существующей задачи."
-        )
-        meta = {
-            "message_kind": "job_reused",
-            "created_job_id": existing["id"],
-            "created_job_name": existing["name"],
-            "schedule_summary": summary,
-            "job_preview": existing,
-            "downstream": "chat:job_reused",
-        }
-        return reply_text, meta
-
     payload = {
         "name": f"Мониторинг: {subject_short}",
         "description": f"Регулярный мониторинг по запросу из чата: {subject_short}",
@@ -9060,8 +6904,6 @@ def build_default_job_template(job_type: str) -> str:
         return "Разбери тему: {topic}. Критерии: {criteria}. На выходе нужен: {outcome}."
     if job_type == "research_watch":
         return "Подготовь обзор по теме {subject}. Угол: {angle}. Форма результата: {output}."
-    if job_type == "data_collection":
-        return "Выполни сбор данных по контракту: {subject}. Источник: {source_kind}. Формат: {output_format}."
     return "Сделай задачу: {goal}. Контекст: {context}."
 
 
@@ -9488,32 +7330,26 @@ def chat_processor_worker() -> None:
 
 
 def start_chat_processor() -> None:
-    global _chat_processor_started, _chat_processor_thread
+    global _chat_processor_started
     if not CHAT_PROCESSOR_ENABLED:
         return
     with _chat_processor_lock:
-        if _chat_processor_thread is not None and _chat_processor_thread.is_alive():
-            _chat_processor_started = True
+        if _chat_processor_started:
             return
-        _chat_processor_stop.clear()
         thread = threading.Thread(target=chat_processor_worker, name="hermes-web-chat-processor", daemon=True)
         thread.start()
-        _chat_processor_thread = thread
         _chat_processor_started = True
 
 
 def start_scheduler() -> None:
-    global _scheduler_started, _scheduler_thread
+    global _scheduler_started
     if not SCHEDULER_ENABLED:
         return
     with _scheduler_lock:
-        if _scheduler_thread is not None and _scheduler_thread.is_alive():
-            _scheduler_started = True
+        if _scheduler_started:
             return
-        _scheduler_stop.clear()
         thread = threading.Thread(target=scheduler_worker, name="hermes-web-jobs", daemon=True)
         thread.start()
-        _scheduler_thread = thread
         _scheduler_started = True
 
 
@@ -9521,8 +7357,6 @@ def start_scheduler() -> None:
 def handle_preflight() -> Response | None:
     if request.method == "OPTIONS":
         return Response(status=204)
-    start_scheduler()
-    start_chat_processor()
     return None
 
 
@@ -10054,8 +7888,6 @@ def post_message(thread_id: int) -> Response:
                 preview_source = text or (attachments[0]["original_name"] if attachments else "Сообщение")
                 conn.execute("UPDATE threads SET preview = ?, updated_at = ? WHERE id = ?", (preview_source[:140], now_iso(), thread_id))
                 assistant_row = conn.execute("SELECT * FROM messages WHERE id = ?", (assistant_id,)).fetchone()
-                task_id = int(task_row["id"])
-            dispatch_chat_task_now(task_id)
             return jsonify({
                 "user_message_id": user_message_id,
                 "user_attachments": attachments,

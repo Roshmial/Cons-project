@@ -1,0 +1,13 @@
+profiles:
+  profile_1:
+    session_name: profile_1
+    mode: task
+    date_from: 2026-06-01
+    date_to: ''
+    limit_per_channel: 500
+    global_limit: 10000
+    channels:
+      - username: legal_ai_news
+        task_subject: ""
+      - username: robotics_digest
+        task_subject: ""

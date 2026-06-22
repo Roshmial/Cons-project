@@ -1,0 +1,9 @@
+profiles:
+  profile_1:
+    session_name: "profile_1"
+    date_from: "2026-06-15"
+    limit_per_channel: 500
+    global_limit: 1000
+    channels:
+      - username: "b1_news"
+      - username: "Axenix_Ru"

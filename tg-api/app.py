@@ -188,9 +188,10 @@ def serialize_message_stats(msg: Message) -> Dict[str, Any]:
 
 async def export_profile_async(
     profile_name: str,
-    config_name: str = 'channels',  # новый параметр
+    config_name: str = 'channels',
     since: Optional[Dict[str, int]] = None,
     until_id: Optional[int] = None,
+    channel_username: Optional[str] = None,
 ) -> Tuple[Dict[str, Any], int]:
 
     # Загружаем нужный конфиг
@@ -213,6 +214,12 @@ async def export_profile_async(
     limit_per_channel = int(profile_cfg.get('limit_per_channel', 0)) or None
     global_limit = int(profile_cfg.get('global_limit', 0)) or None
     channels = profile_cfg.get('channels') or []
+
+    if channel_username:
+        channels = [ch for ch in channels if ch.get('username') == channel_username]
+        if not channels:
+            await client.disconnect()
+            return {'error': f'Channel {channel_username} not found in profile {profile_name}'}, 404
 
     await client.connect()
     if not await client.is_user_authorized():
@@ -297,6 +304,7 @@ def export() -> Any:
             return jsonify({'error': f'remote_export_failed: {e}'}), 502
     profile = request.args.get('profile', 'profile1')
     config_name = request.args.get('config', 'channels')
+    channel = request.args.get('channel')
     since_raw = request.args.get('since')
     since: Optional[Dict[str, int]] = None
     if since_raw:
@@ -309,7 +317,7 @@ def export() -> Any:
 
     try:
         data, status = asyncio.run(
-            export_profile_async(profile, config_name, since, until_id)
+            export_profile_async(profile, config_name, since, until_id, channel_username=channel)
         )
         return jsonify(data), status
     except FileNotFoundError as e:

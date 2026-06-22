@@ -1,0 +1,18 @@
+profiles:
+  profile_1:
+    session_name: profile_1
+    date_from: '2026-05-01'
+    limit_per_channel: 1000
+    global_limit: 10000
+    channels:
+      - username: yandexcloud
+      - username: vkcloud
+      - username: cloudru
+      - username: softline_ru
+      - username: ibs_ru
+      - username: crocrussia
+      - username: positive_tech
+      - username: kaspersky
+      - username: cnews_ru
+      - username: tadviser
+      - username: habr

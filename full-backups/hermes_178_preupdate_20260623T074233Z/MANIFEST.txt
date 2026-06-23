@@ -1,0 +1,6 @@
+Backup: hermes_178_preupdate_20260623T074233Z
+Source archive: /home/hermes/backups/hermes_178_preupdate_20260623T074233Z/hermes-home.tar.gz
+Encrypted parts: 10
+Encryption: openssl enc -aes-256-cbc -pbkdf2 -salt -pass file:decrypt.key
+Restore: cat hermes-home.tar.gz.enc.part-* > hermes-home.tar.gz.enc && openssl enc -d -aes-256-cbc -pbkdf2 -in hermes-home.tar.gz.enc -out hermes-home.tar.gz -pass file:decrypt.key
+Note: decrypt.key is stored outside GitHub on the source/ops hosts only.

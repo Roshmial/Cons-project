@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "default_function": "general_business",
+  "functions": {
+    "sales": {
+      "label": "Продажи",
+      "focus": "воронка, выручка, средний чек, вклад менеджеров и каналов",
+      "request_markers": ["sales", "продаж", "выручк", "сделк", "воронк", "pipeline", "crm", "lead"],
+      "column_markers": ["revenue", "amount", "deal", "stage", "manager", "lead", "crm", "pipeline", "channel"],
+      "summary_cards": ["Выручка", "Сделки", "Средний чек", "Конверсия"],
+      "preferred_sections": ["bar_list", "timeline_list", "pie_list", "text_list"],
+      "metric_groups": ["revenue", "pipeline", "conversion", "manager_performance", "channel_mix", "period_trend"],
+      "agent_instruction": "Сначала ищи выручку, объём сделок, стадии воронки, конверсию, вклад менеджеров и каналов. Если есть период, покажи динамику. Если точной конверсии нет, не выдумывай её — используй честные промежуточные срезы по стадиям и статусам."
+    },
+    "marketing": {
+      "label": "Маркетинг",
+      "focus": "каналы, лиды, стоимость привлечения, вклад кампаний и конверсия",
+      "request_markers": ["marketing", "маркет", "campaign", "utm", "traffic", "трафик", "лидоген"],
+      "column_markers": ["campaign", "channel", "utm", "source", "traffic", "lead", "cost", "click", "impression"],
+      "summary_cards": ["Лиды", "Каналы", "Стоимость", "Конверсия"],
+      "preferred_sections": ["pie_list", "bar_list", "timeline_list", "text_list"],
+      "metric_groups": ["lead_volume", "channel_mix", "campaign_contribution", "cost_efficiency", "conversion", "period_trend"],
+      "agent_instruction": "Сначала ищи каналы, кампании, лиды, стоимость и конверсионные переходы. Если CPL/CAC нельзя честно посчитать, не симулируй KPI; лучше покажи объём лидов и расходы по каналам/кампаниям и отдельно зафиксируй пробелы в данных."
+    },
+    "finance": {
+      "label": "Финансы",
+      "focus": "доходы, расходы, маржа, отклонения и динамика периодов",
+      "request_markers": ["finance", "финанс", "p&l", "pnl", "budget", "бюджет", "cash", "маржин", "opex", "capex"],
+      "column_markers": ["revenue", "income", "expense", "cost", "margin", "budget", "actual", "variance", "cash"],
+      "summary_cards": ["Доходы", "Расходы", "Маржа", "Отклонение"],
+      "preferred_sections": ["bar_list", "timeline_list", "matrix_list", "text_list"],
+      "metric_groups": ["income", "expense", "margin", "plan_vs_actual", "category_breakdown", "period_trend"],
+      "agent_instruction": "Сначала отделяй доходы от расходов, затем смотри на маржу, отклонения и периодическую динамику. Если plan/fact или маржа не вычисляются надёжно, не подставляй формулы из головы — покажи честный breakdown и ограничения."
+    },
+    "operations": {
+      "label": "Операции",
+      "focus": "объём, SLA, скорость цикла, загрузка и узкие места",
+      "request_markers": ["operations", "операц", "sla", "throughput", "cycle time", "processing", "загрузка", "backlog"],
+      "column_markers": ["sla", "throughput", "cycle", "processing", "queue", "backlog", "load", "delay", "status"],
+      "summary_cards": ["Объём", "SLA", "Cycle time", "Загрузка"],
+      "preferred_sections": ["bar_list", "timeline_list", "matrix_list", "text_list"],
+      "metric_groups": ["throughput", "sla", "cycle_time", "load_distribution", "backlog", "bottlenecks"],
+      "agent_instruction": "Сначала ищи throughput, SLA, длительность цикла, backlog и узкие места. Если есть статусы и даты, используй их для динамики и задержек."
+    },
+    "support": {
+      "label": "Поддержка",
+      "focus": "тикеты, время реакции, время решения, backlog и качество обслуживания",
+      "request_markers": ["support", "ticket", "тикет", "обращен", "first response", "resolution", "csat"],
+      "column_markers": ["ticket", "request", "response", "resolution", "csat", "queue", "backlog", "priority"],
+      "summary_cards": ["Тикеты", "First response", "Resolution", "Backlog"],
+      "preferred_sections": ["bar_list", "timeline_list", "pie_list", "text_list"],
+      "metric_groups": ["ticket_volume", "response_time", "resolution_time", "backlog", "category_mix", "sla_breach"],
+      "agent_instruction": "Сначала ищи объём тикетов, время первой реакции, время решения, backlog и нарушения SLA. Если качество сервиса измерено только косвенно, отмечай это отдельно."
+    },
+    "hr": {
+      "label": "HR",
+      "focus": "headcount, найм, attrition, retention и воронка кандидатов",
+      "request_markers": ["hr", "headcount", "hiring", "attrition", "retention", "сотрудник", "найм", "вакан", "увольнен"],
+      "column_markers": ["employee", "candidate", "headcount", "hire", "termination", "team", "vacancy", "retention"],
+      "summary_cards": ["Headcount", "Найм", "Attrition", "Retention"],
+      "preferred_sections": ["bar_list", "timeline_list", "matrix_list", "text_list"],
+      "metric_groups": ["headcount", "hiring_volume", "attrition", "retention", "candidate_funnel", "team_breakdown"],
+      "agent_instruction": "Сначала ищи численность, найм, выбытие, удержание и этапы воронки кандидатов. Если retention/attrition не считаются строго, не маскируй это — дай closest observable proxy."
+    },
+    "product": {
+      "label": "Продукт",
+      "focus": "активация, использование, adoption, retention и вклад функций",
+      "request_markers": ["product", "feature", "adoption", "activation", "usage", "продукт", "активац"],
+      "column_markers": ["feature", "activation", "adoption", "usage", "retention", "session", "cohort", "account"],
+      "summary_cards": ["Активность", "Adoption", "Retention", "Фичи"],
+      "preferred_sections": ["timeline_list", "bar_list", "pie_list", "text_list"],
+      "metric_groups": ["activation", "usage", "feature_adoption", "retention", "cohort_trend", "segment_mix"],
+      "agent_instruction": "Сначала ищи активацию, использование, удержание и вклад функций/сегментов. Если cohort-данных нет, не имитируй cohort analysis — покажи observable usage trend."
+    },
+    "procurement": {
+      "label": "Закупки",
+      "focus": "поставщики, spend, сроки, отклонения и концентрация закупок",
+      "request_markers": ["procurement", "vendor", "supplier", "поставщик", "закуп", "purchase order", "po"],
+      "column_markers": ["vendor", "supplier", "po", "purchase", "spend", "lead time", "delivery", "category"],
+      "summary_cards": ["Spend", "Поставщики", "Сроки", "Отклонения"],
+      "preferred_sections": ["bar_list", "pie_list", "timeline_list", "text_list"],
+      "metric_groups": ["spend", "vendor_concentration", "lead_time", "category_breakdown", "variance", "period_trend"],
+      "agent_instruction": "Сначала ищи spend, поставщиков, сроки поставки и концентрацию закупок. Если нет точных budget/variance полей, ограничься фактическим spend breakdown и сроками."
+    },
+    "it_analytics": {
+      "label": "ИТ-аналитика",
+      "focus": "инциденты, доступность, изменения, производительность систем и качество ИТ-сервиса",
+      "request_markers": ["it analytics", "it-analytics", "ит аналит", "it ops", "availability", "uptime", "incident", "change failure", "mttr", "deployment", "apm", "observability"],
+      "column_markers": ["incident", "availability", "uptime", "latency", "error rate", "change", "deploy", "mttr", "service", "host", "cpu", "memory"],
+      "summary_cards": ["Инциденты", "Доступность", "MTTR", "Изменения"],
+      "preferred_sections": ["timeline_list", "bar_list", "matrix_list", "text_list"],
+      "metric_groups": ["incident_volume", "availability", "latency_performance", "change_failure", "mttr", "service_breakdown"],
+      "agent_instruction": "Сначала ищи инциденты, доступность, производительность, MTTR и качество изменений. Если нет полного SRE/DORA набора, не имитируй его — покажи доступные operational signals по сервисам, периодам и причинам."
+    },
+    "security": {
+      "label": "Безопасность",
+      "focus": "уязвимости, инциденты, покрытия контролей, доступы и риск-профиль",
+      "request_markers": ["security", "sec", "безопасн", "vulnerability", "siem", "soc", "iam", "access", "incident response", "threat", "risk"],
+      "column_markers": ["vulnerability", "severity", "cve", "finding", "control", "access", "identity", "iam", "incident", "risk", "asset", "patch"],
+      "summary_cards": ["Уязвимости", "Инциденты", "Контроли", "Риски"],
+      "preferred_sections": ["bar_list", "timeline_list", "matrix_list", "text_list"],
+      "metric_groups": ["vulnerability_backlog", "incident_volume", "control_coverage", "access_risk", "severity_distribution", "remediation_trend"],
+      "agent_instruction": "Сначала ищи уязвимости, security incidents, покрытие контролей, рисковые доступы и динамику remediation. Если риск нельзя строго посчитать, не превращай качественные сигналы в псевдоточный score — покажи severity mix, backlog и ограничения оценки."
+    },
+    "general_business": {
+      "label": "Бизнес-метрики",
+      "focus": "ключевые метрики, структура, динамика и различия по основным срезам",
+      "request_markers": [],
+      "column_markers": [],
+      "summary_cards": ["Метрики", "Срезы", "Динамика", "Ограничения"],
+      "preferred_sections": ["bar_list", "timeline_list", "pie_list", "text_list"],
+      "metric_groups": ["primary_metric", "key_segments", "period_trend", "distribution", "constraints"],
+      "agent_instruction": "Сначала определи главную бизнес-метрику, основные срезы, динамику и ограничения. Не делай узкоспециализированных выводов без достаточных сигналов."
+    }
+  }
+}

@@ -18,8 +18,8 @@ function assert(cond, message) {
 }
 
 async function waitForApp(page) {
-  await page.waitForLoadState('networkidle', { timeout: 60000 });
-  await page.waitForFunction(() => !!document.querySelector('.app-layout'), { timeout: 60000 });
+  await page.waitForLoadState('domcontentloaded', { timeout: 60000 });
+  await page.waitForFunction(() => !!document.querySelector('.app-layout, .sidebar, .messages-panel'), { timeout: 60000 });
 }
 
 async function waitForNoPending(page, timeout = 120000) {
@@ -33,7 +33,7 @@ async function openNewChat(page) {
   if (await writeBtn.count()) {
     await writeBtn.click();
   }
-  await page.waitForFunction(() => !!document.querySelector('textarea[placeholder="Напишите сообщение для текущего чата…"]'), { timeout: 30000 });
+  await page.waitForFunction(() => !!document.querySelector('textarea[placeholder="Сообщение"]'), { timeout: 30000 });
 }
 
 async function login(page) {
@@ -69,25 +69,27 @@ page.on('response', async (res) => {
 await login(page);
 
 await openNewChat(page);
-await page.locator('textarea[placeholder="Напишите сообщение для текущего чата…"]').fill(STRUCTURED_PROMPT);
-await page.getByRole('button', { name: 'Отправить' }).click();
+await page.locator('textarea[placeholder="Сообщение"]').fill(STRUCTURED_PROMPT);
+await page.locator('.composer-send-btn').click();
 await page.waitForFunction(() => {
   const pending = document.querySelector('.message-bubble.pending');
-  const clarifications = document.querySelectorAll('.clarification-action-btn').length;
+  const clarifications = document.querySelectorAll('.clarification-card, .assistant-contract-card').length;
   const dashboards = document.querySelectorAll('.dashboard-artifact').length;
   return !pending && (clarifications > 0 || dashboards > 0);
 }, { timeout: 60000 });
 
 const clarificationState = await page.evaluate(() => ({
-  clarificationButtons: [...document.querySelectorAll('.clarification-action-btn')].map((el) => (el.textContent || '').trim()),
+  clarificationCards: [...document.querySelectorAll('.clarification-card')].map((el) => (el.textContent || '').trim()),
   dashboardCount: document.querySelectorAll('.dashboard-artifact').length,
+  contractCards: document.querySelectorAll('.assistant-contract-card').length,
   messageKinds: [...document.querySelectorAll('.message-bubble')].map((el) => el.className),
   bodyText: (document.body.textContent || '').slice(0, 3000),
 }));
-assert(clarificationState.clarificationButtons.length > 0 || clarificationState.dashboardCount > 0, 'structured dashboard flow не появился');
+assert(clarificationState.clarificationCards.length > 0 || clarificationState.dashboardCount > 0, 'structured dashboard flow не появился');
 
-if (clarificationState.clarificationButtons.length > 0) {
-  await page.locator('.clarification-action-btn').last().click();
+if (clarificationState.clarificationCards.length > 0) {
+  await page.locator('textarea[placeholder="Сообщение"]').fill('Переключиться на внешний обзор по открытым источникам');
+  await page.locator('.composer-send-btn').click();
   await page.waitForFunction(() => {
     const pending = document.querySelector('.message-bubble.pending');
     const dashboards = document.querySelectorAll('.dashboard-artifact').length;
@@ -104,14 +106,14 @@ assert(dashboardState.dashboardCount > 0, 'dashboard artifact не появил�
 assert(dashboardState.summaryBoxes > 0, 'в dashboard artifact нет summary-карточек');
 
 await openNewChat(page);
-await page.locator('textarea[placeholder="Напишите сообщение для текущего чата…"]').fill(FILE_PROMPT);
+await page.locator('textarea[placeholder="Сообщение"]').fill(FILE_PROMPT);
 await page.locator('input[type="file"]').setInputFiles(FILE_PATH);
 await page.waitForFunction(() => {
   const summary = document.querySelector('.composer-selection-summary')?.textContent || '';
   const filesLine = Array.from(document.querySelectorAll('.chat-composer-card .muted.small')).map((el) => el.textContent || '').join(' | ');
-  return summary.includes('новых файлов 1') || filesLine.includes('smoke-note.txt');
+  return summary.includes('новых 1') || filesLine.includes('smoke-note.txt');
 }, { timeout: 10000 });
-await page.getByRole('button', { name: 'Отправить' }).click();
+await page.locator('.composer-send-btn').click();
 await waitForNoPending(page);
 
 const uploadState = await page.evaluate(() => ({

@@ -101,6 +101,10 @@ CopilotKit runtime работает отдельным внутренним ко
 - `docs/DEPLOYMENT_GUIDE.md`
 - `docs/TESTING_SCENARIO.md`
 - `docs/BACKLOG.md`
+- `docs/SPRINT0_IMPLEMENTATION_BASELINE_2026-06-24.md`
+- `docs/PRODUCT_CONTRACT_ACCEPTANCE_MATRIX_V1_DRAFT.md`
+- `docs/PRODUCT_ENTITY_GLOSSARY_V1_DRAFT.md`
+- `docs/PRODUCT_STATUS_AND_FALLBACK_RULES_V1_DRAFT.md`
 - `deploy/package/README.md`
 
 ## Порты и адреса

@@ -59,9 +59,15 @@ async function waitForScreenText(page, text, timeout = 15000) {
 }
 
 async function openAdminSection(page, section, expectedText) {
-  await page.waitForFunction((target) => Boolean(document.querySelector(`[data-admin-section="${target}"]`)), section, { timeout: 15000 });
-  await page.locator(`[data-admin-section="${section}"]`).click();
-  await page.waitForFunction((target) => document.querySelector(`[data-admin-section="${target}"]`)?.classList.contains('active') || false, section, { timeout: 15000 });
+  const sectionTitles = {
+    overview: 'Обзор',
+    users: 'Пользователи',
+    operations: 'Операции',
+    references: 'Справочники',
+    policy: 'Источники и policy',
+  };
+  const title = sectionTitles[section] || section;
+  await clickButtonByText(page, title);
   if (expectedText) {
     await waitForScreenText(page, expectedText, 15000);
   }
@@ -109,9 +115,11 @@ await page.waitForLoadState('networkidle', { timeout: 30000 }).catch(() => {});
 await ensureNoModal(page);
 
 await clickButtonByText(page, 'Чаты');
+await clickButtonByText(page, 'Файлы');
+await page.waitForSelector('input[type="file"]', { state: 'attached', timeout: 15000 });
 await page.setInputFiles('input[type="file"]', FILE_PATH);
-await page.getByPlaceholder('Напишите сообщение для текущего чата…').fill('Проверь React smoke и ответь коротко.');
-await page.getByRole('button', { name: 'Отправить' }).click();
+await page.getByPlaceholder('Сообщение').fill('Проверь React smoke и ответь коротко.');
+await clickButtonByText(page, '↑');
 await page.waitForFunction(() => document.querySelector('main')?.innerText.includes('Проверь React smoke и ответь коротко.'), null, { timeout: 15000 });
 const chatText = await page.locator('main').innerText();
 assert(chatText.includes('Проверь React smoke и ответь коротко.'), 'react chat message not visible');

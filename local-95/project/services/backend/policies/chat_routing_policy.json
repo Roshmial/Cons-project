@@ -2,8 +2,12 @@
   "message_export": {
     "format_keywords": {
       "pdf": ["pdf"],
-      "docx": ["docx", "word"],
-      "xlsx": ["xlsx", "excel"],
+      "docx": ["docx", "doc", "word"],
+      "pptx": ["pptx", "ppt", "powerpoint", "power point", "презентац"],
+      "xlsx": ["xlsx", "xls", "excel", "эксел"],
+      "py": ["py", "python", "питон"],
+      "png": ["png"],
+      "jpeg": ["jpeg", "jpg", "изображен", "картинк"],
       "csv": ["csv"],
       "json": ["json"],
       "xml": ["xml"],
@@ -76,7 +80,7 @@
       "выгруз",
       "экспорт"
     ],
-    "target_markers": ["файл", "документ", "docx", "word"],
+    "target_markers": ["файл", "документ", "презентац", "docx", "word", "pptx", "ppt", "powerpoint"],
     "request_stopwords": [
       "мне",
       "пожалуйста",
@@ -99,14 +103,32 @@
       "файл"
     ],
     "request_patterns": [
-      "(?:отправ|пришл|направ|собер|сформир|выгруз|экспорт|выда)\\w*\\s+(?:мне\\s+)?(?:\\w+\\s+){0,2}(?:файл|документ|docx|word)",
-      "(?:\\w+\\s+){0,2}(?:файл|документ|docx|word)\\s+(?:мне\\s+)?(?:отправ|пришл|направ|выда)\\w*",
-      "(?:дай|давай|выдай)\\s+(?:мне\\s+)?(?:\\w+\\s+){0,2}(?:файл|документ)",
-      "\\b(?:в|как)\\s+(?:docx|word|pdf|xlsx|csv|md|markdown|txt|html|json|xml)\\b"
+      "(?:отправ|пришл|направ|собер|сформир|выгруз|экспорт|выда|сдела)\\w*\\s+(?:мне\\s+)?(?:\\w+\\s+){0,3}(?:файл|документ|презентац\\w*|docx|word|pptx|ppt|powerpoint)",
+      "(?:\\w+\\s+){0,3}(?:файл|документ|презентац\\w*|docx|word|pptx|ppt|powerpoint)\\s+(?:мне\\s+)?(?:отправ|пришл|направ|выда|сдела)\\w*",
+      "(?:дай|давай|выдай)\\s+(?:мне\\s+)?(?:\\w+\\s+){0,3}(?:файл|документ|презентац\\w*)",
+      "\\b(?:в|как|с)\\s+(?:docx|word|pdf|xlsx|csv|md|markdown|txt|html|json|xml|pptx|ppt|powerpoint|power\\s+point)\\b",
+      "\\bв\\s+формат(?:е|ах)?\\s+(?:docx|word|pdf|xlsx|csv|md|markdown|txt|html|json|xml|pptx|ppt|powerpoint|power\\s+point)\\b",
+      "\\bв\\s+виде\\s+(?:\\w+\\s+){0,3}(?:презентац\\w*|pptx|ppt|powerpoint|power\\s+point)\\b"
     ]
   },
   "collection": {
     "structured_formats": ["csv", "xlsx", "json", "xml"],
+    "research_dashboard": {
+      "implicit_source_kind": "web",
+      "implicit_source_label": "Интернет-исследование",
+      "intent_allowlist": ["history_evolution", "trend", "segmentation", "comparison", "market_overview", "market_map", "evidence_board"],
+      "require_result_fields": false,
+      "source_completion_followup_patterns": [
+        "из интернета",
+        "собери информацию из интернета",
+        "по открытым источникам",
+        "из открытых источников",
+        "с сайта",
+        "с сайтов",
+        "по сайтам",
+        "из веба"
+      ]
+    },
     "proposal_trigger_patterns": [
       "коммерческ\\w*\\s+предложен",
       "proposal\\s+draft",
@@ -144,6 +166,8 @@
       "\\bпро\\s+([^.,;\\n]+?)(?=(?:,\\s*|\\s+)(?:с\\s+полями|в\\s+полях|поля|колонки|и\\s+поставь|и\\s+нужн|и\\s+треб|и\\s+классифиц|и\\s+подбер|и\\s+сравн|и\\s+сопостав|для\\s+)|[.,!?]|$)"
     ],
     "field_patterns": [
+      "(?:с полями|в полях|поля|колонки|в колонках)\\s*:\\s*([^\\n]+)$",
+      "(?:с полями|в полях|поля|колонки|в колонках)\\s*:\\s*([^.;]+)",
       "(?:с полями|в полях|поля|колонки|в колонках)\\s+([^\\n]+)$",
       "(?:с полями|в полях|поля|колонки|в колонках)\\s+([^.;]+)"
     ],

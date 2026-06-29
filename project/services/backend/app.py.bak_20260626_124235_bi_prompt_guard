@@ -573,8 +573,8 @@ DEFAULT_REFERENCE_DATA: dict[str, dict[str, Any]] = {
             ]},
             {"item_key": "research_watch", "label": "Мониторинг темы", "description": "Повторяющийся обзор темы с фокусом на полезные сигналы.", "fields": [
                 {"key": "subject", "label": "Тема мониторинга", "type": "text", "placeholder": "Например: LegalAI, multi-agent, Telegram"},
-                {"key": "angle", "label": "Состав обзора", "type": "textarea", "rows": 5, "layout": "tall", "placeholder": "Что именно нужно осветить: рынок, архитектура, конкуренты, риски, практические сигналы"},
-                {"key": "output", "label": "Формат результата", "type": "text", "placeholder": "Короткий дайджест, выводы, список действий"},
+                {"key": "angle", "label": "Угол обзора", "type": "text", "placeholder": "Рынок, архитектура, конкуренты, риски"},
+                {"key": "output", "label": "Форма результата", "type": "text", "placeholder": "Короткий дайджест, выводы, список действий"},
             ]},
             {"item_key": "data_collection", "label": "Сбор данных", "description": "One-shot или повторяемый сбор данных из конкретных источников с фиксированным форматом результата.", "fields": [
                 {"key": "source_kind", "label": "Тип источника", "type": "text", "placeholder": "telegram / tenders / web / media"},
@@ -1888,78 +1888,33 @@ def seed_reference_data(conn: sqlite3.Connection) -> None:
     ts = now_iso()
     for dataset_key, meta in DEFAULT_REFERENCE_DATA.items():
         existing_catalog = conn.execute(
-            "SELECT id, label, description FROM reference_catalogs WHERE scope = ? AND dataset_key = ?",
+            "SELECT id FROM reference_catalogs WHERE scope = ? AND dataset_key = ?",
             (REFERENCE_SCOPE_GLOBAL, dataset_key),
         ).fetchone()
-        dataset_label = safe_text(meta.get("label") or dataset_key)
-        dataset_description = safe_text(meta.get("description") or "")
         if existing_catalog:
-            if safe_text(existing_catalog["label"]) != dataset_label or safe_text(existing_catalog["description"]) != dataset_description:
-                conn.execute(
-                    "UPDATE reference_catalogs SET label = ?, description = ?, updated_at = ? WHERE id = ?",
-                    (dataset_label, dataset_description, ts, existing_catalog["id"]),
-                )
-        else:
-            conn.execute(
-                "INSERT INTO reference_catalogs (scope, dataset_key, label, description, is_system, created_at, updated_at) VALUES (?, ?, ?, ?, 1, ?, ?)",
-                (REFERENCE_SCOPE_GLOBAL, dataset_key, dataset_label, dataset_description, ts, ts),
-            )
+            continue
+        conn.execute(
+            "INSERT INTO reference_catalogs (scope, dataset_key, label, description, is_system, created_at, updated_at) VALUES (?, ?, ?, ?, 1, ?, ?)",
+            (REFERENCE_SCOPE_GLOBAL, dataset_key, safe_text(meta.get("label") or dataset_key), safe_text(meta.get("description") or ""), ts, ts),
+        )
         seed_items = default_data_source_definitions() if dataset_key == REFERENCE_DATASET_DATA_SOURCES else (meta.get("items") or [])
-        active_keys: set[str] = set()
         for index, item in enumerate(seed_items):
-            item_key = safe_text(item.get("item_key") or f"{dataset_key}_{index + 1}")
-            label = safe_text(item.get("label") or item_key)
             payload = {key: value for key, value in item.items() if key not in {"item_key", "label"}}
-            active_keys.add(item_key)
-            existing_item = conn.execute(
-                "SELECT id, label, payload_json, sort_order, is_active, deleted_at, version FROM reference_items WHERE scope = ? AND dataset_key = ? AND item_key = ?",
-                (REFERENCE_SCOPE_GLOBAL, dataset_key, item_key),
-            ).fetchone()
-            if not existing_item:
-                conn.execute(
-                    """
-                    INSERT INTO reference_items (scope, dataset_key, item_key, label, payload_json, sort_order, is_active, deleted_at, version, created_at, updated_at)
-                    VALUES (?, ?, ?, ?, ?, ?, 1, NULL, 1, ?, ?)
-                    """,
-                    (
-                        REFERENCE_SCOPE_GLOBAL,
-                        dataset_key,
-                        item_key,
-                        label,
-                        json.dumps(payload, ensure_ascii=False),
-                        index,
-                        ts,
-                        ts,
-                    ),
-                )
-                continue
-            current_payload = json_loads(existing_item["payload_json"], {})
-            label_changed = safe_text(existing_item["label"]) != label
-            sort_changed = int(existing_item["sort_order"] or 0) != index
-            payload_changed = current_payload != payload
-            reactivated = not bool(existing_item["is_active"]) or bool(existing_item["deleted_at"])
-            if label_changed or sort_changed or payload_changed or reactivated:
-                next_version = int(existing_item["version"] or 1) + 1
-                conn.execute(
-                    """
-                    UPDATE reference_items
-                    SET label = ?, payload_json = ?, sort_order = ?, is_active = 1, deleted_at = NULL, version = ?, updated_at = ?
-                    WHERE id = ?
-                    """,
-                    (label, json.dumps(payload, ensure_ascii=False), index, next_version, ts, existing_item["id"]),
-                )
-        stale_rows = conn.execute(
-            "SELECT id, item_key, version FROM reference_items WHERE scope = ? AND dataset_key = ? AND is_active = 1 AND deleted_at IS NULL",
-            (REFERENCE_SCOPE_GLOBAL, dataset_key),
-        ).fetchall()
-        for row in stale_rows:
-            item_key = safe_text(row["item_key"])
-            if item_key in active_keys:
-                continue
-            next_version = int(row["version"] or 1) + 1
             conn.execute(
-                "UPDATE reference_items SET is_active = 0, version = ?, updated_at = ? WHERE id = ?",
-                (next_version, ts, row["id"]),
+                """
+                INSERT INTO reference_items (scope, dataset_key, item_key, label, payload_json, sort_order, is_active, deleted_at, created_at, updated_at)
+                VALUES (?, ?, ?, ?, ?, ?, 1, NULL, ?, ?)
+                """,
+                (
+                    REFERENCE_SCOPE_GLOBAL,
+                    dataset_key,
+                    safe_text(item.get("item_key") or f"{dataset_key}_{index + 1}"),
+                    safe_text(item.get("label") or item.get("item_key") or f"{dataset_key}_{index + 1}"),
+                    json.dumps(payload, ensure_ascii=False),
+                    index,
+                    ts,
+                    ts,
+                ),
             )
 
 
@@ -4672,22 +4627,6 @@ def parse_document_export_blocks(body_text: str) -> list[dict[str, Any]]:
             index += 1
             continue
 
-        if re.fullmatch(r'(?:---+|___+|\*\*\*+)', stripped):
-            flush_paragraph()
-            index += 1
-            continue
-
-        plain_slide_heading_match = re.match(r'^(?:=+\s*)?(слайд\s*\d+\s*[–—\-:.]\s*.+?)(?:\s*=+)?$', stripped, re.IGNORECASE)
-        if plain_slide_heading_match:
-            flush_paragraph()
-            heading_text = safe_text(plain_slide_heading_match.group(1)).strip(' :：-—=')
-            heading_text = re.sub(r'^(?:слайд|slide)\s*\d+\s*[–—\-:.]\s*', '', heading_text, flags=re.IGNORECASE).strip()
-            heading_runs = make_runs(heading_text, bold=True)
-            if heading_text:
-                blocks.append({'kind': 'heading', 'level': 1, 'text': heading_text, 'runs': heading_runs})
-            index += 1
-            continue
-
         slide_heading_match = re.match(r'^\*\*(слайд\s*\d+[^*]*)\*\*\s*$', stripped, re.IGNORECASE)
         if slide_heading_match:
             flush_paragraph()
@@ -4809,8 +4748,6 @@ def infer_presentation_section_hint(title_text: str, items: list[dict[str, Any]]
         return 'roadmap'
     if any(keyword in normalized_title for keyword in ('риск', 'барьер', 'ограничен', 'mitigation')):
         return 'risks'
-    if any(keyword in normalized_title for keyword in ('источник', 'reference', 'следующ', 'next step', 'рекомендац', 'вывод', 'итог')):
-        return 'summary'
     item_kinds = [safe_text(item.get('kind')) for item in items]
     if item_kinds and all(kind == 'numbered' for kind in item_kinds[: min(3, len(item_kinds))]):
         return 'roadmap'
@@ -4822,25 +4759,11 @@ def extract_presentation_source_from_thread(body_text: str, thread_title: str) -
     blocks = parse_document_export_blocks(body_text)
     sections: list[dict[str, Any]] = []
     current_section: dict[str, Any] | None = None
-    explicit_slide_mode = any(safe_text(block.get('kind')) == 'heading' and int(block.get('level') or 0) == 1 for block in blocks)
     for block in blocks:
         kind = safe_text(block.get('kind'))
         if kind == 'heading':
-            level = int(block.get('level') or 2)
-            heading_text = normalize_presentation_section_title(safe_text(block.get('text')) or 'Раздел')
-            if not heading_text:
-                continue
-            if explicit_slide_mode and level > 1 and current_section is not None:
-                current_section['items'].append({
-                    'kind': 'label',
-                    'text': heading_text,
-                    'runs': block.get('runs') if isinstance(block.get('runs'), list) else make_runs(heading_text, bold=True),
-                    'label': heading_text,
-                    'value_runs': [],
-                })
-                continue
             current_section = {
-                'title': heading_text,
+                'title': normalize_presentation_section_title(safe_text(block.get('text')) or 'Раздел'),
                 'items': [],
                 'tables': [],
             }
@@ -4874,14 +4797,7 @@ def extract_presentation_source_from_thread(body_text: str, thread_title: str) -
             title_labels[label_key] = plain_text_from_runs(value_runs)
     deck_title = title_labels.get('заголовок') or title_labels.get('title') or safe_text(thread_title) or 'Презентация'
     deck_subtitle = title_labels.get('подзаголовок') or title_labels.get('subtitle') or ''
-    title_section_title = normalize_presentation_section_title(safe_text(title_section.get('title'))) if isinstance(title_section, dict) else ''
-    title_section_is_cover = title_section_title.strip().lower() in {'титульный', 'title', 'cover'}
-    drop_title_section = bool(title_labels or title_section_is_cover)
-    if title_section_title and title_section_title.lower() not in {'презентация', 'title', 'титульный', 'cover'}:
-        normalized_deck_title = normalize_presentation_section_title(deck_title)
-        if title_section_title.lower() != normalized_deck_title.lower():
-            drop_title_section = False
-    content_sections = sections[1:] if drop_title_section and len(sections) > 1 else sections
+    content_sections = sections[1:] if title_labels and len(sections) > 1 else sections
     overview_titles = [
         normalize_presentation_section_title(safe_text(section.get('title')))
         for section in content_sections
@@ -4892,9 +4808,6 @@ def extract_presentation_source_from_thread(body_text: str, thread_title: str) -
         'deck_subtitle': deck_subtitle,
         'sections': content_sections,
         'overview_titles': overview_titles,
-        'explicit_slide_mode': explicit_slide_mode,
-        'suppress_overview': explicit_slide_mode,
-        'suppress_title_preview': explicit_slide_mode or title_section_is_cover,
     }
 
 
@@ -4922,92 +4835,18 @@ def build_presentation_item_chunks(items: list[dict[str, Any]], *, preferred: in
     return [chunk for chunk in chunks if chunk]
 
 
-def estimate_presentation_item_text_length(item: dict[str, Any]) -> int:
-    kind = safe_text(item.get('kind'))
-    if kind == 'label':
-        label = safe_text(item.get('label'))
-        value_runs = item.get('value_runs') if isinstance(item.get('value_runs'), list) else []
-        return len(label) + len(plain_text_from_runs(value_runs))
-    runs = item.get('runs') if isinstance(item.get('runs'), list) else []
-    return len(plain_text_from_runs(runs) or safe_text(item.get('text')))
-
-
-def choose_content_chunk_preferred(items: list[dict[str, Any]], hint: str | None = None) -> int:
-    if not items:
-        return 5
-    kinds = [safe_text(item.get('kind')) for item in items]
-    total_length = sum(estimate_presentation_item_text_length(item) for item in items)
-    max_length = max(estimate_presentation_item_text_length(item) for item in items)
-    if hint in {'comparison', 'roadmap', 'risks'}:
-        if hint == 'roadmap' and len(items) <= 5 and total_length <= 420 and max_length <= 88:
-            return len(items)
-        return 4
-    if hint == 'summary' and len(items) <= 6 and total_length <= 760 and max_length <= 140:
-        return len(items)
-    if all(kind in {'bullet', 'numbered'} for kind in kinds) and len(items) <= 8 and total_length <= 620 and max_length <= 88:
-        return len(items)
-    if all(kind in {'bullet', 'numbered', 'paragraph'} for kind in kinds) and len(items) <= 7 and total_length <= 420 and max_length <= 84:
-        return len(items)
-    if total_length >= 680 or max_length >= 160:
-        return 4
-    if total_length >= 560 or max_length >= 128:
-        return 5
-    return min(len(items), 6)
-
-
-def choose_pptx_body_font_size(items: list[dict[str, Any]], subtitle: str | None = None, *, base_size: int = 12, minimum_size: int = 10) -> int:
-    if not items:
-        return base_size
-    total_length = sum(estimate_presentation_item_text_length(item) for item in items)
-    item_count = len(items)
-    label_count = sum(1 for item in items if safe_text(item.get('kind')) == 'label')
-    effective_length = total_length + max(0, item_count - 4) * 18 + label_count * 10 + (18 if subtitle else 0)
-    if effective_length <= 220 and item_count <= 4:
-        return base_size
-    if effective_length <= 340 and item_count <= 6:
-        return max(minimum_size, base_size - 1)
-    return max(minimum_size, base_size - 2)
-
-
-def can_merge_section_chunk_into_previous_slide(previous: dict[str, Any] | None, title_text: str, chunk: list[dict[str, Any]], hint: str | None = None) -> bool:
-    if not previous or safe_text(previous.get('kind')) != 'content' or hint in {'comparison', 'roadmap', 'risks'}:
-        return False
-    previous_title = safe_text(previous.get('title'))
-    if previous_title.strip().lower() in {'титульный', 'title', 'cover'} or safe_text(title_text).strip().lower() in {'титульный', 'title', 'cover'}:
-        return False
-    previous_items = previous.get('items') if isinstance(previous.get('items'), list) else []
-    if not previous_items or len(previous_items) >= 5:
-        return False
-    chunk_total = sum(estimate_presentation_item_text_length(item) for item in chunk)
-    previous_total = sum(estimate_presentation_item_text_length(item) for item in previous_items)
-    if len(chunk) > 2 or chunk_total > 130:
-        return False
-    combined_items = len(previous_items) + len(chunk) + 1
-    combined_total = previous_total + chunk_total + len(title_text)
-    return combined_items <= 6 and combined_total <= 320
-
-
-def merge_section_chunk_into_previous_slide(previous: dict[str, Any], title_text: str, chunk: list[dict[str, Any]]) -> None:
-    previous_items = previous.get('items') if isinstance(previous.get('items'), list) else []
-    previous_items.append({'kind': 'label', 'label': title_text, 'text': title_text, 'value_runs': []})
-    previous_items.extend(chunk)
-    previous['items'] = previous_items
-
-
 def build_presentation_plan(source: dict[str, Any]) -> list[dict[str, Any]]:
-    suppress_title_preview = bool(source.get('suppress_title_preview'))
     plan: list[dict[str, Any]] = [
         {
             'kind': 'title',
             'title': safe_text(source.get('deck_title')) or 'Презентация',
             'subtitle': safe_text(source.get('deck_subtitle')),
-            'preview_titles': [] if suppress_title_preview else list(source.get('overview_titles') or [])[:3],
+            'preview_titles': list(source.get('overview_titles') or [])[:3],
         }
     ]
     overview_titles = list(source.get('overview_titles') or [])
-    if not bool(source.get('suppress_overview')):
-        for overview_chunk in build_presentation_item_chunks([{'title': title} for title in overview_titles], preferred=6, minimum_tail=3):
-            plan.append({'kind': 'overview', 'titles': [safe_text(item.get('title')) for item in overview_chunk if safe_text(item.get('title'))]})
+    for overview_chunk in build_presentation_item_chunks([{'title': title} for title in overview_titles], preferred=6, minimum_tail=3):
+        plan.append({'kind': 'overview', 'titles': [safe_text(item.get('title')) for item in overview_chunk if safe_text(item.get('title'))]})
     for section in source.get('sections') or []:
         title_text = normalize_presentation_section_title(safe_text(section.get('title')) or 'Раздел')
         items = section.get('items') if isinstance(section.get('items'), list) else []
@@ -5034,17 +4873,9 @@ def build_presentation_plan(source: dict[str, Any]) -> list[dict[str, Any]]:
                     chunk_title = title_text if chunk_index == 1 else f'{title_text} (этапы {chunk_index})'
                     plan.append({'kind': 'roadmap', 'title': chunk_title, 'items': chunk, 'subtitle': subtitle})
             else:
-                preferred = choose_content_chunk_preferred(narrative_items, hint)
-                for chunk_index, chunk in enumerate(build_presentation_item_chunks(narrative_items, preferred=preferred, minimum_tail=2), start=1):
-                    if chunk_index > 1:
-                        chunk_title = f'{title_text} (продолжение {chunk_index})'
-                        plan.append({'kind': hint or 'content', 'title': chunk_title, 'items': chunk, 'subtitle': subtitle})
-                        continue
-                    previous_plan_item = plan[-1] if plan else None
-                    if can_merge_section_chunk_into_previous_slide(previous_plan_item, title_text, chunk, hint):
-                        merge_section_chunk_into_previous_slide(previous_plan_item, title_text, chunk)
-                        continue
-                    plan.append({'kind': hint or 'content', 'title': title_text, 'items': chunk, 'subtitle': subtitle})
+                for chunk_index, chunk in enumerate(build_presentation_item_chunks(narrative_items, preferred=5, minimum_tail=2), start=1):
+                    chunk_title = title_text if chunk_index == 1 else f'{title_text} (продолжение {chunk_index})'
+                    plan.append({'kind': hint or 'content', 'title': chunk_title, 'items': chunk, 'subtitle': subtitle})
         elif not tables:
             plan.append({
                 'kind': 'content',
@@ -5386,8 +5217,6 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
             if subtitle_box is not None:
                 p = subtitle_box.text_frame.paragraphs[0]
                 apply_pptx_runs(p, make_runs(subtitle), size=PPT_SUBTITLE_SIZE, color_value=MUTED)
-        body_size = choose_pptx_body_font_size(items[:4], subtitle, base_size=PPT_BODY_SIZE, minimum_size=10)
-        label_size = max(11, body_size + 1)
         for idx, item in enumerate(items[:4]):
             row = idx // 2
             col = idx % 2
@@ -5403,12 +5232,12 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
             value_runs = item.get('value_runs') if isinstance(item.get('value_runs'), list) else item.get('runs')
             p = tf.paragraphs[0]
             if label:
-                apply_pptx_runs(p, make_runs(label, bold=True), size=label_size, color_value=BLUE)
+                apply_pptx_runs(p, make_runs(label, bold=True), size=PPT_SUBTITLE_SIZE, color_value=BLUE)
                 p2 = tf.add_paragraph()
-                apply_pptx_runs(p2, value_runs if isinstance(value_runs, list) else make_runs(safe_text(item.get('text'))), size=body_size, color_value=TEXT)
+                apply_pptx_runs(p2, value_runs if isinstance(value_runs, list) else make_runs(safe_text(item.get('text'))), size=PPT_BODY_SIZE, color_value=TEXT)
             else:
                 runs = item.get('runs') if isinstance(item.get('runs'), list) else make_runs(safe_text(item.get('text')))
-                apply_pptx_runs(p, runs, size=body_size, color_value=TEXT)
+                apply_pptx_runs(p, runs, size=PPT_BODY_SIZE, color_value=TEXT)
 
     def add_comparison_slide(title_text: str, items: list[dict[str, Any]], note: str | None = None) -> None:
         slide = presentation.slides.add_slide(presentation.slide_layouts[6])
@@ -5420,8 +5249,6 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
         if subtitle_box is not None:
             apply_pptx_runs(subtitle_box.text_frame.paragraphs[0], make_runs('Сравнение вариантов'), size=PPT_SUBTITLE_SIZE, color_value=MUTED)
         comparison_items = items[:3]
-        body_size = choose_pptx_body_font_size(comparison_items, 'Сравнение вариантов', base_size=PPT_BODY_SIZE, minimum_size=10)
-        label_size = max(11, body_size + 1)
         if len(comparison_items) >= 2:
             positions = [(0.8, 1.7), (6.7, 1.7)]
             for idx, item in enumerate(comparison_items[:2]):
@@ -5434,9 +5261,9 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
                 tf.word_wrap = True
                 label = safe_text(item.get('label')) or f'Вариант {idx + 1}'
                 value_runs = item.get('value_runs') if isinstance(item.get('value_runs'), list) else item.get('runs')
-                apply_pptx_runs(tf.paragraphs[0], make_runs(label, bold=True), size=label_size, color_value=BLUE)
+                apply_pptx_runs(tf.paragraphs[0], make_runs(label, bold=True), size=PPT_SUBTITLE_SIZE, color_value=BLUE)
                 detail = tf.add_paragraph()
-                apply_pptx_runs(detail, value_runs if isinstance(value_runs, list) else make_runs(safe_text(item.get('text'))), size=body_size, color_value=TEXT)
+                apply_pptx_runs(detail, value_runs if isinstance(value_runs, list) else make_runs(safe_text(item.get('text'))), size=PPT_BODY_SIZE, color_value=TEXT)
             if len(comparison_items) >= 3:
                 add_box(slide, 0.8, 5.45, 11.6, 1.15, color('EEF4FF'), rounded=True)
                 text_box = add_textbox(slide, 1.05, 5.72, 10.9, 0.6)
@@ -5444,7 +5271,7 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
                     tf = text_box.text_frame
                     label = safe_text(comparison_items[2].get('label')) or 'Компромисс'
                     value_runs = comparison_items[2].get('value_runs') if isinstance(comparison_items[2].get('value_runs'), list) else comparison_items[2].get('runs')
-                    apply_pptx_runs(tf.paragraphs[0], make_runs(label + ': ', bold=True) + (value_runs if isinstance(value_runs, list) else make_runs(safe_text(comparison_items[2].get('text')))), size=body_size, color_value=TEXT)
+                    apply_pptx_runs(tf.paragraphs[0], make_runs(label + ': ', bold=True) + (value_runs if isinstance(value_runs, list) else make_runs(safe_text(comparison_items[2].get('text')))), size=PPT_BODY_SIZE, color_value=TEXT)
             return
         add_card_slide(title_text, items, note=note, subtitle='Сравнение вариантов')
 
@@ -5465,7 +5292,6 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
             except Exception:
                 pass
         steps = items[:4]
-        body_size = choose_pptx_body_font_size(steps, 'Поэтапный план внедрения', base_size=PPT_BODY_SIZE, minimum_size=10)
         for idx, item in enumerate(steps):
             left = 0.9 + idx * 3.0
             add_box(slide, left, 2.15, 2.45, 2.15, CARD_BG, rounded=True)
@@ -5480,7 +5306,7 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
             tf = text_box.text_frame
             tf.word_wrap = True
             runs = item.get('runs') if isinstance(item.get('runs'), list) else make_runs(safe_text(item.get('text')))
-            apply_pptx_runs(tf.paragraphs[0], runs, size=body_size, color_value=TEXT)
+            apply_pptx_runs(tf.paragraphs[0], runs, size=PPT_BODY_SIZE, color_value=TEXT)
 
     def add_risks_slide(title_text: str, items: list[dict[str, Any]], note: str | None = None) -> None:
         slide = presentation.slides.add_slide(presentation.slide_layouts[6])
@@ -5492,8 +5318,6 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
         if subtitle_box is not None:
             apply_pptx_runs(subtitle_box.text_frame.paragraphs[0], make_runs('Риски и меры'), size=PPT_SUBTITLE_SIZE, color_value=MUTED)
         risk_items = items[:3]
-        body_size = choose_pptx_body_font_size(risk_items, 'Риски и меры', base_size=PPT_BODY_SIZE, minimum_size=10)
-        label_size = max(11, body_size + 1)
         for idx, item in enumerate(risk_items):
             left = 0.85 + idx * 4.1
             add_box(slide, left, 1.9, 3.6, 3.55, CARD_BG, rounded=True)
@@ -5509,9 +5333,9 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
             tf.word_wrap = True
             label = safe_text(item.get('label')) or f'Риск {idx + 1}'
             value_runs = item.get('value_runs') if isinstance(item.get('value_runs'), list) else item.get('runs')
-            apply_pptx_runs(tf.paragraphs[0], make_runs(label, bold=True), size=label_size, color_value=BLUE)
+            apply_pptx_runs(tf.paragraphs[0], make_runs(label, bold=True), size=PPT_SUBTITLE_SIZE, color_value=BLUE)
             p2 = tf.add_paragraph()
-            apply_pptx_runs(p2, value_runs if isinstance(value_runs, list) else make_runs(safe_text(item.get('text'))), size=body_size, color_value=TEXT)
+            apply_pptx_runs(p2, value_runs if isinstance(value_runs, list) else make_runs(safe_text(item.get('text'))), size=PPT_BODY_SIZE, color_value=TEXT)
 
     def add_content_slide(title_text: str, items: list[dict[str, Any]], note: str | None = None, subtitle: str | None = None) -> None:
         slide = presentation.slides.add_slide(presentation.slide_layouts[6])
@@ -5541,7 +5365,6 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
                     tf.vertical_anchor = vertical_anchor.TOP
             except Exception:
                 pass
-            body_size = choose_pptx_body_font_size(items[:6], subtitle, base_size=PPT_BODY_SIZE, minimum_size=10)
             first = True
             for item in items[:6]:
                 p = tf.paragraphs[0] if first else tf.add_paragraph()
@@ -5552,7 +5375,7 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
                 if kind == 'label':
                     runs = make_runs(f"{safe_text(item.get('label'))}: ", bold=True) + (item.get('value_runs') if isinstance(item.get('value_runs'), list) else [])
                     bullet_prefix = ''
-                apply_pptx_runs(p, runs, size=body_size, color_value=TEXT, bullet_prefix=bullet_prefix)
+                apply_pptx_runs(p, runs, size=PPT_BODY_SIZE, color_value=TEXT, bullet_prefix=bullet_prefix)
                 try:
                     p.space_after = pt(8) if pt is not None else None
                 except Exception:
@@ -6624,17 +6447,14 @@ def process_chat_task(task_id: int) -> bool:
                 and looks_like_presentation_draft(latest_non_clarification_assistant_message_text(message_rows[:-1]))
             )
             transformed_dashboard_reply = maybe_build_dashboard_from_previous_answer(message_rows, user_text)
-            recurring_run_reply = maybe_run_recurring_job_from_chat(conn, task, user_row, message_rows, user_text) if recurring_route_priority else None
-            recurring_job_reply = None if recurring_run_reply is not None else (maybe_create_recurring_job_from_chat(conn, task, user_row, message_rows, user_text) if recurring_route_priority else None)
-            collection_reply = None if transformed_dashboard_reply is not None or recurring_run_reply is not None or recurring_job_reply is not None or presentation_followup else build_collection_clarification_or_contract_reply(effective_collection_text, attachments)
+            recurring_job_reply = maybe_create_recurring_job_from_chat(conn, task, user_row, message_rows, user_text) if recurring_route_priority else None
+            collection_reply = None if transformed_dashboard_reply is not None or recurring_job_reply is not None or presentation_followup else build_collection_clarification_or_contract_reply(effective_collection_text, attachments)
             export_reply = None if transformed_dashboard_reply is not None or collection_reply is not None else maybe_build_export_reply(message_rows, effective_user_text, thread["title"])
             collection_execution_reply = None
             if collection_reply is not None:
                 collection_execution_reply = maybe_execute_collection_request(conn, task, user_row, message_rows, effective_collection_text, attachments)
-            dashboard_reply = transformed_dashboard_reply if transformed_dashboard_reply is not None else (None if collection_reply is not None or collection_execution_reply is not None or export_reply is not None or recurring_run_reply is not None or recurring_job_reply is not None else maybe_build_dashboard_reply(conn, dashboard_request_text, attachments, request_policy))
-            if recurring_run_reply is None and recurring_job_reply is None:
-                recurring_run_reply = None if collection_reply is not None or collection_execution_reply is not None or export_reply is not None or dashboard_reply is not None else maybe_run_recurring_job_from_chat(conn, task, user_row, message_rows, user_text)
-            if recurring_job_reply is None and recurring_run_reply is None:
+            dashboard_reply = transformed_dashboard_reply if transformed_dashboard_reply is not None else (None if collection_reply is not None or collection_execution_reply is not None or export_reply is not None or recurring_job_reply is not None else maybe_build_dashboard_reply(conn, dashboard_request_text, attachments, request_policy))
+            if recurring_job_reply is None:
                 recurring_job_reply = None if collection_reply is not None or collection_execution_reply is not None or export_reply is not None or dashboard_reply is not None else maybe_create_recurring_job_from_chat(conn, task, user_row, message_rows, user_text)
         if collection_execution_reply is not None:
             reply_text, meta = collection_execution_reply
@@ -6663,13 +6483,6 @@ def process_chat_task(task_id: int) -> bool:
                 "personalization_used": False,
                 "thread_title": thread["title"],
                 "personalization_preview": "dashboard-route",
-            })
-        elif recurring_run_reply is not None:
-            reply_text, meta = recurring_run_reply
-            meta.update({
-                "personalization_used": False,
-                "thread_title": thread["title"],
-                "personalization_preview": "chat-recurring-job-run-route",
             })
         elif recurring_job_reply is not None:
             reply_text, meta = recurring_job_reply
@@ -7405,9 +7218,6 @@ def build_focused_followup_messages(message_rows: list[sqlite3.Row], profile: di
         followup_prompt = (
             "Пользователь просит доработать уже подготовленный черновик презентации. "
             "Пересобери ВЕСЬ материал целиком, а не только последние пункты. "
-            "Сохрани исходный порядок и примерное количество слайдов черновика; не раздувай структуру и не превращай подпункты одного слайда в новые отдельные слайды. "
-            "Каждый слайд начинай строго с отдельной строки вида 'Слайд N: Название'. Не используй оформление вида '=== Слайд N ===', не делай общую нумерованную оглавительную простыню и не вкладывай один слайд в другой. "
-            "Внутренние подпункты, секции и выводы оставляй внутри текущего слайда, а не превращай их в новые слайды. "
             "Сохрани тему и покрытие всех слайдов, но выровняй форматирование и разметку для всех разделов единообразно. "
             "Не ограничивайся хвостом ответа. Если пользователь просит картинки или ссылки из интернета, не выдумывай URL и не используй example.com; "
             "если реальный web-поиск недоступен в текущем runtime, честно помечай это как рекомендацию к подбору иллюстрации, а не как найденную ссылку.\n\n"
@@ -9296,25 +9106,17 @@ def select_relevant_web_documents(contract: dict[str, Any], documents: list[dict
     intent = safe_text((build_collection_search_profile(contract) or {}).get('intent'))
     if subject_terms:
         preferred = [doc for score, hits, doc in scored if hits > 0 and score >= 2]
-        if not preferred:
-            preferred = [doc for score, hits, doc in scored if hits > 0 and score >= 1]
         if not preferred and intent == 'market_overview':
             preferred = [
                 doc for score, _hits, doc in scored
                 if score >= 2 and not is_low_value_search_candidate(safe_text(doc.get('final_url') or doc.get('requested_url')))
-            ]
-        if not preferred:
-            preferred = [
-                doc for score, _hits, doc in scored
-                if score >= 1 and (safe_text(doc.get('title')) or len(safe_text(doc.get('text'))) >= 180)
             ]
     else:
         preferred = [doc for score, _, doc in scored if score >= 2]
     if preferred:
         return preferred
     if subject_terms:
-        non_empty_scored = [doc for score, _, doc in scored if score >= 0 and (safe_text(doc.get('title')) or len(safe_text(doc.get('text'))) >= 180)]
-        return non_empty_scored[:4]
+        return []
     non_empty = [doc for _, _, doc in scored if safe_text(doc.get('title')) or len(safe_text(doc.get('text'))) >= 120]
     return non_empty[:5]
 
@@ -9448,7 +9250,6 @@ def search_web_source_candidates(query: str, limit: int = WEB_COLLECTION_SOURCE_
     search_urls = [
         f"https://duckduckgo.com/html/?{urllib.parse.urlencode({'q': normalized_query})}",
         f"https://www.bing.com/search?{urllib.parse.urlencode({'q': normalized_query})}",
-        f"https://www.startpage.com/sp/search?{urllib.parse.urlencode({'query': normalized_query})}",
     ]
     raw_limit = max(limit * 3, 10)
     for search_url in search_urls:
@@ -9484,7 +9285,6 @@ def search_web_source_candidates_with_previews(query: str, limit: int = WEB_COLL
     search_urls = [
         f"https://duckduckgo.com/html/?{urllib.parse.urlencode({'q': normalized_query})}",
         f"https://www.bing.com/search?{urllib.parse.urlencode({'q': normalized_query})}",
-        f"https://www.startpage.com/sp/search?{urllib.parse.urlencode({'query': normalized_query})}",
     ]
     raw_limit = max(limit * 3, 10)
     for search_url in search_urls:
@@ -10514,45 +10314,27 @@ def fetch_web_source_document(source: str) -> dict[str, Any]:
     target_url = normalize_web_source_url(source)
     if not target_url:
         raise ApiError('web_collection_source_missing', 409)
-    attempts = [
-        {
+    request = urllib.request.Request(
+        target_url,
+        headers={
             'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) HermesWebCollection/1.0',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,text/plain;q=0.8,*/*;q=0.5',
         },
-        {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-            'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache',
-            'Upgrade-Insecure-Requests': '1',
-        },
-    ]
-    last_http_error: urllib.error.HTTPError | None = None
-    for attempt_index, headers in enumerate(attempts):
-        request = urllib.request.Request(target_url, headers=headers, method='GET')
-        try:
-            with urllib.request.urlopen(request, timeout=40) as response:
-                content_type = safe_text(response.headers.get('Content-Type') or '')
-                final_url = safe_text(getattr(response, 'url', target_url) or target_url)
-                body = response.read(1024 * 1024)
-            title, text, meta_description = html_to_visible_text(body, content_type)
-            return {
-                'requested_url': source,
-                'final_url': final_url,
-                'title': title,
-                'content_type': content_type,
-                'text': text,
-                'meta_description': meta_description,
-            }
-        except urllib.error.HTTPError as exc:
-            last_http_error = exc
-            if exc.code in {401, 403} and attempt_index < len(attempts) - 1:
-                continue
-            raise
-    if last_http_error is not None:
-        raise last_http_error
-    raise ApiError('web_collection_fetch_failed', 502)
+        method='GET',
+    )
+    with urllib.request.urlopen(request, timeout=40) as response:
+        content_type = safe_text(response.headers.get('Content-Type') or '')
+        final_url = safe_text(getattr(response, 'url', target_url) or target_url)
+        body = response.read(1024 * 1024)
+    title, text, meta_description = html_to_visible_text(body, content_type)
+    return {
+        'requested_url': source,
+        'final_url': final_url,
+        'title': title,
+        'content_type': content_type,
+        'text': text,
+        'meta_description': meta_description,
+    }
 
 
 def build_web_collection_rows_prompt(contract: dict[str, Any], documents: list[dict[str, Any]]) -> list[dict[str, str]]:
@@ -13838,16 +13620,6 @@ def looks_like_recurring_job_followup(text: str) -> bool:
     return (has_action and has_setup_target and refers_to_existing_topic) or (has_action and has_schedule_hint)
 
 
-def looks_like_recurring_job_run_now_request(text: str) -> bool:
-    lowered = safe_text(text).lower()
-    if not lowered:
-        return False
-    run_action = bool(re.search(r"\b(запуст|выполн|собер|сформир|прогони)\w*", lowered))
-    immediate_hint = bool(re.search(r"\b(сейчас|сразу|немедленно|прямо сейчас)\b", lowered))
-    existing_reference = regex_matches_any(lowered, MONITORING_FOLLOWUP_REFERENCE_PATTERNS) or regex_matches_any(lowered, MONITORING_FOLLOWUP_TARGET_PATTERNS)
-    return run_action and (immediate_hint or existing_reference)
-
-
 def infer_research_subject_from_thread(messages: list[sqlite3.Row], current_user_message_id: int, current_user_text: str = '') -> str:
     explicit_current_subject = infer_collection_subject(current_user_text)
     if explicit_current_subject:
@@ -13886,75 +13658,6 @@ def build_recent_recurring_request_context(messages: list[sqlite3.Row], current_
     return "\n".join(chunks).strip()
 
 
-def normalize_recurring_subject(value: str) -> str:
-    return re.sub(r"\s+", " ", safe_text(value).strip().lower())
-
-
-def find_existing_research_watch_job_for_subject(
-    conn: sqlite3.Connection,
-    user_id: int,
-    subject: str,
-    *,
-    schedule: dict[str, Any] | None = None,
-) -> dict[str, Any] | None:
-    normalized_subject = normalize_recurring_subject(subject[:120])
-    auth_row = conn.execute("SELECT id, role, email FROM users WHERE id = ?", (user_id,)).fetchone()
-    auth = AuthUser(id=int(auth_row["id"]), role=safe_text(auth_row["role"] or "user"), email=safe_text(auth_row["email"]))
-    existing_rows = conn.execute(
-        """
-        SELECT *
-        FROM jobs
-        WHERE user_id = ? AND job_type = 'research_watch' AND status IN ('active', 'paused')
-        ORDER BY id DESC
-        """,
-        (user_id,),
-    ).fetchall()
-    for existing_row in existing_rows:
-        existing = row_to_job_dict(conn, existing_row, auth=auth, include_details=True)
-        existing_subject = normalize_recurring_subject((existing.get("parameters") or {}).get("subject") or "")
-        if existing_subject != normalized_subject:
-            continue
-        if schedule is not None:
-            if safe_text(existing.get("schedule_kind") or "") != safe_text(schedule["schedule_kind"] or ""):
-                continue
-            if normalize_time_of_day(existing.get("time_of_day") or "09:00") != normalize_time_of_day(schedule["time_of_day"] or "09:00"):
-                continue
-            if normalize_timezone(existing.get("timezone") or "Europe/Moscow") != normalize_timezone(schedule["timezone"] or "Europe/Moscow"):
-                continue
-            if normalize_days_of_week(existing.get("days_of_week")) != normalize_days_of_week(schedule["days_of_week"]):
-                continue
-        return existing
-    return None
-
-
-def maybe_run_recurring_job_from_chat(
-    conn: sqlite3.Connection,
-    task: sqlite3.Row,
-    user_row: sqlite3.Row,
-    message_rows: list[sqlite3.Row],
-    user_text: str,
-) -> tuple[str, dict[str, Any]] | None:
-    if not looks_like_recurring_job_run_now_request(user_text):
-        return None
-    subject = infer_research_subject_from_thread(message_rows, int(task["user_message_id"]), user_text)
-    existing = find_existing_research_watch_job_for_subject(conn, int(user_row["id"]), subject)
-    if not existing:
-        return None
-    result = execute_job(int(existing["id"]), triggered_by_user_id=int(user_row["id"]), trigger_type="manual")
-    summary = safe_text(result.get("summary") or result.get("result_text") or "").strip()
-    if not summary:
-        summary = "Запуск выполнен, но краткий итог не был сохранён. Проверь карточку задачи и историю запусков."
-    reply_text = f"Запустила существующую задачу «{existing['name']}» прямо сейчас.\n\n{summary}"
-    meta = {
-        "message_kind": "job_run_now",
-        "created_job_id": existing["id"],
-        "created_job_name": existing["name"],
-        "run": result,
-        "downstream": "chat:job_run_now",
-    }
-    return reply_text, meta
-
-
 def should_prioritize_recurring_job_route(
     message_rows: list[sqlite3.Row],
     current_user_message_id: int,
@@ -13963,7 +13666,7 @@ def should_prioritize_recurring_job_route(
     lowered = safe_text(user_text).lower()
     if not lowered:
         return False
-    if looks_like_recurring_job_request(user_text) or looks_like_recurring_job_followup(user_text) or looks_like_recurring_job_run_now_request(user_text):
+    if looks_like_recurring_job_request(user_text) or looks_like_recurring_job_followup(user_text):
         return True
     if not regex_matches_any(lowered, MONITORING_REQUEST_SCHEDULE_PATTERNS):
         return False
@@ -13992,8 +13695,32 @@ def maybe_create_recurring_job_from_chat(
     subject = infer_research_subject_from_thread(message_rows, int(task["user_message_id"]), user_text)
     subject_short = subject[:120]
 
-    existing = find_existing_research_watch_job_for_subject(conn, int(user_row["id"]), subject_short, schedule=schedule)
-    if existing:
+    def normalize_recurring_subject(value: str) -> str:
+        return re.sub(r"\s+", " ", safe_text(value).strip().lower())
+
+    normalized_subject = normalize_recurring_subject(subject_short)
+    existing_rows = conn.execute(
+        """
+        SELECT *
+        FROM jobs
+        WHERE user_id = ? AND job_type = 'research_watch' AND status IN ('active', 'paused')
+        ORDER BY id DESC
+        """,
+        (int(user_row["id"]),),
+    ).fetchall()
+    for existing_row in existing_rows:
+        existing = row_to_job_dict(conn, existing_row, auth=auth, include_details=True)
+        existing_subject = normalize_recurring_subject((existing.get("parameters") or {}).get("subject") or "")
+        if existing_subject != normalized_subject:
+            continue
+        if safe_text(existing.get("schedule_kind") or "") != safe_text(schedule["schedule_kind"] or ""):
+            continue
+        if normalize_time_of_day(existing.get("time_of_day") or "09:00") != normalize_time_of_day(schedule["time_of_day"] or "09:00"):
+            continue
+        if normalize_timezone(existing.get("timezone") or "Europe/Moscow") != normalize_timezone(schedule["timezone"] or "Europe/Moscow"):
+            continue
+        if normalize_days_of_week(existing.get("days_of_week")) != normalize_days_of_week(schedule["days_of_week"]):
+            continue
         summary = safe_text(existing.get("schedule_summary") or build_schedule_summary(existing))
         reply_text = (
             f"Такая задача уже есть: «{existing['name']}».\n\n"
@@ -14860,7 +14587,7 @@ def build_default_job_template(job_type: str) -> str:
     if job_type == "decision_review":
         return "Разбери тему: {topic}. Критерии: {criteria}. На выходе нужен: {outcome}."
     if job_type == "research_watch":
-        return "Подготовь обзор по теме {subject}. Состав обзора: {angle}. Формат результата: {output}."
+        return "Подготовь обзор по теме {subject}. Угол: {angle}. Форма результата: {output}."
     if job_type == "data_collection":
         return "Выполни сбор данных по контракту: {subject}. Источник: {source_kind}. Формат: {output_format}."
     return "Сделай задачу: {goal}. Контекст: {context}."

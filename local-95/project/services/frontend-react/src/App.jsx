@@ -1176,6 +1176,39 @@ function fileSurfaceBadges(file) {
   return items;
 }
 
+function fileQualityStatus(file) {
+  const quality = file?.quality && typeof file.quality === 'object' ? file.quality : null;
+  const status = String(quality?.status || '').trim().toLowerCase();
+  if (!status) return null;
+  return status;
+}
+
+function fileQualityChipClass(file) {
+  const status = fileQualityStatus(file);
+  if (status === 'ok') return 'ok';
+  if (status === 'degraded') return 'warn';
+  if (status === 'failed') return 'danger';
+  return 'muted';
+}
+
+function fileQualityLabel(file) {
+  const status = fileQualityStatus(file);
+  if (status === 'ok') return 'Качество проверено';
+  if (status === 'degraded') return 'Есть ограничения';
+  if (status === 'failed') return 'Проверка не пройдена';
+  return '';
+}
+
+function fileQualityDetail(file) {
+  const quality = file?.quality && typeof file.quality === 'object' ? file.quality : null;
+  const codes = Array.isArray(quality?.warning_codes) ? quality.warning_codes : [];
+  const hints = [];
+  if (codes.includes('slide_count_mismatch')) hints.push('число слайдов отличается от ожидаемого');
+  if (codes.includes('missing_required_titles')) hints.push('часть обязательных секций не найдена');
+  if (quality?.status === 'failed') hints.push('backend не подтвердил корректность структуры файла');
+  return hints.join(' · ');
+}
+
 function starterPromptsFromBootstrap(bootstrap) {
   return Array.isArray(bootstrap?.starter_prompts) ? bootstrap.starter_prompts.filter((item) => String(item || '').trim()) : [];
 }
@@ -1628,6 +1661,7 @@ function renderFileResultCard(message, onOpenAttachment) {
                 <strong>{label}</strong>
                 <div className="muted small">{file?.mime_type || 'тип не указан'}{file?.size_bytes ? ` · ${formatBytes(file.size_bytes)}` : ''}</div>
                 <div className="muted small profile-file-summary">{shortStatus}</div>
+                {fileQualityStatus(file) ? <div className="assistant-quality-row"><span className={`status-chip ${fileQualityChipClass(file)}`}>{fileQualityLabel(file)}</span>{fileQualityDetail(file) ? <span className="muted small">{fileQualityDetail(file)}</span> : null}</div> : null}
               </div>
               <div className="profile-file-actions">
                 {href ? <button className="ghost-btn ghost-btn-xs" type="button" onClick={() => onOpenAttachment ? onOpenAttachment({ ...file, download_url: href }) : api.openFile({ ...file, download_url: href })}>Открыть</button> : null}
@@ -1756,11 +1790,12 @@ function renderRecurringSummary(message, onOpenAttachment) {
                       <strong>{label}</strong>
                       <div className="muted small">{[file?.mime_type || '', formatBytes(file?.size_bytes)].filter(Boolean).join(' · ')}</div>
                       <div className="muted small">Файл готов</div>
+                      {fileQualityStatus(file) ? <div className="assistant-quality-row"><span className={`status-chip ${fileQualityChipClass(file)}`}>{fileQualityLabel(file)}</span>{fileQualityDetail(file) ? <span className="muted small">{fileQualityDetail(file)}</span> : null}</div> : null}
                     </div>
                     {href ? <button className="ghost-btn ghost-btn-xs" type="button" onClick={() => onOpenAttachment ? onOpenAttachment({ ...file, download_url: href }) : api.openFile({ ...file, download_url: href })}>Открыть</button> : null}
                   </div>
                 );
-              })}
+})}
             </div>
           </div>
         ) : null}
@@ -1892,6 +1927,7 @@ function renderThreadFileRow(file, index, { onOpenUserFile, onToggleExistingFile
         </div>
         <div className="muted small">{formatBytes(file.size_bytes)}{file.created_at ? ` · ${formatTs(file.created_at)}` : ''}</div>
         <div className="muted small profile-file-summary">{humanizeExtractionStatus(file)} · {humanizePreviewStatus(file)}</div>
+        {fileQualityStatus(file) ? <div className="assistant-quality-row"><span className={`status-chip ${fileQualityChipClass(file)}`}>{fileQualityLabel(file)}</span>{fileQualityDetail(file) ? <span className="muted small">{fileQualityDetail(file)}</span> : null}</div> : null}
         <div className="muted small profile-file-summary">{file.preview_summary || fileSummaryText(file)}</div>
       </div>
       <div className="profile-file-actions thread-file-actions">
@@ -2242,6 +2278,7 @@ function FilePreviewModal({ file, onClose }) {
             <strong>{humanizePreviewStatus(file)}</strong>
             <div className="muted small">{file?.preview_summary || fileSummaryText(file)}</div>
           </div>
+          {fileQualityStatus(file) ? <div className="panel-card compact-card stack"><div className="eyebrow">Качество файла</div><strong>{fileQualityLabel(file)}</strong><div className="assistant-quality-row"><span className={`status-chip ${fileQualityChipClass(file)}`}>{fileQualityStatus(file)}</span>{fileQualityDetail(file) ? <span className="muted small">{fileQualityDetail(file)}</span> : null}</div></div> : null}
         </div>
         {image ? <div className="file-preview-stage"><img className="file-preview-image" src={previewUrl} alt={file.original_name || 'preview'} /></div> : textPreview ? <div className="panel-card stack compact-card"><div className="eyebrow">Что Hermes увидела внутри файла</div>{lines.length ? <pre className="file-preview-text-block">{lines.join('\n')}</pre> : <div className="muted">Для этого файла текстовый preview не собран.</div>}{previewUrl ? <div className="muted small">Если нужен исходный документ целиком, открой файл отдельно.</div> : null}</div> : <div className="panel-card stack compact-card"><div>Для этого типа файла встроенный preview не поддерживается.</div>{previewUrl ? <a href={previewUrl} target="_blank" rel="noreferrer">Открыть файл в новой вкладке</a> : null}</div>}
       </div>

@@ -181,6 +181,32 @@ class HermesWebBackendSmokeTest(unittest.TestCase):
         target = next(thread for thread in payload if thread.get("id") == thread_id)
         self.assertEqual(target.get("freshness_at"), "2026-06-22T09:05:00+00:00")
 
+    def test_job_threads_freshness_uses_latest_substantive_assistant_message_even_without_job_source_meta(self):
+        token = self.login()
+        with self.backend.db_connect() as conn:
+            user_row = conn.execute("SELECT id FROM users WHERE email = ?", ("misha@demo.local",)).fetchone()
+            user_id = int(user_row["id"])
+            base = "2026-06-24T09:00:00+00:00"
+            cur = conn.execute(
+                "INSERT INTO threads (user_id, title, preview, archived, thread_kind, job_id, created_at, updated_at) VALUES (?, ?, ?, 0, 'job', ?, ?, ?) RETURNING id",
+                (user_id, "Job Fresh", "fresh", 3001, base, base),
+            )
+            thread_id = int(cur.fetchone()[0])
+            conn.execute(
+                "INSERT INTO messages (thread_id, role, content, created_at, meta_json) VALUES (?, 'assistant', ?, ?, ?)",
+                (thread_id, "старый delivery", "2026-06-24T09:05:00+00:00", json.dumps({"source": "job_run", "message_kind": "job_delivery"}, ensure_ascii=False)),
+            )
+            conn.execute(
+                "INSERT INTO messages (thread_id, role, content, created_at, meta_json) VALUES (?, 'assistant', ?, ?, ?)",
+                (thread_id, "новый полезный ответ без source meta", "2026-06-24T10:10:00+00:00", json.dumps({"message_kind": "chat_response"}, ensure_ascii=False)),
+            )
+
+        response = self.client.get("/api/threads", headers=self.auth_headers(token))
+        self.assertEqual(response.status_code, 200)
+        payload = response.get_json()["threads"]
+        target = next(thread for thread in payload if thread.get("id") == thread_id)
+        self.assertEqual(target.get("freshness_at"), "2026-06-24T10:10:00+00:00")
+
     def test_json_loads_unwraps_nested_json_strings(self):
         nested = json.dumps(json.dumps({"attachments": [{"original_name": "report.pdf"}]}, ensure_ascii=False), ensure_ascii=False)
         payload = self.backend.json_loads(nested, {})
@@ -210,6 +236,38 @@ class HermesWebBackendSmokeTest(unittest.TestCase):
         self.assertEqual(payload["display_text"], "## Дайджест за день\n\n- Новость 1\n- Новость 2")
         self.assertEqual(payload["meta"]["display_text"], "## Дайджест за день\n\n- Новость 1\n- Новость 2")
 
+    def test_execute_job_retries_when_model_returns_job_configuration_text(self):
+        with self.backend.db_connect() as conn:
+            user_row = conn.execute("SELECT * FROM users WHERE email = ?", ("misha@demo.local",)).fetchone()
+            auth = self.backend.AuthUser(id=int(user_row["id"]), email=str(user_row["email"]), role="admin")
+            payload = {
+                "name": "hr-watch",
+                "display_name": "HR Watch",
+                "description": "monitoring",
+                "job_type": "research_watch",
+                "visibility": "private",
+                "status": "active",
+                "schedule_kind": "weekly",
+                "days_of_week": ["mon"],
+                "time_of_day": "09:00",
+                "start_date": "2026-06-30",
+                "timezone": "Europe/Moscow",
+                "parameters": {"subject": "HR", "angle": "новости", "output": "дайджест"},
+            }
+            job = self.backend.create_or_update_job(conn, auth, payload)
+            job_id = int(job["id"])
+
+        fake_setup = "- **Задача создана**: cron-job «hr-trends-weekly»\n- **Следующий запуск**: 2026-07-06 09:00 UTC"
+        fake_result = "Краткий HR-дайджест: сигнал 1, сигнал 2."
+        with patch.object(self.backend, "call_hermes_messages", side_effect=[(fake_setup, {"attempt": 1}), (fake_result, {"attempt": 2})]) as mocked:
+            updated = self.backend.execute_job(job_id, int(auth.id), "manual")
+
+        self.assertEqual(mocked.call_count, 2)
+        self.assertEqual(updated.get("last_run_summary"), fake_result)
+        with self.backend.db_connect() as conn:
+            run_row = conn.execute("SELECT * FROM job_runs WHERE job_id = ? ORDER BY id DESC LIMIT 1", (job_id,)).fetchone()
+        self.assertEqual(run_row["summary"], fake_result)
+
     def test_extract_hermes_output_for_delivery_strips_internal_reasoning_prelude(self):
         raw = """# Hermes Cron Output
 
@@ -237,6 +295,28 @@ Let's parse them.
 """
         result = self.backend.build_message_display_text(raw)
         self.assertEqual(result, "Я могу помочь в нескольких направлениях:\n- разобрать рабочую ситуацию;\n- сравнить варианты;\n- предложить следующий шаг.")
+
+    def test_clarification_followup_does_not_restore_old_export_request_for_smalltalk(self):
+        with self.backend.db_connect() as conn:
+            user_row = conn.execute("SELECT id FROM users WHERE email = ?", ("misha@demo.local",)).fetchone()
+            user_id = int(user_row["id"])
+        thread_id, message_ids = self.create_thread_with_messages(
+            user_id,
+            "Clarification followup",
+            [
+                ("user", "Собери информацию по BI-инструментам и предоставь в виде шаблона для презентации, в разбивке по слайдам.", {}),
+                (
+                    "assistant",
+                    "Нужен источник данных.",
+                    {"message_kind": "clarification_request", "downstream": "chat:data_collection_clarification"},
+                ),
+                ("user", "как дела?", {}),
+            ],
+        )
+        with self.backend.db_connect() as conn:
+            rows = conn.execute("SELECT * FROM messages WHERE thread_id = ? ORDER BY id ASC", (thread_id,)).fetchall()
+        restored = self.backend.infer_clarification_followup_request_text(rows, message_ids[-1], "как дела?")
+        self.assertEqual(restored, "как дела?")
 
     def test_serialize_message_exposes_assistant_result_contract(self):
         with self.backend.db_connect() as conn:
@@ -392,6 +472,39 @@ Let's parse them.
         self.assertEqual(generated['thread_file_role'], 'assistant_result')
         uploaded = next(item for item in thread_files if item.get('original_name') == 'input.txt')
         self.assertEqual(uploaded['thread_file_role'], 'user_file')
+
+    def test_get_thread_preserves_quality_metadata_for_generated_pptx_files(self):
+        token = self.login()
+        with self.backend.db_connect() as conn:
+            thread_id = conn.execute(
+                "INSERT INTO threads (user_id, title, preview, archived, version, created_at, updated_at) VALUES (1, 'PPTX quality thread', '', FALSE, 1, now(), now()) RETURNING id"
+            ).fetchone()[0]
+            assistant_meta = {
+                "message_kind": "file_response",
+                "attachments": [{
+                    "original_name": "deck.pptx",
+                    "stored_name": "deck.pptx",
+                    "mime_type": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                    "size_bytes": 24576,
+                    "download_url": "/api/messages/1000/attachments/0",
+                    "file_kind": "generated_result",
+                    "file_origin": "generated_file_response",
+                    "quality": {"status": "degraded", "degraded": True, "severity": "warning", "warning_codes": ["missing_required_titles"]},
+                    "validation": {"valid": True, "semantic": {"ok": False, "warning_codes": ["missing_required_titles"]}},
+                }],
+            }
+            conn.execute(
+                "INSERT INTO messages (thread_id, role, content, created_at, meta_json) VALUES (?, 'assistant', 'Файл готов', now(), ?)",
+                (thread_id, json.dumps(assistant_meta, ensure_ascii=False)),
+            )
+        response = self.client.get(f"/api/threads/{thread_id}", headers={"Authorization": f"Bearer {token}"})
+        self.assertEqual(response.status_code, 200)
+        payload = response.get_json()
+        thread_files = payload['thread_files']
+        deck = next(item for item in thread_files if item.get('original_name') == 'deck.pptx')
+        self.assertEqual(deck['thread_file_role'], 'assistant_result')
+        self.assertEqual(deck.get('quality', {}).get('status'), 'degraded')
+        self.assertIn('missing_required_titles', deck.get('quality', {}).get('warning_codes', []))
 
     def test_normalize_external_dashboard_payload_skips_fake_visual_fallback_without_numeric_data(self):
         dashboard = self.backend.normalize_external_dashboard_payload(
@@ -1570,6 +1683,395 @@ Let's parse them.
         self.assertIn("A", joined)
         self.assertIn("10", joined)
 
+    def test_validate_generated_pptx_reports_slide_titles_and_text_content(self):
+        fixture = Path(__file__).resolve().parent / "data" / "message_exports" / "3135c393046f42eb98e9373ece54b7af-Victoria_ITFM-2026-06-25_00-00-00.pptx"
+
+        report = self.backend.validate_generated_pptx(fixture.read_bytes())
+
+        self.assertTrue(report.get("valid"))
+        self.assertEqual(report.get("slide_count"), 4)
+        self.assertGreaterEqual(report.get("text_shape_count") or 0, 4)
+        self.assertIsInstance(report.get("slide_titles"), list)
+        self.assertGreaterEqual(len(report.get("slide_titles") or []), 1)
+
+    def test_build_message_export_pptx_returns_readback_validation_report(self):
+        with self.backend.db_connect() as conn:
+            user_row = conn.execute("SELECT id FROM users WHERE email = ?", ("misha@demo.local",)).fetchone()
+        user_id = int(user_row["id"])
+        _, message_ids = self.create_thread_with_messages(
+            user_id,
+            "PPTX readback validation",
+            [
+                ("user", "Сделай презентацию по итогам ITFM-обсуждения", {}),
+                (
+                    "assistant",
+                    "Слайд 1: Контекст\n- рост затрат\n- слабая прозрачность\n\nСлайд 2: Риски\n- нет владельцев данных\n- разрозненные модели",
+                    {"message_kind": "chat_response"},
+                ),
+            ],
+        )
+        with self.backend.db_connect() as conn:
+            message_row = conn.execute("SELECT * FROM messages WHERE id = ?", (message_ids[-1],)).fetchone()
+
+        export = self.backend.build_message_export_pptx(message_row, "PPTX readback validation")
+
+        self.assertIsInstance(export, dict)
+        self.assertIn("buffer", export)
+        self.assertIn("validation", export)
+        self.assertTrue(export["validation"].get("valid"))
+        self.assertGreaterEqual(export["validation"].get("slide_count") or 0, 2)
+
+    def test_validate_generated_pptx_semantics_flags_missing_required_titles(self):
+        report = {
+            "valid": True,
+            "slide_count": 2,
+            "slide_titles": ["Контекст", "Риски"],
+            "text_shape_count": 4,
+        }
+        expectation = {
+            "expected_slide_count": 3,
+            "required_titles": ["Контекст", "Целевая модель", "Риски"],
+        }
+
+        semantic = self.backend.validate_generated_pptx_semantics(report, expectation)
+
+        self.assertFalse(semantic.get("ok"))
+        self.assertIn("slide_count_mismatch", semantic.get("warning_codes") or [])
+        self.assertIn("missing_required_titles", semantic.get("warning_codes") or [])
+        self.assertIn("Целевая модель", semantic.get("missing_titles") or [])
+        self.assertEqual(semantic.get("expected_slide_count"), 3)
+        self.assertEqual(semantic.get("actual_slide_count"), 2)
+
+    def test_build_message_export_pptx_validation_includes_semantic_checks(self):
+        with self.backend.db_connect() as conn:
+            user_row = conn.execute("SELECT id FROM users WHERE email = ?", ("misha@demo.local",)).fetchone()
+        user_id = int(user_row["id"])
+        _, message_ids = self.create_thread_with_messages(
+            user_id,
+            "PPTX semantic validation",
+            [
+                ("user", "Сделай презентацию по итогам ITFM-обсуждения", {}),
+                (
+                    "assistant",
+                    "Слайд 1: Контекст\n- рост затрат\n\nСлайд 2: Целевая модель\n- единая сервисная модель\n\nСлайд 3: Риски\n- нет владельцев данных",
+                    {"message_kind": "chat_response"},
+                ),
+            ],
+        )
+        with self.backend.db_connect() as conn:
+            message_row = conn.execute("SELECT * FROM messages WHERE id = ?", (message_ids[-1],)).fetchone()
+
+        export = self.backend.build_message_export_pptx(message_row, "PPTX semantic validation")
+
+        self.assertTrue(export["validation"].get("valid"))
+        self.assertIn("semantic", export["validation"])
+        self.assertTrue(export["validation"]["semantic"].get("ok"))
+        self.assertEqual(export["validation"]["semantic"].get("actual_slide_count"), export["validation"].get("slide_count"))
+
+    def test_summarize_pptx_validation_marks_degraded_when_semantic_warnings_present(self):
+        validation = {
+            "valid": True,
+            "slide_count": 2,
+            "text_shape_count": 4,
+            "semantic": {
+                "ok": False,
+                "warning_codes": ["slide_count_mismatch", "missing_required_titles"],
+            },
+        }
+
+        quality = self.backend.summarize_pptx_validation_quality(validation)
+
+        self.assertEqual(quality.get("status"), "degraded")
+        self.assertTrue(quality.get("degraded"))
+        self.assertIn("slide_count_mismatch", quality.get("warning_codes") or [])
+        self.assertEqual(quality.get("severity"), "warning")
+
+    def test_build_message_export_pptx_includes_quality_summary(self):
+        with self.backend.db_connect() as conn:
+            user_row = conn.execute("SELECT id FROM users WHERE email = ?", ("misha@demo.local",)).fetchone()
+        user_id = int(user_row["id"])
+        _, message_ids = self.create_thread_with_messages(
+            user_id,
+            "PPTX quality summary",
+            [
+                ("user", "Сделай презентацию по итогам ITFM-обсуждения", {}),
+                (
+                    "assistant",
+                    "Слайд 1: Контекст\n- рост затрат\n\nСлайд 2: Риски\n- нет владельцев данных",
+                    {"message_kind": "chat_response"},
+                ),
+            ],
+        )
+        with self.backend.db_connect() as conn:
+            message_row = conn.execute("SELECT * FROM messages WHERE id = ?", (message_ids[-1],)).fetchone()
+
+        export = self.backend.build_message_export_pptx(message_row, "PPTX quality summary")
+
+        self.assertIn("quality", export)
+        self.assertIn(export["quality"].get("status"), {"ok", "degraded", "failed"})
+        self.assertIn("degraded", export["quality"])
+        self.assertIn("warning_codes", export["quality"])
+
+    def test_build_message_export_pptx_shows_problem_status_on_title_slide(self):
+        if self.backend.load_pptx_module() is None:
+            self.skipTest("python-pptx is not installed in this test environment")
+        with self.backend.db_connect() as conn:
+            user_row = conn.execute("SELECT id FROM users WHERE email = ?", ("misha@demo.local",)).fetchone()
+        user_id = int(user_row["id"])
+        _, message_ids = self.create_thread_with_messages(
+            user_id,
+            "PPTX title quality degraded",
+            [
+                ("user", "Сделай презентацию по итогам ITFM-обсуждения", {}),
+                (
+                    "assistant",
+                    "Слайд 1: Контекст\n- рост затрат\n\nСлайд 2: Риски\n- нет владельцев данных",
+                    {"message_kind": "chat_response"},
+                ),
+            ],
+        )
+        with self.backend.db_connect() as conn:
+            message_row = conn.execute("SELECT * FROM messages WHERE id = ?", (message_ids[-1],)).fetchone()
+
+        with patch.object(
+            self.backend,
+            "validate_generated_pptx_semantics",
+            return_value={
+                "ok": False,
+                "warning_codes": ["missing_required_titles"],
+                "missing_titles": ["Целевая модель"],
+                "expected_slide_count": 3,
+                "actual_slide_count": 2,
+                "required_titles": ["Контекст", "Целевая модель", "Риски"],
+            },
+        ):
+            export = self.backend.build_message_export_pptx(message_row, "PPTX title quality degraded")
+        with tempfile.NamedTemporaryFile(suffix=".pptx") as tmp:
+            tmp.write(export["buffer"].getvalue())
+            tmp.flush()
+            bundle = self.backend.analyze_source_pptx(tmp.name)
+        first_slide_text = "\n".join(slot.get("text") or "" for slot in (bundle.get("slides") or [{}])[0].get("slots") or [])
+
+        self.assertEqual(export["quality"].get("status"), "degraded")
+        self.assertIn("Статус сборки: Есть ограничения", first_slide_text)
+        self.assertIn("часть обязательных разделов не найдена", first_slide_text)
+
+    def test_build_message_export_pptx_skips_title_problem_status_when_quality_ok(self):
+        if self.backend.load_pptx_module() is None:
+            self.skipTest("python-pptx is not installed in this test environment")
+        with self.backend.db_connect() as conn:
+            user_row = conn.execute("SELECT id FROM users WHERE email = ?", ("misha@demo.local",)).fetchone()
+        user_id = int(user_row["id"])
+        _, message_ids = self.create_thread_with_messages(
+            user_id,
+            "PPTX title quality ok",
+            [
+                ("user", "Сделай презентацию по итогам ITFM-обсуждения", {}),
+                (
+                    "assistant",
+                    "Слайд 1: Контекст\n- рост затрат\n\nСлайд 2: Целевая модель\n- единая сервисная модель\n\nСлайд 3: Риски\n- нет владельцев данных",
+                    {"message_kind": "chat_response"},
+                ),
+            ],
+        )
+        with self.backend.db_connect() as conn:
+            message_row = conn.execute("SELECT * FROM messages WHERE id = ?", (message_ids[-1],)).fetchone()
+
+        export = self.backend.build_message_export_pptx(message_row, "PPTX title quality ok")
+        with tempfile.NamedTemporaryFile(suffix=".pptx") as tmp:
+            tmp.write(export["buffer"].getvalue())
+            tmp.flush()
+            bundle = self.backend.analyze_source_pptx(tmp.name)
+        first_slide_text = "\n".join(slot.get("text") or "" for slot in (bundle.get("slides") or [{}])[0].get("slots") or [])
+
+        self.assertEqual(export["quality"].get("status"), "ok")
+        self.assertNotIn("Статус сборки:", first_slide_text)
+
+    def test_build_message_export_attachment_includes_pptx_quality_metadata(self):
+        if self.backend.load_pptx_module() is None:
+            self.skipTest("python-pptx is not installed in this test environment")
+        message_row = {
+            "id": 321,
+            "role": "assistant",
+            "created_at": "2026-06-25T19:00:00+00:00",
+            "content": "Слайд 1: Контекст\n- рост затрат\n\nСлайд 2: Риски\n- нет владельцев данных",
+            "meta_json": json.dumps({"message_kind": "chat_response"}, ensure_ascii=False),
+        }
+
+        attachment = self.backend.build_message_export_attachment(message_row, "PPTX attachment quality", "pptx")
+
+        self.assertEqual(attachment.get("export_format"), "pptx")
+        self.assertIn("quality", attachment)
+        self.assertIn(attachment["quality"].get("status"), {"ok", "degraded", "failed"})
+        self.assertIn("validation", attachment)
+        self.assertIsInstance(attachment["validation"], dict)
+
+    def test_build_generated_file_reply_propagates_pptx_quality_to_meta_and_attachment(self):
+        if self.backend.load_pptx_module() is None:
+            self.skipTest("python-pptx is not installed in this test environment")
+        public_text, meta = self.backend.build_generated_file_reply(
+            assistant_message_id=123,
+            reply_text="Slide 1: Заголовок\n- пункт",
+            reply_meta={"message_kind": "chat_response"},
+            thread_title="PPTX output",
+            export_format="pptx",
+            created_at="2026-06-25T19:00:00+00:00",
+        )
+
+        self.assertIn("Собрала новый ответ", public_text)
+        self.assertIn("quality", meta)
+        self.assertIn(meta["quality"].get("status"), {"ok", "degraded", "failed"})
+        self.assertIn("quality", meta["attachments"][0])
+        self.assertIn("validation", meta["attachments"][0])
+
+    def test_analyze_source_pptx_returns_normalized_slide_inventory(self):
+        fixture = Path(__file__).resolve().parent / "data" / "message_exports" / "3135c393046f42eb98e9373ece54b7af-Victoria_ITFM-2026-06-25_00-00-00.pptx"
+
+        bundle = self.backend.analyze_source_pptx(str(fixture))
+
+        self.assertIsInstance(bundle, dict)
+        self.assertEqual(bundle.get("slide_count"), 4)
+        self.assertEqual(bundle.get("aspect_ratio"), "16:9")
+        self.assertIsInstance(bundle.get("slides"), list)
+        self.assertGreaterEqual(len(bundle.get("slides") or []), 1)
+        first_slide = bundle.get("slides")[0]
+        self.assertEqual(first_slide.get("slide_index"), 1)
+        self.assertIn("slots", first_slide)
+        self.assertTrue(any((slot.get("text") or "").strip() for slot in first_slide.get("slots") or []))
+
+    def test_infer_pptx_route_signals_detects_template_candidate(self):
+        signals = self.backend.infer_pptx_route_signals({
+            "slide_count": 5,
+            "slides": [
+                {"page_type": "title", "slots": [{"text": "Quarterly review"}]},
+                {"page_type": "visual", "slots": [{"text": ""}]},
+                {"page_type": "title_and_content", "slots": [{"text": "Agenda"}]},
+                {"page_type": "visual", "slots": [{"text": ""}]},
+                {"page_type": "content", "slots": [{"text": "One short callout"}]},
+            ],
+        })
+
+        self.assertTrue(signals.get("source_deck"))
+        self.assertTrue(signals.get("template_candidate"))
+        self.assertFalse(signals.get("dense_source_deck"))
+        self.assertTrue(signals.get("prefer_compact_structure"))
+
+    def test_build_presentation_plan_compacts_title_preview_for_source_deck_route(self):
+        source = {
+            "deck_title": "ITFM",
+            "deck_subtitle": "Актуализация существующего deck",
+            "overview_titles": ["Контекст", "Целевая модель", "План внедрения"],
+            "sections": [
+                {"title": "Контекст", "items": [{"kind": "bullet", "text": "рост затрат", "runs": [{"text": "рост затрат"}]}], "tables": []},
+                {"title": "Целевая модель", "items": [{"kind": "bullet", "text": "единая сервисная модель", "runs": [{"text": "единая сервисная модель"}]}], "tables": []},
+            ],
+            "route_signals": {
+                "source_deck": True,
+                "prefer_compact_structure": True,
+            },
+        }
+
+        plan = self.backend.build_presentation_plan(source)
+
+        self.assertEqual(plan[0].get("kind"), "title")
+        self.assertEqual(plan[0].get("preview_titles"), [])
+        self.assertFalse(any(item.get("kind") == "overview" for item in plan))
+
+    def test_infer_pptx_capacity_signals_marks_dense_text_deck(self):
+        dense_text = "Очень длинный абзац про архитектуру и финмодель. " * 12
+        capacity = self.backend.infer_pptx_capacity_signals({
+            "slides": [
+                {
+                    "page_type": "content",
+                    "slots": [
+                        {
+                            "text": dense_text,
+                            "text_metrics": {"chars": len(dense_text), "paragraphs": 3, "lines": 3},
+                        }
+                    ],
+                }
+            ]
+        })
+
+        self.assertTrue(capacity.get("dense_text_detected"))
+        self.assertGreaterEqual(capacity.get("max_slot_chars") or 0, 400)
+        self.assertIn("slot_text_overflow", capacity.get("warning_codes") or [])
+
+    def test_build_presentation_plan_marks_capacity_warning_for_dense_source_deck(self):
+        long_text = "Плотный материал по целевой архитектуре и этапам внедрения. " * 10
+        source = {
+            "deck_title": "ITFM",
+            "sections": [
+                {
+                    "title": "Целевая архитектура",
+                    "items": [
+                        {"kind": "bullet", "text": long_text, "runs": [{"text": long_text}]},
+                        {"kind": "bullet", "text": long_text, "runs": [{"text": long_text}]},
+                    ],
+                    "tables": [],
+                }
+            ],
+            "route_signals": {"source_deck": True},
+            "capacity_signals": {"dense_text_detected": True, "warning_codes": ["slot_text_overflow"]},
+        }
+
+        plan = self.backend.build_presentation_plan(source)
+        content_slide = next(item for item in plan if item.get("kind") == "content")
+
+        self.assertEqual(content_slide.get("capacity_warning"), "slot_text_overflow")
+        self.assertTrue(content_slide.get("needs_compaction"))
+
+    def test_choose_content_chunk_preferred_becomes_more_aggressive_for_capacity_warning(self):
+        long_text = "Плотный материал по архитектуре. " * 6
+        items = [
+            {"kind": "bullet", "text": long_text, "runs": [{"text": long_text}]},
+            {"kind": "bullet", "text": long_text, "runs": [{"text": long_text}]},
+            {"kind": "bullet", "text": long_text, "runs": [{"text": long_text}]},
+            {"kind": "bullet", "text": long_text, "runs": [{"text": long_text}]},
+        ]
+
+        normal = self.backend.choose_content_chunk_preferred(items)
+        compact = self.backend.choose_content_chunk_preferred(items, capacity_warning="slot_text_overflow")
+
+        self.assertLess(compact, normal)
+        self.assertEqual(compact, 3)
+
+    def test_choose_pptx_body_font_size_shrinks_for_needs_compaction(self):
+        long_text = "Длинный пункт про целевую архитектуру и roadmap. " * 2
+        items = [
+            {"kind": "bullet", "text": long_text, "runs": [{"text": long_text}]},
+            {"kind": "bullet", "text": long_text, "runs": [{"text": long_text}]},
+            {"kind": "bullet", "text": long_text, "runs": [{"text": long_text}]},
+        ]
+
+        regular = self.backend.choose_pptx_body_font_size(items, subtitle="Контекст")
+        compact = self.backend.choose_pptx_body_font_size(items, subtitle="Контекст", force_compact=True)
+
+        self.assertLess(compact, regular)
+        self.assertGreaterEqual(compact, 10)
+
+    def test_build_presentation_plan_splits_dense_section_more_aggressively(self):
+        long_text = "Плотный материал по архитектуре и операционной модели. " * 6
+        items = [
+            {"kind": "bullet", "text": long_text, "runs": [{"text": long_text}]},
+            {"kind": "bullet", "text": long_text, "runs": [{"text": long_text}]},
+            {"kind": "bullet", "text": long_text, "runs": [{"text": long_text}]},
+            {"kind": "bullet", "text": long_text, "runs": [{"text": long_text}]},
+        ]
+        source = {
+            "deck_title": "ITFM",
+            "sections": [{"title": "Архитектура", "items": items, "tables": []}],
+            "route_signals": {"source_deck": True},
+            "capacity_signals": {"dense_text_detected": True, "warning_codes": ["slot_text_overflow"]},
+        }
+
+        plan = self.backend.build_presentation_plan(source)
+        content_slides = [item for item in plan if item.get("kind") == "content"]
+
+        self.assertEqual(len(content_slides), 2)
+        self.assertEqual(len(content_slides[0].get("items") or []), 3)
+        self.assertEqual(len(content_slides[1].get("items") or []), 1)
+
     def test_generate_and_attach_file_request_detects_presentation_intent(self):
         text = "Сделай презентацию в pptx по итогам интервью"
         self.assertEqual(self.backend.detect_message_export_format(text), "pptx")
@@ -2163,7 +2665,9 @@ Let's parse them.
 
         plan = self.backend.build_presentation_plan(source)
         kinds = [item.get("kind") for item in plan]
-        self.assertEqual(kinds[:4], ["title", "overview", "comparison", "roadmap"])
+        self.assertTrue(source.get("explicit_slide_mode"))
+        self.assertTrue(source.get("suppress_overview"))
+        self.assertEqual(kinds[:3], ["title", "comparison", "roadmap"])
         serialized = json.dumps(plan, ensure_ascii=False)
         self.assertNotIn("не могу напрямую создать бинарный файл", serialized.lower())
         self.assertNotIn("вы можете создать новую презентацию", serialized.lower())

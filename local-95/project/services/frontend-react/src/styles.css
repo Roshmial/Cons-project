@@ -384,6 +384,8 @@ select {
 .assistant-special-meta { color: #50627d; font-size: 13px; }
 .assistant-file-list { display: grid; gap: 10px; }
 .assistant-file-row { display: flex; justify-content: space-between; gap: 10px; align-items: center; border: 1px solid #ebf0f7; border-radius: 12px; padding: 10px 12px; background: #fbfdff; }
+.assistant-quality-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 6px; }
+.assistant-quality-row .status-chip { padding: 5px 9px; font-size: 11px; }
 .assistant-chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 .assistant-used-files-block { display: grid; gap: 10px; padding-top: 4px; border-top: 1px solid #ebf0f7; }
 .assistant-structured-grid { display: grid; gap: 8px; }

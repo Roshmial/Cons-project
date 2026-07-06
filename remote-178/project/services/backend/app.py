@@ -29,6 +29,7 @@ import csv
 import base64
 import io
 import shutil
+import tempfile
 import zipfile
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
@@ -112,6 +113,311 @@ def load_pptx_module():
             return None
         _pptx_module = pptx_module
     return _pptx_module
+
+
+PPTX_NS = {
+    'a': 'http://schemas.openxmlformats.org/drawingml/2006/main',
+    'p': 'http://schemas.openxmlformats.org/presentationml/2006/main',
+    'c': 'http://schemas.openxmlformats.org/drawingml/2006/chart',
+}
+
+
+def _pptx_shape_role(shape_element: ET.Element) -> str:
+    placeholder = shape_element.find('./p:nvSpPr/p:nvPr/p:ph', PPTX_NS)
+    placeholder_type = safe_text(placeholder.get('type') if placeholder is not None else '')
+    if placeholder_type in {'title', 'ctrTitle'}:
+        return 'title'
+    if placeholder_type == 'subTitle':
+        return 'subtitle'
+    if placeholder_type in {'body', 'obj'}:
+        return 'body'
+    return 'content'
+
+
+def _pptx_geometry(shape_element: ET.Element) -> dict[str, int]:
+    off = shape_element.find('./p:spPr/a:xfrm/a:off', PPTX_NS)
+    ext = shape_element.find('./p:spPr/a:xfrm/a:ext', PPTX_NS)
+    return {
+        'x': int(off.get('x', '0')) if off is not None else 0,
+        'y': int(off.get('y', '0')) if off is not None else 0,
+        'width': int(ext.get('cx', '0')) if ext is not None else 0,
+        'height': int(ext.get('cy', '0')) if ext is not None else 0,
+    }
+
+
+def _pptx_extract_shape_text(shape_element: ET.Element) -> tuple[str, int]:
+    paragraphs: list[str] = []
+    paragraph_count = 0
+    for paragraph in shape_element.findall('.//a:p', PPTX_NS):
+        chunks = [safe_text(node.text) for node in paragraph.findall('.//a:t', PPTX_NS) if safe_text(node.text)]
+        if chunks:
+            paragraphs.append(''.join(chunks).strip())
+            paragraph_count += 1
+    return '\n'.join(item for item in paragraphs if item), paragraph_count
+
+
+def _pptx_text_metrics(text: str, paragraph_count: int) -> dict[str, int]:
+    return {
+        'chars': len(text),
+        'paragraphs': paragraph_count,
+        'lines': len([line for line in text.splitlines() if safe_text(line)]),
+    }
+
+
+def _pptx_aspect_ratio_label(width: int, height: int) -> str:
+    if width <= 0 or height <= 0:
+        return ''
+    ratio = width / height
+    common = {
+        '16:9': 16 / 9,
+        '4:3': 4 / 3,
+        '16:10': 16 / 10,
+    }
+    best_label = ''
+    best_delta = None
+    for label, expected in common.items():
+        delta = abs(ratio - expected)
+        if best_delta is None or delta < best_delta:
+            best_label = label
+            best_delta = delta
+    if best_delta is not None and best_delta <= 0.08:
+        return best_label
+    return f'{round(ratio, 2)}:1'
+
+
+def infer_pptx_capacity_signals(bundle: dict[str, Any]) -> dict[str, Any]:
+    slides = bundle.get('slides') if isinstance(bundle.get('slides'), list) else []
+    max_slot_chars = 0
+    max_slot_paragraphs = 0
+    text_slot_count = 0
+    for slide in slides:
+        for slot in slide.get('slots') or []:
+            metrics = slot.get('text_metrics') if isinstance(slot.get('text_metrics'), dict) else {}
+            chars = int(metrics.get('chars') or len(safe_text(slot.get('text'))))
+            paragraphs = int(metrics.get('paragraphs') or slot.get('paragraph_count') or 0)
+            if chars > 0:
+                text_slot_count += 1
+            max_slot_chars = max(max_slot_chars, chars)
+            max_slot_paragraphs = max(max_slot_paragraphs, paragraphs)
+    warning_codes: list[str] = []
+    if max_slot_chars >= 400:
+        warning_codes.append('slot_text_overflow')
+    if max_slot_paragraphs >= 5:
+        warning_codes.append('slot_paragraph_overflow')
+    dense_text_detected = bool(warning_codes) or (text_slot_count >= max(4, len(slides) * 2 if slides else 4) and max_slot_chars >= 220)
+    return {
+        'dense_text_detected': dense_text_detected,
+        'max_slot_chars': max_slot_chars,
+        'max_slot_paragraphs': max_slot_paragraphs,
+        'warning_codes': warning_codes,
+    }
+
+
+def analyze_source_pptx(path: str) -> dict[str, Any]:
+    pptx_path = Path(path)
+    if not pptx_path.exists() or not pptx_path.is_file():
+        raise FileNotFoundError(path)
+
+    with zipfile.ZipFile(pptx_path) as archive:
+        presentation_xml = ET.fromstring(archive.read('ppt/presentation.xml'))
+        slide_size = presentation_xml.find('./p:sldSz', PPTX_NS)
+        slide_width = int(slide_size.get('cx', '0')) if slide_size is not None else 0
+        slide_height = int(slide_size.get('cy', '0')) if slide_size is not None else 0
+        slide_names = sorted(
+            [name for name in archive.namelist() if re.fullmatch(r'ppt/slides/slide\d+\.xml', name)],
+            key=lambda value: int(re.search(r'(\d+)', value).group(1)) if re.search(r'(\d+)', value) else 0,
+        )
+        slides: list[dict[str, Any]] = []
+        for slide_index, slide_name in enumerate(slide_names, start=1):
+            slide_xml = ET.fromstring(archive.read(slide_name))
+            slots: list[dict[str, Any]] = []
+            for shape in slide_xml.findall('./p:cSld/p:spTree/p:sp', PPTX_NS):
+                text, paragraph_count = _pptx_extract_shape_text(shape)
+                non_visual = shape.find('./p:nvSpPr/p:cNvPr', PPTX_NS)
+                shape_name = safe_text(non_visual.get('name') if non_visual is not None else '')
+                slot = {
+                    'role': _pptx_shape_role(shape),
+                    'shape_name': shape_name or f'Shape {len(slots) + 1}',
+                    'geometry': _pptx_geometry(shape),
+                    'text': text,
+                    'paragraph_count': paragraph_count,
+                    'text_metrics': _pptx_text_metrics(text, paragraph_count),
+                }
+                if text or any(slot['geometry'].values()):
+                    slots.append(slot)
+
+            title_slots = [slot for slot in slots if slot.get('role') == 'title' and safe_text(slot.get('text'))]
+            body_slots = [slot for slot in slots if slot.get('role') != 'title' and safe_text(slot.get('text'))]
+            if title_slots and not body_slots:
+                page_type = 'title'
+            elif title_slots:
+                page_type = 'title_and_content'
+            elif any(safe_text(slot.get('text')) for slot in slots):
+                page_type = 'content'
+            else:
+                page_type = 'visual'
+
+            slide_text_fragments = [safe_text(slot.get('text')).replace('\n', ' · ') for slot in slots if safe_text(slot.get('text'))]
+            slides.append({
+                'slide_index': slide_index,
+                'page_type': page_type,
+                'text_summary': ' | '.join(slide_text_fragments)[:500],
+                'slots': slots,
+                'tables': len(slide_xml.findall('.//a:tbl', PPTX_NS)),
+                'charts': len(slide_xml.findall('.//c:chart', PPTX_NS)),
+            })
+
+    bundle = {
+        'title': pptx_path.stem,
+        'subtitle': '',
+        'slide_count': len(slides),
+        'aspect_ratio': _pptx_aspect_ratio_label(slide_width, slide_height),
+        'theme_fonts': [],
+        'theme_colors': [],
+        'slides': slides,
+    }
+    bundle['route_signals'] = infer_pptx_route_signals(bundle)
+    bundle['capacity_signals'] = infer_pptx_capacity_signals(bundle)
+    return bundle
+
+
+def infer_pptx_route_signals(bundle: dict[str, Any]) -> dict[str, Any]:
+    slides = bundle.get('slides') if isinstance(bundle.get('slides'), list) else []
+    slide_count = int(bundle.get('slide_count') or len(slides) or 0)
+    text_slots = 0
+    text_chars = 0
+    title_like_slides = 0
+    visual_slides = 0
+    for slide in slides:
+        page_type = safe_text(slide.get('page_type'))
+        if page_type in {'title', 'title_and_content'}:
+            title_like_slides += 1
+        if page_type == 'visual':
+            visual_slides += 1
+        for slot in slide.get('slots') or []:
+            text = safe_text(slot.get('text'))
+            if text:
+                text_slots += 1
+                text_chars += len(text)
+    average_chars_per_slide = (text_chars / slide_count) if slide_count else 0.0
+    sparse_text_deck = slide_count > 0 and (text_slots <= max(3, slide_count) or average_chars_per_slide < 80)
+    template_candidate = slide_count >= 3 and (visual_slides + title_like_slides) >= math.ceil(slide_count * 0.6) and sparse_text_deck
+    dense_source_deck = slide_count >= 3 and average_chars_per_slide >= 140 and text_slots >= slide_count * 2
+    prefer_compact_structure = template_candidate or (slide_count > 0 and not dense_source_deck)
+    return {
+        'source_deck': slide_count > 0,
+        'template_candidate': template_candidate,
+        'dense_source_deck': dense_source_deck,
+        'prefer_compact_structure': prefer_compact_structure,
+        'slide_count': slide_count,
+        'aspect_ratio': safe_text(bundle.get('aspect_ratio')),
+    }
+
+
+def enrich_presentation_source_with_pptx_bundle(source: dict[str, Any], bundle: dict[str, Any] | None) -> dict[str, Any]:
+    merged = dict(source or {})
+    if not isinstance(bundle, dict):
+        return merged
+    route_signals = infer_pptx_route_signals(bundle)
+    merged['route_signals'] = route_signals
+    merged['source_pptx'] = {
+        'title': safe_text(bundle.get('title')),
+        'slide_count': int(bundle.get('slide_count') or 0),
+        'aspect_ratio': safe_text(bundle.get('aspect_ratio')),
+    }
+    return merged
+
+
+def validate_generated_pptx(payload: bytes) -> dict[str, Any]:
+    if not payload:
+        return {
+            'valid': False,
+            'error_code': 'empty_payload',
+            'slide_count': 0,
+            'text_shape_count': 0,
+            'slide_titles': [],
+        }
+    try:
+        with tempfile.NamedTemporaryFile(suffix='.pptx', delete=True) as handle:
+            handle.write(payload)
+            handle.flush()
+            bundle = analyze_source_pptx(handle.name)
+    except Exception as exc:
+        return {
+            'valid': False,
+            'error_code': 'readback_failed',
+            'error': safe_text(exc),
+            'slide_count': 0,
+            'text_shape_count': 0,
+            'slide_titles': [],
+        }
+    slides = bundle.get('slides') if isinstance(bundle.get('slides'), list) else []
+    slide_titles: list[str] = []
+    text_shape_count = 0
+    for slide in slides:
+        slots = slide.get('slots') if isinstance(slide.get('slots'), list) else []
+        text_shape_count += sum(1 for slot in slots if safe_text(slot.get('text')))
+        summary = safe_text(slide.get('text_summary'))
+        if summary:
+            slide_titles.append(summary.splitlines()[0].strip()[:120])
+    return {
+        'valid': bool(bundle.get('slide_count')) and text_shape_count > 0,
+        'slide_count': int(bundle.get('slide_count') or 0),
+        'text_shape_count': text_shape_count,
+        'slide_titles': slide_titles[:10],
+        'aspect_ratio': safe_text(bundle.get('aspect_ratio')),
+    }
+
+
+def validate_generated_pptx_semantics(report: dict[str, Any], expectation: dict[str, Any] | None) -> dict[str, Any]:
+    expectation = expectation if isinstance(expectation, dict) else {}
+    expected_slide_count = int(expectation.get('expected_slide_count') or 0)
+    required_titles = [safe_text(item).strip() for item in (expectation.get('required_titles') or []) if safe_text(item).strip()]
+    actual_slide_count = int(report.get('slide_count') or 0)
+    actual_titles = [safe_text(item).strip() for item in (report.get('slide_titles') or []) if safe_text(item).strip()]
+    actual_titles_lower = [item.lower() for item in actual_titles]
+    missing_titles: list[str] = []
+    for title in required_titles:
+        lowered = title.lower()
+        if not any(lowered in actual or actual in lowered for actual in actual_titles_lower):
+            missing_titles.append(title)
+    warning_codes: list[str] = []
+    if expected_slide_count and actual_slide_count != expected_slide_count:
+        warning_codes.append('slide_count_mismatch')
+    if missing_titles:
+        warning_codes.append('missing_required_titles')
+    return {
+        'ok': not warning_codes,
+        'warning_codes': warning_codes,
+        'expected_slide_count': expected_slide_count,
+        'actual_slide_count': actual_slide_count,
+        'required_titles': required_titles,
+        'missing_titles': missing_titles,
+    }
+
+
+def summarize_pptx_validation_quality(validation: dict[str, Any] | None) -> dict[str, Any]:
+    validation = validation if isinstance(validation, dict) else {}
+    warning_codes: list[str] = []
+    if not validation.get('valid'):
+        if safe_text(validation.get('error_code')):
+            warning_codes.append(safe_text(validation.get('error_code')))
+        else:
+            warning_codes.append('readback_invalid')
+    semantic = validation.get('semantic') if isinstance(validation.get('semantic'), dict) else {}
+    for code in semantic.get('warning_codes') or []:
+        code_text = safe_text(code)
+        if code_text and code_text not in warning_codes:
+            warning_codes.append(code_text)
+    degraded = bool(warning_codes)
+    status = 'failed' if not validation.get('valid') else ('degraded' if degraded else 'ok')
+    severity = 'error' if status == 'failed' else ('warning' if status == 'degraded' else 'info')
+    return {
+        'status': status,
+        'degraded': degraded,
+        'severity': severity,
+        'warning_codes': warning_codes,
+    }
 
 
 def load_pil_modules():
@@ -4903,6 +5209,9 @@ def build_presentation_item_chunks(items: list[dict[str, Any]], *, preferred: in
         return []
     if len(items) <= preferred:
         return [items]
+    if minimum_tail <= 1 and preferred > 0:
+        chunks = [items[index:index + preferred] for index in range(0, len(items), preferred)]
+        return [chunk for chunk in chunks if chunk]
     chunk_count = max(1, math.ceil(len(items) / preferred))
     while chunk_count > 1:
         base = len(items) // chunk_count
@@ -4932,12 +5241,18 @@ def estimate_presentation_item_text_length(item: dict[str, Any]) -> int:
     return len(plain_text_from_runs(runs) or safe_text(item.get('text')))
 
 
-def choose_content_chunk_preferred(items: list[dict[str, Any]], hint: str | None = None) -> int:
+def choose_content_chunk_preferred(items: list[dict[str, Any]], hint: str | None = None, *, capacity_warning: str | None = None) -> int:
     if not items:
         return 5
     kinds = [safe_text(item.get('kind')) for item in items]
     total_length = sum(estimate_presentation_item_text_length(item) for item in items)
     max_length = max(estimate_presentation_item_text_length(item) for item in items)
+    if capacity_warning == 'slot_text_overflow':
+        if hint in {'comparison', 'roadmap', 'risks'}:
+            return 3
+        return 3 if len(items) >= 3 else max(2, len(items))
+    if capacity_warning == 'slot_paragraph_overflow':
+        return 4 if len(items) >= 4 else max(2, len(items))
     if hint in {'comparison', 'roadmap', 'risks'}:
         if hint == 'roadmap' and len(items) <= 5 and total_length <= 420 and max_length <= 88:
             return len(items)
@@ -4955,13 +5270,15 @@ def choose_content_chunk_preferred(items: list[dict[str, Any]], hint: str | None
     return min(len(items), 6)
 
 
-def choose_pptx_body_font_size(items: list[dict[str, Any]], subtitle: str | None = None, *, base_size: int = 12, minimum_size: int = 10) -> int:
+def choose_pptx_body_font_size(items: list[dict[str, Any]], subtitle: str | None = None, *, base_size: int = 12, minimum_size: int = 10, force_compact: bool = False) -> int:
     if not items:
         return base_size
     total_length = sum(estimate_presentation_item_text_length(item) for item in items)
     item_count = len(items)
     label_count = sum(1 for item in items if safe_text(item.get('kind')) == 'label')
     effective_length = total_length + max(0, item_count - 4) * 18 + label_count * 10 + (18 if subtitle else 0)
+    if force_compact:
+        effective_length += 90
     if effective_length <= 220 and item_count <= 4:
         return base_size
     if effective_length <= 340 and item_count <= 6:
@@ -4995,7 +5312,12 @@ def merge_section_chunk_into_previous_slide(previous: dict[str, Any], title_text
 
 
 def build_presentation_plan(source: dict[str, Any]) -> list[dict[str, Any]]:
-    suppress_title_preview = bool(source.get('suppress_title_preview'))
+    route_signals = source.get('route_signals') if isinstance(source.get('route_signals'), dict) else {}
+    capacity_signals = source.get('capacity_signals') if isinstance(source.get('capacity_signals'), dict) else {}
+    compact_source_deck = bool(route_signals.get('source_deck')) and bool(route_signals.get('prefer_compact_structure'))
+    capacity_warning_code = safe_text((capacity_signals.get('warning_codes') or [None])[0]) if isinstance(capacity_signals.get('warning_codes'), list) else ''
+    dense_source_deck = bool(route_signals.get('source_deck')) and bool(capacity_signals.get('dense_text_detected'))
+    suppress_title_preview = bool(source.get('suppress_title_preview')) or compact_source_deck
     plan: list[dict[str, Any]] = [
         {
             'kind': 'title',
@@ -5005,7 +5327,8 @@ def build_presentation_plan(source: dict[str, Any]) -> list[dict[str, Any]]:
         }
     ]
     overview_titles = list(source.get('overview_titles') or [])
-    if not bool(source.get('suppress_overview')):
+    suppress_overview = bool(source.get('suppress_overview')) or compact_source_deck
+    if not suppress_overview:
         for overview_chunk in build_presentation_item_chunks([{'title': title} for title in overview_titles], preferred=6, minimum_tail=3):
             plan.append({'kind': 'overview', 'titles': [safe_text(item.get('title')) for item in overview_chunk if safe_text(item.get('title'))]})
     for section in source.get('sections') or []:
@@ -5023,35 +5346,55 @@ def build_presentation_plan(source: dict[str, Any]) -> list[dict[str, Any]]:
         elif hint == 'risks':
             subtitle = 'Риски и меры'
         if label_items and not narrative_items:
-            label_chunks = build_presentation_item_chunks(label_items, preferred=4, minimum_tail=2)
+            label_chunks = build_presentation_item_chunks(label_items, preferred=3 if capacity_warning_code == 'slot_text_overflow' else 4, minimum_tail=2)
             for chunk_index, chunk in enumerate(label_chunks, start=1):
                 chunk_title = title_text if chunk_index == 1 else f'{title_text} (продолжение {chunk_index})'
-                plan.append({'kind': hint or 'cards', 'title': chunk_title, 'items': chunk, 'subtitle': subtitle})
+                slide_entry = {'kind': hint or 'cards', 'title': chunk_title, 'items': chunk, 'subtitle': subtitle}
+                if dense_source_deck and capacity_warning_code:
+                    slide_entry['capacity_warning'] = capacity_warning_code
+                    slide_entry['needs_compaction'] = True
+                plan.append(slide_entry)
         elif narrative_items:
             if hint == 'roadmap':
-                roadmap_chunks = build_presentation_item_chunks(narrative_items, preferred=4, minimum_tail=2)
+                roadmap_chunks = build_presentation_item_chunks(narrative_items, preferred=choose_content_chunk_preferred(narrative_items, hint, capacity_warning=capacity_warning_code if dense_source_deck else None), minimum_tail=2)
                 for chunk_index, chunk in enumerate(roadmap_chunks, start=1):
                     chunk_title = title_text if chunk_index == 1 else f'{title_text} (этапы {chunk_index})'
-                    plan.append({'kind': 'roadmap', 'title': chunk_title, 'items': chunk, 'subtitle': subtitle})
+                    slide_entry = {'kind': 'roadmap', 'title': chunk_title, 'items': chunk, 'subtitle': subtitle}
+                    if dense_source_deck and capacity_warning_code:
+                        slide_entry['capacity_warning'] = capacity_warning_code
+                        slide_entry['needs_compaction'] = True
+                    plan.append(slide_entry)
             else:
-                preferred = choose_content_chunk_preferred(narrative_items, hint)
-                for chunk_index, chunk in enumerate(build_presentation_item_chunks(narrative_items, preferred=preferred, minimum_tail=2), start=1):
+                preferred = choose_content_chunk_preferred(narrative_items, hint, capacity_warning=capacity_warning_code if dense_source_deck else None)
+                for chunk_index, chunk in enumerate(build_presentation_item_chunks(narrative_items, preferred=preferred, minimum_tail=1 if capacity_warning_code == 'slot_text_overflow' and dense_source_deck else 2), start=1):
                     if chunk_index > 1:
                         chunk_title = f'{title_text} (продолжение {chunk_index})'
-                        plan.append({'kind': hint or 'content', 'title': chunk_title, 'items': chunk, 'subtitle': subtitle})
+                        slide_entry = {'kind': hint or 'content', 'title': chunk_title, 'items': chunk, 'subtitle': subtitle}
+                        if dense_source_deck and capacity_warning_code:
+                            slide_entry['capacity_warning'] = capacity_warning_code
+                            slide_entry['needs_compaction'] = True
+                        plan.append(slide_entry)
                         continue
                     previous_plan_item = plan[-1] if plan else None
                     if can_merge_section_chunk_into_previous_slide(previous_plan_item, title_text, chunk, hint):
                         merge_section_chunk_into_previous_slide(previous_plan_item, title_text, chunk)
                         continue
-                    plan.append({'kind': hint or 'content', 'title': title_text, 'items': chunk, 'subtitle': subtitle})
+                    slide_entry = {'kind': hint or 'content', 'title': title_text, 'items': chunk, 'subtitle': subtitle}
+                    if dense_source_deck and capacity_warning_code:
+                        slide_entry['capacity_warning'] = capacity_warning_code
+                        slide_entry['needs_compaction'] = True
+                    plan.append(slide_entry)
         elif not tables:
-            plan.append({
+            slide_entry = {
                 'kind': 'content',
                 'title': title_text,
                 'items': [{'kind': 'bullet', 'text': 'Материал подготовлен без дополнительных пунктов.', 'runs': make_runs('Материал подготовлен без дополнительных пунктов.')}],
                 'subtitle': subtitle,
-            })
+            }
+            if dense_source_deck and capacity_warning_code:
+                slide_entry['capacity_warning'] = capacity_warning_code
+                slide_entry['needs_compaction'] = True
+            plan.append(slide_entry)
         for index, table_payload in enumerate(tables, start=1):
             rows = table_payload.get('rows') if isinstance(table_payload, dict) else []
             run_rows = table_payload.get('run_rows') if isinstance(table_payload, dict) else []
@@ -5177,7 +5520,7 @@ def build_message_export_docx(message_row: sqlite3.Row, thread_title: str) -> io
     buffer.seek(0)
     return buffer
 
-def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io.BytesIO:
+def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> dict[str, Any]:
     pptx_module = load_pptx_module()
     if pptx_module is None:
         raise ApiError("export_dependency_missing_pptx", 503)
@@ -5214,7 +5557,14 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
     payload = build_message_export_payload(message_row, thread_title)
     presentation_source = extract_presentation_source_from_thread(body_text, thread_title)
     presentation_plan = build_presentation_plan(presentation_source)
-    blocks = parse_document_export_blocks(body_text)
+    semantic_expectation = {
+        'expected_slide_count': len(presentation_plan),
+        'required_titles': [
+            safe_text(item.get('title')).strip()
+            for item in presentation_plan
+            if item.get('kind') in {'content', 'comparison', 'roadmap', 'risks', 'table', 'card'} and safe_text(item.get('title')).strip()
+        ],
+    }
 
     def set_shape_fill(shape: Any, fill_color: Any) -> None:
         try:
@@ -5279,37 +5629,38 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
         cleaned = re.sub(r'^(?:слайд|slide)\s*\d+\s*[–—\-:]\s*', '', cleaned, flags=re.IGNORECASE).strip()
         return cleaned.strip(' :：-—')
 
-    sections: list[dict[str, Any]] = []
-    current_section: dict[str, Any] | None = None
-    for block in blocks:
-        kind = safe_text(block.get('kind'))
-        if kind == 'heading':
-            current_section = {'title': normalize_section_title(safe_text(block.get('text')) or 'Раздел'), 'items': [], 'tables': []}
-            sections.append(current_section)
-            continue
-        if current_section is None:
-            continue
-        if kind == 'table':
-            rows = block.get('rows') if isinstance(block.get('rows'), list) else []
-            run_rows = block.get('run_rows') if isinstance(block.get('run_rows'), list) else []
-            normalized = [[safe_text(cell) for cell in row] for row in rows if isinstance(row, list) and row]
-            if normalized:
-                current_section['tables'].append({'rows': normalized, 'run_rows': run_rows})
-            continue
-        current_section['items'].append({'kind': kind, 'text': safe_text(block.get('text')), 'runs': block.get('runs') if isinstance(block.get('runs'), list) else make_runs(safe_text(block.get('text'))), 'label': block.get('label'), 'value_runs': block.get('value_runs')})
+    def quality_title_banner_payload(quality_payload: dict[str, Any] | None) -> tuple[str, str, Any] | None:
+        quality_payload = quality_payload if isinstance(quality_payload, dict) else {}
+        status = safe_text(quality_payload.get('status')).strip().lower()
+        if status not in {'degraded', 'failed'}:
+            return None
+        label = 'Есть ограничения' if status == 'degraded' else 'Проверка не пройдена'
+        warning_codes = [safe_text(item).strip().lower() for item in (quality_payload.get('warning_codes') or []) if safe_text(item).strip()]
+        detail_parts: list[str] = []
+        if 'slide_count_mismatch' in warning_codes:
+            detail_parts.append('число слайдов отличается от ожидаемого')
+        if 'missing_required_titles' in warning_codes:
+            detail_parts.append('часть обязательных разделов не найдена')
+        if status == 'failed' and not detail_parts:
+            detail_parts.append('перед использованием проверьте файл вручную')
+        detail = ' · '.join(detail_parts) if detail_parts else ('перед внешней отправкой проверьте файл вручную' if status == 'degraded' else 'перед использованием проверьте файл вручную')
+        accent = color('FFF4CC') if status == 'degraded' else color('FDE8E8')
+        return label, detail, accent
 
-    title_section = sections[0] if sections else None
-    title_labels: dict[str, str] = {}
-    if isinstance(title_section, dict):
-        for item in title_section.get('items') or []:
-            if safe_text(item.get('kind')) != 'label':
-                continue
-            label_key = safe_text(item.get('label')).strip().lower()
-            value_runs = item.get('value_runs') if isinstance(item.get('value_runs'), list) else []
-            title_labels[label_key] = plain_text_from_runs(value_runs)
-    deck_title = title_labels.get('заголовок') or title_labels.get('title') or safe_text(thread_title) or 'Презентация'
-    deck_subtitle = title_labels.get('подзаголовок') or title_labels.get('subtitle') or ''
-    content_sections = sections[1:] if title_labels and len(sections) > 1 else sections
+    def add_title_quality_banner(slide: Any, quality_payload: dict[str, Any] | None) -> None:
+        banner = quality_title_banner_payload(quality_payload)
+        if banner is None:
+            return
+        label, detail, accent = banner
+        add_box(slide, 0.8, 5.95, 11.7, 0.78, accent or CARD_BG, rounded=True)
+        banner_box = add_textbox(slide, 1.05, 6.08, 11.0, 0.44)
+        if banner_box is None:
+            return
+        p = banner_box.text_frame.paragraphs[0]
+        apply_pptx_runs(p, make_runs(f'Статус сборки: {label}', bold=True), size=12, color_value=TEXT)
+        if detail:
+            p2 = banner_box.text_frame.add_paragraph()
+            apply_pptx_runs(p2, make_runs(detail), size=10, color_value=TEXT)
 
     title_slide = presentation.slides.add_slide(presentation.slide_layouts[6])
     add_box(title_slide, 0, 0, 13.333, 7.5, NAVY, rounded=False)
@@ -5374,7 +5725,7 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
                     apply_pptx_runs(p, make_runs(f'{card_index + 1}. {section_titles[card_index]}', bold=True), size=PPT_SUBTITLE_SIZE, color_value=TEXT)
                 card_index += 1
 
-    def add_card_slide(title_text: str, items: list[dict[str, Any]], note: str | None = None, subtitle: str | None = None) -> None:
+    def add_card_slide(title_text: str, items: list[dict[str, Any]], note: str | None = None, subtitle: str | None = None, force_compact: bool = False) -> None:
         slide = presentation.slides.add_slide(presentation.slide_layouts[6])
         add_box(slide, 0, 0, 13.333, 7.5, LIGHT_BG, rounded=False)
         title_box = add_textbox(slide, 0.8, 0.75, 10.5, 0.65)
@@ -5386,7 +5737,7 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
             if subtitle_box is not None:
                 p = subtitle_box.text_frame.paragraphs[0]
                 apply_pptx_runs(p, make_runs(subtitle), size=PPT_SUBTITLE_SIZE, color_value=MUTED)
-        body_size = choose_pptx_body_font_size(items[:4], subtitle, base_size=PPT_BODY_SIZE, minimum_size=10)
+        body_size = choose_pptx_body_font_size(items[:4], subtitle, base_size=PPT_BODY_SIZE, minimum_size=10, force_compact=force_compact)
         label_size = max(11, body_size + 1)
         for idx, item in enumerate(items[:4]):
             row = idx // 2
@@ -5410,7 +5761,7 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
                 runs = item.get('runs') if isinstance(item.get('runs'), list) else make_runs(safe_text(item.get('text')))
                 apply_pptx_runs(p, runs, size=body_size, color_value=TEXT)
 
-    def add_comparison_slide(title_text: str, items: list[dict[str, Any]], note: str | None = None) -> None:
+    def add_comparison_slide(title_text: str, items: list[dict[str, Any]], note: str | None = None, force_compact: bool = False) -> None:
         slide = presentation.slides.add_slide(presentation.slide_layouts[6])
         add_box(slide, 0, 0, 13.333, 7.5, LIGHT_BG, rounded=False)
         title_box = add_textbox(slide, 0.8, 0.75, 9.8, 0.65)
@@ -5420,7 +5771,7 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
         if subtitle_box is not None:
             apply_pptx_runs(subtitle_box.text_frame.paragraphs[0], make_runs('Сравнение вариантов'), size=PPT_SUBTITLE_SIZE, color_value=MUTED)
         comparison_items = items[:3]
-        body_size = choose_pptx_body_font_size(comparison_items, 'Сравнение вариантов', base_size=PPT_BODY_SIZE, minimum_size=10)
+        body_size = choose_pptx_body_font_size(comparison_items, 'Сравнение вариантов', base_size=PPT_BODY_SIZE, minimum_size=10, force_compact=force_compact)
         label_size = max(11, body_size + 1)
         if len(comparison_items) >= 2:
             positions = [(0.8, 1.7), (6.7, 1.7)]
@@ -5446,9 +5797,9 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
                     value_runs = comparison_items[2].get('value_runs') if isinstance(comparison_items[2].get('value_runs'), list) else comparison_items[2].get('runs')
                     apply_pptx_runs(tf.paragraphs[0], make_runs(label + ': ', bold=True) + (value_runs if isinstance(value_runs, list) else make_runs(safe_text(comparison_items[2].get('text')))), size=body_size, color_value=TEXT)
             return
-        add_card_slide(title_text, items, note=note, subtitle='Сравнение вариантов')
+        add_card_slide(title_text, items, note=note, subtitle='Сравнение вариантов', force_compact=force_compact)
 
-    def add_roadmap_slide(title_text: str, items: list[dict[str, Any]], note: str | None = None) -> None:
+    def add_roadmap_slide(title_text: str, items: list[dict[str, Any]], note: str | None = None, force_compact: bool = False) -> None:
         slide = presentation.slides.add_slide(presentation.slide_layouts[6])
         add_box(slide, 0, 0, 13.333, 7.5, LIGHT_BG, rounded=False)
         title_box = add_textbox(slide, 0.8, 0.75, 9.8, 0.65)
@@ -5465,7 +5816,7 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
             except Exception:
                 pass
         steps = items[:4]
-        body_size = choose_pptx_body_font_size(steps, 'Поэтапный план внедрения', base_size=PPT_BODY_SIZE, minimum_size=10)
+        body_size = choose_pptx_body_font_size(steps, 'Поэтапный план внедрения', base_size=PPT_BODY_SIZE, minimum_size=10, force_compact=force_compact)
         for idx, item in enumerate(steps):
             left = 0.9 + idx * 3.0
             add_box(slide, left, 2.15, 2.45, 2.15, CARD_BG, rounded=True)
@@ -5482,7 +5833,7 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
             runs = item.get('runs') if isinstance(item.get('runs'), list) else make_runs(safe_text(item.get('text')))
             apply_pptx_runs(tf.paragraphs[0], runs, size=body_size, color_value=TEXT)
 
-    def add_risks_slide(title_text: str, items: list[dict[str, Any]], note: str | None = None) -> None:
+    def add_risks_slide(title_text: str, items: list[dict[str, Any]], note: str | None = None, force_compact: bool = False) -> None:
         slide = presentation.slides.add_slide(presentation.slide_layouts[6])
         add_box(slide, 0, 0, 13.333, 7.5, LIGHT_BG, rounded=False)
         title_box = add_textbox(slide, 0.8, 0.75, 9.8, 0.65)
@@ -5492,7 +5843,7 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
         if subtitle_box is not None:
             apply_pptx_runs(subtitle_box.text_frame.paragraphs[0], make_runs('Риски и меры'), size=PPT_SUBTITLE_SIZE, color_value=MUTED)
         risk_items = items[:3]
-        body_size = choose_pptx_body_font_size(risk_items, 'Риски и меры', base_size=PPT_BODY_SIZE, minimum_size=10)
+        body_size = choose_pptx_body_font_size(risk_items, 'Риски и меры', base_size=PPT_BODY_SIZE, minimum_size=10, force_compact=force_compact)
         label_size = max(11, body_size + 1)
         for idx, item in enumerate(risk_items):
             left = 0.85 + idx * 4.1
@@ -5513,7 +5864,7 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
             p2 = tf.add_paragraph()
             apply_pptx_runs(p2, value_runs if isinstance(value_runs, list) else make_runs(safe_text(item.get('text'))), size=body_size, color_value=TEXT)
 
-    def add_content_slide(title_text: str, items: list[dict[str, Any]], note: str | None = None, subtitle: str | None = None) -> None:
+    def add_content_slide(title_text: str, items: list[dict[str, Any]], note: str | None = None, subtitle: str | None = None, force_compact: bool = False) -> None:
         slide = presentation.slides.add_slide(presentation.slide_layouts[6])
         add_box(slide, 0, 0, 13.333, 7.5, LIGHT_BG, rounded=False)
         title_box = add_textbox(slide, 0.8, 0.75, 9.8, 0.65)
@@ -5541,7 +5892,7 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
                     tf.vertical_anchor = vertical_anchor.TOP
             except Exception:
                 pass
-            body_size = choose_pptx_body_font_size(items[:6], subtitle, base_size=PPT_BODY_SIZE, minimum_size=10)
+            body_size = choose_pptx_body_font_size(items[:6], subtitle, base_size=PPT_BODY_SIZE, minimum_size=10, force_compact=force_compact)
             first = True
             for item in items[:6]:
                 p = tf.paragraphs[0] if first else tf.add_paragraph()
@@ -5563,23 +5914,24 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
             kind = safe_text(plan_item.get('kind'))
             title_text = safe_text(plan_item.get('title')) or 'Раздел'
             subtitle = safe_text(plan_item.get('subtitle')) or None
+            force_compact = bool(plan_item.get('needs_compaction'))
             if kind == 'overview':
                 add_overview_slide(plan_item.get('titles') if isinstance(plan_item.get('titles'), list) else [])
                 continue
             if kind == 'comparison':
-                add_comparison_slide(title_text, plan_item.get('items') if isinstance(plan_item.get('items'), list) else [], note=None)
+                add_comparison_slide(title_text, plan_item.get('items') if isinstance(plan_item.get('items'), list) else [], note=None, force_compact=force_compact)
                 continue
             if kind == 'roadmap':
-                add_roadmap_slide(title_text, plan_item.get('items') if isinstance(plan_item.get('items'), list) else [], note=None)
+                add_roadmap_slide(title_text, plan_item.get('items') if isinstance(plan_item.get('items'), list) else [], note=None, force_compact=force_compact)
                 continue
             if kind == 'risks':
-                add_risks_slide(title_text, plan_item.get('items') if isinstance(plan_item.get('items'), list) else [], note=None)
+                add_risks_slide(title_text, plan_item.get('items') if isinstance(plan_item.get('items'), list) else [], note=None, force_compact=force_compact)
                 continue
             if kind == 'cards':
-                add_card_slide(title_text, plan_item.get('items') if isinstance(plan_item.get('items'), list) else [], note=None, subtitle=subtitle)
+                add_card_slide(title_text, plan_item.get('items') if isinstance(plan_item.get('items'), list) else [], note=None, subtitle=subtitle, force_compact=force_compact)
                 continue
             if kind == 'content':
-                add_content_slide(title_text, plan_item.get('items') if isinstance(plan_item.get('items'), list) else [], note=None, subtitle=subtitle)
+                add_content_slide(title_text, plan_item.get('items') if isinstance(plan_item.get('items'), list) else [], note=None, subtitle=subtitle, force_compact=force_compact)
                 continue
     else:
         fallback_lines = [line.strip() for line in body_text.splitlines() if line.strip()]
@@ -5666,8 +6018,29 @@ def build_message_export_pptx(message_row: sqlite3.Row, thread_title: str) -> io
 
     buffer = io.BytesIO()
     presentation.save(buffer)
+    payload = buffer.getvalue()
+    validation = validate_generated_pptx(payload)
+    validation['semantic'] = validate_generated_pptx_semantics(validation, semantic_expectation)
+    quality = summarize_pptx_validation_quality(validation)
+
+    if quality.get('status') in {'degraded', 'failed'}:
+        patched_presentation = pptx_module.Presentation(io.BytesIO(payload))
+        if len(patched_presentation.slides):
+            add_title_quality_banner(patched_presentation.slides[0], quality)
+            patched_buffer = io.BytesIO()
+            patched_presentation.save(patched_buffer)
+            payload = patched_buffer.getvalue()
+            validation = validate_generated_pptx(payload)
+            validation['semantic'] = validate_generated_pptx_semantics(validation, semantic_expectation)
+            quality = summarize_pptx_validation_quality(validation)
+
+    buffer = io.BytesIO(payload)
     buffer.seek(0)
-    return buffer
+    return {
+        'buffer': buffer,
+        'validation': validation,
+        'quality': quality,
+    }
 
 def xlsx_column_name(index: int) -> str:
     value = max(1, int(index))
@@ -5918,34 +6291,39 @@ def build_message_export_image(message_row: sqlite3.Row, thread_title: str, imag
     return buffer
 
 
-def build_message_export_stream(message_row: sqlite3.Row, thread_title: str, export_format: str) -> io.BytesIO:
+def build_message_export_result(message_row: sqlite3.Row, thread_title: str, export_format: str) -> dict[str, Any]:
     if export_format == "txt":
-        return io.BytesIO(build_message_export_text(message_row, thread_title).encode("utf-8"))
+        return {"buffer": io.BytesIO(build_message_export_text(message_row, thread_title).encode("utf-8"))}
     if export_format == "py":
-        return io.BytesIO(build_message_export_python(message_row, thread_title).encode("utf-8"))
+        return {"buffer": io.BytesIO(build_message_export_python(message_row, thread_title).encode("utf-8"))}
     if export_format == "md":
-        return io.BytesIO(build_message_export_markdown(message_row, thread_title).encode("utf-8"))
+        return {"buffer": io.BytesIO(build_message_export_markdown(message_row, thread_title).encode("utf-8"))}
     if export_format == "html":
-        return io.BytesIO(build_message_export_html(message_row, thread_title).encode("utf-8"))
+        return {"buffer": io.BytesIO(build_message_export_html(message_row, thread_title).encode("utf-8"))}
     if export_format == "json":
-        return io.BytesIO(build_message_export_json(message_row, thread_title).encode("utf-8"))
+        return {"buffer": io.BytesIO(build_message_export_json(message_row, thread_title).encode("utf-8"))}
     if export_format == "csv":
-        return io.BytesIO(build_message_export_csv(message_row, thread_title).encode("utf-8"))
+        return {"buffer": io.BytesIO(build_message_export_csv(message_row, thread_title).encode("utf-8"))}
     if export_format == "xml":
-        return io.BytesIO(build_message_export_xml(message_row, thread_title).encode("utf-8"))
+        return {"buffer": io.BytesIO(build_message_export_xml(message_row, thread_title).encode("utf-8"))}
     if export_format == "rtf":
-        return io.BytesIO(build_message_export_rtf(message_row, thread_title).encode("utf-8"))
+        return {"buffer": io.BytesIO(build_message_export_rtf(message_row, thread_title).encode("utf-8"))}
     if export_format == "docx":
-        return build_message_export_docx(message_row, thread_title)
+        return {"buffer": build_message_export_docx(message_row, thread_title)}
     if export_format == "xlsx":
-        return build_message_export_xlsx(message_row, thread_title)
+        return {"buffer": build_message_export_xlsx(message_row, thread_title)}
     if export_format == "pptx":
-        return build_message_export_pptx(message_row, thread_title)
+        export = build_message_export_pptx(message_row, thread_title)
+        return export if isinstance(export, dict) else {"buffer": export}
     if export_format == "pdf":
-        return build_message_export_pdf(message_row, thread_title)
+        return {"buffer": build_message_export_pdf(message_row, thread_title)}
     if export_format in {"png", "jpeg"}:
-        return build_message_export_image(message_row, thread_title, export_format)
+        return {"buffer": build_message_export_image(message_row, thread_title, export_format)}
     raise ApiError("unsupported_export_format", 400)
+
+
+def build_message_export_stream(message_row: sqlite3.Row, thread_title: str, export_format: str) -> io.BytesIO:
+    return build_message_export_result(message_row, thread_title, export_format)["buffer"]
 
 
 def is_message_export_request(text: str) -> bool:
@@ -6030,9 +6408,10 @@ def build_message_export_attachment(message_row: sqlite3.Row, thread_title: str,
     )
     stored_name = f"{uuid.uuid4().hex}-{filename}"
     target_path = export_dir / stored_name
-    stream = build_message_export_stream(message_row, thread_title, export_format)
+    export_result = build_message_export_result(message_row, thread_title, export_format)
+    stream = export_result["buffer"]
     target_path.write_bytes(stream.getvalue())
-    return {
+    attachment = {
         "kind": "assistant_generated",
         "assistant_generated": True,
         "source": "message_export",
@@ -6047,6 +6426,11 @@ def build_message_export_attachment(message_row: sqlite3.Row, thread_title: str,
         "message_id": int(message_row["id"]),
         "export_format": export_format,
     }
+    if isinstance(export_result.get("validation"), dict):
+        attachment["validation"] = export_result["validation"]
+    if isinstance(export_result.get("quality"), dict):
+        attachment["quality"] = export_result["quality"]
+    return attachment
 
 
 def is_exportable_assistant_message(row: sqlite3.Row) -> bool:
@@ -6097,6 +6481,10 @@ def maybe_build_export_reply(message_rows: list[sqlite3.Row], user_text: str, th
         "export_format": export_format,
         "attachments": [{**attachment, "file_kind": "exported_answer", "file_origin": "message_export", "exported_message_id": int(previous_assistant["id"])}],
     }
+    if isinstance(attachment.get("validation"), dict):
+        meta["validation"] = attachment["validation"]
+    if isinstance(attachment.get("quality"), dict):
+        meta["quality"] = attachment["quality"]
     return reply_text, meta
 
 
@@ -6120,6 +6508,10 @@ def build_generated_file_reply(*, assistant_message_id: int, reply_text: str, re
         "export_format": export_format,
         "attachments": [{**attachment, "file_kind": "generated_result", "file_origin": "generated_file_response", "generated_from_request": True, "generated_from_message_id": int(assistant_message_id)}],
     })
+    if isinstance(attachment.get("validation"), dict):
+        meta["validation"] = attachment["validation"]
+    if isinstance(attachment.get("quality"), dict):
+        meta["quality"] = attachment["quality"]
     meta.pop("error", None)
     return public_text, meta
 
@@ -7190,6 +7582,40 @@ def is_short_problem_followup(text: str) -> bool:
     return any(marker in normalized for marker in SHORT_PROBLEM_FOLLOWUP_PATTERNS)
 
 
+SHORT_CLARIFICATION_SOCIAL_PATTERNS = (
+    'как дела',
+    'как ты',
+    'привет',
+    'добрый день',
+    'доброе утро',
+    'добрый вечер',
+    'спасибо',
+    'ок',
+    'понял',
+)
+
+
+def looks_like_short_clarification_payload(text: str) -> bool:
+    normalized = re.sub(r"\s+", " ", safe_text(text).strip().lower())
+    if not normalized:
+        return False
+    if normalized in SHORT_FOLLOWUP_CONFIRMATION_PATTERNS or normalized.startswith('да, '):
+        return True
+    if any(marker in normalized for marker in SHORT_CLARIFICATION_SOCIAL_PATTERNS):
+        return False
+    if detect_message_export_format(normalized):
+        return True
+    signal_patterns = (
+        r'https?://',
+        r'\b(csv|json|xlsx|xml|docx|pptx|pdf|md|txt)\b',
+        r'\b(web|telegram|media|api|attachment|файл|файлы|сайт|сайты|url|ссылка|ссылки|канал|каналы|чат|чаты|таблица|таблицу|список)\b',
+        r'\b(собери|собрать|выгрузи|сделай|подготовь|оформи|сформируй|проанализируй)\b',
+        r'\b(за сегодня|за вчера|за неделю|за месяц|сегодня|вчера|неделю|месяц)\b',
+        r'\d{4}-\d{2}-\d{2}',
+    )
+    return any(re.search(pattern, normalized, flags=re.IGNORECASE) for pattern in signal_patterns)
+
+
 def infer_dashboard_followup_request_text(message_rows: list[sqlite3.Row], current_user_message_id: int, current_user_text: str) -> str:
     normalized_current = re.sub(r"\s+", " ", safe_text(current_user_text).strip().lower())
     rerun_markers = (
@@ -7281,6 +7707,8 @@ def infer_clarification_followup_request_text(message_rows: list[sqlite3.Row], c
     if safe_text(previous_meta.get("message_kind")) != "clarification_request":
         return current_user_text
     if detect_message_export_format(current_user_text):
+        return current_user_text
+    if not looks_like_short_clarification_payload(current_user_text):
         return current_user_text
     if not (is_short_followup_confirmation(current_user_text) or len(normalized_current) <= 80):
         return current_user_text
@@ -15016,12 +15444,50 @@ def build_job_user_prompt(job: dict[str, Any], owner_profile: dict[str, Any]) ->
     )
 
 
+def looks_like_job_configuration_response(text: str) -> bool:
+    normalized = re.sub(r'\s+', ' ', safe_text(text).strip().lower())
+    if not normalized:
+        return False
+    required_markers = ('задача создана', 'cron', 'следующий запуск')
+    return sum(1 for marker in required_markers if marker in normalized) >= 2
+
+
+def looks_like_job_tool_transcript_response(text: str) -> bool:
+    raw = safe_text(text).strip()
+    if not raw:
+        return False
+    lowered = raw.lower()
+    direct_markers = (
+        '"snapshot":',
+        '"result": "success"',
+        '"url": "https://www.google.com/search?',
+        'страница результатов поиска google новостей',
+        'список неполный, требуется уточнение деталей и ссылок',
+    )
+    if sum(1 for marker in direct_markers if marker in lowered) >= 2:
+        return True
+    if raw.startswith('{') and '"url":' in lowered and '"snapshot":' in lowered:
+        return True
+    return False
+
+
+def build_job_retry_messages(messages: list[dict[str, str]], previous_reply: str, corrective_prompt: str) -> list[dict[str, str]]:
+    retry_messages = list(messages)
+    previous_clean = safe_text(previous_reply).strip()
+    if previous_clean:
+        retry_messages.append({"role": "assistant", "content": previous_clean})
+    retry_messages.append({"role": "user", "content": corrective_prompt})
+    return retry_messages
+
+
 def build_job_system_prompt(owner_profile: dict[str, Any]) -> str:
     return (
         "Ты выполняешь регулярную задачу внутри web-приложения. "
         "Отвечай только по-русски. Пиши коротко, ясно и по делу. "
         f"Профиль пользователя: {build_personalization_block(owner_profile)}. "
-        "Не упоминай внутреннюю механику scheduler или backend без необходимости."
+        "Не упоминай внутреннюю механику scheduler или backend без необходимости. "
+        "Не создавай и не описывай cron-job, расписание, подписку, настройку задачи или следующий запуск. "
+        "Нужно выполнить уже существующую задачу и вернуть её фактический результат для пользователя, а не инструкцию по настройке."
     )
 
 
@@ -15227,6 +15693,24 @@ def execute_job(job_id: int, triggered_by_user_id: int | None, trigger_type: str
             {"role": "user", "content": build_job_user_prompt(job, owner_profile)},
         ]
         result_text, meta = call_hermes_messages(messages)
+        if looks_like_job_configuration_response(result_text):
+            retry_messages = build_job_retry_messages(
+                messages,
+                result_text,
+                "В прошлом ответе ты вернула текст про создание cron-job и следующий запуск. Это неверно. Не описывай настройку задачи. Выполни уже существующую recurring-задачу и верни только её фактический результат для пользователя.",
+            )
+            retry_text, retry_meta = call_hermes_messages(retry_messages)
+            if not looks_like_job_configuration_response(retry_text):
+                result_text, meta = retry_text, retry_meta
+        if looks_like_job_tool_transcript_response(result_text):
+            retry_messages = build_job_retry_messages(
+                messages,
+                result_text,
+                "В прошлом ответе вернулся сырой tool/output transcript JSON с полями вроде url/result/snapshot вместо итогового ответа. На основе уже собранных данных верни только человекочитаемый итог для пользователя по-русски: краткий структурированный дайджест без JSON, без служебных полей, без описания инструментов и без технических трассировок.",
+            )
+            retry_text, retry_meta = call_hermes_messages(retry_messages)
+            if not looks_like_job_tool_transcript_response(retry_text) and not looks_like_job_configuration_response(retry_text):
+                result_text, meta = retry_text, retry_meta
         finished = now_utc()
         updated = finalize_job_success(job_id, run_id, job_row, job, result_text, meta, finished, started)
         return updated
@@ -15720,12 +16204,6 @@ def get_threads() -> Response:
                             AND COALESCE(m.meta_json, '') NOT LIKE '%%\"message_kind\":\"file_response\"%%'
                             AND COALESCE(m.meta_json, '') NOT LIKE '%%\"message_kind\": \"processing_status\"%%'
                             AND COALESCE(m.meta_json, '') NOT LIKE '%%\"message_kind\":\"processing_status\"%%'
-                            AND (
-                                COALESCE(m.meta_json, '') LIKE '%%\"source\": \"job_run\"%%'
-                                OR COALESCE(m.meta_json, '') LIKE '%%\"source\":\"job_run\"%%'
-                                OR COALESCE(m.meta_json, '') LIKE '%%\"source\": \"hermes_cron\"%%'
-                                OR COALESCE(m.meta_json, '') LIKE '%%\"source\":\"hermes_cron\"%%'
-                            )
                        THEN m.created_at
                        ELSE NULL
                    END
@@ -15750,12 +16228,6 @@ def get_threads() -> Response:
                                         AND COALESCE(m.meta_json, '') NOT LIKE '%%\"message_kind\":\"file_response\"%%'
                                         AND COALESCE(m.meta_json, '') NOT LIKE '%%\"message_kind\": \"processing_status\"%%'
                                         AND COALESCE(m.meta_json, '') NOT LIKE '%%\"message_kind\":\"processing_status\"%%'
-                                        AND (
-                                            COALESCE(m.meta_json, '') LIKE '%%\"source\": \"job_run\"%%'
-                                            OR COALESCE(m.meta_json, '') LIKE '%%\"source\":\"job_run\"%%'
-                                            OR COALESCE(m.meta_json, '') LIKE '%%\"source\": \"hermes_cron\"%%'
-                                            OR COALESCE(m.meta_json, '') LIKE '%%\"source\":\"hermes_cron\"%%'
-                                        )
                                    THEN m.created_at
                                    ELSE NULL
                                END

@@ -15452,34 +15452,6 @@ def looks_like_job_configuration_response(text: str) -> bool:
     return sum(1 for marker in required_markers if marker in normalized) >= 2
 
 
-def looks_like_job_tool_transcript_response(text: str) -> bool:
-    raw = safe_text(text).strip()
-    if not raw:
-        return False
-    lowered = raw.lower()
-    direct_markers = (
-        '"snapshot":',
-        '"result": "success"',
-        '"url": "https://www.google.com/search?',
-        'страница результатов поиска google новостей',
-        'список неполный, требуется уточнение деталей и ссылок',
-    )
-    if sum(1 for marker in direct_markers if marker in lowered) >= 2:
-        return True
-    if raw.startswith('{') and '"url":' in lowered and '"snapshot":' in lowered:
-        return True
-    return False
-
-
-def build_job_retry_messages(messages: list[dict[str, str]], previous_reply: str, corrective_prompt: str) -> list[dict[str, str]]:
-    retry_messages = list(messages)
-    previous_clean = safe_text(previous_reply).strip()
-    if previous_clean:
-        retry_messages.append({"role": "assistant", "content": previous_clean})
-    retry_messages.append({"role": "user", "content": corrective_prompt})
-    return retry_messages
-
-
 def build_job_system_prompt(owner_profile: dict[str, Any]) -> str:
     return (
         "Ты выполняешь регулярную задачу внутри web-приложения. "
@@ -15694,22 +15666,16 @@ def execute_job(job_id: int, triggered_by_user_id: int | None, trigger_type: str
         ]
         result_text, meta = call_hermes_messages(messages)
         if looks_like_job_configuration_response(result_text):
-            retry_messages = build_job_retry_messages(
-                messages,
-                result_text,
-                "В прошлом ответе ты вернула текст про создание cron-job и следующий запуск. Это неверно. Не описывай настройку задачи. Выполни уже существующую recurring-задачу и верни только её фактический результат для пользователя.",
-            )
+            retry_messages = [
+                messages[0],
+                messages[1],
+                {
+                    "role": "user",
+                    "content": "В прошлом ответе ты вернула текст про создание cron-job и следующий запуск. Это неверно. Не описывай настройку задачи. Выполни уже существующую recurring-задачу и верни только её фактический результат для пользователя.",
+                },
+            ]
             retry_text, retry_meta = call_hermes_messages(retry_messages)
             if not looks_like_job_configuration_response(retry_text):
-                result_text, meta = retry_text, retry_meta
-        if looks_like_job_tool_transcript_response(result_text):
-            retry_messages = build_job_retry_messages(
-                messages,
-                result_text,
-                "В прошлом ответе вернулся сырой tool/output transcript JSON с полями вроде url/result/snapshot вместо итогового ответа. На основе уже собранных данных верни только человекочитаемый итог для пользователя по-русски: краткий структурированный дайджест без JSON, без служебных полей, без описания инструментов и без технических трассировок.",
-            )
-            retry_text, retry_meta = call_hermes_messages(retry_messages)
-            if not looks_like_job_tool_transcript_response(retry_text) and not looks_like_job_configuration_response(retry_text):
                 result_text, meta = retry_text, retry_meta
         finished = now_utc()
         updated = finalize_job_success(job_id, run_id, job_row, job, result_text, meta, finished, started)

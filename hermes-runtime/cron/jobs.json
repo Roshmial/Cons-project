@@ -20,15 +20,15 @@
       "schedule_display": "25 6 * * *",
       "repeat": {
         "times": null,
-        "completed": 24
+        "completed": 31
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-14T09:58:30.176456+00:00",
-      "next_run_at": "2026-07-06T06:25:00+00:00",
-      "last_run_at": "2026-07-05T06:25:10.646797+00:00",
+      "next_run_at": "2026-07-13T06:25:00+00:00",
+      "last_run_at": "2026-07-12T06:25:45.048439+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -58,15 +58,15 @@
       "schedule_display": "30 6 * * *",
       "repeat": {
         "times": null,
-        "completed": 26
+        "completed": 33
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-14T09:58:55.881503+00:00",
-      "next_run_at": "2026-07-06T06:30:00+00:00",
-      "last_run_at": "2026-07-05T06:30:13.332336+00:00",
+      "next_run_at": "2026-07-13T06:30:00+00:00",
+      "last_run_at": "2026-07-12T06:31:41.434844+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -100,15 +100,15 @@
       "schedule_display": "20 4 * * *",
       "repeat": {
         "times": null,
-        "completed": 23
+        "completed": 30
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-14T19:39:57.434880+00:00",
-      "next_run_at": "2026-07-06T04:20:00+00:00",
-      "last_run_at": "2026-07-05T04:21:21.245340+00:00",
+      "next_run_at": "2026-07-13T04:20:00+00:00",
+      "last_run_at": "2026-07-12T04:22:36.295625+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -140,15 +140,15 @@
       "schedule_display": "50 4 * * 0",
       "repeat": {
         "times": null,
-        "completed": 3
+        "completed": 4
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-14T19:39:57.950556+00:00",
-      "next_run_at": "2026-07-12T04:50:00+00:00",
-      "last_run_at": "2026-07-05T04:53:03.185239+00:00",
+      "next_run_at": "2026-07-19T04:50:00+00:00",
+      "last_run_at": "2026-07-12T04:51:31.925837+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -222,15 +222,15 @@
       "schedule_display": "30 1 * * 1",
       "repeat": {
         "times": null,
-        "completed": 2
+        "completed": 3
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-17T20:31:18.864336+00:00",
-      "next_run_at": "2026-07-13T01:30:00+00:00",
-      "last_run_at": "2026-06-29T01:30:40.789843+00:00",
+      "next_run_at": "2026-07-20T01:30:00+00:00",
+      "last_run_at": "2026-07-06T01:30:13.551471+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -260,15 +260,15 @@
       "schedule_display": "0 9 * * 1",
       "repeat": {
         "times": null,
-        "completed": 2
+        "completed": 3
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-20T09:07:51.012467+00:00",
-      "next_run_at": "2026-07-06T09:00:00+00:00",
-      "last_run_at": "2026-06-29T09:08:17.440175+00:00",
+      "next_run_at": "2026-07-13T09:00:00+00:00",
+      "last_run_at": "2026-07-06T09:02:13.356446+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
@@ -307,18 +307,18 @@
       "schedule_display": "0 6 * * *",
       "repeat": {
         "times": null,
-        "completed": 12
+        "completed": 19
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-23T10:02:22.623569+00:00",
-      "next_run_at": "2026-07-06T06:00:00+00:00",
-      "last_run_at": "2026-07-05T06:21:52.534976+00:00",
-      "last_status": "ok",
-      "last_error": null,
-      "last_delivery_error": null,
+      "next_run_at": "2026-07-13T06:00:00+00:00",
+      "last_run_at": "2026-07-12T06:00:51.792817+00:00",
+      "last_status": "error",
+      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): Resource has been exhausted (e.g. check quota).",
+      "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
         "platform": "api_server",
@@ -350,15 +350,15 @@
       "schedule_display": "0 6 * * 1",
       "repeat": {
         "times": null,
-        "completed": 1
+        "completed": 2
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-26T12:56:16.542213+00:00",
-      "next_run_at": "2026-07-06T06:00:00+00:00",
-      "last_run_at": "2026-06-29T06:06:10.836725+00:00",
+      "next_run_at": "2026-07-13T06:00:00+00:00",
+      "last_run_at": "2026-07-06T06:14:24.696547+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
@@ -395,17 +395,17 @@
       "schedule_display": "0 8 * * 1",
       "repeat": {
         "times": null,
-        "completed": 1
+        "completed": 2
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-26T12:59:37.210266+00:00",
-      "next_run_at": "2026-07-06T08:00:00+00:00",
-      "last_run_at": "2026-06-29T08:06:30.755964+00:00",
-      "last_status": "ok",
-      "last_error": null,
+      "next_run_at": "2026-07-13T08:00:00+00:00",
+      "last_run_at": "2026-07-06T08:10:33.788365+00:00",
+      "last_status": "error",
+      "last_error": "RuntimeError: Response remained truncated after 3 continuation attempts",
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
@@ -440,18 +440,18 @@
       "schedule_display": "0 9 * * 1",
       "repeat": {
         "times": null,
-        "completed": 1
+        "completed": 2
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-26T13:06:55.095281+00:00",
-      "next_run_at": "2026-07-06T09:00:00+00:00",
-      "last_run_at": "2026-06-29T09:07:09.556070+00:00",
+      "next_run_at": "2026-07-13T09:00:00+00:00",
+      "last_run_at": "2026-07-06T09:09:34.197282+00:00",
       "last_status": "ok",
       "last_error": null,
-      "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
+      "last_delivery_error": null,
       "deliver": "origin",
       "origin": {
         "platform": "api_server",
@@ -485,18 +485,18 @@
       "schedule_display": "0 9 * * 1",
       "repeat": {
         "times": null,
-        "completed": 1
+        "completed": 2
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-26T13:07:25.885437+00:00",
-      "next_run_at": "2026-07-06T09:00:00+00:00",
-      "last_run_at": "2026-06-29T09:01:50.376846+00:00",
+      "next_run_at": "2026-07-13T09:00:00+00:00",
+      "last_run_at": "2026-07-06T09:07:29.620488+00:00",
       "last_status": "ok",
       "last_error": null,
-      "last_delivery_error": null,
+      "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
         "platform": "api_server",
@@ -530,17 +530,17 @@
       "schedule_display": "0 9 * * 1",
       "repeat": {
         "times": null,
-        "completed": 1
+        "completed": 2
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-26T13:38:25.039400+00:00",
-      "next_run_at": "2026-07-06T09:00:00+00:00",
-      "last_run_at": "2026-06-29T09:01:27.225570+00:00",
-      "last_status": "ok",
-      "last_error": null,
+      "next_run_at": "2026-07-13T09:00:00+00:00",
+      "last_run_at": "2026-07-06T09:18:40.336221+00:00",
+      "last_status": "error",
+      "last_error": "RuntimeError: Response remained truncated after 3 continuation attempts",
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
@@ -575,18 +575,18 @@
       "schedule_display": "0 9 * * 1",
       "repeat": {
         "times": null,
-        "completed": 0
+        "completed": 1
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-30T11:35:06.347323+00:00",
-      "next_run_at": "2026-07-06T09:00:00+00:00",
-      "last_run_at": null,
-      "last_status": null,
+      "next_run_at": "2026-07-13T09:00:00+00:00",
+      "last_run_at": "2026-07-06T09:07:00.624849+00:00",
+      "last_status": "ok",
       "last_error": null,
-      "last_delivery_error": null,
+      "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
         "platform": "api_server",
@@ -595,7 +595,8 @@
         "thread_id": null
       },
       "enabled_toolsets": null,
-      "workdir": null
+      "workdir": null,
+      "fire_claim": null
     },
     {
       "id": "7000b2580afb",
@@ -617,18 +618,18 @@
       "schedule_display": "0 6 * * *",
       "repeat": {
         "times": null,
-        "completed": 3
+        "completed": 10
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-04T06:15:38.047484+00:00",
-      "next_run_at": "2026-07-06T06:00:00+00:00",
-      "last_run_at": "2026-07-05T06:05:04.758477+00:00",
-      "last_status": "ok",
-      "last_error": null,
-      "last_delivery_error": null,
+      "next_run_at": "2026-07-13T06:00:00+00:00",
+      "last_run_at": "2026-07-12T06:00:51.555167+00:00",
+      "last_status": "error",
+      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): Resource has been exhausted (e.g. check quota).",
+      "last_delivery_error": "no delivery target resolved for deliver=telegram",
       "deliver": "telegram",
       "origin": null,
       "enabled_toolsets": null,
@@ -636,5 +637,5 @@
       "fire_claim": null
     }
   ],
-  "updated_at": "2026-07-06T01:30:11.277712+00:00"
+  "updated_at": "2026-07-13T01:30:45.969449+00:00"
 }

@@ -268,6 +268,42 @@ class HermesWebBackendSmokeTest(unittest.TestCase):
             run_row = conn.execute("SELECT * FROM job_runs WHERE job_id = ? ORDER BY id DESC LIMIT 1", (job_id,)).fetchone()
         self.assertEqual(run_row["summary"], fake_result)
 
+    def test_execute_job_retries_when_model_returns_raw_tool_transcript_json(self):
+        with self.backend.db_connect() as conn:
+            user_row = conn.execute("SELECT * FROM users WHERE email = ?", ("misha@demo.local",)).fetchone()
+            auth = self.backend.AuthUser(id=int(user_row["id"]), email=str(user_row["email"]), role="admin")
+            payload = {
+                "name": "hr-watch-raw-json",
+                "display_name": "HR Watch Raw",
+                "description": "monitoring",
+                "job_type": "research_watch",
+                "visibility": "private",
+                "status": "active",
+                "schedule_kind": "weekly",
+                "days_of_week": ["mon"],
+                "time_of_day": "09:00",
+                "start_date": "2026-06-30",
+                "timezone": "Europe/Moscow",
+                "parameters": {"subject": "HR", "angle": "новости", "output": "дайджест"},
+            }
+            job = self.backend.create_or_update_job(conn, auth, payload)
+            job_id = int(job["id"])
+
+        fake_transcript = '{"url":"https://www.google.com/search?q=hr","result":"success","snapshot":"Страница результатов поиска Google Новостей. Список неполный, требуется уточнение деталей и ссылок."}'
+        fake_result = "Краткий HR-дайджест: рынок труда замедляется, компании пересматривают найм, фокус смещается в удержание."
+        with patch.object(self.backend, "call_hermes_messages", side_effect=[(fake_transcript, {"attempt": 1}), (fake_result, {"attempt": 2})]) as mocked:
+            updated = self.backend.execute_job(job_id, int(auth.id), "manual")
+
+        self.assertEqual(mocked.call_count, 2)
+        retry_messages = mocked.call_args_list[1].args[0]
+        self.assertEqual(retry_messages[-2]["role"], "assistant")
+        self.assertEqual(retry_messages[-2]["content"], fake_transcript)
+        self.assertIn("сырой tool/output transcript json", retry_messages[-1]["content"].lower())
+        self.assertEqual(updated.get("last_run_summary"), fake_result)
+        with self.backend.db_connect() as conn:
+            run_row = conn.execute("SELECT * FROM job_runs WHERE job_id = ? ORDER BY id DESC LIMIT 1", (job_id,)).fetchone()
+        self.assertEqual(run_row["summary"], fake_result)
+
     def test_extract_hermes_output_for_delivery_strips_internal_reasoning_prelude(self):
         raw = """# Hermes Cron Output
 
@@ -5069,6 +5105,124 @@ Let's parse them.
         self.assertEqual(meta['model_attempts'][1]['retry_index'], 1)
         self.assertEqual(meta['model_attempts'][2]['status'], 'success')
         self.assertEqual(meta['model_attempts'][2]['retry_index'], 0)
+
+    def test_call_hermes_messages_passes_tools_and_returns_tool_calls_meta(self):
+        original_app_mode = self.backend.APP_MODE
+        original_api_key = self.backend.HERMES_API_KEY
+        self.backend.APP_MODE = 'hermes-api'
+        self.backend.HERMES_API_KEY = 'test-key'
+
+        class FakeHTTPResponse(io.BytesIO):
+            def __enter__(self):
+                return self
+
+            def __exit__(self, exc_type, exc, tb):
+                return False
+
+        captured = {}
+
+        def fake_urlopen(req, timeout=0):
+            payload = json.loads(req.data.decode('utf-8'))
+            captured['payload'] = payload
+            return FakeHTTPResponse(json.dumps({
+                'model': 'model-a',
+                'choices': [{
+                    'message': {
+                        'content': '',
+                        'functions_state_id': 'state-xyz',
+                        'tool_calls': [{
+                            'id': 'call_1',
+                            'type': 'function',
+                            'function': {'name': 'get_current_time', 'arguments': '{"timezone":"UTC"}'},
+                        }],
+                    },
+                    'finish_reason': 'tool_calls',
+                }],
+                'usage': {'cost_usd': 0.01},
+            }).encode('utf-8'))
+
+        try:
+            with patch.object(self.backend.urllib.request, 'urlopen', side_effect=fake_urlopen):
+                text, meta = self.backend.call_hermes_messages(
+                    [{'role': 'user', 'content': 'Сколько времени?'}],
+                    model_name='model-a',
+                    tools=self.backend.hermes_builtin_tool_definitions(),
+                    tool_choice='auto',
+                )
+        finally:
+            self.backend.APP_MODE = original_app_mode
+            self.backend.HERMES_API_KEY = original_api_key
+
+        self.assertEqual(text, '')
+        self.assertIn('tools', captured['payload'])
+        self.assertEqual(captured['payload']['tool_choice'], 'auto')
+        self.assertEqual(meta['finish_reason'], 'tool_calls')
+        self.assertEqual(meta['functions_state_id'], 'state-xyz')
+        self.assertEqual(meta['tool_calls'][0]['function']['name'], 'get_current_time')
+
+    def test_run_hermes_tool_loop_executes_tool_and_returns_final_text(self):
+        original_app_mode = self.backend.APP_MODE
+        original_api_key = self.backend.HERMES_API_KEY
+        self.backend.APP_MODE = 'hermes-api'
+        self.backend.HERMES_API_KEY = 'test-key'
+
+        class FakeHTTPResponse(io.BytesIO):
+            def __enter__(self):
+                return self
+
+            def __exit__(self, exc_type, exc, tb):
+                return False
+
+        calls = []
+
+        def fake_urlopen(req, timeout=0):
+            payload = json.loads(req.data.decode('utf-8'))
+            calls.append(payload)
+            if len(calls) == 1:
+                return FakeHTTPResponse(json.dumps({
+                    'model': 'model-a',
+                    'choices': [{
+                        'message': {
+                            'content': '',
+                            'functions_state_id': 'state-1',
+                            'tool_calls': [{
+                                'id': 'call_1',
+                                'type': 'function',
+                                'function': {'name': 'get_current_time', 'arguments': '{"timezone":"UTC"}'},
+                            }],
+                        },
+                        'finish_reason': 'tool_calls',
+                    }],
+                }).encode('utf-8'))
+            return FakeHTTPResponse(json.dumps({
+                'model': 'model-a',
+                'choices': [{
+                    'message': {'content': 'Готово, использовала tool.'},
+                    'finish_reason': 'stop',
+                }],
+            }).encode('utf-8'))
+
+        try:
+            with patch.object(self.backend.urllib.request, 'urlopen', side_effect=fake_urlopen):
+                transcript, text, meta = self.backend.run_hermes_tool_loop(
+                    [{'role': 'system', 'content': 'Отвечай кратко'}, {'role': 'user', 'content': 'Какое сейчас время UTC?'}],
+                    model_name='model-a',
+                )
+        finally:
+            self.backend.APP_MODE = original_app_mode
+            self.backend.HERMES_API_KEY = original_api_key
+
+        self.assertEqual(text, 'Готово, использовала tool.')
+        self.assertTrue(meta['tool_loop_used'])
+        self.assertEqual(meta['tool_trace'][0]['name'], 'get_current_time')
+        self.assertEqual(meta['tool_trace'][0]['arguments'], {'timezone': 'UTC'})
+        self.assertEqual(calls[0]['tools'][0]['function']['name'], 'get_current_time')
+        self.assertEqual(calls[1]['messages'][1]['role'], 'user')
+        self.assertEqual(calls[1]['messages'][2]['role'], 'assistant')
+        self.assertEqual(calls[1]['messages'][2]['functions_state_id'], 'state-1')
+        self.assertEqual(calls[1]['messages'][3]['role'], 'tool')
+        self.assertEqual(json.loads(calls[1]['messages'][3]['content'])['timezone'], 'UTC')
+        self.assertEqual(transcript[-1]['role'], 'tool')
 
     def test_finalize_chat_task_error_writes_runtime_audit_event(self):
         with self.backend.db_connect() as conn:

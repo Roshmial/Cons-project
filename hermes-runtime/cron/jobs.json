@@ -20,15 +20,15 @@
       "schedule_display": "25 6 * * *",
       "repeat": {
         "times": null,
-        "completed": 31
+        "completed": 38
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-14T09:58:30.176456+00:00",
-      "next_run_at": "2026-07-13T06:25:00+00:00",
-      "last_run_at": "2026-07-12T06:25:45.048439+00:00",
+      "next_run_at": "2026-07-20T06:25:00+00:00",
+      "last_run_at": "2026-07-19T06:25:21.408947+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -58,15 +58,15 @@
       "schedule_display": "30 6 * * *",
       "repeat": {
         "times": null,
-        "completed": 33
+        "completed": 40
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-14T09:58:55.881503+00:00",
-      "next_run_at": "2026-07-13T06:30:00+00:00",
-      "last_run_at": "2026-07-12T06:31:41.434844+00:00",
+      "next_run_at": "2026-07-20T06:30:00+00:00",
+      "last_run_at": "2026-07-19T06:30:30.893054+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -100,17 +100,17 @@
       "schedule_display": "20 4 * * *",
       "repeat": {
         "times": null,
-        "completed": 30
+        "completed": 37
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-14T19:39:57.434880+00:00",
-      "next_run_at": "2026-07-13T04:20:00+00:00",
-      "last_run_at": "2026-07-12T04:22:36.295625+00:00",
-      "last_status": "ok",
-      "last_error": null,
+      "next_run_at": "2026-07-20T04:20:00+00:00",
+      "last_run_at": "2026-07-19T04:20:27.422202+00:00",
+      "last_status": "error",
+      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 32.645455334s.\n\nYour Google API key is on the free tier (<= 250",
       "last_delivery_error": null,
       "deliver": "local",
       "origin": null,
@@ -140,17 +140,17 @@
       "schedule_display": "50 4 * * 0",
       "repeat": {
         "times": null,
-        "completed": 4
+        "completed": 5
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-14T19:39:57.950556+00:00",
-      "next_run_at": "2026-07-19T04:50:00+00:00",
-      "last_run_at": "2026-07-12T04:51:31.925837+00:00",
-      "last_status": "ok",
-      "last_error": null,
+      "next_run_at": "2026-07-26T04:50:00+00:00",
+      "last_run_at": "2026-07-19T04:50:26.164841+00:00",
+      "last_status": "error",
+      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 33.934928415s.\n\nYour Google API key is on the free tier (<= 250",
       "last_delivery_error": null,
       "deliver": "local",
       "origin": null,
@@ -222,15 +222,15 @@
       "schedule_display": "30 1 * * 1",
       "repeat": {
         "times": null,
-        "completed": 3
+        "completed": 4
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-17T20:31:18.864336+00:00",
-      "next_run_at": "2026-07-20T01:30:00+00:00",
-      "last_run_at": "2026-07-06T01:30:13.551471+00:00",
+      "next_run_at": "2026-07-27T01:30:00+00:00",
+      "last_run_at": "2026-07-13T01:30:47.904132+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -260,17 +260,17 @@
       "schedule_display": "0 9 * * 1",
       "repeat": {
         "times": null,
-        "completed": 3
+        "completed": 4
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-20T09:07:51.012467+00:00",
-      "next_run_at": "2026-07-13T09:00:00+00:00",
-      "last_run_at": "2026-07-06T09:02:13.356446+00:00",
-      "last_status": "ok",
-      "last_error": null,
+      "next_run_at": "2026-07-20T09:00:00+00:00",
+      "last_run_at": "2026-07-13T09:00:58.224207+00:00",
+      "last_status": "error",
+      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): Resource has been exhausted (e.g. check quota).",
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
@@ -307,17 +307,17 @@
       "schedule_display": "0 6 * * *",
       "repeat": {
         "times": null,
-        "completed": 19
+        "completed": 26
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-23T10:02:22.623569+00:00",
-      "next_run_at": "2026-07-13T06:00:00+00:00",
-      "last_run_at": "2026-07-12T06:00:51.792817+00:00",
+      "next_run_at": "2026-07-20T06:00:00+00:00",
+      "last_run_at": "2026-07-19T06:00:47.182426+00:00",
       "last_status": "error",
-      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): Resource has been exhausted (e.g. check quota).",
+      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 12.992759241s.\n\nYour Google API key is on the free tier (<= 250",
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
@@ -350,17 +350,17 @@
       "schedule_display": "0 6 * * 1",
       "repeat": {
         "times": null,
-        "completed": 2
+        "completed": 3
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-26T12:56:16.542213+00:00",
-      "next_run_at": "2026-07-13T06:00:00+00:00",
-      "last_run_at": "2026-07-06T06:14:24.696547+00:00",
-      "last_status": "ok",
-      "last_error": null,
+      "next_run_at": "2026-07-20T06:00:00+00:00",
+      "last_run_at": "2026-07-13T06:00:56.049187+00:00",
+      "last_status": "error",
+      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): Resource has been exhausted (e.g. check quota).",
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
@@ -395,17 +395,17 @@
       "schedule_display": "0 8 * * 1",
       "repeat": {
         "times": null,
-        "completed": 2
+        "completed": 3
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-26T12:59:37.210266+00:00",
-      "next_run_at": "2026-07-13T08:00:00+00:00",
-      "last_run_at": "2026-07-06T08:10:33.788365+00:00",
+      "next_run_at": "2026-07-20T08:00:00+00:00",
+      "last_run_at": "2026-07-13T08:04:27.750829+00:00",
       "last_status": "error",
-      "last_error": "RuntimeError: Response remained truncated after 3 continuation attempts",
+      "last_error": "RuntimeError: Response truncated due to output length limit",
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
@@ -440,18 +440,18 @@
       "schedule_display": "0 9 * * 1",
       "repeat": {
         "times": null,
-        "completed": 2
+        "completed": 3
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-26T13:06:55.095281+00:00",
-      "next_run_at": "2026-07-13T09:00:00+00:00",
-      "last_run_at": "2026-07-06T09:09:34.197282+00:00",
-      "last_status": "ok",
-      "last_error": null,
-      "last_delivery_error": null,
+      "next_run_at": "2026-07-20T09:00:00+00:00",
+      "last_run_at": "2026-07-13T09:04:19.000012+00:00",
+      "last_status": "error",
+      "last_error": "RuntimeError: Response truncated due to output length limit",
+      "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
         "platform": "api_server",
@@ -485,17 +485,17 @@
       "schedule_display": "0 9 * * 1",
       "repeat": {
         "times": null,
-        "completed": 2
+        "completed": 3
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-26T13:07:25.885437+00:00",
-      "next_run_at": "2026-07-13T09:00:00+00:00",
-      "last_run_at": "2026-07-06T09:07:29.620488+00:00",
-      "last_status": "ok",
-      "last_error": null,
+      "next_run_at": "2026-07-20T09:00:00+00:00",
+      "last_run_at": "2026-07-13T09:05:27.386065+00:00",
+      "last_status": "error",
+      "last_error": "RuntimeError: HTTP 500: Gemini HTTP 500 (INTERNAL): Internal error encountered.",
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
@@ -530,17 +530,17 @@
       "schedule_display": "0 9 * * 1",
       "repeat": {
         "times": null,
-        "completed": 2
+        "completed": 3
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-26T13:38:25.039400+00:00",
-      "next_run_at": "2026-07-13T09:00:00+00:00",
-      "last_run_at": "2026-07-06T09:18:40.336221+00:00",
+      "next_run_at": "2026-07-20T09:00:00+00:00",
+      "last_run_at": "2026-07-13T09:02:21.791531+00:00",
       "last_status": "error",
-      "last_error": "RuntimeError: Response remained truncated after 3 continuation attempts",
+      "last_error": "RuntimeError: Response truncated due to output length limit",
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
@@ -575,17 +575,17 @@
       "schedule_display": "0 9 * * 1",
       "repeat": {
         "times": null,
-        "completed": 1
+        "completed": 2
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-30T11:35:06.347323+00:00",
-      "next_run_at": "2026-07-13T09:00:00+00:00",
-      "last_run_at": "2026-07-06T09:07:00.624849+00:00",
-      "last_status": "ok",
-      "last_error": null,
+      "next_run_at": "2026-07-20T09:00:00+00:00",
+      "last_run_at": "2026-07-13T09:04:00.539574+00:00",
+      "last_status": "error",
+      "last_error": "RuntimeError: Response truncated due to output length limit",
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
@@ -618,17 +618,17 @@
       "schedule_display": "0 6 * * *",
       "repeat": {
         "times": null,
-        "completed": 10
+        "completed": 17
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-04T06:15:38.047484+00:00",
-      "next_run_at": "2026-07-13T06:00:00+00:00",
-      "last_run_at": "2026-07-12T06:00:51.555167+00:00",
+      "next_run_at": "2026-07-20T06:00:00+00:00",
+      "last_run_at": "2026-07-19T06:00:52.694863+00:00",
       "last_status": "error",
-      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): Resource has been exhausted (e.g. check quota).",
+      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 7.373748111s.\n\nYour Google API key is on the free tier (<= 250 ",
       "last_delivery_error": "no delivery target resolved for deliver=telegram",
       "deliver": "telegram",
       "origin": null,
@@ -637,5 +637,5 @@
       "fire_claim": null
     }
   ],
-  "updated_at": "2026-07-13T01:30:45.969449+00:00"
+  "updated_at": "2026-07-20T01:30:22.039018+00:00"
 }

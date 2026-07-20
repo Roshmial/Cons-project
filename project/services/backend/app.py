@@ -492,6 +492,7 @@ APP_NAME = os.getenv("HERMES_WEB_APP_NAME", "Hermes Web")
 MIN_PASSWORD_LENGTH = int(os.getenv("HERMES_WEB_MIN_PASSWORD_LENGTH", "8"))
 HERMES_API_BASE_URL = os.getenv("HERMES_WEB_HERMES_API_BASE_URL", "http://127.0.0.1:8642/v1").rstrip("/")
 HERMES_API_KEY = os.getenv("HERMES_WEB_HERMES_API_KEY", "")
+HERMES_API_AUTH_MODE = os.getenv("HERMES_WEB_HERMES_API_AUTH_MODE", "bearer").strip().lower() or "bearer"
 HERMES_API_MODEL = os.getenv("HERMES_WEB_HERMES_API_MODEL", "openrouter/owl-alpha")
 HERMES_REASONING_MODEL = os.getenv("HERMES_WEB_REASONING_MODEL", "deepseek/deepseek-r1-0528")
 HERMES_STANDARD_MODEL_CANDIDATES_RAW = os.getenv("HERMES_WEB_STANDARD_MODEL_CANDIDATES", "")
@@ -7470,11 +7471,25 @@ def build_hermes_messages(message_rows: list[sqlite3.Row], profile: dict[str, An
     return messages
 
 
-def extract_assistant_text(payload: dict[str, Any]) -> str:
+def extract_first_choice_message(payload: dict[str, Any]) -> dict[str, Any]:
     choices = payload.get("choices") or []
     if not choices:
         raise ApiError("hermes_empty_response", 502)
     message = (choices[0] or {}).get("message") or {}
+    if not isinstance(message, dict):
+        raise ApiError("hermes_empty_response", 502)
+    return message
+
+
+def extract_first_choice_finish_reason(payload: dict[str, Any]) -> str:
+    choices = payload.get("choices") or []
+    if not choices:
+        return ""
+    return safe_text((choices[0] or {}).get("finish_reason")).strip()
+
+
+def extract_assistant_text(payload: dict[str, Any]) -> str:
+    message = extract_first_choice_message(payload)
     content = message.get("content", "")
     if isinstance(content, str):
         return content.strip()
@@ -7487,8 +7502,134 @@ def extract_assistant_text(payload: dict[str, Any]) -> str:
     return str(content).strip()
 
 
+def extract_tool_calls(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    message = extract_first_choice_message(payload)
+    tool_calls = message.get("tool_calls") or []
+    return tool_calls if isinstance(tool_calls, list) else []
+
+
 def utc_today_iso() -> str:
     return now_utc().date().isoformat()
+
+
+def hermes_builtin_tool_definitions() -> list[dict[str, Any]]:
+    return [
+        {
+            "type": "function",
+            "function": {
+                "name": "get_current_time",
+                "description": "Возвращает текущее серверное время в указанной timezone.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "timezone": {
+                            "type": "string",
+                            "description": "IANA timezone, например UTC или Europe/Moscow",
+                        }
+                    },
+                },
+            },
+        },
+        {
+            "type": "function",
+            "function": {
+                "name": "get_current_date",
+                "description": "Возвращает текущую серверную дату в указанной timezone.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "timezone": {
+                            "type": "string",
+                            "description": "IANA timezone, например UTC или Europe/Moscow",
+                        }
+                    },
+                },
+            },
+        },
+    ]
+
+
+def execute_hermes_builtin_tool(name: str, arguments: dict[str, Any] | None = None) -> dict[str, Any]:
+    args = arguments if isinstance(arguments, dict) else {}
+    tz_name = normalize_timezone(safe_text(args.get("timezone")), "UTC")
+    current_dt = now_utc().astimezone(ZoneInfo(tz_name))
+    if name == "get_current_time":
+        return {
+            "timezone": tz_name,
+            "iso_datetime": current_dt.replace(microsecond=0).isoformat(),
+            "time": current_dt.strftime("%H:%M:%S"),
+            "date": current_dt.date().isoformat(),
+        }
+    if name == "get_current_date":
+        return {
+            "timezone": tz_name,
+            "date": current_dt.date().isoformat(),
+            "weekday": current_dt.strftime("%A"),
+        }
+    raise ApiError(f"unsupported_tool: {name}", 502)
+
+
+def parse_tool_call_arguments(raw_arguments: Any) -> dict[str, Any]:
+    if isinstance(raw_arguments, dict):
+        return raw_arguments
+    text = safe_text(raw_arguments).strip()
+    if not text:
+        return {}
+    try:
+        parsed = json.loads(text)
+    except json.JSONDecodeError:
+        return {}
+    return parsed if isinstance(parsed, dict) else {}
+
+
+def run_hermes_tool_loop(messages: list[dict[str, str]], *, model_name: str, max_rounds: int = 3) -> tuple[list[dict[str, Any]], str, dict[str, Any]]:
+    transcript: list[dict[str, Any]] = [dict(item) for item in messages]
+    tool_trace: list[dict[str, Any]] = []
+    final_text = ""
+    final_meta: dict[str, Any] = {}
+    for round_index in range(max(1, max_rounds)):
+        reply_text, meta = call_hermes_messages(
+            transcript,
+            model_name=model_name,
+            tools=hermes_builtin_tool_definitions(),
+            tool_choice="auto",
+        )
+        final_text = reply_text
+        final_meta = meta
+        tool_calls = meta.get("tool_calls") or []
+        if not tool_calls:
+            final_meta["tool_loop_used"] = bool(tool_trace)
+            final_meta["tool_trace"] = tool_trace
+            final_meta["tool_rounds"] = round_index
+            return transcript, final_text, final_meta
+        assistant_message: dict[str, Any] = {
+            "role": "assistant",
+            "content": None,
+            "tool_calls": tool_calls,
+        }
+        functions_state_id = safe_text(meta.get("functions_state_id")).strip()
+        if functions_state_id:
+            assistant_message["functions_state_id"] = functions_state_id
+        transcript.append(assistant_message)
+        for tool_call in tool_calls:
+            function = tool_call.get("function") or {}
+            tool_name = safe_text(function.get("name")).strip()
+            tool_args = parse_tool_call_arguments(function.get("arguments"))
+            tool_result = execute_hermes_builtin_tool(tool_name, tool_args)
+            tool_trace.append({
+                "name": tool_name,
+                "arguments": tool_args,
+                "result": tool_result,
+            })
+            transcript.append(
+                {
+                    "role": "tool",
+                    "tool_call_id": safe_text(tool_call.get("id")),
+                    "name": tool_name,
+                    "content": json.dumps(tool_result, ensure_ascii=False),
+                }
+            )
+    raise ApiError("hermes_tool_loop_exhausted", 502)
 
 
 def text_matches_any(text: str, patterns: tuple[str, ...]) -> bool:
@@ -8481,12 +8622,19 @@ def call_hermes_messages_timeout(*, requested_model: str, attempt_index: int, at
     return HERMES_API_TIMEOUT
 
 
-def call_hermes_messages(messages: list[dict[str, str]], *, model_name: str | None = None) -> tuple[str, dict[str, Any]]:
+def call_hermes_messages(
+    messages: list[dict[str, str]],
+    *,
+    model_name: str | None = None,
+    tools: list[dict[str, Any]] | None = None,
+    tool_choice: str | dict[str, Any] | None = None,
+) -> tuple[str, dict[str, Any]]:
     effective_model = safe_text(model_name or HERMES_API_MODEL) or HERMES_API_MODEL
     if APP_MODE != "hermes-api":
         prompt = messages[-1]["content"] if messages else ""
         return build_mock_reply(prompt), {"mode": APP_MODE, "downstream": "mock-hermes", "hermes_model": effective_model}
-    if not HERMES_API_KEY:
+    auth_mode = HERMES_API_AUTH_MODE if HERMES_API_AUTH_MODE in {"bearer", "none"} else "bearer"
+    if auth_mode == "bearer" and not HERMES_API_KEY:
         raise ApiError("hermes_api_key_missing", 500)
     attempt_models = resolve_model_attempt_chain(effective_model)
     attempt_errors: list[dict[str, Any]] = []
@@ -8494,13 +8642,19 @@ def call_hermes_messages(messages: list[dict[str, str]], *, model_name: str | No
     for attempt_index, attempt_model in enumerate(attempt_models):
         retry_budget = HERMES_API_TIMEOUT_RETRY_ATTEMPTS if effective_model != HERMES_REASONING_MODEL else 0
         for retry_index in range(retry_budget + 1):
-            payload = {"model": attempt_model, "stream": False, "messages": messages}
+            payload: dict[str, Any] = {"model": attempt_model, "stream": False, "messages": messages}
+            if tools:
+                payload["tools"] = tools
+                payload["tool_choice"] = tool_choice or "auto"
             body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+            headers = {"Content-Type": "application/json"}
+            if auth_mode == "bearer":
+                headers["Authorization"] = f"Bearer {HERMES_API_KEY}"
             req = urllib.request.Request(
                 f"{HERMES_API_BASE_URL}/chat/completions",
                 data=body,
                 method="POST",
-                headers={"Content-Type": "application/json", "Authorization": f"Bearer {HERMES_API_KEY}"},
+                headers=headers,
             )
             request_timeout = call_hermes_messages_timeout(
                 requested_model=effective_model,
@@ -8512,6 +8666,7 @@ def call_hermes_messages(messages: list[dict[str, str]], *, model_name: str | No
                 with urllib.request.urlopen(req, timeout=request_timeout) as resp:
                     response_payload = json.loads(resp.read().decode("utf-8"))
                 reply_text = extract_assistant_text(response_payload)
+                first_message = extract_first_choice_message(response_payload)
                 cleaned_text, meta = enrich_assistant_meta({
                     "mode": APP_MODE,
                     "downstream": "hermes-api-server",
@@ -8520,6 +8675,9 @@ def call_hermes_messages(messages: list[dict[str, str]], *, model_name: str | No
                     "model_attempts": [*attempt_errors, {"model": attempt_model, "status": "success", "timeout_seconds": request_timeout, "retry_index": retry_index}],
                     "fallback_used": attempt_index > 0,
                     "requested_model": effective_model,
+                    "finish_reason": extract_first_choice_finish_reason(response_payload),
+                    "tool_calls": extract_tool_calls(response_payload),
+                    "functions_state_id": first_message.get("functions_state_id"),
                 }, reply_text)
                 return cleaned_text, meta
             except urllib.error.HTTPError as exc:
@@ -8685,8 +8843,8 @@ def call_hermes_api(message_rows: list[sqlite3.Row], profile: dict[str, Any], th
             compaction_meta = {"history_compacted": False, "focused_followup_context": True}
         else:
             effective_messages, compaction_meta = maybe_compact_chat_messages(base_messages, task_description, profile, thread_title, request_policy)
-        reply_text, meta = call_hermes_messages(effective_messages, model_name=HERMES_API_MODEL)
-        reply_text, meta = enforce_russian_retry(effective_messages, reply_text, meta, profile, model_name=HERMES_API_MODEL)
+        tool_loop_messages, reply_text, meta = run_hermes_tool_loop(effective_messages, model_name=HERMES_API_MODEL)
+        reply_text, meta = enforce_russian_retry(tool_loop_messages, reply_text, meta, profile, model_name=HERMES_API_MODEL)
         meta.update(compaction_meta)
         if route.get("limit_reason"):
             note_prefix = reasoning_limit_notice(route["limit_reason"], usage_stats)

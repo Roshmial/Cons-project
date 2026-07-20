@@ -111,18 +111,25 @@ CopilotKit runtime работает отдельным внутренним ко
 - frontend: `http://127.0.0.1:8793`
 - backend: `http://127.0.0.1:8791`
 - CopilotKit runtime: `http://127.0.0.1:8794`
+- GigaChat adapter: `http://127.0.0.1:8795/v1`
 - Hermes API Server: `http://127.0.0.1:8642/v1`
 
 ## Быстрый локальный запуск
 
 1. Убедиться, что Hermes gateway и Hermes API Server доступны.
-2. Запустить backend:
+2. Если нужен GigaChat, задать в `~/.hermes/.env`:
+   - `GIGACHAT_ADAPTER_CREDENTIALS`
+   - `GIGACHAT_ADAPTER_CA_CERT_FILE=$HOME/.hermes/certs/gigachat/russian-trusted-ca-bundle.crt`
+   - `HERMES_WEB_HERMES_API_BASE_URL=http://127.0.0.1:8795/v1`
+   - `HERMES_WEB_HERMES_API_AUTH_MODE=none`
+   и запустить adapter: `./run_gigachat_adapter_service.sh`
+3. Запустить backend:
    `./run_backend_service.sh`
-3. Запустить CopilotKit runtime:
+4. Запустить CopilotKit runtime:
    `./run_copilotkit_runtime_service.sh`
-4. Запустить frontend:
+5. Запустить frontend:
    `./run_frontend_react_service.sh`
-5. Открыть `http://127.0.0.1:8793`
+6. Открыть `http://127.0.0.1:8793`
 
 ## Проверки
 

@@ -17,13 +17,13 @@ UNIT_SRC_DIR="$SCRIPT_DIR/systemd"
 UNIT_DST_DIR="$HOME/.config/systemd/user"
 mkdir -p "$UNIT_DST_DIR"
 
-for unit in hermes-web-backend-8791.service hermes-web-frontend-8793.service hermes-web-copilotkit-8794.service; do
+for unit in hermes-web-backend-8791.service hermes-web-frontend-8793.service hermes-web-copilotkit-8794.service hermes-web-gigachat-adapter-8795.service; do
   sed "s|__PROJECT_ROOT__|$PROJECT_ROOT|g" "$UNIT_SRC_DIR/$unit" > "$UNIT_DST_DIR/$unit"
   echo "Installed $UNIT_DST_DIR/$unit"
 done
 
 systemctl --user daemon-reload
-systemctl --user enable hermes-web-backend-8791.service hermes-web-copilotkit-8794.service hermes-web-frontend-8793.service
+systemctl --user enable hermes-web-backend-8791.service hermes-web-copilotkit-8794.service hermes-web-frontend-8793.service hermes-web-gigachat-adapter-8795.service
 
 echo "Units installed. Start with:"
-echo "  systemctl --user restart hermes-web-backend-8791.service hermes-web-copilotkit-8794.service hermes-web-frontend-8793.service"
+echo "  systemctl --user restart hermes-web-gigachat-adapter-8795.service hermes-web-backend-8791.service hermes-web-copilotkit-8794.service hermes-web-frontend-8793.service"

@@ -16,6 +16,7 @@
 - `systemd/hermes-web-backend-8791.service` — user unit backend;
 - `systemd/hermes-web-frontend-8793.service` — user unit frontend;
 - `systemd/hermes-web-copilotkit-8794.service` — user unit CopilotKit runtime;
+- `systemd/hermes-web-gigachat-adapter-8795.service` — user unit GigaChat adapter;
 - `install-systemd-user.sh` — установка unit-файлов для текущего пользователя;
 - `verify-deployment.sh` — быстрая проверка поднятого контура, а при наличии acceptance-учётки ещё и UI smoke;
 - `../scripts/runtime_env.sh` и `../scripts/browser_runtime_env.sh` из корня проекта используются как канонический runtime-env для acceptance-проверок.

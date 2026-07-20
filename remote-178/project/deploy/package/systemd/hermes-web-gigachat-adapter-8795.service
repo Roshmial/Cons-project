@@ -1,0 +1,16 @@
+[Unit]
+Description=Hermes Web GigaChat adapter 8795
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=__PROJECT_ROOT__
+ExecStart=/usr/bin/bash __PROJECT_ROOT__/run_gigachat_adapter_service.sh
+Restart=always
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+KillMode=mixed
+TimeoutStopSec=20
+
+[Install]
+WantedBy=default.target

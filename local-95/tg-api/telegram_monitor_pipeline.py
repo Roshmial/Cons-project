@@ -153,6 +153,7 @@ TYPE_RULES: Dict[str, Sequence[str]] = {
 }
 
 CHANNEL_HINTS: Dict[str, float] = {}
+AUTO_OVERRIDE_PATH = BASE_DIR / "requires_review_auto_overrides.json"
 
 MANUAL_TYPE_OVERRIDES: Dict[str, str] = {
     "https://t.me/Axenix_Ru/3233": "мероприятие",
@@ -325,6 +326,25 @@ def load_channel_priorities(config_name: str = "daily", profile_name: str = "pro
         except (TypeError, ValueError):
             priorities[username] = 1.0
     return priorities
+
+
+def load_external_type_overrides() -> Dict[str, str]:
+    if not AUTO_OVERRIDE_PATH.exists():
+        return {}
+    try:
+        payload = json.loads(AUTO_OVERRIDE_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    if not isinstance(payload, dict):
+        return {}
+    normalized: Dict[str, str] = {}
+    for key, value in payload.items():
+        if isinstance(key, str) and isinstance(value, str) and value in FIXED_TYPES:
+            normalized[key] = value
+    return normalized
+
+
+EXTERNAL_TYPE_OVERRIDES: Dict[str, str] = load_external_type_overrides()
 
 
 def msk_now() -> datetime:
@@ -514,7 +534,8 @@ def classify_message(text: str) -> ClassificationResult:
 
 
 def apply_manual_type_override(message: Dict[str, Any], classification: ClassificationResult) -> ClassificationResult:
-    override_type = MANUAL_TYPE_OVERRIDES.get(message.get("original_url") or "")
+    original_url = message.get("original_url") or ""
+    override_type = EXTERNAL_TYPE_OVERRIDES.get(original_url) or MANUAL_TYPE_OVERRIDES.get(original_url)
     if not override_type:
         return classification
     return ClassificationResult(

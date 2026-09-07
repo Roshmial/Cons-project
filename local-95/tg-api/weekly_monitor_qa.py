@@ -254,7 +254,8 @@ def main() -> int:
             )
         )
 
-    auto_override_path, auto_override_updates = persist_auto_overrides(historical_reclassification_rows)
+    # Weekly QA is read-only: it must never alter future classifications.
+    auto_override_path, auto_override_updates = AUTO_OVERRIDE_PATH, 0
 
     average_non_empty = round(sum(non_empty_counts) / len(non_empty_counts), 2) if non_empty_counts else 0.0
     avg_channel_score = {
@@ -342,16 +343,17 @@ def main() -> int:
     else:
         lines.append("Переклассификация 'требует уточнения' за 7 дней не требуется: спорных сообщений в окне нет.")
 
-    lines.append(
-        f"Исторический backlog: {len(historical_reclassification_rows)}; с предложенным типом {historical_suggested_count}; без уверенной альтернативы {historical_unresolved_count}."
-    )
-    lines.append(
-        "Артефакты переклассификации по всей истории: "
-        f"CSV: {hist_reclass_csv_path}; JSON: {hist_reclass_json_path}; MD: {hist_reclass_md_path}."
-    )
-    lines.append(
-        f"Автообновление override-словаря: +{auto_override_updates}; файл: {auto_override_path}."
-    )
+    if historical_reclassification_rows:
+        lines.append(
+            f"Исторический backlog: {len(historical_reclassification_rows)}; с предложенным типом {historical_suggested_count}; без уверенной альтернативы {historical_unresolved_count}."
+        )
+        lines.append(
+            "Артефакты переклассификации по всей истории: "
+            f"CSV: {hist_reclass_csv_path}; JSON: {hist_reclass_json_path}; MD: {hist_reclass_md_path}."
+        )
+    else:
+        lines.append("Исторический backlog спорных сообщений отсутствует.")
+    lines.append("Автоматическое изменение override-словаря отключено: QA работает только на чтение.")
 
     lines.append(f"JSON: {qa_path}")
     print('\n'.join(lines))

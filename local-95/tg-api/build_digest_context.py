@@ -44,6 +44,12 @@ def main() -> int:
         config_name=DEFAULT_CONFIG_NAME,
         profile_name=DEFAULT_PROFILE_NAME,
     )
+    payload_path = Path(digest_payload["payload_path"])
+    csv_path = Path(digest_payload["csv_path"])
+    if not payload_path.is_file() or not csv_path.is_file():
+        raise SystemExit(
+            f"Подготовленные файлы дайджеста недоступны: payload={payload_path.is_file()}, csv={csv_path.is_file()}"
+        )
     output = {
         "collector_status": report.get("status"),
         "collection_report_path": report.get("_path") or str(POINTER_PATH),

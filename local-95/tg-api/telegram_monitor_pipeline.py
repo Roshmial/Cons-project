@@ -508,12 +508,14 @@ def classify_message(text: str) -> ClassificationResult:
         scores["аналитика"] += 1.4
 
     if not scores:
+        # В рабочем контуре нет остаточной категории: даже без явных
+        # совпадений сообщение должно попасть в ближайший безопасный тип.
         return ClassificationResult(
-            post_type="требует уточнения",
+            post_type="корпоративная новость",
             confidence=0.0,
             matched_keywords=[],
             alternative_type=None,
-            ambiguous=True,
+            ambiguous=False,
         )
 
     ranked = sorted(scores.items(), key=lambda item: item[1], reverse=True)
@@ -521,15 +523,14 @@ def classify_message(text: str) -> ClassificationResult:
     alt_type = ranked[1][0] if len(ranked) > 1 else None
     alt_score = ranked[1][1] if len(ranked) > 1 else 0.0
     confidence = round(top_score / (top_score + alt_score + 1.0), 3)
-    ambiguous = top_score <= 1.0 or (alt_score and (top_score - alt_score) < 1.0)
-    post_type = "требует уточнения" if ambiguous else top_type
-
+    # Низкая уверенность фиксируется в confidence/alternative_type, но не
+    # уводит сообщение в отдельный неоперационный статус.
     return ClassificationResult(
-        post_type=post_type,
+        post_type=top_type,
         confidence=confidence,
         matched_keywords=matched.get(top_type, [])[:5],
         alternative_type=alt_type,
-        ambiguous=ambiguous,
+        ambiguous=False,
     )
 
 

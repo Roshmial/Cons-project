@@ -20,15 +20,15 @@
       "schedule_display": "25 6 * * *",
       "repeat": {
         "times": null,
-        "completed": 87
+        "completed": 94
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-14T09:58:30.176456+00:00",
-      "next_run_at": "2026-09-07T06:25:00+00:00",
-      "last_run_at": "2026-09-06T06:25:14.386987+00:00",
+      "next_run_at": "2026-09-14T06:25:00+00:00",
+      "last_run_at": "2026-09-13T06:25:47.533510+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -58,15 +58,15 @@
       "schedule_display": "30 6 * * *",
       "repeat": {
         "times": null,
-        "completed": 89
+        "completed": 96
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-14T09:58:55.881503+00:00",
-      "next_run_at": "2026-09-07T06:30:00+00:00",
-      "last_run_at": "2026-09-06T06:31:23.754451+00:00",
+      "next_run_at": "2026-09-14T06:30:00+00:00",
+      "last_run_at": "2026-09-13T06:32:40.528672+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -100,17 +100,17 @@
       "schedule_display": "20 4 * * *",
       "repeat": {
         "times": null,
-        "completed": 86
+        "completed": 93
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-14T19:39:57.434880+00:00",
-      "next_run_at": "2026-09-07T04:20:00+00:00",
-      "last_run_at": "2026-09-06T04:20:20.330851+00:00",
+      "next_run_at": "2026-09-14T04:20:00+00:00",
+      "last_run_at": "2026-09-13T04:20:53.765462+00:00",
       "last_status": "error",
-      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 39.744677751s.\n\nYour Google API key is on the free tier (<= 250",
+      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 6.303723629s.\n\nYour Google API key is on the free tier (<= 250 ",
       "last_delivery_error": null,
       "deliver": "local",
       "origin": null,
@@ -140,17 +140,17 @@
       "schedule_display": "50 4 * * 0",
       "repeat": {
         "times": null,
-        "completed": 12
+        "completed": 13
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-14T19:39:57.950556+00:00",
-      "next_run_at": "2026-09-13T04:50:00+00:00",
-      "last_run_at": "2026-09-06T04:50:19.942036+00:00",
+      "next_run_at": "2026-09-20T04:50:00+00:00",
+      "last_run_at": "2026-09-13T04:50:54.059692+00:00",
       "last_status": "error",
-      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 40.132955495s.\n\nYour Google API key is on the free tier (<= 250",
+      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 6.033091121s.\n\nYour Google API key is on the free tier (<= 250 ",
       "last_delivery_error": null,
       "deliver": "local",
       "origin": null,
@@ -222,15 +222,15 @@
       "schedule_display": "30 1 * * 1",
       "repeat": {
         "times": null,
-        "completed": 11
+        "completed": 12
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-17T20:31:18.864336+00:00",
-      "next_run_at": "2026-09-14T01:30:00+00:00",
-      "last_run_at": "2026-08-31T01:30:44.374853+00:00",
+      "next_run_at": "2026-09-21T01:30:00+00:00",
+      "last_run_at": "2026-09-07T01:30:17.250667+00:00",
       "last_status": "ok",
       "last_error": null,
       "last_delivery_error": null,
@@ -260,15 +260,15 @@
       "schedule_display": "0 9 * * 1",
       "repeat": {
         "times": null,
-        "completed": 11
+        "completed": 12
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-20T09:07:51.012467+00:00",
-      "next_run_at": "2026-09-07T09:00:00+00:00",
-      "last_run_at": "2026-08-31T09:00:54.241052+00:00",
+      "next_run_at": "2026-09-14T09:00:00+00:00",
+      "last_run_at": "2026-09-07T09:00:55.648180+00:00",
       "last_status": "error",
       "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): Resource has been exhausted (e.g. check quota).",
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
@@ -307,17 +307,17 @@
       "schedule_display": "0 6 * * *",
       "repeat": {
         "times": null,
-        "completed": 75
+        "completed": 82
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-23T10:02:22.623569+00:00",
-      "next_run_at": "2026-09-07T06:00:00+00:00",
-      "last_run_at": "2026-09-06T06:00:21.931859+00:00",
+      "next_run_at": "2026-09-14T06:00:00+00:00",
+      "last_run_at": "2026-09-13T06:00:54.349941+00:00",
       "last_status": "error",
-      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 38.205855537s.\n\nYour Google API key is on the free tier (<= 250",
+      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 5.77700205s.\n\nYour Google API key is on the free tier (<= 250 r",
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
@@ -350,17 +350,17 @@
       "schedule_display": "0 6 * * 1",
       "repeat": {
         "times": null,
-        "completed": 10
+        "completed": 11
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-26T12:56:16.542213+00:00",
-      "next_run_at": "2026-09-07T06:00:00+00:00",
-      "last_run_at": "2026-08-31T06:00:55.110049+00:00",
+      "next_run_at": "2026-09-14T06:00:00+00:00",
+      "last_run_at": "2026-09-07T06:00:27.783264+00:00",
       "last_status": "error",
-      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 5.007025387s.\n\nYour Google API key is on the free tier (<= 250 ",
+      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 32.314722114s.\n\nYour Google API key is on the free tier (<= 250",
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
@@ -395,17 +395,17 @@
       "schedule_display": "0 8 * * 1",
       "repeat": {
         "times": null,
-        "completed": 10
+        "completed": 11
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-26T12:59:37.210266+00:00",
-      "next_run_at": "2026-09-07T08:00:00+00:00",
-      "last_run_at": "2026-08-31T08:00:54.323249+00:00",
+      "next_run_at": "2026-09-14T08:00:00+00:00",
+      "last_run_at": "2026-09-07T08:00:26.618327+00:00",
       "last_status": "error",
-      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 5.831630206s.\n\nYour Google API key is on the free tier (<= 250 ",
+      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 33.524136437s.\n\nYour Google API key is on the free tier (<= 250",
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
@@ -440,17 +440,17 @@
       "schedule_display": "0 9 * * 1",
       "repeat": {
         "times": null,
-        "completed": 10
+        "completed": 11
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-26T13:06:55.095281+00:00",
-      "next_run_at": "2026-09-07T09:00:00+00:00",
-      "last_run_at": "2026-08-31T09:00:53.597985+00:00",
+      "next_run_at": "2026-09-14T09:00:00+00:00",
+      "last_run_at": "2026-09-07T09:00:27.528951+00:00",
       "last_status": "error",
-      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 6.549984411s.\n\nYour Google API key is on the free tier (<= 250 ",
+      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 32.662153377s.\n\nYour Google API key is on the free tier (<= 250",
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
@@ -485,17 +485,17 @@
       "schedule_display": "0 9 * * 1",
       "repeat": {
         "times": null,
-        "completed": 10
+        "completed": 11
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-26T13:07:25.885437+00:00",
-      "next_run_at": "2026-09-07T09:00:00+00:00",
-      "last_run_at": "2026-08-31T09:00:53.153390+00:00",
+      "next_run_at": "2026-09-14T09:00:00+00:00",
+      "last_run_at": "2026-09-07T09:00:27.871814+00:00",
       "last_status": "error",
-      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 6.979758451s.\n\nYour Google API key is on the free tier (<= 250 ",
+      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 32.286077652s.\n\nYour Google API key is on the free tier (<= 250",
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
@@ -530,17 +530,17 @@
       "schedule_display": "0 9 * * 1",
       "repeat": {
         "times": null,
-        "completed": 10
+        "completed": 11
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-26T13:38:25.039400+00:00",
-      "next_run_at": "2026-09-07T09:00:00+00:00",
-      "last_run_at": "2026-08-31T09:00:53.532248+00:00",
+      "next_run_at": "2026-09-14T09:00:00+00:00",
+      "last_run_at": "2026-09-07T09:00:27.805469+00:00",
       "last_status": "error",
-      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 6.622078231s.\n\nYour Google API key is on the free tier (<= 250 ",
+      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 32.352984498s.\n\nYour Google API key is on the free tier (<= 250",
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
@@ -575,17 +575,17 @@
       "schedule_display": "0 9 * * 1",
       "repeat": {
         "times": null,
-        "completed": 9
+        "completed": 10
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-06-30T11:35:06.347323+00:00",
-      "next_run_at": "2026-09-07T09:00:00+00:00",
-      "last_run_at": "2026-08-31T09:00:55.719572+00:00",
+      "next_run_at": "2026-09-14T09:00:00+00:00",
+      "last_run_at": "2026-09-07T09:00:27.476486+00:00",
       "last_status": "error",
-      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 4.609841943s.\n\nYour Google API key is on the free tier (<= 250 ",
+      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 32.720680608s.\n\nYour Google API key is on the free tier (<= 250",
       "last_delivery_error": "api_server reconcile failed: HTTP Error 404: NOT FOUND",
       "deliver": "origin",
       "origin": {
@@ -618,17 +618,17 @@
       "schedule_display": "0 6 * * *",
       "repeat": {
         "times": null,
-        "completed": 66
+        "completed": 73
       },
       "enabled": true,
       "state": "scheduled",
       "paused_at": null,
       "paused_reason": null,
       "created_at": "2026-07-04T06:15:38.047484+00:00",
-      "next_run_at": "2026-09-07T06:00:00+00:00",
-      "last_run_at": "2026-09-06T06:01:24.631922+00:00",
+      "next_run_at": "2026-09-14T06:00:00+00:00",
+      "last_run_at": "2026-09-13T06:00:58.749255+00:00",
       "last_status": "error",
-      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 35.437597417s.\n\nYour Google API key is on the free tier (<= 250",
+      "last_error": "RuntimeError: HTTP 429: Gemini HTTP 429 (RESOURCE_EXHAUSTED): You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 16000, model: gemma-4-26b\nPlease retry in 1.340310386s.\n\nYour Google API key is on the free tier (<= 250 ",
       "last_delivery_error": "no delivery target resolved for deliver=telegram",
       "deliver": "telegram",
       "origin": null,
@@ -637,5 +637,5 @@
       "fire_claim": null
     }
   ],
-  "updated_at": "2026-09-07T01:30:15.024163+00:00"
+  "updated_at": "2026-09-14T01:30:47.932534+00:00"
 }

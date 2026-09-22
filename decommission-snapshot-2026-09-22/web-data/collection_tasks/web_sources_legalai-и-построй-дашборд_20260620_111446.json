@@ -1,0 +1,18 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI и построй дашборд",
+  "output_format": "dashboard",
+  "fields": [
+    "компания",
+    "type",
+    "summary"
+  ],
+  "since_date": "",
+  "items": [
+    "https://legalai.com/",
+    "https://legalai.dev/",
+    "https://proai.legal/",
+    "https://www.crunchbase.com/organization/legalai-group-limited",
+    "https://pitchbook.com/profiles/company/464464-27"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "kind": "web_sources",
+  "subject": "Проанализируй данные в интернете и собери дашборд по истории развития BI-решений и BI-практик",
+  "output_format": null,
+  "fields": [],
+  "since_date": "",
+  "items": [
+    "https://en.wikipedia.org/wiki/Business_intelligence",
+    "https://en.wikipedia.org/wiki/Self-service_business_intelligence",
+    "https://en.wikipedia.org/wiki/Data_warehouse",
+    "https://en.wikipedia.org/wiki/Online_analytical_processing",
+    "https://en.wikipedia.org/wiki/Decision_support_system"
+  ]
+}

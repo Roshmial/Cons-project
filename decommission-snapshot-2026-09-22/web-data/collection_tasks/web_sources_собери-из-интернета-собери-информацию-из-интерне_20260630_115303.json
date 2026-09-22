@@ -1,0 +1,98 @@
+{
+  "kind": "web_sources",
+  "subject": "Собери из интернета. Собери информацию из интернета по BI-инструментам и предоставь в виде шаблона для презентации, в разбивке по слайдам",
+  "output_format": "pptx",
+  "fields": [],
+  "since_date": "",
+  "query": "business intelligence",
+  "items": [
+    {
+      "requested_url": "https://www.microsoft.com/de-de/power-platform/products/power-bi/topics/business-intelligence/what-is-business-intelligence?msockid=0cf1c2d1b5fe66073353d559b4d9675e",
+      "url": "https://www.microsoft.com/de-de/power-platform/products/power-bi/topics/business-intelligence/what-is-business-intelligence?msockid=0cf1c2d1b5fe66073353d559b4d9675e",
+      "title": "Was ist Business Intelligence ? | Microsoft Power BI",
+      "snippet": "Erfahren Sie, was Business Intelligence ist und wie man Business Intelligence-Tools einsetzt, um verwertbare Informationen zu gewinnen, die wichtige strategische Geschäftsentscheidungen fördern.",
+      "domain": "www.microsoft.com",
+      "path": "/de-de/power-platform/products/power-bi/topics/business-intelligence/what-is-business-intelligence",
+      "query": "business intelligence",
+      "source_rank": 1,
+      "availability_level": "snippet_only"
+    },
+    {
+      "requested_url": "https://www.geeksforgeeks.org/power-bi/what-is-business-intelligence/",
+      "url": "https://www.geeksforgeeks.org/power-bi/what-is-business-intelligence/",
+      "title": "What is Business Intelligence - GeeksforGeeks",
+      "snippet": "15. Apr. 2026 · Business intelligence refers to a collection of mathematical models and analysis methods that utilize data to produce valuable information and insight for making important decisions.",
+      "domain": "www.geeksforgeeks.org",
+      "path": "/power-bi/what-is-business-intelligence/",
+      "query": "business intelligence",
+      "source_rank": 2,
+      "availability_level": "snippet_only"
+    },
+    {
+      "requested_url": "https://www.microsoft.com/en-us/power-platform/products/power-bi/topics/business-intelligence/what-is-business-intelligence?msockid=0cf1c2d1b5fe66073353d559b4d9675e",
+      "url": "https://www.microsoft.com/en-us/power-platform/products/power-bi/topics/business-intelligence/what-is-business-intelligence?msockid=0cf1c2d1b5fe66073353d559b4d9675e",
+      "title": "What Is Business Intelligence | Microsoft Power BI",
+      "snippet": "Learn what business intelligence is and how to use business intelligence tools to uncover actionable insights that drive strategic business decisions.",
+      "domain": "www.microsoft.com",
+      "path": "/en-us/power-platform/products/power-bi/topics/business-intelligence/what-is-business-intelligence",
+      "query": "business intelligence",
+      "source_rank": 3,
+      "availability_level": "snippet_only"
+    },
+    {
+      "requested_url": "https://www.ibm.com/think/topics/business-intelligence",
+      "url": "https://www.ibm.com/think/topics/business-intelligence",
+      "title": "What is business intelligence ( BI )? - IBM",
+      "snippet": "Business intelligence (BI) is a set of technological processes for collecting, managing and analyzing organizational data to yield insights that inform business strategies and operations.",
+      "domain": "www.ibm.com",
+      "path": "/think/topics/business-intelligence",
+      "query": "business intelligence",
+      "source_rank": 4,
+      "availability_level": "snippet_only"
+    },
+    {
+      "requested_url": "https://www.ibm.com/de-de/think/topics/business-intelligence",
+      "url": "https://www.ibm.com/de-de/think/topics/business-intelligence",
+      "title": "Was ist Business Intelligence ( BI )? - IBM",
+      "snippet": "Was ist Business Intelligence? Business Intelligence (BI) ist eine Reihe von technologischen Prozessen zur Erfassung, Verwaltung und Analyse von Unternehmensdaten, um Erkenntnisse zu gewinnen, die …",
+      "domain": "www.ibm.com",
+      "path": "/de-de/think/topics/business-intelligence",
+      "query": "business intelligence",
+      "source_rank": 5,
+      "availability_level": "snippet_only"
+    },
+    {
+      "requested_url": "https://www.sap.com/resources/what-is-business-intelligence",
+      "url": "https://www.sap.com/resources/what-is-business-intelligence",
+      "title": "What Is Business Intelligence ( BI )? How It Works and Examples| SAP",
+      "snippet": "26. Mai 2026 · Business intelligence (BI) is collecting, analyzing, and visualizing data to support better decisions. Learn how BI works, key tools, benefits, and real examples.",
+      "domain": "www.sap.com",
+      "path": "/resources/what-is-business-intelligence",
+      "query": "business intelligence",
+      "source_rank": 6,
+      "availability_level": "snippet_only"
+    },
+    {
+      "requested_url": "https://asana.com/de/resources/business-intelligence",
+      "url": "https://asana.com/de/resources/business-intelligence",
+      "title": "Business Intelligence ( BI ): Definition, Prozess & Tools - Asana",
+      "snippet": "30. März 2026 · Business Intelligence (BI) bezeichnet den systematischen Prozess, bei dem Unternehmen Geschäftsdaten sammeln, analysieren und visualisieren, um fundierte Entscheidungen …",
+      "domain": "asana.com",
+      "path": "/de/resources/business-intelligence",
+      "query": "business intelligence",
+      "source_rank": 7,
+      "availability_level": "snippet_only"
+    },
+    {
+      "requested_url": "https://de.wikipedia.org/wiki/Business_Intelligence",
+      "url": "https://de.wikipedia.org/wiki/Business_Intelligence",
+      "title": "Business Intelligence – Wikipedia",
+      "snippet": "Der englische Begriff Business Intelligence wurde ab Anfang bis Mitte der 1990er Jahre populär. Das englische Wort intelligence bezeichnet die aus dem Sammeln und Aufbereiten erworbener …",
+      "domain": "de.wikipedia.org",
+      "path": "/wiki/Business_Intelligence",
+      "query": "business intelligence",
+      "source_rank": 8,
+      "availability_level": "snippet_only"
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "config": "daily_178",
+  "count": 3,
+  "messages": [
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-09-13T17:56:14+00:00",
+      "edit_date": "2026-09-13T17:56:48+00:00",
+      "external_links": [],
+      "forwards": 18,
+      "from_id": -1001745559336,
+      "grouped_id": null,
+      "id": 3719,
+      "media_type": "MessageMediaPhoto",
+      "message": "С ДНЕМ ПРОГРАММИСТА!\n\nСегодня мы поздравляем с праздником тех, кто превращает нули и единички в красоту — работающие решения, которые меняют мир к лучшему.\n\nС праздником, коллеги!\n\n#AXteam",
+      "original_url": "https://t.me/Axenix_Ru/3719",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 13,
+          "reaction": "❤"
+        },
+        {
+          "count": 7,
+          "reaction": "❤‍🔥"
+        },
+        {
+          "count": 7,
+          "reaction": "👍"
+        },
+        {
+          "count": 3,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 3,
+      "views": 508
+    },
+    {
+      "chat": "YakovPartners",
+      "comments_enabled": null,
+      "date": "2026-09-13T09:32:45+00:00",
+      "edit_date": "2026-09-13T09:33:04+00:00",
+      "external_links": [],
+      "forwards": 26,
+      "from_id": -1001083076359,
+      "grouped_id": null,
+      "id": 3884,
+      "media_type": "MessageMediaPhoto",
+      "message": "Поздравляем с Днем программиста!\n\nЗа платежами и банками, больницами и записью к врачу, транспортом и логистикой, связью, госуслугами, картами, магазинами и привычными приложениями стоит чей-то код.\n\nЕго пишут люди, которые думают на годы вперед, берут ответственность за свои решения и делают сложное понятным.",
+      "original_url": "https://t.me/YakovPartners/3884",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 11,
+          "reaction": "❤"
+        },
+        {
+          "count": 5,
+          "reaction": "❤‍🔥"
+        },
+        {
+          "count": 4,
+          "reaction": "🔥"
+        },
+        {
+          "count": 3,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "💯"
+        }
+      ],
+      "replies_count": null,
+      "views": 1195
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-09-13T13:05:04+00:00",
+      "edit_date": "2026-09-13T13:07:26+00:00",
+      "external_links": [],
+      "forwards": 11,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6223,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/tadviser/6223",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 6,
+          "reaction": "🔥"
+        },
+        {
+          "count": 4,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "👏"
+        },
+        {
+          "count": 1,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": 1,
+      "views": 1322
+    }
+  ],
+  "profile": "profile_178"
+}

@@ -1,0 +1,19 @@
+[Unit]
+Description=TG API Flask service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/hermes/workspace/TG-API
+EnvironmentFile=/home/hermes/workspace/TG-API/private-profile.env
+Environment=TG_API_HOST=127.0.0.1
+Environment=TG_API_PORT=8001
+Environment=TG_API_PROJECT_DIR=/home/hermes/workspace/TG-API
+Environment=TG_AUTH_PUBLIC_BASE_URL=http://178.104.207.89:8001
+Environment=TG_AUTH_ADMIN_TOKEN=3UZzO7a2B3hYNyAoZk2Mq4i4iu6WSOJbK5YAHrof
+ExecStart=/home/hermes/workspace/TG-API/.venv/bin/python /home/hermes/workspace/TG-API/app.py
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=default.target

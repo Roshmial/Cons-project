@@ -1,0 +1,17 @@
+{
+  "kind": "web_sources",
+  "subject": "этой теме",
+  "output_format": "dashboard",
+  "fields": [],
+  "since_date": "",
+  "items": [
+    "https://officina.hu/gazdasag/3-munkanelkuli-segely",
+    "https://berkalkulator.com/blog/2026/munkanelkuli-segely-2026-osszeg-jogosultsag-igenyles-gyik",
+    "https://palyazatkereso.eu/2026/03/21/munkanelkuli-segely-2026-mikor-nem-jar/",
+    "https://www.penzcentrum.hu/karrier/20251216/kinek-es-meddig-jar-munkanelkuli-segely-allaskeresesi-jaradek-2026-ban-az-allaskeresesi-segely-osszege-utalasa-igenylese-1190451",
+    "https://www.heol.hu/helyi-kozelet/2026/02/munkanelkuli-segely-allas-segitseg-munkahely",
+    "https://jobcapital.hu/munkanelkuli-segely-2026/",
+    "https://www.hrportal.hu/allaskeresesi-tamogatas-kalkulator.html",
+    "https://dap.gov.hu/eletesemenyek/elvesztettem-a-munkam/allaskeresesi-jaradek-igenylese"
+  ]
+}

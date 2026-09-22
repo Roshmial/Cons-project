@@ -1,0 +1,21 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI",
+  "output_format": "dashboard",
+  "fields": [
+    "компания",
+    "продукт",
+    "ссылка"
+  ],
+  "since_date": "",
+  "items": [
+    "https://opera-guide.ch/highlights/show_highlight.php?id=697&oper_id=264&uilang=en",
+    "https://www.instagram.com/p/CR4ifD0l6ZE/",
+    "https://mickastele.fr/2025/09/07/dicotele-si-jai-bonne-memoire/",
+    "https://www.dicocitations.com/citation.php?mot=Bonne_memoire",
+    "https://www.citation-celebre.com/citation/memoire",
+    "https://dictionnaire.reverso.net/francais-definition/si+j%27ai+bonne+m%C3%A9moire",
+    "https://citations.ouest-france.fr/theme/memoire/",
+    "https://www.facebook.com/Citations.et.proverbes.2026/posts/962165179808880/"
+  ]
+}

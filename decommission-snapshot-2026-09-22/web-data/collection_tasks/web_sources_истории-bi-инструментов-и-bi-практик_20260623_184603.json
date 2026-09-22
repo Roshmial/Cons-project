@@ -1,0 +1,17 @@
+{
+  "kind": "web_sources",
+  "subject": "истории BI-инструментов и BI-практик",
+  "output_format": "dashboard",
+  "fields": [],
+  "since_date": "",
+  "items": [
+    "https://en.wikipedia.org/wiki/Business_intelligence",
+    "https://www.ibm.com/topics/business-intelligence",
+    "https://www.gartner.com/en/information-technology/glossary/business-intelligence",
+    "https://www.oracle.com/business-intelligence/",
+    "https://powerbi.microsoft.com/en-us/",
+    "https://www.qlik.com/us/products/qlik-sense",
+    "https://www.tableau.com/",
+    "https://www.sisense.com/"
+  ]
+}

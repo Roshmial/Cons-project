@@ -1,0 +1,759 @@
+{
+  "config": "daily_178",
+  "count": 31,
+  "messages": [
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-07-06T11:41:55+00:00",
+      "edit_date": "2026-07-06T11:42:30+00:00",
+      "external_links": [],
+      "forwards": 6,
+      "from_id": -1001512457804,
+      "grouped_id": null,
+      "id": 3554,
+      "media_type": "MessageMediaDocument",
+      "message": "",
+      "original_url": "https://t.me/b1_news/3554",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 13,
+          "reaction": "🔥"
+        },
+        {
+          "count": 5,
+          "reaction": "😍"
+        },
+        {
+          "count": 3,
+          "reaction": "❤‍🔥"
+        }
+      ],
+      "replies_count": null,
+      "views": 476
+    },
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-07-06T11:41:48+00:00",
+      "edit_date": "2026-07-06T11:42:26+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001512457804,
+      "grouped_id": null,
+      "id": 3553,
+      "media_type": "MessageMediaDocument",
+      "message": "",
+      "original_url": "https://t.me/b1_news/3553",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 10,
+          "reaction": "custom:5273775400567189528"
+        },
+        {
+          "count": 5,
+          "reaction": "❤"
+        },
+        {
+          "count": 4,
+          "reaction": "😍"
+        }
+      ],
+      "replies_count": null,
+      "views": 470
+    },
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-07-06T11:41:22+00:00",
+      "edit_date": "2026-07-06T11:42:14+00:00",
+      "external_links": [
+        "https://t.me/b1_news/s/226"
+      ],
+      "forwards": 5,
+      "from_id": -1001512457804,
+      "grouped_id": null,
+      "id": 3552,
+      "media_type": "MessageMediaWebPage",
+      "message": "В минувшую пятницу мы ярко отметили День бренда Б1!🍀\n\nСобрали для вас атмосферный мини-репортаж с места событий – смотрите, как это было. \n\nНо какой праздник без теплых слов? Мы попросили коллег поделиться эмоциями и пожеланиями для всей команды. Ловите заряд отличного настроения в кружочках ниже!⬇️",
+      "original_url": "https://t.me/b1_news/3552",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 7,
+          "reaction": "custom:5273775400567189528"
+        },
+        {
+          "count": 6,
+          "reaction": "❤"
+        },
+        {
+          "count": 5,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "⚡"
+        }
+      ],
+      "replies_count": null,
+      "views": 490
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-06T18:16:02+00:00",
+      "edit_date": "2026-07-06T18:16:08+00:00",
+      "external_links": [],
+      "forwards": 3,
+      "from_id": -1001745559336,
+      "grouped_id": 14266894100308634,
+      "id": 3403,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3403",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 374
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-06T18:16:02+00:00",
+      "edit_date": "2026-07-06T18:16:08+00:00",
+      "external_links": [],
+      "forwards": 3,
+      "from_id": -1001745559336,
+      "grouped_id": 14266894100308634,
+      "id": 3402,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3402",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 374
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-06T18:16:02+00:00",
+      "edit_date": "2026-07-06T18:16:07+00:00",
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001745559336,
+      "grouped_id": 14266894100308634,
+      "id": 3401,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3401",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 371
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-06T18:16:02+00:00",
+      "edit_date": "2026-07-06T18:16:07+00:00",
+      "external_links": [],
+      "forwards": 3,
+      "from_id": -1001745559336,
+      "grouped_id": 14266894100308634,
+      "id": 3400,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3400",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 363
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-07-06T18:16:02+00:00",
+      "edit_date": "2026-07-06T20:15:56+00:00",
+      "external_links": [
+        "https://axenix.pro/intellektualizaciya-biznesa?utm_source=telegram&utm_medium=intellektualizaciya_biznesa_post_3#research",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 3,
+      "from_id": -1001745559336,
+      "grouped_id": 14266894100308634,
+      "id": 3399,
+      "media_type": "MessageMediaPhoto",
+      "message": "Внедрение ИИ в ИТ-разработку неизбежно. Но последствия определяет не технология, а управленческие решения, которые компании принимают сегодня.\n\nВ новом исследовании «Скрытая цена ИИ-революции» мы рассмотрели 3 возможных сценария развития разработки в эпоху ИИ:\n\n➊ ИИ-центричная разработка — оптимальный сценарий\nКомпании перестраивают процессы, а не просто автоматизируют код. ИИ становится инструментом, усиливающим команды. \n\n➋ Архитектурная элита\nВ погоне за быстрым эффектом бизнес сокращает найм начинающих специалистов. В итоге компетенции становятся эксклюзивным ресурсом.\n\n➌ Обесценивание профессии\nЕсли ИИ полностью автоматизирует как генерацию, так и верификацию кода, то со временем разработчиков практически не останется.\n\nПодробнее об этих сценариях рассказываем на карточках ↑\n\nНаш вывод: инвестировать только в автоматизацию — недостаточно. Не менее важно сохранить развитие компетенций, перестроить обучение и адаптировать производственные процессы. Только это позволит избежать негативного сценария и превратить ИИ в источник долгосрочного конкурентного преимущества, а не будущего кадрового кризиса.\n\nСКАЧАЙТЕ ПОЛНУЮ ВЕРСИЮ ИССЛЕДОВАНИЯ >>\n\n#AXstrategy\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3399",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 1,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": 0,
+      "views": 359
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-06T17:46:03+00:00",
+      "edit_date": "2026-07-06T17:46:07+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14266879710885234,
+      "id": 3398,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3398",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 371
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-07-06T17:46:03+00:00",
+      "edit_date": "2026-07-06T17:54:51+00:00",
+      "external_links": [
+        "https://indpages.ru/auto/eeee-agyenti-v-promishlyennostee/",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14266879710885234,
+      "id": 3397,
+      "media_type": "MessageMediaPhoto",
+      "message": "Промышленные компании традиционно осторожно внедряют новые технологии из-за высокой цены ошибки. Но искусственный интеллект уже стал основой для технологического развития отрасли. \n\nПо подсчетам AXENIX, благодаря ИИ время на сбор и очистку данных может сократиться на треть, на формирование отчетов — до 20%, на поддержку инженерного анализа — до 40%.\n\nПодробнее об особенностях интеграции ИИ в промышленность читайте в статье Сергея Витяева, руководителя направления «Разведка и добыча» AXENIX, на сайте журнала «Промышленные страницы».\n\n#AXres\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3397",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 0,
+      "views": 373
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-07-06T16:52:57+00:00",
+      "edit_date": "2026-07-06T17:06:16+00:00",
+      "external_links": [
+        "https://axenix-neurocode.pro/?utm_source=telegram&utm_medium=numira_6_07_26#numira",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 9,
+      "from_id": -1001745559336,
+      "grouped_id": null,
+      "id": 3396,
+      "media_type": "MessageMediaDocument",
+      "message": "Создаем ИИ-агентов с Numira для интеграции с ERP\n\nТеперь ИИ-агенты, созданные на базе платформы Numira от AXENIX, могут взаимодействовать с системами 1С и SAP, эффективно встраиваясь в бизнес-процессы компании. \n\nНапример, такие агенты могут автоматически создавать заказы и контракты по запросу пользователя, написанному на естественном языке. Также им доступно использование старых заказов в качестве шаблонов и запрос дополнительной информации при необходимости. \n\nКак это работает в 1C и SAP, смотрите в видео выше. \n\nСреди других возможностей Numira:\n👍 создание с нуля агентов, приложений, баз знаний и ИИ-инструментов;\n👍 подключение API, интеграции с корпоративными источниками данных;\n👍 объединение инструментов, данных, инструкций под задачи;\n👍 единое рабочее пространство для совместной работы;\n👍 координация инструкций для агентов и работы с инструментами;\n👍 использование библиотек компонентов.\n\nЧтобы узнать больше о Numira, запросите демо, оставив заявку на нашем сайте!\n\n#AXai #AX_Numira\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3396",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "🔥"
+        },
+        {
+          "count": 2,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": 0,
+      "views": 421
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-07-06T08:58:03+00:00",
+      "edit_date": "2026-07-06T08:58:20+00:00",
+      "external_links": [
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 4,
+      "from_id": -1001745559336,
+      "grouped_id": null,
+      "id": 3395,
+      "media_type": "MessageMediaPhoto",
+      "message": "Всем доброе утро! \nЭтот день мы начали на ИННОПРОМ-2026!\n\nСегодня в Екатеринбурге открылась одна из важнейших промышленных выставок года, и наши эксперты уже общаются с гостями на стенде. AXENIX представляют ведущие специалисты, в частности здесь присутствуют:\n🔥Станислав Нагорский, руководитель практики 1С \n🔥Дмитрий Горынин, управляющий директор, руководитель сети региональных офисов \n🔥Илья Константинов, менеджер практики Industry X\n\nПриходите на стенд AXENIX 3C10 в павильоне № 3, чтобы поговорить о трендах, узнать о наших последних проектах и обсудить ваши задачи!\n\n#AXevents\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3395",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 4,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": 1,
+      "views": 527
+    },
+    {
+      "chat": "Softline",
+      "comments_enabled": null,
+      "date": "2026-07-06T11:41:46+00:00",
+      "edit_date": "2026-07-06T11:41:59+00:00",
+      "external_links": [
+        "https://softlinegroup.com/news/gk-softline-i-ngtu-neti-obedinyayut-usiliya-v-podgotovke-it-kadrov/?utm_source=Telegram&utm_medium=Softline",
+        "https://max.ru/Softline",
+        "https://vk.com/softlinecompany",
+        "https://t.me/Softline"
+      ],
+      "forwards": 2,
+      "from_id": -1001098739288,
+      "grouped_id": null,
+      "id": 3329,
+      "media_type": "MessageMediaPhoto",
+      "message": "ГК Softline и НГТУ НЭТИ объединяют усилия в подготовке ИТ-кадров\n\nГК Softline и Новосибирский государственный технический университет НЭТИ подписали соглашение о стратегическом сотрудничестве, в том числе о софинансировании в рамках реализации образовательных программ ТОП-уровня. \n\nВ рамках соглашения ГК Softline окажет целевую экспертную поддержку образовательным программам университета. ИТ-эксперты компании будут преподавать профильные дисциплины и делиться практической экспертизой. Также ГК Softline планирует софинансировать разработку студенческих проектов и оказывать поддержку в получении грантов, которые позволят приобретать необходимое оборудование и ПО для реализации новых ИТ-решений.\n\n«Для нас это сотрудничество – реальная инвестиция в кадровый потенциал страны и региона. Передавая студентам свою отраслевую экспертизу и поддерживая их проекты, мы вместе с вузом готовим сильных специалистов», – поделился Степан Чемезов, директор по развитию бизнеса ГК Softline.\n\n«Мы видим в этом партнерстве сильный инструмент для создания кадрового резерва, способного обеспечивать технологическую независимость страны», – отметил Иван Рева, декан АВТФ, добавив, что подготовка студентов будет проходить на базе Центра «Доверенное системное и прикладное программное обеспечение».\n\nПодпишитесь на ГК Softline: в MAX, VK, Telegram\n\n#партнерство #сотрудничество #соглашение",
+      "original_url": "https://t.me/Softline/3329",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 7,
+          "reaction": "🔥"
+        },
+        {
+          "count": 2,
+          "reaction": "🤝"
+        },
+        {
+          "count": 2,
+          "reaction": "custom:5325988381681799819"
+        }
+      ],
+      "replies_count": null,
+      "views": 844
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-07-06T11:00:00+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 6,
+      "from_id": -1001569311808,
+      "grouped_id": 14266684801066274,
+      "id": 2062,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2062",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 209
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-07-06T11:00:00+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 6,
+      "from_id": -1001569311808,
+      "grouped_id": 14266684801066274,
+      "id": 2061,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2061",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 209
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-07-06T11:00:00+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 6,
+      "from_id": -1001569311808,
+      "grouped_id": 14266684801066274,
+      "id": 2060,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2060",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 208
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-07-06T11:00:00+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 6,
+      "from_id": -1001569311808,
+      "grouped_id": 14266684801066274,
+      "id": 2059,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2059",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 208
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-07-06T11:00:00+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 6,
+      "from_id": -1001569311808,
+      "grouped_id": 14266684801066274,
+      "id": 2058,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2058",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 208
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-07-06T11:00:00+00:00",
+      "edit_date": "2026-07-06T11:02:19+00:00",
+      "external_links": [
+        "https://k2tech.io/2a5"
+      ],
+      "forwards": 6,
+      "from_id": -1001569311808,
+      "grouped_id": 14266684801066274,
+      "id": 2057,
+      "media_type": "MessageMediaPhoto",
+      "message": "🤖🏔 К2Тех перевел 7 500 пользователей крупной газовой компании на VK WorkSpace\n\n🛠 Вместо Microsoft Exchange у заказчика теперь отечественная почтовая платформа VK WorkSpace, развернутая в режиме высокой доступности и соответствующая требованиям регулятора по импортозамещению:\n\n🟢 Перенесли более 20 ТБ почтовых данных с потенциалом роста до 30 ТБ\n🟢 Обеспечили отказоустойчивость и непрерывность бизнес-коммуникаций\n🟢 Повысили производительность почтовых сервисов тонкой настройкой балансировки трафика между Microsoft Exchange и VK WorkSpace для комфортной работы пользователей\n\n📺 Наш канал теперь доступен в MAX. Подписывайтесь, чтобы быть в курсе всех новостей.",
+      "original_url": "https://t.me/k2_tech/2057",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "🔥"
+        },
+        {
+          "count": 2,
+          "reaction": "👍"
+        },
+        {
+          "count": 2,
+          "reaction": "👏"
+        }
+      ],
+      "replies_count": null,
+      "views": 215
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-07-06T06:30:00+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001569311808,
+      "grouped_id": 14266555200563018,
+      "id": 2056,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2056",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 230
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-07-06T06:30:00+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001569311808,
+      "grouped_id": 14266555200563018,
+      "id": 2055,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2055",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 230
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-07-06T06:30:00+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001569311808,
+      "grouped_id": 14266555200563018,
+      "id": 2054,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2054",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 229
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-07-06T06:30:00+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001569311808,
+      "grouped_id": 14266555200563018,
+      "id": 2053,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2053",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 225
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-07-06T06:30:00+00:00",
+      "edit_date": "2026-07-06T07:16:08+00:00",
+      "external_links": [
+        "https://k2tech.io/2lh",
+        "https://k2tech.io/2a5"
+      ],
+      "forwards": 4,
+      "from_id": -1001569311808,
+      "grouped_id": 14266555200563018,
+      "id": 2052,
+      "media_type": "MessageMediaPhoto",
+      "message": "🖥 🛠 ИИ офис: центр управления ИИ-гипотезами\n\n🤖 ИИ-проекты требуют координации не меньше, чем сложная космическая миссия. Во многих компаниях инициативы в области ИИ появляются быстрее, чем выстраиваются процессы управления ими.\n\nИИ-Офис объединяет весь цикл работы с ИИ-инициативами в одном пространстве: от сбора и приоритизации гипотез до расчета реального возврата инвестиций (ROI). Подробнее о платформе рассказали в карточках. \n\n📠 Больше информации, демо-видео и примеры кейсов — по ссылке.\n\n📺 Наш канал теперь доступен в MAX. Присоединяйтесь, чтобы оставаться на связи!",
+      "original_url": "https://t.me/k2_tech/2052",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 1,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": null,
+      "views": 232
+    },
+    {
+      "chat": "Lanit_life",
+      "comments_enabled": null,
+      "date": "2026-07-06T10:18:38+00:00",
+      "edit_date": "2026-07-06T10:28:38+00:00",
+      "external_links": [
+        "https://t.me/OnlantaLife",
+        "https://digitaldeveloper.ru/articles/marketing-sales/monitoring-cjm-v-developmente-kak-razriv",
+        "https://vk.com/lanit_life",
+        "https://max.ru/id7727004113_biz"
+      ],
+      "forwards": 2,
+      "from_id": -1001381217620,
+      "grouped_id": null,
+      "id": 3819,
+      "media_type": "MessageMediaPhoto",
+      "message": "🛒 Где девелоперы теряют до 50% лидов \n\nБольше половины потенциальных покупателей недвижимости уходят не из-за цен или сомнений, а из-за технических разрывов в клиентском пути (CJM).\n\nРуководитель направления ИТ-аутсорсинга компании «Онланта» (входит в ЛАНИТ) выделил три скрытые зоны потери клиентов:\n\n1️⃣ Сбои на стыке систем. Формы бронирования зависают на бэкенде (внутренней программной стороне сайта), а заявки не попадают в CRM (систему управления продажами) из-за ошибок интеграции.\n\n2️⃣ Скорость коммуникации. Из-за технических задержек менеджеры перезванивают клиенту через два часа вместо пяти минут, уступая лид конкурентам.\n\n3️⃣ Потеря контекста. При переходе из онлайна в офис продаж история взаимодействия сбрасывается, и менеджер начинает диалог с нуля.\n\nВ 2026 году фокус девелопмента смещается с массовой закупки трафика на удержание уже пришедших клиентов. Подробный разбор механики мониторинга CJM – в статье по ссылке  \n\n🍀 Читайте нас в VK | MAX",
+      "original_url": "https://t.me/Lanit_life/3819",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 4,
+          "reaction": "❤"
+        },
+        {
+          "count": 4,
+          "reaction": "👍"
+        },
+        {
+          "count": 4,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": null,
+      "views": 312
+    },
+    {
+      "chat": "YakovPartners",
+      "comments_enabled": null,
+      "date": "2026-07-06T15:10:16+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 10,
+      "from_id": -1001083076359,
+      "grouped_id": 14266804934535018,
+      "id": 3823,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/YakovPartners/3823",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 1256
+    },
+    {
+      "chat": "YakovPartners",
+      "comments_enabled": null,
+      "date": "2026-07-06T15:10:16+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 11,
+      "from_id": -1001083076359,
+      "grouped_id": 14266804934535018,
+      "id": 3822,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/YakovPartners/3822",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 1256
+    },
+    {
+      "chat": "YakovPartners",
+      "comments_enabled": null,
+      "date": "2026-07-06T15:10:16+00:00",
+      "edit_date": "2026-07-06T15:11:16+00:00",
+      "external_links": [],
+      "forwards": 10,
+      "from_id": -1001083076359,
+      "grouped_id": 14266804934535018,
+      "id": 3821,
+      "media_type": "MessageMediaPhoto",
+      "message": "Как ИИ меняет экономику: от ожиданий к реальным цифрам\n\nНа Финансовом конгрессе Банка России прошла конференция «Искусственный интеллект: революция или пузырь?». Эксперты обсудили, сможет ли ИИ повысить производительность труда и ускорить экономический рост, окупаются ли огромные инвестиции в технологию и инфраструктуру, нужен ли странам суверенный ИИ, а также как регулятору и рынку найти баланс между преимуществами и новыми рисками в финансовом секторе.\n\nПартнер «Яков и Партнёры» и глава практики искусственного интеллекта и высоких технологий Максим Болотских отметил, что ожидаемый экономический эффект от ИИ может составить 8–13 трлн рублей в год — это 5–7% прогнозируемого ВВП России. В отраслях, наиболее активно применяющих ИИ, технология уже приносит 20–22% от всей EBITDA.\n\nЗначимый эффект\n\nБолотских подчеркнул, что генеративный ИИ стал мощным катализатором для пересмотра стратегий внедрения. Анализ 16 секторов экономики и опрос топ-менеджеров 160 компаний показал, что классические модели машинного обучения по-прежнему дают около 40% эффекта, но самые высокие темпы роста демонстрируют компьютерное зрение и генеративный ИИ.\n\nВ заключение эксперт добавил, что внедрение ИИ требует от управленцев готовности к сложным решениям, включая адаптацию устоявшихся бизнес-процесс, пересмотр функционала у персонала. Только при таком подходе технология сможет полностью раскрыть свой потенциал и принести ощутимый экономический эффект.",
+      "original_url": "https://t.me/YakovPartners/3821",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 11,
+          "reaction": "👍"
+        },
+        {
+          "count": 8,
+          "reaction": "❤"
+        },
+        {
+          "count": 5,
+          "reaction": "🔥"
+        },
+        {
+          "count": 2,
+          "reaction": "❤‍🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "🥰"
+        }
+      ],
+      "replies_count": null,
+      "views": 1248
+    },
+    {
+      "chat": "kept_business",
+      "comments_enabled": null,
+      "date": "2026-07-06T12:00:27+00:00",
+      "edit_date": "2026-07-06T12:00:29+00:00",
+      "external_links": [
+        "https://cre.ru/news/101965"
+      ],
+      "forwards": 4,
+      "from_id": -1001657341909,
+      "grouped_id": null,
+      "id": 3386,
+      "media_type": "MessageMediaPhoto",
+      "message": "Девелоперы привлекают средства для строительства коммерческой недвижимости не только с помощью классических банковских кредитов, но и с использованием проектного финансирования: банк оценивает потенциального заемщика по текущим финансовым показателям, таким как выручка, EBITDA, уровень долга. Несмотря на то, что этот метод привлечения средств подешевел почти на треть за полтора года, он не стал более массовым инструментом, а банки по-прежнему закладывают в ставку высокую премию за риск. Из чего состоит данный источник выручки для банков и почему он не снижается вслед за ключевой ставкой, рассказал журналу CRE Никита Денин, заместитель директора группы по работе с сектором недвижимости и строительства Kept.\n\n🔢 Плавающая процентная ставка считается по формуле «ключевая ставка + фиксированная премия». Премия не является полным эквивалентом маржи банка, так как стоимость фондирования для банков не всегда абсолютно соответствует ключевой ставке. Кроме того, для банка важна чистая маржа с учетом стоимости риска, поэтому на ставку фиксированной премии влияют стоимость фондирования банков и стоимость риска по конкретному проекту и заемщику. Уровень рисков в экономике не снижается, поэтому серьезного снижения премии к ключевой ставке не происходит.",
+      "original_url": "https://t.me/kept_business/3386",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 6,
+          "reaction": "👍"
+        },
+        {
+          "count": 2,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": null,
+      "views": 519
+    },
+    {
+      "chat": "Reksoft_group",
+      "comments_enabled": null,
+      "date": "2026-07-06T12:56:37+00:00",
+      "edit_date": null,
+      "external_links": [
+        "https://www.kommersant.ru/doc/8779815",
+        "https://disk.360.yandex.ru/i/yms7HXFHqLObeA",
+        "https://www.agroinvestor.ru/markets/news/46188-eksport-predlozhili-prodvigat-cherez-zarubezhnye-marketpleysy-i-edinogo-operatora/",
+        "https://www.dp.ru/a/2026/06/29/zarplati-stazhjorov-v-peterburge",
+        "https://t.me/+BzN9yWu5D6hiNGVi"
+      ],
+      "forwards": 3,
+      "from_id": -1001509197707,
+      "grouped_id": null,
+      "id": 1695,
+      "media_type": "MessageMediaPhoto",
+      "message": "Рексофт за пределами цифровых технологий – это разносторонняя экспертиза в ключевых для российской экономики отраслях. В еженедельном индустриальном дайджесте делимся новостями и комментариями наших экспертов по важным для бизнеса и общества вопросам.\n\n🔴По итогам первого квартала сегмент ДМС вырос почти на 17% и превысил 93 млрд руб.— максимальный показатель для этого периода с 2022 года.  Поскольку возможности регулярного повышения зарплат ограничены, работодатели участвуют в гонке соцпакетов, где ДМС является одним из базовых условий удержания кадров. По словам Никиты Евсеенко, компании не только соглашаются на рост стоимости, но и расширяют охват за счет новых категорий сотрудников.\n\n🔴В Белоруссии, Казахстане и Киргизии за внесение наличных российских рублей начали брать комиссии до 5%, а часть банков Армении вообще отказалась принимать купюры. Елена Голяева говорит, что тренд на перемещение наличных рублей из России в соседние страны действительно можно зафиксировать. Скорее все же, это точечные проявления более широкой тенденции: из-за санкционной фрагментации расчетов, ограничений на движение наличности и усиления AML-контроля наличный рубль становится для банков более затратным и рискованным активом.\n\n🔴Зонтичные закупки могут стать инструментом господдержки аграрного экспорта продукции малого и среднего бизнеса, проводить их следует единому оператору. При этом Дмитий Краснов считает, что  реализация продукции под единым «зонтиком» «Сделано в России» не принесет ожидаемого результата, если бренд не будет заточен под конкретный вид продукции или под подотрасль АПК («Русское молоко», «Русские сладости», «Русская рыба») и не будет использовать привязанные к конкретной продукции характеристики: вкусовые, территориальные, природно-климатические, экологические.\n\n🔴С начала 2026 года петербургские компании искали более 13,5 тыс. стажёров. Григорий Силкин отмечает, что стажеры в Рексофт получают график гибкий с занятостью 20 часов в неделю, что позволяет совмещать стажировку с учёбой или работой. Сроки индивидуальны и зависят от направления и подготовки — от 2 до 8 месяцев. Обучение проходит в гибридном формате (преимущественно онлайн), а в городах присутствия компании стажёрам предоставляется техника и рабочее место в офисе.\n\n🖥️ Аналитика и тренды ИТ-рынка",
+      "original_url": "https://t.me/Reksoft_group/1695",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 188
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-07-06T14:45:33+00:00",
+      "edit_date": "2026-07-06T14:46:50+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/955260",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 7,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6002,
+      "media_type": "MessageMediaPhoto",
+      "message": "«СО ЕЭС» берёт на вооружение ИИ для анализа аварий в электроэнергетике https://www.tadviser.ru/a/955260\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/6002",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": 1,
+      "views": 1255
+    }
+  ],
+  "profile": "profile_178"
+}

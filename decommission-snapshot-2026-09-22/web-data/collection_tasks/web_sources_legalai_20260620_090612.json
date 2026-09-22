@@ -1,0 +1,17 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI",
+  "output_format": "csv",
+  "fields": [
+    "компания",
+    "тип",
+    "похожий_продукт",
+    "summary"
+  ],
+  "since_date": "",
+  "items": [
+    "https://proai.legal/",
+    "https://www.legalai.law/en/services.html",
+    "https://legalai.group/"
+  ]
+}

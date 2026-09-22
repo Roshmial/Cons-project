@@ -1,0 +1,945 @@
+{
+  "config": "daily_178",
+  "count": 33,
+  "messages": [
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-06-18T14:02:17+00:00",
+      "edit_date": "2026-06-18T14:02:25+00:00",
+      "external_links": [
+        "https://b1.ru/analytics/b1-outsourcing-in-russia-perspectives-survey-2026/",
+        "https://t.me/pro_bpo",
+        "https://iz.ru/2117029/denis-kuznetcov/biznes-perekhodit-na-personal-na-autsorse"
+      ],
+      "forwards": 8,
+      "from_id": -1001512457804,
+      "grouped_id": null,
+      "id": 3504,
+      "media_type": "MessageMediaPhoto",
+      "message": "Революция ауторсинга: результаты исследования Б1⚡\n \nБ1 совместно с профессором РАНХиГС Дмитрием Стапраном представила исследование, основанное на анализе финансовых показателей 55 тысяч российских компаний с выручкой от 500 млн до 20 млрд руб. за 2018-2025 годы.\n \n📎Среди ключевых выводов:\n \n▶️Аутсорсинг сегодня выходит далеко за рамки инструмента сокращения затрат и уже является доминирующей моделью организации бизнеса: его доля в российской экономике в среднем составляет 70-80%, а в зависимости от отрасли варьируется от 40 до 90%.\n \n▶️Компании, использующие аутсорсинг (\"чемпионы\"), растут быстрее. Среднегодовой рост их выручки составляет около 16% против 10% у компаний, предпочитающих выполнять большинство функций собственными силами (\"сделай сам\").\n \n▶️Передача непрофильных функций внешним подрядчикам позволяет компаниям сосредоточиться на ключевых компетенциях, что положительно влияет на производительность труда и оперативную эффективность. \n\n❗Выручка на сотрудника у «чемпионов» - 29 миллионов рублей против 5 у «сделай сам»\n \n▶️«Чемпионы» аутсорсинга демонстрируют более высокие показатели рентабельности капитала и активов (7,6% ROA против 4,4% у «сделай сам»)х, а также эффективнее используют имеющиеся ресурсы.\n \n▶️Аутсорсинг способствует снижению капиталоемкости бизнеса, компании могут масштабироваться быстрее, не увеличивая пропорционально инвестиции в инфраструктуру и основные средства (доля основных средств в активах 4% против 18% у \"сделай сам\").\n \nНаиболее выраженный положительный эффект от использования аутсорсинга наблюдается в образовании, здравоохранении, электроэнергетике и ЖКХ, транспорте и логистике, консалтинге, сельском хозяйстве и строительстве.\n \nВ современных условиях аутсорсинг становится важным фактором формирования устойчивых конкурентных преимуществ, повышения эффективности и ускорения роста бизнеса\n\nПодробнее об отчете, а также о том, как правильно использовать аутсорсинг - смотрите на сайте Б1, а также в материале «Известий» ✅",
+      "original_url": "https://t.me/b1_news/3504",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "❤"
+        },
+        {
+          "count": 3,
+          "reaction": "😍"
+        },
+        {
+          "count": 2,
+          "reaction": "👏"
+        }
+      ],
+      "replies_count": null,
+      "views": 379
+    },
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-06-18T12:18:04+00:00",
+      "edit_date": "2026-06-18T13:01:26+00:00",
+      "external_links": [
+        "https://www.forbes.ru/finansy/563179-biznes-stal-case-stalkivat-sa-s-korporativnym-mosennicestvom-vnutri-kompanii",
+        "https://b1.ru/insights/news/media-insights/denis-korolev-b1-forbes-18-june-2026/"
+      ],
+      "forwards": 6,
+      "from_id": -1001512457804,
+      "grouped_id": null,
+      "id": 3503,
+      "media_type": "MessageMediaWebPage",
+      "message": "Бизнес стал чаще сталкиваться с корпоративным мошенничеством внутри компании – Forbes\n\nПо итогам 2025 года о таких случаях сообщили 35% предприятий против 28% в 2022-м, свидетельствует исследование «Актион Финансы». Причем доля компаний, которые столкнулись с воровством своих же сотрудников, за три года выросла вдвое. Это связано как с повышением эффективности выявления схем, так и с увеличением рисков, когда бизнес быстро меняет процессы, а контроль не успевает адаптироваться, говорят эксперты. \n\n«Рост доли компаний, столкнувшихся с корпоративным мошенничеством, связан как с улучшением механизмов выявления, так и с объективным увеличением рисков. Компании вынуждены быстро менять процессы, а система контроля не всегда успевает адаптироваться. Дополнительные риски создает появление новых посредников, поставщиков и логистических цепочек, которые многим компаниям в последние годы приходилось выстраивать практически с нуля. Это увеличивает вероятность конфликтов интересов, сговоров и коррупционных схем», \n– пояснил Денис Королёв, партнер Б1 и руководитель отдела Форензик.\n\n📎Подробнее читайте в новом материале Forbes и в разделе «Комментарии» на сайте Б1.",
+      "original_url": "https://t.me/b1_news/3503",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 14,
+          "reaction": "🔥"
+        },
+        {
+          "count": 12,
+          "reaction": "❤"
+        },
+        {
+          "count": 8,
+          "reaction": "custom:5273858877551555045"
+        },
+        {
+          "count": 2,
+          "reaction": "👏"
+        },
+        {
+          "count": 1,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "👌"
+        },
+        {
+          "count": 1,
+          "reaction": "😍"
+        }
+      ],
+      "replies_count": null,
+      "views": 518
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-06-18T16:23:06+00:00",
+      "edit_date": "2026-06-18T16:23:08+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14254398283867362,
+      "id": 3330,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3330",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 332
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-06-18T16:23:05+00:00",
+      "edit_date": "2026-06-18T16:23:08+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14254398283867362,
+      "id": 3329,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3329",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 331
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-06-18T16:23:05+00:00",
+      "edit_date": "2026-06-18T16:23:08+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14254398283867362,
+      "id": 3328,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3328",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 330
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-06-18T16:23:05+00:00",
+      "edit_date": "2026-06-18T16:23:08+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14254398283867362,
+      "id": 3327,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3327",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 319
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-06-18T16:23:05+00:00",
+      "edit_date": "2026-06-18T16:23:08+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14254398283867362,
+      "id": 3326,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3326",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 317
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-06-18T16:23:05+00:00",
+      "edit_date": "2026-06-18T16:23:08+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14254398283867362,
+      "id": 3325,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3325",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 318
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-06-18T16:23:05+00:00",
+      "edit_date": "2026-06-18T16:23:08+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14254398283867362,
+      "id": 3324,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3324",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 319
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-06-18T16:23:05+00:00",
+      "edit_date": "2026-06-18T16:48:12+00:00",
+      "external_links": [
+        "https://in-plan.ru/",
+        "https://logirus.ru/articles/solution/defitsit_peregruz_khaos_dannykh_kak_skvoznoe_planirovanie_navodit_poryadok_v_seti_postavok.html",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14254398283867362,
+      "id": 3323,
+      "media_type": "MessageMediaPhoto",
+      "message": "Разнородность данных в управлении цепочками поставок — это не просто операционная сложность для компании. Для прогнозирования продаж, отслеживания клиентских заказов и учета складских остатков могут использоваться абсолютно разные системы, отличающиеся по степени актуальности и часто несовместимые друг с другом. \n\nВ такой ситуации консолидировать данные вручную слишком ресурсозатратно, а планирование на глаз позволяет реагировать только на случившиеся сбои. \n\nПревратить сырые данные в сбалансированный план для всей сети поставок с помощью тактического S&OP и операционного S&OE позволяет платформа интегрированного планирования In.Plan. \n\nПодробнее о том, как работает сквозное планирование для сетей поставок в In.Plan — в наших карточках. А большой обзор читайте в статье Игоря Дикинова, владельца продукта In.Plan Supply Network Planning, и Татьяны Солдатовой, аналитика продукта, на портале «Логирус».  \n\n#AX_InPlan\n\n☑️ Больше информации о платформе ищите в канале @In_Plan\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3323",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": 0,
+      "views": 326
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-06-18T15:14:31+00:00",
+      "edit_date": "2026-06-18T15:30:49+00:00",
+      "external_links": [],
+      "forwards": 7,
+      "from_id": -1001745559336,
+      "grouped_id": null,
+      "id": 3322,
+      "media_type": "MessageMediaDocument",
+      "message": "Noôdome – это место, где бизнес встречает смысл. В нашем сообществе предприниматели обмениваются опытом и знаниями, причем не только с коллегами, но и с профессионалами из совершенно других сфер. \n\nИногда они делятся бизнес-советами и с более широкой аудиторией. И сегодня Вартан Диланян, генеральный директор нашего патрона, компании Axenix, рассказывает, почему совпадение с сотрудником по ценностям может быть существенно важнее результата, который этот сотрудник даёт.",
+      "original_url": "https://t.me/Axenix_Ru/3322",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 6,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 2,
+      "views": 372
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-06-18T10:15:05+00:00",
+      "edit_date": "2026-06-18T10:18:51+00:00",
+      "external_links": [
+        "https://vkvideo.ru/video-224217658_456239143",
+        "https://rutube.ru/video/28dcc772d780c5bd014a4cc89ff32bd0/?playlist=1485135",
+        "https://music.yandex.ru/album/41566464/track/152433643",
+        "https://zvuk.com/episode/182266055",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 3,
+      "from_id": -1001745559336,
+      "grouped_id": null,
+      "id": 3321,
+      "media_type": "MessageMediaPhoto",
+      "message": "Что нужно менять в управлении данными в эпоху ИИ?\n\nОб этом и многом другом Лариса Малькова, управляющий директор практики Data&AI AXENIX, и Олег Гиацинтов, технический директор DIS Group, поговорили в рамках нового эпизода подкаста «Пульс данных».\n\n🅰️ Смотрите в ВК Видео и Rutube\n🅰️ Слушайте в Яндекс Музыке и Звуке\n\nРазговор получился интересным и содержательным, эксперты успели обсудить не только продукты и технологии, но и сами подходы к работе с данными.\n\nИз выпуска вы узнаете:\n\n🅰️почему управление данными уступает место управлению знаниями компании;\n🅰️как ИИ берет на себя ручную работу по связке технологий и бизнес-смыслов;\n🅰️чем ИИ-трансформация похожа на предыдущие волны автоматизации, и почему все упирается в руководителей; \n🅰️как на практике выстроить работу ГенИИ с данными так, чтобы им можно было доверять;\n🅰️насколько тиражируемы кейсы с ИИ на самом деле. \n\nЗавершает разговор рекомендация для команд, столкнувшихся с провальными data- и AI-проектами. Вывод неочевидный — и тем интереснее услышать его аргументацию от ведущих экспертов рынка!\n\n#AXai\n\n🤝 @dis_group_news\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3321",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 7,
+          "reaction": "🔥"
+        },
+        {
+          "count": 2,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "👏"
+        }
+      ],
+      "replies_count": 0,
+      "views": 485
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-06-18T08:27:55+00:00",
+      "edit_date": "2026-06-18T08:28:59+00:00",
+      "external_links": [
+        "https://axenix.pro/potrebitelskie-tovary-i-uslugi?utm_source=telegram&utm_medium=translator#digest",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": null,
+      "id": 3320,
+      "media_type": "MessageMediaPhoto",
+      "message": "Коллеги, представляем первый летний выпуск нашего дайджеста для лидеров потребительского рынка!\n\nВ июньском выпуске:\n\n🔸говорим о поддержке ERP, CRM, IBP, MES и других бизнес-критичных систем, минусах и плюсах in-house и аутсорс-подходов;\n🔸рассматриваем аутсорсинг ИТ-инфраструктуры;\n🔸разбираем формат фабрик поддержки и его особенности;\n🔸в деталях рассказываем о следующем этапе развития «Честного знака» — партионном учете.\n\nСкачайте этот и другие выпуски на нашем сайте и подпишитесь на рассылку, чтобы не пропустить выход нового номера дайджеста AXENIX! \n\n#AXdigest\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3320",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 4,
+          "reaction": "❤"
+        },
+        {
+          "count": 3,
+          "reaction": "🔥"
+        },
+        {
+          "count": 2,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": 0,
+      "views": 482
+    },
+    {
+      "chat": "beringpro",
+      "comments_enabled": null,
+      "date": "2026-06-18T16:21:40+00:00",
+      "edit_date": "2026-06-18T16:21:46+00:00",
+      "external_links": [
+        "https://raex-rr.com/b2b/consulting/IT_management_consulting/2026/",
+        "https://raex-rr.com/b2b/consulting/IT_consulting_ratings/2026/",
+        "https://raex-rr.com/b2b/consulting/biggest_consulting_companies_and_groups/2026/",
+        "https://rg.ru/2026/05/28/szhatye-dohody.html?ysclid=mqjp4ywqcp410344123&utm_referrer=https%3A%2F%2Fyandex.ru%2F",
+        "https://beringpro.ru/news/gruppa-borlas-gk-softline-vklyuchaya-beringpro-zanyala-1-e-mesto-v-renkinge-raex-v-segmente-upravlen/"
+      ],
+      "forwards": 1,
+      "from_id": -1002080584357,
+      "grouped_id": null,
+      "id": 670,
+      "media_type": "MessageMediaPhoto",
+      "message": "Мы снова подтверждаем лидерские позиции на рынке российского консалтинга. \n\nНа основе консолидированных финансовых данных Группа \"Борлас” и компания BeringPro — входят в ГК Softline — заняли ведущие позиции в рэнкинге RAEX по итогам 2025 года: \n\n📍 1-е место «ИТ-консалтинг: управленческое консультирование» \n\n📍 3-е место «ИТ-консалтинг: разработка и системная интеграция» \n\n📍 5-е место в общем рэнкинге RAEX крупнейших консалтинговых групп России с совокупной выручкой от консалтинговых услуг 6,744 млрд рублей и ростом 10,8% год к году\n\nПо данным RAEX, ИТ-консалтинг остается одним из крупнейших сегментов российского консалтингового рынка: по итогам 2025 года на него пришлось 39,8 млрд рублей, 29% совокупной выручки участников рэнкинга RAEX. \n\nКлючевые драйверы спроса: повышение операционной эффективности, переход к централизованному управлению на базе современных цифровых платформ, интеграция данных и получение измеримого экономического эффекта от цифровизации.\n \nПодробности в пресс-релизе \n\n#новости_beringpro",
+      "original_url": "https://t.me/beringpro/670",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "🔥"
+        },
+        {
+          "count": 5,
+          "reaction": "🏆"
+        },
+        {
+          "count": 1,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "👏"
+        }
+      ],
+      "replies_count": null,
+      "views": 153
+    },
+    {
+      "chat": "Softline",
+      "comments_enabled": null,
+      "date": "2026-06-18T09:30:06+00:00",
+      "edit_date": "2026-06-18T09:41:20+00:00",
+      "external_links": [
+        "https://softlinegroup.com/news/activecloud-zapuskaet-kompleksnoe-soprovozhdenie-klasterov-kubernetes/?utm_source=Telegram&utm_medium=Softline",
+        "https://max.ru/Softline",
+        "https://vk.com/softlinecompany",
+        "https://t.me/Softline"
+      ],
+      "forwards": 3,
+      "from_id": -1001098739288,
+      "grouped_id": null,
+      "id": 3314,
+      "media_type": "MessageMediaPhoto",
+      "message": "ActiveCloud расширил портфель инфраструктурных сервисов и запустил комплексное сопровождение кластеров Kubernetes. Российские компании смогут передать провайдеру развертывание и сопровождение кластеров, включая настройку инфраструктуры под требования проекта, мониторинг и техническую поддержку в режиме 24/7.\n\nСервис ориентирован на компании, которые используют или планируют использовать контейнеризированные приложения в рабочих ИТ-средах. Специалисты ActiveCloud могут подключиться как к созданию новой инфраструктуры, так и к сопровождению уже развернутого кластера Kubernetes: провести анализ текущей конфигурации, определить необходимые параметры решения и настроить систему мониторинга.\n\nАндрей Вильковский, менеджер продукта IaaS: «Запуск услуги связан с ростом роли контейнерной архитектуры в разработке и эксплуатации цифровых сервисов. По мере того как приложения становятся сложнее, а требования к их доступности и управляемости возрастают, компаниям необходимо обеспечивать стабильную работу распределенной инфраструктуры, контролировать ее состояние и учитывать внутренние требования к безопасности и сетевому взаимодействию. Комплексное сопровождение Kubernetes позволяет закрыть эти задачи на всем жизненном цикле кластера - от выбора конфигурации и развертывания до мониторинга и дальнейшей технической поддержки. В результате компания получает инфраструктуру, адаптированную под требования конкретного проекта и готовую к рабочей эксплуатации».\n\nПодпишитесь на ГК Softline: в MAX, VK, Telegram\n\n#облако #Kubernetes #ActiveCloud",
+      "original_url": "https://t.me/Softline/3314",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "✍"
+        },
+        {
+          "count": 2,
+          "reaction": "👨‍💻"
+        },
+        {
+          "count": 1,
+          "reaction": "custom:5325988381681799819"
+        }
+      ],
+      "replies_count": null,
+      "views": 348
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-06-18T12:04:48+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001569311808,
+      "grouped_id": 14254274304632098,
+      "id": 2013,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2013",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 174
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-06-18T12:04:48+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001569311808,
+      "grouped_id": 14254274304632098,
+      "id": 2012,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2012",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 174
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-06-18T12:04:48+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001569311808,
+      "grouped_id": 14254274304632098,
+      "id": 2011,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2011",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 174
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-06-18T12:04:48+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001569311808,
+      "grouped_id": 14254274304632098,
+      "id": 2010,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2010",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 174
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-06-18T12:04:48+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001569311808,
+      "grouped_id": 14254274304632098,
+      "id": 2009,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2009",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 172
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-06-18T12:04:48+00:00",
+      "edit_date": "2026-06-18T12:05:03+00:00",
+      "external_links": [
+        "https://k2tech.io/2a5"
+      ],
+      "forwards": 1,
+      "from_id": -1001569311808,
+      "grouped_id": 14254274304632098,
+      "id": 2008,
+      "media_type": "MessageMediaPhoto",
+      "message": "🖥🧱 К2Тех на «ИТ‑Полигоне»: без чего корпоративный ИИ не взлетит \n\n🛠 28–29 мая Сергей Верченов, руководитель практики технологического консалтинга К2Тех, выступил в панельной дискуссии «Как обеспечить высокопроизводительную инфраструктуру для развития ИИ», где собрались руководители ИТ-подразделений крупнейших корпораций и вендоров.\n\n🔥 Главный тезис: ИИ-инфраструктура — это не только «железо» и мощность серверов. Без зрелого программного стека, MLOps-процессов и безопасности любые инвестиции в GPU рискуют остаться набором разрозненных пилотов, которые невозможно масштабировать.\n\nЛистайте карточки, чтобы узнать, из чего состоит правильный фундамент для корпоративного ИИ.\n\n📺 Наш канал теперь доступен в MAX. Присоединяйтесь, чтобы оставаться на связи!",
+      "original_url": "https://t.me/k2_tech/2008",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "👍"
+        },
+        {
+          "count": 4,
+          "reaction": "🔥"
+        },
+        {
+          "count": 2,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "👏"
+        },
+        {
+          "count": 1,
+          "reaction": "🎉"
+        }
+      ],
+      "replies_count": null,
+      "views": 173
+    },
+    {
+      "chat": "YakovPartners",
+      "comments_enabled": null,
+      "date": "2026-06-18T12:01:59+00:00",
+      "edit_date": "2026-06-18T12:09:41+00:00",
+      "external_links": [
+        "ДОМ.РФ"
+      ],
+      "forwards": 44,
+      "from_id": -1001083076359,
+      "grouped_id": null,
+      "id": 3809,
+      "media_type": "MessageMediaPhoto",
+      "message": "От пилотов к результату: «Яков и Партнёры» и ДОМ.РФ помогают застройщикам внедрять ИИ\n\n«Яков и Партнёры» совместно с «ДОМ.РФ Технологии» запустили уникальный продукт AI Development Sprint — спринт по внедрению искусственного интеллекта в девелопменте. Новый сервис помогает застройщикам быстро перейти от разрозненных экспериментов с ИИ к реальной стратегии и пилотам с измеримым бизнес-эффектом.\nПрограмма позволяет за короткий срок получить готовую ИИ-стратегию, дорожную карту, финансовую модель и запустить проектный офис. По оценкам «Яков и Партнёры», сквозное внедрение ИИ в отрасли может давать до 0,9 трлн рублей дополнительного эффекта ежегодно.\n\n«Хотя большинство компаний отмечают положительный эффект пилотов, лишь каждая пятая умеет его количественно измерить, а масштабировать решения удаётся менее 10% игроков. Такое положение дел показывает, что ключевой вызов сегодня — не доступность технологий, а способность интегрировать ИИ в бизнес-процессы, данные и экономику проекта. Только при этом подходе можно оценить потенциал и готовность процессов, запускать пилоты с понятной экономикой и измеримым эффектом, снижая риски и ускоряя переход от экспериментов к практическим результатам», — отметила глава практики «Недвижимость и развитие территорий», партнер «Яков и Партнёры» Анна Данченок.",
+      "original_url": "https://t.me/YakovPartners/3809",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 25,
+          "reaction": "❤"
+        },
+        {
+          "count": 14,
+          "reaction": "🔥"
+        },
+        {
+          "count": 12,
+          "reaction": "❤‍🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "🥰"
+        },
+        {
+          "count": 1,
+          "reaction": "😍"
+        }
+      ],
+      "replies_count": null,
+      "views": 1739
+    },
+    {
+      "chat": "delret",
+      "comments_enabled": null,
+      "date": "2026-06-18T08:58:47+00:00",
+      "edit_date": "2026-06-18T09:01:28+00:00",
+      "external_links": [
+        "https://delret.ru/relevant-for-the-real-estate-sector/tpost/may-2026-goda",
+        "https://t.me/delret",
+        "https://max.ru/delret",
+        "https://feedback.delret.ru/#/periodical-subscription-ru"
+      ],
+      "forwards": 2,
+      "from_id": -1001629949228,
+      "grouped_id": null,
+      "id": 2831,
+      "media_type": "MessageMediaPhoto",
+      "message": "Что изменилось для строительной отрасли и рынка недвижимости в мае\n\nВ новом выпуске «Конструктора новостей» — актуальные вопросы налогообложения и правоприменения:\n🔹Минимальные требования к обеспеченности новых жилых домов парковочными местами могут быть унифицированы\n🔹Риски изъятия земельных участков при их неиспользовании: разъяснения Росреестра\n🔹Учет доходов и расходов застройщика за счет средств дольщиков\n🔹Позиция Минфина России по поводу сотрудничества с ИП, деятельность которых не соответствует сведениям в ЕГРИП\n🔹Судебная практика в сфере легализации самовольных построек и налога на имущество организаций\n\nПодробнее — в выпуске.\n➖➖\nЕсли изменения затрагивают ваши проекты, обращайтесь за консультацией к Юлии Крыловой — ykrylova@delret.ru и Анастасии Матвеевой — amatveeva@delret.ru. \n#Обзоры_ДРТ\n\nTelegram🔸MAX🔸Рассылки",
+      "original_url": "https://t.me/delret/2831",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 4,
+          "reaction": "🔥"
+        },
+        {
+          "count": 2,
+          "reaction": "👍"
+        },
+        {
+          "count": 2,
+          "reaction": "custom:5442990330276254276"
+        }
+      ],
+      "replies_count": null,
+      "views": 289
+    },
+    {
+      "chat": "kept_business",
+      "comments_enabled": null,
+      "date": "2026-06-18T10:44:39+00:00",
+      "edit_date": "2026-06-18T10:44:42+00:00",
+      "external_links": [
+        "https://academy.kept.ru/calendar?tfc_storepartuid%5B1591382971%5D=%D0%91%D1%83%D1%85%D0%B3%D0%B0%D0%BB%D1%82%D0%B5%D1%80%D1%81%D0%BA%D0%B8%D0%B9+%D0%B8+%D1%84%D0%B8%D0%BD%D0%B0%D0%BD%D1%81%D0%BE%D0%B2%D1%8B%D0%B9+%D1%83%D1%87%D1%91%D1%82:+%D1%84%D0%B8%D0%B7.%D0%BB%D0%B8%D1%86%D0%B0&tfc_charact:9336052%5B1591382971%5D=%D0%92+%D0%BB%D1%8E%D0%B1%D0%BE%D0%B5+%D0%B2%D1%80%D0%B5%D0%BC%D1%8F&tfc_div=:::&utm_source=tg&utm_medium=calendaronline&utm_campaign=site",
+        "https://academy.kept.ru/rsbu-9-2025-dokhody?utm_source=tg&utm_medium=fsbu9&utm_campaign=site",
+        "https://academy.kept.ru/ifrs-18-redstavlenie-i-raskrytie-informatsii-v-fin-otchetnosti?utm_source=tg&utm_medium=ifrs18&utm_campaign=site",
+        "https://academy.kept.ru/raschet-otlozhennogo-naloga-balansovym-metodom-msfo-i-rsbu?utm_source=tg&utm_medium=otlnalog&utm_campaign=site",
+        "https://academy.kept.ru/osnovy-msfo?utm_source=tg&utm_medium=ifrszero&utm_campaign=site"
+      ],
+      "forwards": 5,
+      "from_id": -1001657341909,
+      "grouped_id": null,
+      "id": 3362,
+      "media_type": "MessageMediaDocument",
+      "message": "Пропустили вебинары Академии для бухгалтеров и МСФО-специалистов? Смотрите в записи 10+ вебинаров и онлайн-курсов.\n\nВсегда доступны:\n▫ курс по ФСБУ 9/22025 для тех, кто еще не разобрался с изменениями в учете доходов;\n▫ тренинг по МСФО (IFRS) 18 о том, как подготовиться к переходу на новый стандарт и избежать ошибок;\n▫ практикум по расчету отложенного налога для тех, кто хочет отработать навык на практике и получить типовой шаблон расчета в MS Excel;\n▫ практикум «МСФО с нуля», который поможет поэтапно составить первую МСФО-отчетность без типовых ошибок.\n\n🗓️ Все онлайн-курсы по бухучету и не только – в каталоге Академии. Используйте фильтр «В любое время», чтобы увидеть программы, доступные в записи.\n\n#АкадемияKept",
+      "original_url": "https://t.me/kept_business/3362",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "🔥"
+        },
+        {
+          "count": 5,
+          "reaction": "custom:5364143840347313961"
+        },
+        {
+          "count": 1,
+          "reaction": "custom:5363850687354527732"
+        }
+      ],
+      "replies_count": null,
+      "views": 497
+    },
+    {
+      "chat": "Reksoft_group",
+      "comments_enabled": null,
+      "date": "2026-06-18T11:51:31+00:00",
+      "edit_date": "2026-06-18T11:52:05+00:00",
+      "external_links": [
+        "https://www.comnews.ru/content/245871/2026-06-18/2026-w25/1007/chetvernoy-pryzhok-k-2030-g-rossiyskiy-rynok-dlya-iskusstvennogo-intellekta-vyrastet-do-95-mlrd-rub",
+        "https://www.comnews.ru/content/245871/2026-06-18/2026-w25/1007/chetvernoy-pryzhok-k-2030-g-rossiyskiy-rynok-dlya-iskusstvennogo-intellekta-vyrastet-do-95-mlrd-rub%22%20%5Co%20%22https://www.comnews.ru/content/245871/2026-06-18/2026-w25/1007/chetvernoy-pryzhok-k-2030-g-rossiyskiy-rynok-dlya-iskusstvennogo-intellekta-vyrastet-do-95-mlrd-rub",
+        "https://t.me/+BzN9yWu5D6hiNGVi"
+      ],
+      "forwards": 3,
+      "from_id": -1001509197707,
+      "grouped_id": null,
+      "id": 1664,
+      "media_type": "MessageMediaPhoto",
+      "message": "💬 За последние три года объем российского рынка ПО для искусственного интеллекта вырос почти вдвое, пишет ComNews. По итогам 2025 года он достиг 25 млрд рублей, а к 2030 может достигнуть 95 млрд.\n\nПока структура смещена в сторону прикладных решений: 76% рынка – сервисы разговорной речи и компьютерное зрение. Но главная динамика – в сегменте платформ: MLOps, фундаментальные GenAI-модели, инструменты для создания ИИ-систем. Этот сегмент в 2025 году вырос на 53,5% и продолжит набирать обороты.\n\n🗣 Данил Привал, ведущий бизнес-архитектор направления генеративного ИИ Рексофт, отмечает, что платформы и прикладные решения – это два равноправных сегмента рынка для разных задач, поэтому при выборе более выгодной стратегии на перспективу однозначного ответа нет.\n\nПрикладные решения нацелены на конкретную задачу и быстрый измеримый эффект. Для вендора это возможность оперативно зайти к заказчику и получить прямую выручку уже сейчас, для бизнеса – понятный ROI. Платформы решают другую задачу: для вендора это долгосрочная монетизация через интеграцию, а для заказчика – оптимизация затрат на масштабе. Их экономика сходится на большом числе проектов.\n\nПо оценке эксперта, зрелость рынка действительно растет, и это видно по характеру запросов: если в 2024 году заказчики хотели увидеть демонстрацию возможностей, то в 2026 году их интересует стоимость инфраструктуры, стабильность работы модели и экономика масштабирования.\n\nОсновные барьеры остаются прежними\n⏺ Отсутствие или низкое качество данных\n⏺ Организационная неготовность к перестраиванию процессов под ИИ\n⏺ Высокая стоимость инфраструктуры при увеличении числа запросов к модели\n\nЗапрос остается массовым, но меняется по сути: «мы хотим ИИ, но хотим, чтобы нас убедили, что мы дойдем до масштабирования и сохраним ROI, а не ограничимся эффектом уровня пилота».\n\n#ИИ\n\n🖥️ Аналитика и тренды ИТ-рынка",
+      "original_url": "https://t.me/Reksoft_group/1664",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "⚡"
+        },
+        {
+          "count": 1,
+          "reaction": "🆒"
+        }
+      ],
+      "replies_count": null,
+      "views": 206
+    },
+    {
+      "chat": "norbit_ru",
+      "comments_enabled": null,
+      "date": "2026-06-18T13:00:56+00:00",
+      "edit_date": "2026-06-18T13:01:35+00:00",
+      "external_links": [
+        "https://ict-online.ru/interview/Dmitrii-Demidov-NORBIT-Budushcheye-za-gibridnymi-tsifrovymi-sotrudnikami-kotoryye-nakhodyat-sya-na-styke-klassicheskogo-RPA-i-bol-shikh-yazykovykh-modelei-327108",
+        "https://ai-masterdata.norbit.ru/?utm_source=tg_norbit"
+      ],
+      "forwards": 1,
+      "from_id": -1001717006094,
+      "grouped_id": null,
+      "id": 796,
+      "media_type": "MessageMediaPhoto",
+      "message": "Дмитрий Демидов, руководитель Лаборатории инноваций НОРБИТ, рассказывает в интервью о цифровых сотрудниках, чистоте данных и о том, где ИИ реально спасает бизнес 🤖\n\nГлавное:\n\n«Будущее за гибридными цифровыми сотрудниками, которые находятся на стыке классического RPA и больших языковых моделей».\n\nПросто роботы (RPA) уже не справляются с хаосом. Отдельно LLM (чат-боты) не умеют работать в учетных системах. А вместе — это ИИ-агент, который и контекст понимает, и действия выполняет.\n\nКейс и продукт 💼\n\nНаш флагман — AI MasterData 1.2 уже пилотируется в рамках проекта «Сегежа Групп».\n\nВ чем суть: грязные НСИ — это тормоз для всей цифровизации. Платформа НОРБИТ чистит номенклатуру, убирает дубликаты и распределяет по категориям с помощью ИИ. В итоге «Сегежа Групп» получает качественное топливо для принятия управленческих решений и развития бизнеса.\n\nТри главные ошибки при внедрении ИИ ❌\n\n🔘 Завышенные ожидания — ИИ не читает мысли, ему нужны регламенты\n🔘 Хаос на входе — нельзя автоматизировать то, что сломано\n🔘 Окупаемость — без пилота и приоритизации проекта не запускаем\n\nКак выбрать цифрового сотрудника? 🤔\n\n🔘 Четкая рутина (Excel → 1С) → RPA\n🔘 Живое общение и вопросы → LLM-бот\n🔘 Прогнозы и аналитика → цифровой двойник\n🔘 Гибрид для сложных процессов → к нам в Лабораторию инноваций\n\nКстати, бизнес все чаще говорит не «дайте нам робота», а «сдержите рост штата с помощью ИИ». И это тренд.\n\n#Norbit_экспертиза",
+      "original_url": "https://t.me/norbit_ru/796",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "🔥"
+        },
+        {
+          "count": 4,
+          "reaction": "👍"
+        },
+        {
+          "count": 3,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": null,
+      "views": 81
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-19T06:09:52+00:00",
+      "edit_date": "2026-06-19T06:24:44+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/951565"
+      ],
+      "forwards": 5,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5933,
+      "media_type": "MessageMediaPhoto",
+      "message": "Вас ожидают в Толке: как «Инфосистемы Джет» заменила две иностранные платформы на одну российскую\n\nКак перевести 2000+ сотрудников с Zoom и Skype for Business на отечественную платформу, и чтобы ни один из 18000 созвонов не пострадал? \n\nЭксперты ИТ-компании «Инфосистемы Джет» рассказали о процессе миграции с точки зрения интегратора. В материале — о принципах выбора платформы, инженерных задачах, вызовах и этапах перехода.\n\nЧитать >>>",
+      "original_url": "https://t.me/tadviser/5933",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 1,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": 1,
+      "views": 376
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-18T16:18:14+00:00",
+      "edit_date": "2026-06-18T17:55:22+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/390250",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 10,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5932,
+      "media_type": "MessageMediaPhoto",
+      "message": "Как роботы с ИИ помогают «Северстали» собирать стальные конструкции. ФОТО\nhttps://www.tadviser.ru/a/390250\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/5932",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": 0,
+      "views": 1286
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-18T14:24:21+00:00",
+      "edit_date": "2026-06-18T14:24:39+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/951537"
+      ],
+      "forwards": 17,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5931,
+      "media_type": "MessageMediaPhoto",
+      "message": "Внедрение системы 1IDM в АЛРОСА: Радикальное повышение эффективности управления правами пользователей\n\nВ крупнейшей алмазодобывающей компании АЛРОСА существовали серьезные проблемы в управлении правами доступа пользователей. \n\nБолее двух тысяч учетных записей обладали избыточными правами, процесс «прописки» новых пользователей в инфраструктуре занимал значительное время, а уровень рисков безопасности оставлял желать лучшего.\n\nВ ответ на эти вызовы было принято решение о внедрении автоматизированной системы управления правами доступа на платформе 1IDM.\n\nПодробнее >>>",
+      "original_url": "https://t.me/tadviser/5931",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1522
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-18T13:56:14+00:00",
+      "edit_date": "2026-06-18T14:23:25+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/140467",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 23,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5930,
+      "media_type": "MessageMediaPhoto",
+      "message": "ИТ-перестройка в судебной системе: На смену ГАС «Правосудие» планируют создать импортонезависимую платформу с ИИ https://www.tadviser.ru/a/140467\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/5930",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 1,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1481
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-18T11:58:44+00:00",
+      "edit_date": "2026-06-18T13:56:52+00:00",
+      "external_links": [
+        "https://paymentsecurity.ru/"
+      ],
+      "forwards": 10,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5929,
+      "media_type": "MessageMediaPhoto",
+      "message": "Регистрация на #PAYMENTSECURITY 2026 открыта!\n\nКонференция состоится 5–6 августа 2026 года в Нижнем Новгороде. Местом проведения станет мультиформатный комплекс «PREMIO Centre» — одна из самых узнаваемых площадок города.\n\nПочему стоит приехать именно в Нижний Новгород?\n\nВеликолепные виды на слияние Оки и Волги, Нижегородский кремль, атмосферные набережные и тёплое гостеприимство города создают идеальные условия не только для продуктивной работы, но и для ярких впечатлений.\n\nДля вас мы приготовили: \n\n1. Экспертные доклады по информационной безопасности в финтехе, отобранные программным комитетом, состоящим из ведущих экспертов области.\n\n2. Воркшоп по практической информационной безопасности Practical Security Village от команды пентестеров Deiteriy Lab.\n\n3. PCI DSS TRAINING – авторский семинар от специалистов Deiteriy Compliance.\n\n4. Живой обмен опытом и обсуждение актуальных вопросов в области информационной безопасности с представителями банков, ведущих маркетплейсов, ИТ- и ИБ-сообщества.\n\nРегистрация открыта на сайте: https://paymentsecurity.ru\n\nСтаньте частью яркого летнего события, объединяющего профессионалов кибербезопасности и финтеха.\n\nДо встречи на #PAYMENTSECURITY!",
+      "original_url": "https://t.me/tadviser/5929",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "🔥"
+        },
+        {
+          "count": 2,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "✍"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1572
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-18T10:15:25+00:00",
+      "edit_date": "2026-06-18T11:27:55+00:00",
+      "external_links": [
+        "https://vkvideo.ru/video-23791221_456239111",
+        "https://rutube.ru/video/a094f2ed7168488aee056d2a49f98c55/?r=wd",
+        "https://www.youtube.com/watch?v=M7saD3UfeGg"
+      ],
+      "forwards": 15,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5928,
+      "media_type": "MessageMediaWebPage",
+      "message": "Технический директор мессенджера Time Андрей Собянин в новом выпуске подкаста TAdviser рассказал о создании продукта, его развитии внутри Т-Банка, текущем состоянии рынка корпоративных мессенджеров в России и трансформации корпоративных коммуникаций с развитием технологий ИИ. \n\nПосмотреть подкаст можно в ВК Видео, Rutube или YouTube.",
+      "original_url": "https://t.me/tadviser/5928",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "✍"
+        },
+        {
+          "count": 2,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "⚡"
+        },
+        {
+          "count": 1,
+          "reaction": "😴"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1853
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-18T08:52:17+00:00",
+      "edit_date": "2026-06-18T08:52:20+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/951837",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 11,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5927,
+      "media_type": "MessageMediaPhoto",
+      "message": "ИИ для предприятия ОПК. CIO «Концерна Уралвагонзавод» Марьян Гончар — о вызовах внедрения на TAdviser SummIT https://www.tadviser.ru/a/951837\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/5927",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": 1,
+      "views": 1877
+    }
+  ],
+  "profile": "profile_178"
+}

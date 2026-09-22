@@ -1,0 +1,18 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI",
+  "output_format": "dashboard",
+  "fields": [
+    "компания",
+    "продукт",
+    "ссылка"
+  ],
+  "since_date": "",
+  "items": [
+    "https://www.legalai.com/",
+    "https://www.legalai.com/platform",
+    "https://www.legalai.com/solutions",
+    "https://www.legalai.com/resources",
+    "https://legal.ai/"
+  ]
+}

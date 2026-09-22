@@ -1,0 +1,1 @@
+Smoke file for 8793 acceptance

@@ -1,0 +1,14 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI",
+  "output_format": "dashboard",
+  "fields": [],
+  "since_date": "",
+  "items": [
+    "https://pitchbook.com/profiles/company/464464-27",
+    "https://legalai.dev/",
+    "https://legalai.com/",
+    "https://www.legalai.associates/",
+    "https://legalai.com/demo"
+  ]
+}

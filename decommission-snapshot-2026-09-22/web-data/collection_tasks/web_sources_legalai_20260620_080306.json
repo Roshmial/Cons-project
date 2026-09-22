@@ -1,0 +1,19 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI",
+  "output_format": "csv",
+  "fields": [
+    "компания",
+    "тип",
+    "похожий_продукт",
+    "summary"
+  ],
+  "since_date": "",
+  "items": [
+    "https://www.legalai.co.in/",
+    "https://legalai.dev/",
+    "https://legalai.com/",
+    "https://legalai.com/demo",
+    "https://legalaioffice.com/"
+  ]
+}

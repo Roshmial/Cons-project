@@ -1,0 +1,62 @@
+{
+  "config": "daily_178",
+  "count": 2,
+  "messages": [
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-09-12T13:10:20+00:00",
+      "edit_date": "2026-09-12T13:12:45+00:00",
+      "external_links": [
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 5,
+      "from_id": -1001745559336,
+      "grouped_id": null,
+      "id": 3718,
+      "media_type": "MessageMediaDocument",
+      "message": "AXENIX — 4 года! \n\nЧетыре года роста, сложных задач и больших проектов. Новые отрасли. Новые технологии. Новые решения для бизнеса.\n\nЗа всем этим — доверие наших клиентов и партнеров и сильная команда профессионалов.\n\nСпасибо каждому, кто работает с нами, поддерживает нас и вместе с нами создает проекты, которые становятся эталоном для отрасли.\n\nМы продолжаем расти, развивать экспертизу и помогать бизнесу проходить технологическую трансформацию.\n\n4 года — важная отметка. Но впереди — гораздо больше.\n\nС днем рождения, AXENIX!\n\n#AXteam\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3718",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 25,
+          "reaction": "❤"
+        },
+        {
+          "count": 11,
+          "reaction": "🔥"
+        },
+        {
+          "count": 7,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": 0,
+      "views": 458
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-09-12T12:31:10+00:00",
+      "edit_date": "2026-09-12T13:23:45+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/50300"
+      ],
+      "forwards": 11,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6222,
+      "media_type": "MessageMediaPhoto",
+      "message": "Экс-министра связи Николая Никифорова объявили в розыск https://www.tadviser.ru/a/50300",
+      "original_url": "https://t.me/tadviser/6222",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": 2,
+      "views": 1206
+    }
+  ],
+  "profile": "profile_178"
+}

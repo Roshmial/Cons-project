@@ -1,0 +1,938 @@
+{
+  "config": "daily_178",
+  "count": 38,
+  "messages": [
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-08-12T15:01:36+00:00",
+      "edit_date": "2026-08-12T15:06:44+00:00",
+      "external_links": [
+        "https://axenix.pro/podcasts/it-razrabotka-v-rossii-segodnja-i-v-budushhem?utm_source=telegram&utm_medium=t1_12_08",
+        "https://youtu.be/E9p8GuPUbmY",
+        "https://vkvideo.ru/video-215827776_456239300",
+        "https://t.me/mavestreambot/app?startapp=axenix_48",
+        "https://music.yandex.ru/album/33421531/track/154641222",
+        "https://vk.ru/podcast-215827776_456239081",
+        "https://podcasts.apple.com/ru/podcast/axenix-coffee-talks-%D1%82%D0%B5%D1%85%D0%BD%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D0%B8-%D1%81%D1%82%D1%80%D0%B0%D1%82%D0%B5%D0%B3%D0%B8%D0%B8-%D0%BA%D0%BE%D0%BD%D1%81%D0%B0%D0%BB%D1%82%D0%B8%D0%BD%D0%B3/id1770038922?i=1000781982686",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 4,
+      "from_id": -1001745559336,
+      "grouped_id": null,
+      "id": 3628,
+      "media_type": "MessageMediaDocument",
+      "message": "Иван Бунин как-то сказал: «Больше всех рискует тот, кто никогда не рискует». А Дмитрий Харитонов в выпуске подкаста Coffee Talks добавил:\n\nВсегда есть огромная неизвестность впереди, всегда есть огромные риски, с которыми мы работаем. Еще больше того, чего мы не знаем и, возможно, знать не хотим. Нужна, наверное, смелость определенная. Где-то дерзость такая, где-то авантюра. Но самое важное: нужно кайфовать от того, что вы делаете, и это главное. Это будет стимулом развиваться.\n\nЭтот выпуск Coffee Talks стал одним из самых личных. Генеральный директор ИТ-холдинга Т1 и наши коллеги Анастасия-Иволина Райская и Андрей Распопов поговорили не только о технологиях, стратегиях и искусственном интеллекте, но и о том, как решиться стать руководителем бизнеса, если ты всегда был инженером, как принимать решения, от которых зависит будущее компании, и не бояться предлагать клиентам инновации, даже если они не могут оценить их в моменте. И самое главное — как получать удовольствие от работы даже после 20+ лет в профессии.\n\nСмотрите полную видеоверсию выпуска в этом посте, а также:\nна нашем сайте >>\nна YouTube >>\nв VK Видео >>\n\nАудиоверсия уже доступна в Telegram, Яндекс Музыке, VK Музыке и Apple Podcasts.\n\n☕️ @T1Holding\n\n#AXpodcasts #CoffeeTalks\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3628",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 1,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": 0,
+      "views": 361
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-12T13:24:41+00:00",
+      "edit_date": "2026-08-12T13:24:46+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14292328644255378,
+      "id": 3627,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3627",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 377
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-12T13:24:40+00:00",
+      "edit_date": "2026-08-12T13:24:46+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14292328644255378,
+      "id": 3626,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3626",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 376
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-12T13:24:40+00:00",
+      "edit_date": "2026-08-12T13:24:46+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14292328644255378,
+      "id": 3625,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3625",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 375
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-12T13:24:40+00:00",
+      "edit_date": "2026-08-12T13:24:46+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14292328644255378,
+      "id": 3624,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3624",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 367
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-12T13:24:40+00:00",
+      "edit_date": "2026-08-12T13:24:46+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14292328644255378,
+      "id": 3623,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3623",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 366
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-12T13:24:40+00:00",
+      "edit_date": "2026-08-12T13:24:46+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14292328644255378,
+      "id": 3622,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3622",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 364
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-12T13:24:40+00:00",
+      "edit_date": "2026-08-12T13:24:46+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14292328644255378,
+      "id": 3621,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3621",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 368
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-12T13:24:40+00:00",
+      "edit_date": "2026-08-12T13:24:46+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14292328644255378,
+      "id": 3620,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3620",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 365
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-08-12T13:24:40+00:00",
+      "edit_date": "2026-08-12T13:36:12+00:00",
+      "external_links": [
+        "https://t.me/Axenix_Ru/3553",
+        "https://axenix.pro/wp-content/uploads/2026/07/axenix-srm-day.pdf?utm_source=telegram&utm_medium=srm_day_12_08",
+        "https://axenix.pro/srm-day?utm_source=telegram&utm_medium=srm_day_12_08",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14292328644255378,
+      "id": 3619,
+      "media_type": "MessageMediaPhoto",
+      "message": "AXENIX SRM Day: об умных закупках от ведущих экспертов отрасли\n\nМы уже рассказывали, что первая встреча AXENIX по SRM была посвящена трансформации закупочной функции под влиянием ИИ и агентов. Доклады представителей «Акрон Холдинга», «Черкизово», «Русагро», Альфа-Банка и других компаний показали, что внедрение ИИ в закупки уже дает измеримые результаты в скорости, качестве решений и экономическом эффекте.\n\nНа карточках собрали мнения экспертов, выступивших на мероприятии.\n\nБлагодарим всех, кто был с нами на первом AXENIX SRM Day! Доклады, представленные на встрече, уже доступны на нашем сайте >>\n\nЕсли вы хотите посетить следующее событие, пожалуйста, заполните форму заявки по ссылке >>\n\n#AXprd #AXevents\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3619",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 1,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": 0,
+      "views": 370
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-08-12T12:57:39+00:00",
+      "edit_date": "2026-08-12T13:10:50+00:00",
+      "external_links": [
+        "https://in-plan.ru/planirovanie-zakupok-mrp/?utm_source=telegram&utm_medium=post_announcement_4",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": null,
+      "id": 3618,
+      "media_type": "MessageMediaPhoto",
+      "message": "Обратите внимание! Вебинар In.Plan «Планирование закупок сырья и материалов (MRP) как часть интегрированного бизнес-планирования» переносится с 13 на 18 августа. \n\n☑️ Приносим извинения за доставленные неудобства и ждем вас на вебинаре 18 августа в 16:00!\n\n#AX_InPlan\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3618",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": 0,
+      "views": 364
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-12T07:45:21+00:00",
+      "edit_date": "2026-08-12T07:45:26+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14292165766644626,
+      "id": 3617,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3617",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 423
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-12T07:45:21+00:00",
+      "edit_date": "2026-08-12T07:45:26+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14292165766644626,
+      "id": 3616,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3616",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 424
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-12T07:45:21+00:00",
+      "edit_date": "2026-08-12T07:45:26+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14292165766644626,
+      "id": 3615,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3615",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 422
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-12T07:45:21+00:00",
+      "edit_date": "2026-08-12T07:45:26+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14292165766644626,
+      "id": 3614,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3614",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 406
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-12T07:45:21+00:00",
+      "edit_date": "2026-08-12T07:45:26+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14292165766644626,
+      "id": 3613,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3613",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 406
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-12T07:45:21+00:00",
+      "edit_date": "2026-08-12T07:45:26+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14292165766644626,
+      "id": 3612,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3612",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 407
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-12T07:45:21+00:00",
+      "edit_date": "2026-08-12T07:45:26+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14292165766644626,
+      "id": 3611,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3611",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 405
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-12T07:45:20+00:00",
+      "edit_date": "2026-08-12T07:45:26+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14292165766644626,
+      "id": 3610,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3610",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 405
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-08-12T07:45:20+00:00",
+      "edit_date": "2026-08-12T07:56:08+00:00",
+      "external_links": [
+        "https://axenix.pro/cases/1serp-uhdlya-rossiiskih-aktivovreckitt-benckiser?utm_source=telegram&utm_medium=reckitt-benckiser",
+        "https://axenix.pro/perehod-s-1c-upp-na-1c-erp?utm_source=telegram&utm_medium=perehod-s-1c-upp-na-1c-erp",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": 14292165766644626,
+      "id": 3609,
+      "media_type": "MessageMediaPhoto",
+      "message": "☑️☑️ Менее чем за 5 месяцев команда AXENIX успешно внедрила решение «1С:ERP. Управление холдингом» для российских активов Reckitt — одного из крупнейших в мире производителей товаров для дома, бытовой химии, лекарств, средств личной гигиены. \n\nВ результате заказчик без остановки операционной деятельности перевел на отечественную платформу весь контур бизнеса — от производства, продаж и отгрузок до складского, регламентированного и международного учета. \n\nПодробнее о реализации проекта — в наших карточках и на сайте AXENIX. \n\nЕсли вы запланировали переход на решение 1С или у вас есть вопросы по тому, как эффективно осуществить миграцию — свяжитесь с нами через форму на сайте. Там же можно запросить стратегическую сессию по внедрению продуктов 1С.\n\n#AX_1C\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3609",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "👏"
+        }
+      ],
+      "replies_count": 0,
+      "views": 430
+    },
+    {
+      "chat": "Softline",
+      "comments_enabled": null,
+      "date": "2026-08-12T10:36:58+00:00",
+      "edit_date": "2026-08-12T10:37:14+00:00",
+      "external_links": [
+        "https://softlinegroup.com/news/gruppa-borlas-gk-softline-i-umkaadditekh-obedinyayut-kompetentsii-v-oblasti-iskusstvennogo-intellekt/?utm_source=Telegram&utm_medium=Softline",
+        "https://max.ru/Softline",
+        "https://vk.com/softlinecompany",
+        "https://t.me/Softline"
+      ],
+      "forwards": 3,
+      "from_id": -1001098739288,
+      "grouped_id": null,
+      "id": 3354,
+      "media_type": "MessageMediaPhoto",
+      "message": "ИИ, генеративное проектирование и аддитивное производство — новая отечественная технологическая цепочка. \n\nГруппа «Борлас» (ГК Softline), мастер-дистрибьютор CAE Fidesys, и компания «УМКАаддитех» объединили компетенции в области инженерного анализа, искусственного интеллекта, генеративного проектирования и аддитивного производства.\n\nВ рамках сотрудничества планируется интеграция российской CAE-платформы Fidesys и программного комплекса УМКАсинтекс. Это позволит перейти к полностью отечественной технологической цепочке для решения задач прочностного анализа, генеративного проектирования и подготовки изделий к аддитивному производству.\n\nСоздаваемые решения будут востребованы в машиностроительной, авиационной, энергетической и нефтегазовой отраслях, где скорость разработки и точность инженерных расчетов напрямую влияют на конкурентоспособность продукции.\n\n«Российскому рынку сегодня необходимы не только инструменты импортозамещения, но и решения, обеспечивающие дальнейшее технологическое развитие. Партнерство с «УМКАаддитех» позволит объединить инженерный анализ и технологии искусственного интеллекта, открывая заказчикам новые возможности для автоматизации проектирования, повышения эффективности разработки изделий и укрепления технологической независимости отечественных предприятий», – отметил директор департамента производственного консалтинга Группы «Борлас» (ГК Softline) Александр Рыбаков.\n\n«Интеграция программного комплекса УМКАсинтекс с платформой CAE Fidesys станет важным шагом в развитии отечественного цифрового инжиниринга. Совместное решение позволит ускорить поиск оптимальных конструктивных решений, автоматизировать часть инженерных процессов и расширить применение аддитивных технологий в промышленности», – прокомментировал Илья Морозов, генеральный директор компании «УМКАаддитех».\n\nПодпишитесь на ГК Softline: в MAX, VK, Telegram\n\n#соглашение #партнерство #Борлас #ИИ",
+      "original_url": "https://t.me/Softline/3354",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "custom:5325988381681799819"
+        },
+        {
+          "count": 2,
+          "reaction": "🔥"
+        },
+        {
+          "count": 2,
+          "reaction": "🤝"
+        },
+        {
+          "count": 1,
+          "reaction": "✍"
+        },
+        {
+          "count": 1,
+          "reaction": "👏"
+        },
+        {
+          "count": 1,
+          "reaction": "👌"
+        },
+        {
+          "count": 1,
+          "reaction": "🏆"
+        }
+      ],
+      "replies_count": null,
+      "views": 1111
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-08-12T13:40:31+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001569311808,
+      "grouped_id": 14292336251515938,
+      "id": 2151,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2151",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 167
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-08-12T13:40:31+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001569311808,
+      "grouped_id": 14292336251515938,
+      "id": 2150,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2150",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 167
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-08-12T13:40:31+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001569311808,
+      "grouped_id": 14292336251515938,
+      "id": 2149,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2149",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 167
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-08-12T13:40:31+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001569311808,
+      "grouped_id": 14292336251515938,
+      "id": 2148,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2148",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 167
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-08-12T13:40:31+00:00",
+      "edit_date": "2026-08-12T13:41:59+00:00",
+      "external_links": [
+        "https://k2tech.io/2pd",
+        "https://k2tech.io/2a5"
+      ],
+      "forwards": 2,
+      "from_id": -1001569311808,
+      "grouped_id": 14292336251515938,
+      "id": 2147,
+      "media_type": "MessageMediaPhoto",
+      "message": "Больше половины топ-менеджеров торопят внедрение ИИ, игнорируя неготовность инфраструктуры🧱\n\nК2 НейроТех вместе с К2 Кибербезопасность провели исследование 100 компаний корпоративного сегмента и зафиксировали ключевой тренд 2026 года: \n\nамбиции топ‑менеджмента по генеративному ИИ заметно опережают реальную готовность инфраструктуры, data‑ландшафта и процессов управления безопасностью.\n\nИИ уже становится стратегическим активом и компонентом операционной устойчивости, но компании все еще ищут баланс между скоростью внедрения, гибридной архитектурой и зрелыми практиками MLSecOps.\n\n🔥Читайте подробнее в карточках\n\n🔥Полный текст исследования читайте по ссылке\n\n📺 Наш канал в MAX",
+      "original_url": "https://t.me/k2_tech/2147",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 4,
+          "reaction": "❤"
+        },
+        {
+          "count": 3,
+          "reaction": "👍"
+        },
+        {
+          "count": 2,
+          "reaction": "⚡"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "🤔"
+        }
+      ],
+      "replies_count": null,
+      "views": 171
+    },
+    {
+      "chat": "YakovPartners",
+      "comments_enabled": null,
+      "date": "2026-08-12T15:10:24+00:00",
+      "edit_date": "2026-08-12T15:10:44+00:00",
+      "external_links": [
+        "https://tv.rbc.ru/archive/den/6a50b1b02ae596891545100b"
+      ],
+      "forwards": 12,
+      "from_id": -1001083076359,
+      "grouped_id": null,
+      "id": 3860,
+      "media_type": "MessageMediaPhoto",
+      "message": "ИИ на финансовых рынках: инструмент, а не замена инвестору\n\nИскусственный интеллект на финансовых рынках существует уже десятилетиями — в виде робоэдвайзеров, алгоритмической и высокочастотной торговли. Новизна сегодняшней ситуации лишь в иллюзии, что можно полностью передать машине принятие инвестиционных решений. На практике это опасный путь: ответственность все равно остается на человеке, обратил внимание партнер-эксперт «Яков и Партнёры» и руководитель центра бизнес-образования Центрального университета Илья Иванинский.\n\nПравильный подход, по мнению эксперта, — использовать ИИ как инструмент для быстрой подготовки данных: сбора информации для DCF-моделей, поиска мультипликаторов, анализа новостей по портфельным компаниям. Именно квалифицированные запросы дают реальную пользу, а не попытка «нажать кнопку и заработать».\n\nОбразование и опыт\n\nИсследования Центрального университета показывают: инвесторы с высшим образованием зарабатывают в среднем на 17% больше тех, у кого только школьное. Еще сильнее влияет опыт — через два года доходность растет примерно на 40%, через шесть — уже на 120% относительно новичков.\n\nИИ способен лишь немного уберечь от импульсивных сделок, но никогда не заменит образование, практику и умение думать самостоятельно. Максимум, что он может дать, — дисциплину и скорость обработки информации, а не гарантированную сверхприбыль.",
+      "original_url": "https://t.me/YakovPartners/3860",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "❤"
+        },
+        {
+          "count": 3,
+          "reaction": "👍"
+        },
+        {
+          "count": 3,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "❤‍🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "🙏"
+        }
+      ],
+      "replies_count": null,
+      "views": 1020
+    },
+    {
+      "chat": "kept_business",
+      "comments_enabled": null,
+      "date": "2026-08-12T15:59:40+00:00",
+      "edit_date": "2026-08-12T15:59:49+00:00",
+      "external_links": [
+        "https://www.kommersant.ru/doc/8864528"
+      ],
+      "forwards": 1,
+      "from_id": -1001657341909,
+      "grouped_id": null,
+      "id": 3434,
+      "media_type": null,
+      "message": "Второй шанс для старых стандартов: кому подойдет топливо пониженного класса?\n\nБензин Евро-2, Евро-3 и Евро-4 можно использовать до 1 июля 2027 г. — такая мера предотвратит дестабилизацию внутреннего рынка топлива в условиях санкций и повреждений нефтеперерабатывающей инфраструктуры.\n\nЕвро-2, Евро-3 и Евро-4 могут использовать менее «чувствительные» машины:\n🔸 автомобили предыдущих поколений, которые изначально проектировались под менее строгие нормы;\n🔸 специальная, строительная, сельскохозяйственная техника;\n🔸 грузовой и коммерческий транспорт.\n\nСвою роль сыграет и ценовой фактор: скорее всего, топливо с низким экологическим классом будет предлагаться с дисконтом. Поэтому крупные потребители могут активнее использовать его для экономии затрат без риска для техники.\n\nНа что влияет класс бензина?\nЭкологические стандарты задают лимиты на вредные примеси в топливе, которые напрямую влияют на состав выхлопных газов. НПЗ проще наращивать объемы выпуска бензина низкого класса за счет менее сложной технологической цепочки. Но есть и риски.\n\n«Главный — для современных автомобилей, двигатели которых рассчитаны на топливо высоких экологических классов с жесткими допусками. В таких автомобилях установлены сложные системы анализа качества топлива и элементы, чувствительные к повышенному содержанию серы. При регулярной заправке топливом низкого класса сера может ускорить коррозию, повредить катализаторы и фильтры, вывести из строя датчики», \n — объясняет Никита Иллерицкий, эксперт по развитию практики по оказанию услуг компаниям нефтегазового сектора Kept.\n\nЭто может снизить эффективность мотора, увеличить расход топлива и привести к дорогостоящему ремонту топливной системы. Поэтому переход на топлива пониженного класса, скорее всего, будет очень избирательным. \n\nКак повлияют такие антикризисные меры на автомобильную отрасль — обсудили в материале «Коммерсанта».",
+      "original_url": "https://t.me/kept_business/3434",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "👍"
+        },
+        {
+          "count": 3,
+          "reaction": "🤔"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": null,
+      "views": 456
+    },
+    {
+      "chat": "kept_business",
+      "comments_enabled": null,
+      "date": "2026-08-12T10:04:48+00:00",
+      "edit_date": "2026-08-12T11:56:59+00:00",
+      "external_links": [
+        "https://assets.kept.ru/upload/pdf/2026/08/ru-metals-and-mining-prices-review-kept-31072026.pdf?utm_source=telegram&utm_medium=smo&utm_campaign=gmk_review_mm-july_12aug2026&utm_content=tg_kept"
+      ],
+      "forwards": 7,
+      "from_id": -1001657341909,
+      "grouped_id": null,
+      "id": 3433,
+      "media_type": "MessageMediaPhoto",
+      "message": "Нисходящий тренд сохранился: обзор динамики цен на основные товары сектора металлургии и горной добычи за июль 2026 г.\n\nГеополитическая ситуация на Ближнем Востоке и ожидания ужесточения денежно-кредитной политики США негативно отразились на большинстве котировок.\n\nСредняя цена никеля снизилась, при этом во второй половине месяца наблюдалась волатильность и тренд на восстановление. Среди основных причин — приостановка отгрузок никелевой продукции с индонезийских предприятий Tsingshan и вернувшиеся риски перебоев в поставках серной кислоты из-за вероятности очередной блокировки Ормузского пролива.\n\nЦена на алюминий снижалась на фоне ожиданий постепенного восстановления производства на Ближнем Востоке. Но со второй половины июля котировки стали возвращаться на утраченные позиции. Но рост сдерживается прогнозами по наращиванию выпуска алюминия Индонезией.\n\nКотировки свинца достигли минимальных значений с 2022 г. — цена опускалась ниже $1 800 за т из-за рекордной разовой поставки свинца на склады Лондонской биржи металлов в Сингапуре трейдером Trafigura.\n\nСтоимость меди, несмотря на волатильность в рамках месяца, осталась на уровне июня, как и средняя цена на олово.  \n\nЕдинственный металл, показавший рост на фоне сокращающегося предложения, — цинк. Однако его потенциал ограничен общими негативными настроениями в отношении глобального производства, а также снижением объемов выплавки стали Китаем.\n\nЦены на драгоценные металлы продолжили снижаться. Стоимость серебра опустилась до уровня декабря 2025 г. Ключевые причины ценовой коррекции — риски повышения процентной ставки ФРС США, укрепление доллара и возобновившаяся глобальная неопределенность.\n\nЦены на металлургический уголь развернулись вниз после почти двухмесячного роста из-за одновременного ослабления спроса со стороны ключевых потребителей и увеличения предложения.\n\nПодробные итоги июля с цифрами и комментариями — в обзоре Kept.",
+      "original_url": "https://t.me/kept_business/3433",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 4,
+          "reaction": "👍"
+        },
+        {
+          "count": 3,
+          "reaction": "custom:5267500801240092311"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": null,
+      "views": 614
+    },
+    {
+      "chat": "Reksoft_group",
+      "comments_enabled": null,
+      "date": "2026-08-12T10:56:51+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 3,
+      "from_id": -1001509197707,
+      "grouped_id": 14292257692430282,
+      "id": 1768,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Reksoft_group/1768",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 194
+    },
+    {
+      "chat": "Reksoft_group",
+      "comments_enabled": null,
+      "date": "2026-08-12T10:56:51+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 3,
+      "from_id": -1001509197707,
+      "grouped_id": 14292257692430282,
+      "id": 1767,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Reksoft_group/1767",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 193
+    },
+    {
+      "chat": "Reksoft_group",
+      "comments_enabled": null,
+      "date": "2026-08-12T10:56:51+00:00",
+      "edit_date": "2026-08-12T10:56:57+00:00",
+      "external_links": [
+        "https://www.itweek.ru/ai/article/detail.php?ID=235326"
+      ],
+      "forwards": 3,
+      "from_id": -1001509197707,
+      "grouped_id": 14292257692430282,
+      "id": 1766,
+      "media_type": "MessageMediaPhoto",
+      "message": "Российский рынок показывает кратный рост интереса к ИИ в корпоративных системах. Количество запросов «Битрикс24 ИИ» увеличилось на 600%, «CRM с нейросетью» – на 550%, «ИИ в 1С» – на 85%. Однако в ERP-системах ИИ пока остается на периферии, в виде подключаемых по API модулей, а не встроенной функциональности.\n\n🗣Где ИИ в ERP действительно полезен, как его правильно встраивать и с чего начинать, разбирает Илья Бычков, директор направления разработки практики «1С» Рексофт, в колонке для ITWeek.\n\nОн подчеркивает, что ИИ эффективен там, где есть большие объемы данных, много рутины, необходимы прогнозы или поиск аномалий. В корпоративных системах таких точек множество: распознавание первичных документов, прогнозирование спроса закупок и производства, контроль качества данных, копилоты и запросы к данным на естественном языке, а также помощь разработчикам и службе поддержки.\n\n🟡 Встраивать ИИ в существующие системы можно по-разному – основные подходы вынесены на карточки. Но у многих компаний возникает соблазн не связываться с достройкой, а просто заменить старую систему на AI-native решение. По мнению эксперта, это самый дорогой, долгий и рискованный путь. Полная замена оправдана лишь в нескольких ситуациях: система зашла в тупик, вендор ушел с рынка или текущий стек нежизнеспособен. Во всех остальных случаях разумнее достраивать – дополнять текущую систему зрелыми проверенными компонентами.\n\nПолную версию колонки Ильи Бычкова читайте на ITWeek.",
+      "original_url": "https://t.me/Reksoft_group/1766",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "✍"
+        },
+        {
+          "count": 3,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "🆒"
+        }
+      ],
+      "replies_count": null,
+      "views": 192
+    },
+    {
+      "chat": "norbit_ru",
+      "comments_enabled": null,
+      "date": "2026-08-12T12:59:58+00:00",
+      "edit_date": "2026-08-12T13:18:14+00:00",
+      "external_links": [
+        "https://ai-masterdata.norbit.ru/?utm_source=tg_norbit",
+        "https://www.norbit.ru/blog/nsi-pod-kontrolem-ii-tri-klyuchevykh-trebovaniya-biznesa-v-2026-godu-i-kak-my-na-nikh-otvetili/?utm_source=tg_norbit"
+      ],
+      "forwards": 1,
+      "from_id": -1001717006094,
+      "grouped_id": null,
+      "id": 845,
+      "media_type": "MessageMediaPhoto",
+      "message": "Еще вчера главной задачей бизнеса была цифровизация: перевести процессы в «цифру», внедрить ERP, навести порядок в справочниках. Сегодня этого недостаточно. Наступает этап ИИ-интеллектуализации — когда системы не просто выполняют команды, а становятся партнерами в принятии решений 🤝\n\nЧто это означает применительно к НСИ? 🤔\n\n🔘 Отказ от «человеческого» мышления в алгоритмах: система не просто сравнивает строки, а понимает контекст и семантику\n🔘 Переход от жестких правил к обучению: модели находят закономерности там, где человек видит хаос\n🔘 Появление цифровых помощников: ИИ берет на себя рутину, сотрудник становится контролером качества и стратегом\n\nЧто требует бизнес от управления данными сегодня? 📝\n\n🔘 Минимальный TCO при максимальной эффективности. Совокупная стоимость владения НСИ — это не только зарплаты, но и ИТ-инфраструктура, стоимость изменений и операционные риски. Задача — разорвать порочный круг, где снижение рисков требует увеличения штата.\n🔘 Прямое влияние на прибыль. «Чистота данных» без экономического эффекта больше не аргумент.\n🔘 Скорость. Подготовка НСИ не должна тормозить внедрение ERP или MDM — бизнесу нужен результат за недели.\n\nСоответствовать этим трем требованиям одновременно — непростая задача. Но с обновленной версией AI MasterData 1.2 мы нашли способ, как это сделать 📊\n\nПодробнее о новых трендах в управлении данными и опыте НОРБИТ — в нашем новом материале.\n\nЧитать статью 👆\n\n#Norbit_экспертиза",
+      "original_url": "https://t.me/norbit_ru/845",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 1,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": null,
+      "views": 76
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-08-12T15:59:45+00:00",
+      "edit_date": "2026-08-12T16:20:26+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/961487",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 14,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6120,
+      "media_type": "MessageMediaPhoto",
+      "message": "Гендиректора импортера чипов «Цифрон» арестовали в Москве по делу о неуплате 150 млн рублей налогов https://www.tadviser.ru/a/961487\n\n——————————\nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/6120",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": 1,
+      "views": 1311
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-08-12T14:43:18+00:00",
+      "edit_date": "2026-08-12T14:44:10+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/961425",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 12,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6119,
+      "media_type": "MessageMediaPhoto",
+      "message": "ФССП создаст единую архитектуру хранения данных. Без неё судебные приставы-исполнители несут нагрузку, в 19,5 раз превышающую норму https://www.tadviser.ru/a/961425\n\n——————————\nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/6119",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "👍"
+        },
+        {
+          "count": 3,
+          "reaction": "😁"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1500
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-08-12T13:45:52+00:00",
+      "edit_date": "2026-08-12T13:52:25+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/43340",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 17,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6118,
+      "media_type": "MessageMediaPhoto",
+      "message": "Экс-гендиректор «Мерлион» Вячеслав Симоненко не смог отбиться от требований на 1,6 млрд рублей от бывшего работодателя https://www.tadviser.ru/a/43340\n\n——————————\nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/6118",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "🔥"
+        },
+        {
+          "count": 3,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1738
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-08-12T09:23:46+00:00",
+      "edit_date": "2026-08-12T10:54:22+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/956403",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 35,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6117,
+      "media_type": "MessageMediaPhoto",
+      "message": "Российский рынок RPA: тренды и крупнейшие поставщики. Обзор TAdviser 2026  \nhttps://www.tadviser.ru/a/956403 \n\n——————————\nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/6117",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "❤"
+        },
+        {
+          "count": 3,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 0,
+      "views": 2039
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-08-12T07:35:41+00:00",
+      "edit_date": "2026-08-12T08:07:11+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/56070",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 10,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6116,
+      "media_type": "MessageMediaPhoto",
+      "message": "Ориентация на ИИ и модульное исполнение. Как меняется российский рынок ERP-систем. ТА мнения https://www.tadviser.ru/a/56070\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/6116",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1890
+    }
+  ],
+  "profile": "profile_178"
+}

@@ -1,0 +1,960 @@
+{
+  "config": "daily_178",
+  "count": 31,
+  "messages": [
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-06-30T11:15:03+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 8,
+      "from_id": -1001512457804,
+      "grouped_id": 14262544823962106,
+      "id": 3539,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/b1_news/3539",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 631
+    },
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-06-30T11:15:03+00:00",
+      "edit_date": "2026-06-30T11:15:14+00:00",
+      "external_links": [
+        "https://b1.ru/health-and-life-science/",
+        "https://t.me/b1_news",
+        "https://max.ru/id7705637264_biz"
+      ],
+      "forwards": 8,
+      "from_id": -1001512457804,
+      "grouped_id": 14262544823962106,
+      "id": 3538,
+      "media_type": "MessageMediaPhoto",
+      "message": "25 июня в Москве прошла уже традиционная конференция Б1 для представителей фармацевтической отрасли и отрасли медицинских изделий\n\nЭксперты обсудили следующие актуальные для отрасли проблемы:⬇️\n \n🟢НДС на маркетинговые услуги \n🟢Практика ТЦО-проверок\n🟢Фарм-импорт: новости таможенной практики и судебные споры\n🟢КИИ: между безопасностью и эффективностью бизнеса\n🟢Проблемы и перспективах взимания экологического сбора\n🟢Антимонопольные споры на фармацевтическом рынке\n \nОсновные положения выступлений собрали для вас в карточках.\n\nКоманда экспертов Группы компаний Б1 обладает глубоким пониманием специфики отрасли и готова помочь вашему бизнесу найти эффективные решения. Более подробно ознакомиться с полным спектром наших услуг для компаний фармацевтического сектора и сектора медицинских изделий можно на нашем сайте.\n\n🟢🟢🟢🟢🟢🟢🟢\n🥇 Б1    📲 Б1 в МАКС",
+      "original_url": "https://t.me/b1_news/3538",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 630
+    },
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-06-30T11:15:03+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 8,
+      "from_id": -1001512457804,
+      "grouped_id": 14262544823962106,
+      "id": 3537,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/b1_news/3537",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 629
+    },
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-06-30T11:15:03+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 8,
+      "from_id": -1001512457804,
+      "grouped_id": 14262544823962106,
+      "id": 3536,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/b1_news/3536",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 624
+    },
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-06-30T11:15:03+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 10,
+      "from_id": -1001512457804,
+      "grouped_id": 14262544823962106,
+      "id": 3535,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/b1_news/3535",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 622
+    },
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-06-30T11:15:03+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 8,
+      "from_id": -1001512457804,
+      "grouped_id": 14262544823962106,
+      "id": 3534,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/b1_news/3534",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 621
+    },
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-06-30T11:15:03+00:00",
+      "edit_date": "2026-06-30T12:10:40+00:00",
+      "external_links": [],
+      "forwards": 8,
+      "from_id": -1001512457804,
+      "grouped_id": 14262544823962106,
+      "id": 3533,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/b1_news/3533",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "✍"
+        }
+      ],
+      "replies_count": null,
+      "views": 626
+    },
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-06-30T06:58:45+00:00",
+      "edit_date": "2026-06-30T06:59:01+00:00",
+      "external_links": [
+        "https://t.me/b1_news",
+        "https://max.ru/id7705637264_biz"
+      ],
+      "forwards": 6,
+      "from_id": -1001512457804,
+      "grouped_id": null,
+      "id": 3530,
+      "media_type": "MessageMediaPhoto",
+      "message": "В воскресенье прошла тематическая экскурсия для участниц программы «Деловые женщины» в кинотеатре «Художественный»\n\nАлександр Ермолин, историк архитектуры, независимый исследователь и лектор, рассказал участницам о личности создателя кинотеатра – легендарном архитекторе Федоре Шехтеле. Девушки узнали, как архитектор стал одним из главных творцов русского модерна и какое место в его творчестве занимает «Художественный», как проходил процесс создания первого в истории Москвы специального здания кинематографа и что удалось сохранить в процессе современной реставрации. \n\nВечер завершился просмотром легендарного фильма «Покровские ворота», прочно вошедшего в наш культурный код.\n\nГруппа компаний Б1 гордится партнерством с кинотеатром «Художественный» – местом, где традиции встречаются с инновациями, а внимание к деталям возведено в ранг искусства. Мы стремимся воплощать эти же принципы в работе. И именно такой подход мы реализовали в этом мероприятии.\n\n🟢🟢🟢🟢🟢🟢🟢\n🥇 Б1    📲 Б1 в МАКС",
+      "original_url": "https://t.me/b1_news/3530",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 6,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "❤‍🔥"
+        },
+        {
+          "count": 2,
+          "reaction": "custom:5273858877551555045"
+        }
+      ],
+      "replies_count": null,
+      "views": 567
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-06-30T13:32:10+00:00",
+      "edit_date": "2026-06-30T13:32:55+00:00",
+      "external_links": [
+        "https://events.kommersant.ru/finansy/13-05-26-banking-budushhego-vstrecha-s-georgiem-gorshkovym-kakim-stanet-banking-marketplejsov-k-2040-godu/?erid=F7NfYUJCUneVcxXweHyT",
+        "https://www.kommersant.ru/doc/8710607",
+        "https://axenix.pro/banking-budushchego",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 3,
+      "from_id": -1001745559336,
+      "grouped_id": null,
+      "id": 3374,
+      "media_type": "MessageMediaDocument",
+      "message": "Вместе с ИД «Коммерсантъ» поговорили с Георгием Горшковым, председателем правления WB Банка и главой финтеха RWB, о банках маркетплейсов и о том, способны ли они стать полноценными центрами прибыли.\n\nПосмотреть полную запись встречи можно на сайте «Коммерсантъ Конференции». \n\nА в журнале «Коммерсантъ Деньги» уже вышла авторская колонка Георгия Горшкова на эту тему.\n\nИнтервью было проведено в рамках проекта «Банкинг будущего», целью которого является формирование честного представления о том, как изменятся роли финансовых институтов и границы банковского бизнеса в ближайшие 10–15 лет.\n\n#AXfinance\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3374",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 0,
+      "views": 357
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-06-30T11:14:21+00:00",
+      "edit_date": "2026-06-30T11:24:02+00:00",
+      "external_links": [
+        "https://axenix.pro/intellektualizaciya-biznesa?utm_source=telegram&utm_medium=intellektualizaciya_biznesa_post_1#research",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 3,
+      "from_id": -1001745559336,
+      "grouped_id": null,
+      "id": 3372,
+      "media_type": "MessageMediaPhoto",
+      "message": "ИИ ускоряет разработку ПО. Но создаёт новую проблему, которую большинство компаний пока не замечает.\n\nЭксперты AXENIX проанализировали, как искусственный интеллект меняет производственный процесс создания программного обеспечения, и какие долгосрочные риски возникают за пределами привычных метрик продуктивности.\n\nГлавный вывод исследования: проблема заключается не в ИИ как технологии, а в том, как компании перестраивают процессы и кадровую модель вокруг него.\n\nСегодня ИИ позволяет быстрее писать код, снижать затраты и автоматизировать рутинные задачи. Однако одновременно растёт нагрузка на верификацию, накапливается технический долг и сокращается спрос на начинающих специалистов — тех, из кого через несколько лет должны вырасти senior-разработчики и архитекторы.\n\nВ результате краткосрочная оптимизация может привести к дефициту критически важных компетенций уже в следующем десятилетии.\n\nВ исследовании разбираем:\n🔸 почему рост производительности не всегда ускоряет вывод продуктов на рынок;\n🔸 как ИИ меняет структуру ИТ-команд;\n🔸 какие риски возникают для качества кода и устойчивости ИТ-ландшафта;\n🔸 какие кадровые и организационные решения помогут избежать будущего кризиса.\n\nCкачайте полную версию исследования по ссылке >>\n\n#AXstrategy\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3372",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 4,
+          "reaction": "❤"
+        },
+        {
+          "count": 3,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 0,
+      "views": 401
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-06-30T09:32:00+00:00",
+      "edit_date": "2026-06-30T09:42:40+00:00",
+      "external_links": [
+        "https://www.skala-r.ru/",
+        "https://aggregate.digital/ru/",
+        "https://my.mts-link.ru/j/57107503/21376686226/?utm_source=email_AGG&utm_medium=webinar2026&utm_campaign=07076&utm_content=PAC_Scala%5Er_AggreGate",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": null,
+      "id": 3371,
+      "media_type": "MessageMediaPhoto",
+      "message": "Приглашаем вас на вебинар «Как выполнить требования КИИ и запустить MES за 6 месяцев».\n\nВместе с экспертами Скала^р и AggreGate покажем готовый стек, который закрывает требования ФЗ-187, опирается на отечественный ПАК и позволяет запустить производство за 4–6 месяцев.\n\nКогда: 7 июля, 12:00\nФормат: только онлайн\nУсловия: участие бесплатное, нужно зарегистрироваться\n\nЧто обсудим:\n🔸КИИ или не КИИ? Алгоритм определения значимости объектов и применимые требования регуляторов (ФЗ-187, Приказы ФСТЭК)\n🔸ПАК «Скала^р»: надежность, отказоустойчивость и встроенные средства СОИБ для ЗОКИИ\n🔸AggreGate: Low-code платформа для MES/SCADA/ — управление производством, OEE и прослеживаемость.\n🔸Как сократить внедрение до 4–6 месяцев за счет готовых модулей и типового проекта\n\nТакже эксперты продемонстрируют живой показ сбора данных по OPC UA и REST API, настройку производственной модели, мониторинг OEE в реальном времени на ПАК «Скала^р».\n\nКто выступит: \n🔥Иван Куприянов, старший менеджер практики Industry Solutions, AXENIX \n🔥Дмитрий Дороганов, менеджер направления MES, AXENIX \n🔥Александр Нужденко, директор практики инфраструктурного и ИБ-консалтинга, AXENIX\n🔥Артем Пономарь, начальник отдела промышленной автоматизации, Скала^р \n🔥Роман Шиндин, руководитель отдела технического pre-sale, AggreGate\n\nКому будет полезно: ИТ-директорам, руководителям производств и специалистам по ИБ субъектов КИИ, а также всем, кто ищет готовое решение для автоматизации в условиях импортозамещения!\n\nДо встречи в эфире!\n\n#AXres\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3371",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 0,
+      "views": 379
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-06-30T08:35:29+00:00",
+      "edit_date": "2026-06-30T08:35:33+00:00",
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001745559336,
+      "grouped_id": 14262468232461370,
+      "id": 3370,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3370",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 449
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-06-30T08:35:29+00:00",
+      "edit_date": "2026-06-30T08:35:33+00:00",
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001745559336,
+      "grouped_id": 14262468232461370,
+      "id": 3369,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3369",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 449
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-06-30T08:35:29+00:00",
+      "edit_date": "2026-06-30T09:32:10+00:00",
+      "external_links": [
+        "https://in-plan.ru/",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 4,
+      "from_id": -1001745559336,
+      "grouped_id": 14262468232461370,
+      "id": 3368,
+      "media_type": "MessageMediaPhoto",
+      "message": "Интегрированное планирование как инструмент повышения операционной эффективности производственных компаний\n\nЭксперты @In_Plan и @BeringPro приняли участие в форуме IN’HUB 2026 и на примере реальных проектов показали, как бизнес может выиграть, отказавшись от разрозненного планирования в Excel и отдельных функциональных систем в пользу единого сквозного процесса, который объединяет прогнозирование спроса, продажи, производство, снабжение, логистику и финансы.\n\n#Кейс1\n\nВ горнодобывающей компании была разработана целевая модель интегрированного планирования с процессом S&OP. В результате цикл планирования сократился с двух недель до двух дней. Появилась возможность быстро оценивать сценарии и оптимизировать производственный план по маржинальности.\n\n#Кейс2\n\nВ металлургической компании платформа In.Plan полностью заменила SAP APO. Время расчета сократилось с 25 до 12 минут. Сходимость плана достигла 99,9 процентов. Компания получила современную платформу для дальнейшего развития процесса S&OP.\n\n#Кейс3\n\nВ крупной FMCG компании на базе платформы In.Plan реализуется единый процесс планирования, который объединяет прогнозирование спроса, планирование сети поставок и оптимизацию запасов. Проект заменяет разрозненные инструменты и Excel единой системой управления цепочкой поставок.\n\nПрактика доказывает, что интегрированное планирование дает измеримые результаты. Компании сокращают время планирования, повышают качество решений и получают единый процесс управления производством и цепочкой поставок. При этом эффект достигается не только за счет внедрения ИТ-систем, но и благодаря трансформации процессов планирования и централизации управления цепочкой поставок.\n\nБлагодарим организаторов и участников форума IN’HUB за интересную дискуссию и выражаем особое восхищение нашим экспертам: \n☑️ Игорю Дикинову, владельцу продуктов In.Plan SNP/MRP, \n☑️ Андрею Репину, владельцу продуктов In.Plan Optimizer/MEIO/SCD\n☑️ Евгению Поливину, старшему менеджеру BeringPro\n☑️ Расулю Абдулину, эксперту по планированию BeringPro\n\nПодробнее о возможностях IBP-платформы In.Plan рассказываем здесь.\n\n#AX_InPlan\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3368",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 6,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": 0,
+      "views": 396
+    },
+    {
+      "chat": "Softline",
+      "comments_enabled": null,
+      "date": "2026-06-30T08:52:58+00:00",
+      "edit_date": "2026-06-30T14:04:59+00:00",
+      "external_links": [
+        "https://softline.ru/about/news/pao-softlayn-prodolzhit-obratnyy-vykup-aktsiy-kompanii_?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/aktsionery-pao-softlayn-v-khode-godovogo-obshchego-sobraniya-prinyali-reshenie-vpervye-vyplatit-divi?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/softlayn-resheniya-gk-softline-otkryla-pervyy-kiberpoligon-ampire-v-uchrezhdenii-srednego-profession?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/softlayn-resheniya-gk-softline-i-kompaniya-perspektivnyy-monitoring-otkryli-kiberpoligon-ampire-v-kr?utm_source=Telegram&utm_medium=Softline",
+        "FabricaONE.AI",
+        "https://softline.ru/about/news/bell-integrator-fabricaone-ai-aktsioner-gk-softline-privel-informatsionnye-sistemy-finansovoy-organi?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/gk-softline-adaptiruet-simpleone-pod-sobstvennye-biznes-protsessy-vyvodya-itsm-sistemu-na-uroven-kor?utm_source=Telegram&utm_medium=Softline",
+        "fabricaONE.AI",
+        "https://softline.ru/about/news/akademiya-ayti-fabricaone-ai-aktsioner-gk-softline-i-ano-astra-akademiya-pilotiruyut-professionalnuyu?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/softlayn-resheniya-gk-softline-osnastila-moskovskiy-kolledzh-simulyatorami-bpla?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/enterchain-fabricaone-ai-aktsioner-gk-softline-pomogla-kompanii-greiner-povysit-effektivnost-protses?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/bell-integrator-fabricaone-ai-aktsioner-gk-softline-obespechil-dostupnost-99-99-kritichnym-servisam-?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/tsifrovoe-po-bimeister-ot-fabricaone-ai-aktsioner-gk-softline-ofitsialno-podtverdilo-sovmestimost-s-?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/activecloud-rasshiryaet-napravlenie-devops-uslug-dlya-rossiyskogo-biznesa?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/inferit-itmen-klaster-sf-tekh-gk-softline-vypustil-obnovlenie-7-1-s-rasshirennymi-vozmozhnostyami-in?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/infosecurity-gk-softline-vyvela-na-rynok-kompleks-uslug-po-bezopasnosti-iskusstvennogo-intellekta?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/exeplant-fabricaone-ai-aktsioner-gk-softline-vypustila-novuyu-versiyu-exemes-3-0?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/gk-softline-zapustila-modul-rasshirennogo-logirovaniya-dlya-platformy-bpmsoft?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/activecloud-zapuskaet-kompleksnoe-soprovozhdenie-klasterov-kubernetes?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/sl-soft-fabricaone-ai-aktsioner-gk-softline-razvivaet-semanticheskiy-poisk-i-intellektualnogo-pomoshch?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/visitech-fabricaone-ai-aktsioner-gk-softline-dobavila-v-isobr-novyy-modul-dlya-avtomatizatsii-sout-i?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/inferit-klaster-sf-tekh-gk-softline-i-sdi-soft-obyavili-o-partnerstve-v-sfere-avtomatizatsii-upravle?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/gruppa-borlas-vklyuchaya-kompaniyu-beringpro-voshla-v-top-liderov-tsifrovoy-transformatsii-promyshle?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/gruppa-borlas-gk-softline-poluchila-status-1s-tsentr-mdm?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/inferit-tekhnika-klaster-sf-tekh-gk-softline-i-3logic-group-zaklyuchili-partnerskoe-soglashenie?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/vpg-laserone-klaster-sf-tekh-gk-softline-rasshirit-tsentr-promyshlennoy-robototekhniki-v-partnerstve?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/softlayn-resheniya-gk-softline-poluchila-naivysshiy-partnerskiy-status-elite-integrator-ot-sistem-el?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/gk-softline-i-deeray-rasshiryayut-strategicheskoe-partnerstvo-v-sfere-ii-analitiki-klientskikh-kommu?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/inferit-klaster-sf-tekh-gk-softline-i-ao-informatika-sozdadut-kompleksnoe-reshenie-dlya-upravleniya-?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/gk-softline-i-gk-akvarius-obedinyayut-usiliya-dlya-obespecheniya-tekhnologicheskoy-nezavisimosti-gos?utm_source=Telegram&utm_medium=Softline",
+        "fabricaOne.AI",
+        "https://softline.ru/about/news/sbertekh-i-fabricaone-ai-aktsioner-gk-softline-predlozhat-rynku-korporativnye-resheniya-dlya-raboty-?utm_source=Telegram&utm_medium=Softline",
+        "https://softline.ru/about/news/gk-softline-i-ngtu-neti-obedinyayut-usiliya-v-podgotovke-it-kadrov?utm_source=Telegram&utm_medium=Softline",
+        "https://max.ru/Softline",
+        "https://vk.com/softlinecompany",
+        "https://t.me/Softline"
+      ],
+      "forwards": 3,
+      "from_id": -1001098739288,
+      "grouped_id": null,
+      "id": 3325,
+      "media_type": "MessageMediaPhoto",
+      "message": "Собрали важные новости июня в одном посте.\n\nНовости Группы \n\nПАО «Софтлайн» продолжит обратный выкуп акций Компании \n\nАкционеры ПАО «Софтлайн» в ходе Годового общего собрания приняли решение впервые выплатить дивиденды \n\nПроекты\n\n«Софтлайн Решения» (ГК Softline) открыла первый киберполигон Ampire в учреждении среднего профессионального образования и в Краснодарском университете МВД России \n\nBell Integrator FabricaONE.AI (акционер – ГК Softline) завершил проект по унификации процессов разработки и внедрению единого стандарта DevSecOps для финансовой организации \n\nГК Softline адаптирует SimpleOne под собственные бизнес-процессы, выводя ITSM-систему на уровень корпоративного управления услугами (ESM) \n\nАкадемия АйТи fabricaONE.AI совместно с АНО «Астра Академия» успешно провели пилотную сертификационную кампанию для студентов и преподавателей на платформе СЛМетрикс \n\n«Софтлайн Решения» (ГК Softline) оснастила московский колледж симуляторами БПЛА \n\nENTERCHAIN fabricaONE.AI (акционер – ГК Softline) помогла компании Greiner повысить компетенции в управлении цепочками поставок и развитии процессов планирования на российских производственных площадках \n\nBell Integrator FabricaONE.AI (акционер – ГК Softline) обеспечил доступность 99,99% критичным сервисам ведущего банка \n\nПродукты и решения\n\nЦифровое ПО Bimeister от fabricaONE.AI (акционер – ГК Softline) официально подтвердило совместимость с платформой «Штурвал» \n\nActiveCloud расширила направление DevOps-услуг для российского бизнеса \n\n«Инферит ИТМен» (кластер «СФ Тех» ГК Softline) выпустил обновление 7.1 с расширенными возможностями инвентаризации \n\nInfosecurity (ГК Softline) вывела на рынок комплекс услуг по безопасности искусственного интеллекта \n\nEXEPLANT FabricaONE.AI (акционер - ГК Softline) выпустила новую версию ExeMES 3.0 \n\nГК Softline запустила модуль расширенного логирования для платформы BPMSoft \n\nActiveCloud запустил комплексное сопровождение кластеров Kubernetes \n\nКомпания SL Soft fabricaONE.AI (акционер — ГК Softline) объявила о выходе новой версии AI Low-Code-платформы Citeck, входящей в кластер SL Soft Flow \n\nVisitech fabricaONE.AI (акционер - ГК Softline) добавила в ИСОБР новый модуль для автоматизации СОУТ и управления производственными рисками \nСтатусы и соглашения\n\n«Инферит» (кластер «СФ Тех» ГК Softline) и СДИ Софт объявили о партнерстве в сфере автоматизации управления ИТ-инфраструктурой  \n\nГруппа «Борлас» (включая компанию BeringPro) вошла в топ лидеров цифровой трансформации промышленности России \n\nГруппа «Борлас» (ГК Softline) получила статус «1С:Центр MDM» \n\n«Инферит Техника» (кластер «СФ Тех» ГК Softline) и 3Logic Group заключили партнерское соглашение \n\nПравительство Московской области и компания VPG LaserONE (кластер «СФ Тех» ГК Softline) заключили соглашение о развитии автоматизации и роботизации промышленных предприятий \n\n«Софтлайн Решения» (ГК Softline) получила наивысший партнерский статус Elite Integrator от «Систэм Электрик» \n\nГК Softline и Deeray расширили стратегическое партнерство в сфере ИИ-аналитики клиентских коммуникаций \n\n«Инферит» (кластер «СФ Тех» ГК Softline) и АО «Информатика» объявили о технологическом партнерстве \n\nГК Softline и ГК «Аквариус» объединяют усилия для обеспечения технологической независимости госсектора и предприятий \n\nСберТех и fabricaOne.AI (акционер — ГК Softline) объявили о партнерстве \n\nГК Softline и НГТУ НЭТИ объединяют усилия в подготовке ИТ-кадров \n\nПодпишитесь на ГК Softline: в MAX, VK, Telegram\n\n#дайджест #новости",
+      "original_url": "https://t.me/Softline/3325",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 1,
+          "reaction": "ReactionPaid()"
+        },
+        {
+          "count": 3,
+          "reaction": "🔥"
+        },
+        {
+          "count": 3,
+          "reaction": "custom:5325988381681799819"
+        },
+        {
+          "count": 2,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "🤝"
+        },
+        {
+          "count": 1,
+          "reaction": "🤩"
+        },
+        {
+          "count": 1,
+          "reaction": "👌"
+        },
+        {
+          "count": 1,
+          "reaction": "💯"
+        }
+      ],
+      "replies_count": null,
+      "views": 1310
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-06-30T11:00:00+00:00",
+      "edit_date": "2026-06-30T11:01:32+00:00",
+      "external_links": [
+        "https://k2tech.io/2kk",
+        "https://k2tech.io/2a5"
+      ],
+      "forwards": 2,
+      "from_id": -1001569311808,
+      "grouped_id": null,
+      "id": 2046,
+      "media_type": "MessageMediaPhoto",
+      "message": "💿🧱 Простой ИТ-систем дорожает — бизнес делает ставку на отказоустойчивость и сервисную поддержку\n\n🛠 По данным CX-исследования центра экспертизы по комплексному сервису К2Тех, проведенного на основе глубинных интервью со 180 заказчиками, 39% компаний столкнулись с ростом стоимости часа простоя за последний год. \n\nПричины — растущая зависимость от цифровых сервисов, сложности восстановления из‑за устаревшего и неоднородного ИТ-ландшафта и сокращение вендорской поддержки.\n\nНа ближайшие два года компании выделяют ключевые вызовы:\n🟢58% — высокая стоимость замены устаревших систем\n🟢25% — операционные сложности эксплуатации отечественных решений\n🟢17% — рост стоимости поддержки зарубежной инфраструктуры\n\nКогда быстро обновить весь ИТ-ландшафт невозможно, фокус смещается на меры, которые снижают риск отказов и сокращают время восстановления. Отсюда — растущий спрос на глубокое сопровождение инфраструктуры и проактивный подход.\n\n📠 Подробнее — читайте в статье.\n\n📺 Наш канал теперь доступен в MAX. Присоединяйтесь, чтобы оставаться на связи!",
+      "original_url": "https://t.me/k2_tech/2046",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 6,
+          "reaction": "👍"
+        },
+        {
+          "count": 4,
+          "reaction": "❤‍🔥"
+        },
+        {
+          "count": 4,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": null,
+      "views": 191
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-06-30T07:00:49+00:00",
+      "edit_date": "2026-06-30T07:03:17+00:00",
+      "external_links": [
+        "https://k2tech.io/2km",
+        "https://k2tech.io/2a5"
+      ],
+      "forwards": 3,
+      "from_id": -1001569311808,
+      "grouped_id": null,
+      "id": 2045,
+      "media_type": "MessageMediaPhoto",
+      "message": "🖥🤖 Спикеры К2 НейроТех и К2Тех на ИИконфе\n\n🛠 Завтра команда К2Тех и К2 НейроТех примет участие в практической конференции по ИИ, где покажет, как перевести пилоты в рабочие инструменты, сохранив контроль над безопасностью и качеством.\n\nВ главном зале Вячеслав Дегтярев, руководитель развития продуктовых решений К2 НейроТех, представит доклад «От первого чат-бота к ИИ-фабрике: как контролируемо масштабировать ИИ-сценарии, агентов, инфраструктуру и команду»:\n🟢 Рост от 100 пользователей OpenWebUI до 1200 MAU при штате 3300 человек\n🟢 Почему внутренний ИИ сравнивают с OpenAI и Anthropic\n🟢 Персональный агент как цифровой сотрудник: роли, доступы, контроль\n🟢 Как росла инфраструктура и сколько стоили ошибки внедрения\n\nВ треке «ИИ для руководителя» Василий Мухин, руководитель направления корпоративных платформ и ИИ К2Тех, представит доклад «От ИИ‑агентов к ИИ‑организации: новая модель управления бизнесом»:\n🟢 Почему компании не могут масштабировать ИИ\n🟢 Переход от ИИ-пилотов к ИИ-организации\n🟢 ИИ-Офис: управление портфелем инициатив и бизнес-эффектом\n🟢 RuClaw: работа корпоративных ИИ-агентов в защищенном контуре \n\n❤️ Регистрируйтесь на мероприятие.\n\n📺 Наш канал теперь доступен в MAX. Присоединяйтесь, чтобы оставаться на связи!",
+      "original_url": "https://t.me/k2_tech/2045",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 7,
+          "reaction": "❤"
+        },
+        {
+          "count": 6,
+          "reaction": "🔥"
+        },
+        {
+          "count": 5,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": null,
+      "views": 211
+    },
+    {
+      "chat": "Lanit_life",
+      "comments_enabled": null,
+      "date": "2026-06-30T11:34:45+00:00",
+      "edit_date": "2026-06-30T11:34:54+00:00",
+      "external_links": [
+        "https://www.cnews.ru/news/line/2026-06-25_razrabotany_initsiativy_dlya",
+        "https://vk.com/lanit_life",
+        "https://max.ru/id7727004113_biz"
+      ],
+      "forwards": 3,
+      "from_id": -1001381217620,
+      "grouped_id": null,
+      "id": 3809,
+      "media_type": "MessageMediaPhoto",
+      "message": "📢 Реформа ИИ-рынка: что ждёт ИТ-бизнес \n\nПравительство внесло в Госдуму масштабный законопроект о регулировании искусственного интеллекта. Основные положения вступят в силу с 1 сентября 2026 года и 1 марта 2027 года. Документ вводит новые для рынка понятия – «суверенную» и «национальную» модели ИИ. Эти статусы станут маркерами, по которым государство будет распределять гранты, субсидии и льготы.\n\nЗакон разделяет ИИ-решения по уровню локализации:\n\n🔵Суверенные модели: создаются юрлицами из РФ без иностранных ИТ-компонентов. Разработчик полностью контролирует весь жизненный цикл софта.\n\n🔵Национальные модели: позволяют легально собирать продукты на базе зарубежного открытого кода (Open Source) под управлением отечественной компании.\n\nВ обоих случаях разработчики обязаны хранить данные на территории России. А сами модели должны проходить проверку на соответствие законам РФ.\n\n🤩 Легальный парсинг для обучения\n\nИспользование авторского контента для обучения суверенных и национальных моделей больше не считается нарушением прав. Главное условие – брать данные из открытых или легальных источников. Использовать их исключительно для анализа, поиска закономерностей или классификации.\n\nМаркировка и права 👨‍💻\n\n🟠Для авторов: появится возможность добровольно помечать аудио и видео плашкой «Создано ИИ». Соцсети обязаны технически внедрить этот функционал.\n\n🟠Для платформ: разработчики больших моделей должны предупреждать пользователей, кому принадлежат права на сгенерированный результат.\n\n🍀 Читайте нас в VK | MAX",
+      "original_url": "https://t.me/Lanit_life/3809",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 6,
+          "reaction": "❤"
+        },
+        {
+          "count": 4,
+          "reaction": "👍"
+        },
+        {
+          "count": 4,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": null,
+      "views": 255
+    },
+    {
+      "chat": "InnotechCompany",
+      "comments_enabled": null,
+      "date": "2026-06-30T10:09:45+00:00",
+      "edit_date": "2026-06-30T10:21:24+00:00",
+      "external_links": [
+        "https://www.cnews.ru/articles/2026-06-17_vajbkoding_ugroza_tsifrovomu_suverenitetu",
+        "https://www.cnews.ru/news/top/2026-06-24_kitajskij_superkompyuter",
+        "https://www.cnews.ru/news/line/2026-06-03_ors_i_it-holding_t1_sozdayut",
+        "https://t1.ru/media/news/golosovoy_ii-agent_ot_it-holdinga_t1_rabotaet_v_chetyryoh_operatsionnyh_tsito_im_n_n_priorova",
+        "https://t1.ru/media/news/t1_vtb_i_rzhd_pomestili_ii_v_kvantovyy_kriptoanklav",
+        "https://t1.ru/about/units/t1-innotech?utm_source=smm&utm_medium=tg&utm_campaign=post&utm_content=novosti&utm_term=30.06.2026",
+        "https://max.ru/join/vhhid2lG-I39qD_l8hz6m8HkHsIRkMW3fDbeJNsb2Q8"
+      ],
+      "forwards": 1,
+      "from_id": -1001542392271,
+      "grouped_id": null,
+      "id": 1253,
+      "media_type": "MessageMediaPhoto",
+      "message": "📍ИТ-дайджест июня: главное за месяц\n\nПока одни спорят, заменит ли ИИ человека (и чей код он на самом деле пишет), другие уже переписали инфраструктуру, подписали партнёрства на ПМЭФ и спрятали свои нейросети за квантовый замок. Ловите главные новости за месяц.\n\n💻Рынок и тренды: июнь 2026\nВайбкодинг угрожает цифровому суверенитету России?\nРоссийские разработчики всё чаще используют зарубежные ИИ-модели, а это создаёт риски утечки данных и появления новых уязвимостей. Если в вашей команде уже используют вайбкодинг — проверьте, какие данные могут уходить во внешний контур.\n\nМожно ли стать лидером суперкомпьютеров без GPU?\nКитайский LineShine на чипах Huawei возглавил рейтинг TOP500, обойдя американский El Capitan, — и всё это без графических процессоров. Следите за развитием ИИ-инфраструктуры: правила игры меняются быстрее, чем кажется.\n\n🎯 Новости Т1: форумы, квантовая защита и цифровые хирурги\nКаким должно быть облако для критически важных систем авиации?\nORS и Т1 Облако создают защищённую инфраструктуру для авиакомпаний и аэропортов с акцентом на отказоустойчивость и безопасность данных. Посмотрите, какие возможности это открывает для отрасли.\n\nМожет ли ИИ стать ассистентом хирурга?\nГолосовой ИИ-агент Т1 уже помогает врачам ЦИТО им. Приорова в операционных: фиксирует ход операции и поддерживает работу хирурга, не отвлекая его. Загляните в один из самых интересных российских кейсов применения ИИ в медицине.\n\nКак защитить ИИ от угроз будущего?\nИТ-холдинг Т1, Банк ВТБ и ОАО «РЖД» представили первый в России пилот по защите ML-инфраструктуры с помощью квантового распределения ключей. Узнайте, как квантовые технологии уже начинают защищать искусственный интеллект.\n\n⭐️ Т1 Иннотех\n💬 Мы в МАХ",
+      "original_url": "https://t.me/InnotechCompany/1253",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 1,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "🥰"
+        }
+      ],
+      "replies_count": null,
+      "views": 279
+    },
+    {
+      "chat": "YakovPartners",
+      "comments_enabled": null,
+      "date": "2026-06-30T15:10:23+00:00",
+      "edit_date": "2026-06-30T15:10:30+00:00",
+      "external_links": [
+        "https://t.me/YakovPartners/3802",
+        "https://t.me/YakovPartners/3814",
+        "https://t.me/YakovPartners/3801",
+        "https://t.me/YakovPartners/3789",
+        "https://t.me/YakovPartners/3803",
+        "https://t.me/YakovPartners/3809",
+        "https://t.me/YakovPartners/3810",
+        "https://t.me/YakovPartners/3806",
+        "https://t.me/YakovPartners/3815",
+        "https://t.me/YakovPartners/3787",
+        "https://t.me/YakovPartners/3804",
+        "https://t.me/YakovPartners/3794",
+        "https://t.me/YakovPartners/3791"
+      ],
+      "forwards": 5,
+      "from_id": -1001083076359,
+      "grouped_id": null,
+      "id": 3817,
+      "media_type": "MessageMediaPhoto",
+      "message": "О чем мы писали в июне: большой дайджест\n \nПодводим итоги месяца и делимся главными материалами.\n \nСохраняйте и делитесь с коллегами!\n \nИИ и высокие технологии\n \n• Миллиарды в ИИ — угроза рынку или путь к глобальному лидерству \n• Генеративный ИИ в российском бизнесе: от готовых моделей к собственным разработкам \n• Нейросети и финансовая грамотность: ИИ — помощник или опасный «опекун»? \n• Новая реальность фармацевтики: ИИ трансформирует здравоохранение\n \nНедвижимость и развитие территорий\n \n• Эффект на триллион: как ИИ может изменить строительную отрасль \n• От пилотов к результату: «Яков и Партнёры» и ДОМ.РФ помогают застройщикам внедрять ИИ \n• ИИ как инструмент спасения строительной отрасли \n\nБанки и финансы\n\n• Капитал для развития: ключевые условия успешного IPO в России \n• Почему рынок IPO в России замедлился: влияние ставки и геополитики \n \nСоцсектор\n \n• «Восточные ворота» российской науки: иркутский кампус как мост к Глобальному Югу \n• Таланты как ресурс: почему уехавшие из России могут дать стране больше, чем за рубежом \n \nЛогистика\n\n• Рост грузопотока без прибыли: новая реальность автоперевозок\n \nСтратегическая трансформация \n \n• Компании как драйверы развития\n• Инновации без права на отставание\n• Помощь как инвестиция: барьеры и пути роста",
+      "original_url": "https://t.me/YakovPartners/3817",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 6,
+          "reaction": "❤"
+        },
+        {
+          "count": 4,
+          "reaction": "👍"
+        },
+        {
+          "count": 3,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "❤‍🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "💯"
+        }
+      ],
+      "replies_count": null,
+      "views": 1064
+    },
+    {
+      "chat": "delret",
+      "comments_enabled": null,
+      "date": "2026-06-30T14:25:59+00:00",
+      "edit_date": "2026-06-30T14:26:07+00:00",
+      "external_links": [
+        "https://delret.ru/edf-news/tpost/podborka-novostej-za-iyun-2026-goda",
+        "https://delret.tech/services/edo?utm_source=telegram&utm_medium=organic&utm_campaign=service&utm_content=business",
+        "https://t.me/EDFclub",
+        "https://t.me/delret",
+        "https://max.ru/delret"
+      ],
+      "forwards": 5,
+      "from_id": -1001629949228,
+      "grouped_id": null,
+      "id": 2843,
+      "media_type": "MessageMediaPhoto",
+      "message": "Представляем ежемесячный обзор новостей в области ЭДО\n\n🔷Утверждены форматы электронных перевозочных документов\n🔷Опубликован проект приказа, который бессрочно продлевает действие текущих электронных форматов транспортной накладной, сопроводительной ведомости и заказ-наряда\n🔷Утверждена форма и формат документа о предстоящей поставке товаров\n🔷Опубликованы случаи оформления автотранспортных документов на бумажном носителе\n🔷Запускается эксперимент по выдаче КЭП гражданам РФ за рубежом\n\nЭти и другие новости в выпуске.\n➖➖\nУзнать больше об услугах ДРТ в сфере ЭДО можно на нашем сайте и профильном телеграм-канале «ЭДО и После». \n#Обзоры_ДРТ #ЭДО\n\nДРТ в Telegram, МАХ.",
+      "original_url": "https://t.me/delret/2843",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 4,
+          "reaction": "👍"
+        },
+        {
+          "count": 3,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "👌"
+        }
+      ],
+      "replies_count": null,
+      "views": 366
+    },
+    {
+      "chat": "tedo_business",
+      "comments_enabled": null,
+      "date": "2026-07-01T06:20:55+00:00",
+      "edit_date": "2026-07-01T06:21:10+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001137754878,
+      "grouped_id": null,
+      "id": 4451,
+      "media_type": "MessageMediaPhoto",
+      "message": "К партнерскому составу ТеДо присоединяется Денис Бельский\n\nПартнерство в компании — это признание высокого профессионального уровня, лидерства, доверия со стороны клиентов и коллег, а также значимого вклада в развитие ТеДо.\n\nВ новой роли Денис продолжит отвечать за развитие продуктов в области закупок, управления цепями поставок и коммерции.\n\nПоздравляем Дениса с заслуженным назначением и желаем успехов, новых профессиональных достижений и ярких проектов!\n\n#ТеДо",
+      "original_url": "https://t.me/tedo_business/4451",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 12,
+          "reaction": "🔥"
+        },
+        {
+          "count": 5,
+          "reaction": "❤"
+        },
+        {
+          "count": 4,
+          "reaction": "👏"
+        }
+      ],
+      "replies_count": null,
+      "views": 115
+    },
+    {
+      "chat": "Reksoft_group",
+      "comments_enabled": null,
+      "date": "2026-06-30T13:00:26+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 0,
+      "from_id": -1001509197707,
+      "grouped_id": null,
+      "id": 1685,
+      "media_type": "MessageMediaPoll",
+      "message": "",
+      "original_url": "https://t.me/Reksoft_group/1685",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 197
+    },
+    {
+      "chat": "Reksoft_group",
+      "comments_enabled": null,
+      "date": "2026-06-30T12:58:38+00:00",
+      "edit_date": "2026-06-30T12:59:56+00:00",
+      "external_links": [
+        "https://expo.innoprom.com/businessprogram26#event-2275393"
+      ],
+      "forwards": 4,
+      "from_id": -1001509197707,
+      "grouped_id": null,
+      "id": 1684,
+      "media_type": "MessageMediaPhoto",
+      "message": "Почему ИИ-агенты в промышленности буксуют на стадии пилотов?\n\nЗа последние два года промышленность активно тестировала генеративный ИИ, но реальное масштабирование на уровне бизнес-процессов пока исчисляется единичными кейсами.\n\nГлавный барьер сегодня — не сама технология. Проблема на стыке ИТ и бизнес-процессов: компании спотыкаются о качество данных, сложность интеграции в текущий ИТ-ландшафт и необходимость полной пересборки операционных процессов под новые инструменты. \n\nАндрей Скорочкин, генеральный директор «Рексофт Консалтинг»\n\n👉️ Как перейти от витринных решений к реальному промышленному эффекту, эксперты обсудят на ИННОПРОМ в рамках пленарной сессии «ИИ-агенты в промышленности: как перейти от \"вечных пилотов\" к масштабированию».\n\nВ дискуссии примут участие замминистра промышленности и торговли РФ Василий Шпак, ректор Уральского федерального университета Илья Обобков, а также топ-менеджмент крупнейших игроков рынка: ЕВРАЗ, Полюс, УГМК, Русская медная компания, VK Tech, Агропромцифра.\n\nМодератор: Андрей Скорочкин, генеральный директор «Рексофт Консалтинг».\n\n📌 Ждем вас на сессии! \n📅 Когда: 7 июля, 10:30 – 12:00 \n📍Где: Зал 3.1\n\nПодробнее по ссылке.",
+      "original_url": "https://t.me/Reksoft_group/1684",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "⚡"
+        },
+        {
+          "count": 1,
+          "reaction": "✍"
+        }
+      ],
+      "replies_count": null,
+      "views": 193
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-30T15:55:01+00:00",
+      "edit_date": "2026-06-30T15:59:48+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/474955",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 28,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5987,
+      "media_type": "MessageMediaPhoto",
+      "message": "ФСТЭК ввела обязательные пентесты при аттестации госинформсистем https://www.tadviser.ru/a/474955\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/5987",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1364
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-30T15:24:43+00:00",
+      "edit_date": "2026-06-30T15:24:49+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/953553"
+      ],
+      "forwards": 5,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5986,
+      "media_type": "MessageMediaPhoto",
+      "message": "Миграция без резкого перехода: как экосистемный подход помогает поэтапно переводить унаследованные системы на новую СУБД\n\nДля многих российских компаний уход с Oracle и MS SQL давно перестал быть исключительно вопросом импортозамещения. Сегодня бизнесу важно не просто заменить зарубежную СУБД на отечественную, а безопасно перевести на нее данные, приложения и связанные бизнес-процессы. \n\nВ крупных ИТ-ландшафтах невозможно одномоментно подготовить к миграции все системы: приложения могут требовать доработки, а данные — очистки и сверки. Эффективным решением проблемы становится экосистемный подход, то есть наличие инструментов миграции, мониторинга, администрирования и интеграции данных при переходе на новую СУБД. Он позволяет поэтапно мигрировать ИТ-ландшафты по мере готовности отдельных систем и контуров. \n\nПодробнее об этом рассказывает Максим Нартов, директор по развитию бизнеса Nexign.\n\nЧитать",
+      "original_url": "https://t.me/tadviser/5986",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1444
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-30T14:21:23+00:00",
+      "edit_date": "2026-06-30T14:56:00+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/954209",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 28,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5985,
+      "media_type": "MessageMediaPhoto",
+      "message": "Ольга Степакова возглавила Минцифры Мурманской области https://www.tadviser.ru/a/954209\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/5985",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "😁"
+        },
+        {
+          "count": 3,
+          "reaction": "🌭"
+        },
+        {
+          "count": 3,
+          "reaction": "🍓"
+        },
+        {
+          "count": 1,
+          "reaction": "🍌"
+        },
+        {
+          "count": 1,
+          "reaction": "🤪"
+        }
+      ],
+      "replies_count": 1,
+      "views": 1665
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-30T11:59:25+00:00",
+      "edit_date": "2026-06-30T12:01:06+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/954018"
+      ],
+      "forwards": 14,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5984,
+      "media_type": "MessageMediaPhoto",
+      "message": "Владимир Болвачев, Nova Container Platform: Запрос на оптимизацию затрат приводит к эволюции контейнерных платформ\n\nРынок контейнерных платформ повзрослел. Контейнеры давно перестали быть экзотикой — в крупных российских компаниях их уже не десятки, а сотни, кластеры считают парками. И конкуренция изменилась: вендоры соревнуются уже не только самим Kubernetes, а всем, что вокруг него, — обвязкой, безопасностью, экосистемой продуктов. Влияет на эту гонку и регулятор: ФСТЭК предъявляет все новые требования к защите контейнерных сред, и для многих это меняет приоритеты. \n\nПри этом сам бизнес считает деньги — от платформы ждут не только управляемости и безопасности, но и возможности закрывать больше задач тем же количеством ресурсов. О том, что в реальности отличает один «кубер» от другого, зачем платформа встраивается в экосистему и как контейнеры помогают бизнесу экономить, рассказал TAdviser Владимир Болвачев, лидер продукта Nova Container Platform в Orion soft.\n\nЧитать",
+      "original_url": "https://t.me/tadviser/5984",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 7,
+          "reaction": "👍"
+        },
+        {
+          "count": 5,
+          "reaction": "🤝"
+        },
+        {
+          "count": 3,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1765
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-30T09:25:33+00:00",
+      "edit_date": "2026-06-30T09:26:21+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/301463",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 17,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5983,
+      "media_type": "MessageMediaPhoto",
+      "message": "Система контроля продаж алкоголя в России переезжает с Oracle на отечественные СУБД https://www.tadviser.ru/a/301463\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/5983",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 1,
+      "views": 1869
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-30T08:45:04+00:00",
+      "edit_date": "2026-06-30T08:45:38+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/952860"
+      ],
+      "forwards": 8,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5982,
+      "media_type": "MessageMediaPhoto",
+      "message": "Ринат Сагиров, «Инфосистемы Джет»: Сегодня главная цель злоумышленников — не украсть данные, а остановить бизнес\n\nС 2023 по 2025 годы команда ИБ-экспертов Jet CSIRT участвовала в расследовании, реагировании и ликвидации последствий более 100 крупных инцидентов информационной безопасности. Этот опыт лег в основу отчета «Популярные тактики и техники нарушения киберустойчивости российских компаний». \n\nКлючевые инсайты материала — статистику инцидентов, отраслевые тренды, популярные тактики злоумышленников и рекомендации по повышению уровня киберустойчивости — TAdviser обсудил с Ринатом Сагировым, директором центра мониторинга и реагирования «Инфосистемы Джет».\n\nЧитать",
+      "original_url": "https://t.me/tadviser/5982",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 10,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1882
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-30T07:56:29+00:00",
+      "edit_date": "2026-06-30T07:56:35+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/788081",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 6,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5981,
+      "media_type": "MessageMediaPhoto",
+      "message": "Почему в России буксует цифровизация пищевой промышленности. TA мнения https://www.tadviser.ru/a/788081\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/5981",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": 1,
+      "views": 1862
+    }
+  ],
+  "profile": "profile_178"
+}

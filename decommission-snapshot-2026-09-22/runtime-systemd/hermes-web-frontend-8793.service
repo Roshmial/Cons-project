@@ -1,0 +1,15 @@
+[Unit]
+Description=Hermes Web frontend 8793
+After=network.target hermes-web-backend-8791.service hermes-web-copilotkit-8794.service
+Requires=hermes-web-backend-8791.service hermes-web-copilotkit-8794.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/hermes/workspace/hermes-web-mvp-react-8793
+ExecStart=/usr/bin/bash /home/hermes/workspace/hermes-web-mvp-react-8793/run_frontend_react_service.sh
+Restart=always
+RestartSec=5
+Environment=NODE_ENV=development
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,14 @@
+{
+  "kind": "web_sources",
+  "subject": "Проанализируй данные в интернете и собери дашборд по истории развития BI-решений и BI-практик",
+  "output_format": "dashboard",
+  "fields": [],
+  "since_date": "",
+  "items": [
+    "https://de.m.wikipedia.org/wiki/Business_Intelligence",
+    "https://en.m.wikipedia.org/wiki/Business_intelligence",
+    "https://www.sap.com/germany/resources/what-is-business-intelligence",
+    "https://www.handelsblatt.com/software/business-intelligence-tools/",
+    "https://app.powerbi.com/home"
+  ]
+}

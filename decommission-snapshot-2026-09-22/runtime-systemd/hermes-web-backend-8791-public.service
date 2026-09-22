@@ -1,0 +1,19 @@
+[Unit]
+Description=Hermes Web backend 8791 public bind
+After=network.target hermes-gateway.service
+Requires=hermes-gateway.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/hermes/workspace/hermes-web-mvp-react-8793
+ExecStart=/usr/bin/bash /home/hermes/workspace/hermes-web-mvp-react-8793/run_backend_service.sh
+Restart=always
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+Environment=HERMES_WEB_BACKEND_HOST=0.0.0.0
+Environment=HERMES_WEB_CORS_ALLOW_ORIGIN=http://95.182.85.233:8803,http://127.0.0.1:8803,http://localhost:8803
+KillMode=mixed
+TimeoutStopSec=20
+
+[Install]
+WantedBy=default.target

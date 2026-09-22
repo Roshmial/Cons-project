@@ -1,0 +1,14 @@
+{
+  "kind": "web_sources",
+  "subject": "Собери обзор по истории развития автомобилей",
+  "output_format": "",
+  "fields": [],
+  "since_date": "",
+  "items": [
+    "https://ru.wikipedia.org/wiki/История_автомобиля",
+    "https://www.britannica.com/technology/history-of-the-automobile",
+    "https://www.history.com/topics/inventions/history-of-the-automobile",
+    "https://www.automobile-magazine.fr/histoire-de-l-automobile/",
+    "https://www.motor1.com/features/history-of-car/"
+  ]
+}

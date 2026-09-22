@@ -1,0 +1,14 @@
+{
+  "kind": "web_sources",
+  "subject": "Проанализируй данные в интернете и собери дашборд по истории развития BI-решений и BI-практик",
+  "output_format": "dashboard",
+  "fields": [],
+  "since_date": "",
+  "items": [
+    "https://support.google.com/translate/answer/6142474?hl=hu&co=GENIE.Platform%3DDesktop",
+    "https://support.google.com/translate/answer/6142468?hl=hu&co=GENIE.Platform%3DDesktop",
+    "https://www.reddit.com/r/hungary/comments/i8pbk4/k%C3%B6sz%C3%B6nj%C3%BCk_google_ford%C3%ADt%C3%B3_nagyon_h%C5%B1v%C3%B6s/",
+    "https://www.reddit.com/r/FostTalicska/comments/gihqen/google_ford%C3%ADt%C3%B3_k%C3%BCl%C3%B6n%C3%B6s_kalandjai/",
+    "https://support.google.com/googlepixelbuds/answer/7573100?hl=hu"
+  ]
+}

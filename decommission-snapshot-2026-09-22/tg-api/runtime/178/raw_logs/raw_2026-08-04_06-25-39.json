@@ -1,0 +1,618 @@
+{
+  "config": "daily_178",
+  "count": 22,
+  "messages": [
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-08-03T14:19:12+00:00",
+      "edit_date": "2026-08-03T14:29:51+00:00",
+      "external_links": [
+        "https://b1.ru/insights/news/video/ilya-sukharnikov-b1-rbc-tv-3-august-2026/",
+        "https://tv.rbc.ru/archive/news/6a7061bf4ccb562a2fee5fee"
+      ],
+      "forwards": 5,
+      "from_id": -1001512457804,
+      "grouped_id": null,
+      "id": 3637,
+      "media_type": "MessageMediaDocument",
+      "message": "В эфире программы «Главные новости» на РБК-ТВ Илья Сухарников, партнер отдела консультирования в сфере недвижимости, строительства и развития территорий Группы компаний Б1, рассказал о том, как рынок разворачивается в пользу покупателей и почему при этом не стоит ждать снижения цен на жилье.\n\n📎Подробнее смотрите в разделе «Ролики» на нашем сайте, а полная версия эфира уже доступна по ссылке.",
+      "original_url": "https://t.me/b1_news/3637",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": null,
+      "views": 392
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-08-03T15:27:45+00:00",
+      "edit_date": "2026-08-03T16:04:29+00:00",
+      "external_links": [
+        "https://axenix.pro/srm-day?utm_source=telegram&utm_medium=srm_day_post_3_08_2026",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": null,
+      "id": 3553,
+      "media_type": "MessageMediaDocument",
+      "message": "AXENIX SRM Day: как ИИ и агенты меняют настоящее и будущее закупок?\n\n29 июля на первой встрече руководителей закупочной функции мы вместе с представителями более 60 компаний из 8 индустрий обсудили, как ИИ уже становится рабочим инструментом закупщиков. \n\nЭксперты пришли к выводу, что сегодня закупки перестают быть исключительно операционной функцией и становятся интеллектуальной системой принятия решений, где ИИ помогает человеку на всех этапах — от формирования потребности до выбора поставщика и управления закупочной стратегией.\n\nУчастники показали — эра пилотных проектов заканчивается. Вместо абстрактных сценариев обсуждались реальные кейсы крупных компаний — от автоматической подготовки технических заданий, категоризации номенклатуры и анализа коммерческих предложений до создания агентных систем, способных выполнять значительную часть аналитической и рутинной работы. \n\nКак прошла встреча, смотрите на видео. А всеми докладами и мнениями спикеров из ведущих компаний страны мы поделимся с вами в следующем посте!\n\nУзнайте больше об AXENIX SRM Club на нашем сайте >>\n\n#AXsrm #AXevents\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3553",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": 0,
+      "views": 335
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-03T10:48:25+00:00",
+      "edit_date": "2026-08-03T10:48:30+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14286032841421426,
+      "id": 3552,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3552",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 450
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-03T10:48:25+00:00",
+      "edit_date": "2026-08-03T10:48:30+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14286032841421426,
+      "id": 3551,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3551",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 449
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-03T10:48:25+00:00",
+      "edit_date": "2026-08-03T10:48:30+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14286032841421426,
+      "id": 3550,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3550",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 448
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-03T10:48:25+00:00",
+      "edit_date": "2026-08-03T10:48:30+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14286032841421426,
+      "id": 3549,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3549",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 438
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-03T10:48:25+00:00",
+      "edit_date": "2026-08-03T10:48:30+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14286032841421426,
+      "id": 3548,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3548",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 438
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-03T10:48:25+00:00",
+      "edit_date": "2026-08-03T10:48:30+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14286032841421426,
+      "id": 3547,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3547",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 438
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-08-03T10:48:25+00:00",
+      "edit_date": "2026-08-03T10:49:10+00:00",
+      "external_links": [
+        "https://axenix.pro/mes?utm_source=telegram&utm_medium=mes_tadviser_post_2#research",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14286032841421426,
+      "id": 3546,
+      "media_type": "MessageMediaPhoto",
+      "message": "В настоящее время российский рынок MES переходит от этапа экстренного импортозамещения к этапу зрелой конкуренции. Если в 2022–2024 годах ключевой задачей была замена зарубежных систем, то теперь предприятия выбирают решения исходя из их способности повышать эффективность производства и интегрироваться в существующий ИТ-ландшафт.\n\nПри этом рынок остается фрагментированным. На нем представлено более 60 отечественных систем, предложение превышает спрос, а универсального лидера для всех отраслей пока не сформировалось. \n\n⬆ Больше фактов о российском рынке MES приводим на карточках ⬆\n\nА полное описание ситуации, сравнительный анализ систем и практические рекомендации по выбору платформы вы можете найти в исследовании AXENIX и TAdviser «Российский рынок MES 2026».\n\nСкачивайте по ссылке >>\n\n#AXres #AXstrategy\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3546",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": 0,
+      "views": 408
+    },
+    {
+      "chat": "Softline",
+      "comments_enabled": null,
+      "date": "2026-08-03T10:53:34+00:00",
+      "edit_date": "2026-08-03T11:53:40+00:00",
+      "external_links": [
+        "https://softlinegroup.com/news/pao-softlayn-provedet-den-investora-i-opublikuet-osnovnye-finansovye-pokazateli-kompanii-za-6-mesyats/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/gk-softline-voshla-v-top-krupneyshikh-it-kompaniy-rossii/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/gk-softline-voshla-v-chislo-liderov-rossiyskogo-it-rynka/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/gk-softline-zanyala-pervoe-mesto-sredi-krupneyshikh-it-postavshchikov-v-rossiyskom-riteyle/?utm_source=Telegram&utm_medium=Softline",
+        "fabricaONE.AI",
+        "https://softlinegroup.com/news/reshenie-exemes-ot-exeplant-fabricaone-ai-aktsioner-gk-softline-voshlo-v-top-rossiyskogo-rynka-siste/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/gk-softline-razrabotala-ii-klassifikator-dlya-avtomaticheskoy-obrabotki-obrashcheniy/?utm_source=Telegram&utm_medium=Softline",
+        "FabricaONE.AI",
+        "https://softlinegroup.com/news/md-audit-sl-soft-fabricaone-ai-aktsioner-gk-softline-provel-issledovanie-razvitiya-erp-sistem-i-opre/?utm_source=Telegram&utm_medium=Softline",
+        "https://t.me/bellintegrator_career",
+        "https://softlinegroup.com/news/bell-integrator-fabricaone-ai-aktsioner-gk-softline-realizuet-proekt-po-dorabotke-integratsionnoy-sh/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/gk-softline-sozdala-dlya-mashinostroitelnogo-predpriyatiya-edinuyu-tsifrovuyu-sredu-konstruktorsko-t/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/bell-integrator-fabricaone-ai-aktsioner-gk-softline-modernizirovala-it-infrastrukturu-sredy-razrabot/?utm_source=Telegram&utm_medium=Softline",
+        "https://t.me/SL_Soft",
+        "https://softlinegroup.com/news/sl-soft-fabricaone-ai-aktsioner-gk-softline-pomogla-seti-o-key-snizit-zatraty-na-planirovanie-rotats/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/rekhau-perevela-upravlenie-proektami-s-jira-na-otechestvennuyu-platformu-evateam-s-pomoshchyu-softla/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/activecloud-zapustil-v-rossii-monitoring-it-infrastruktury-po-podpiske/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/inferit-itmen-klaster-sf-tekh-gk-softline-vypustil-obnovlenie-7-2-s-samodiagnostikoy-i-uproshchennoy/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/gk-softline-vystraivaet-sobstvennyy-skvoznoy-stek-ii-razrabotki-i-masshtabiruet-ego-na-vsyu-gruppu-k/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/infosecurity-gk-softline-predstavila-uslugu-dlya-tsifrovoy-zashchity-pervykh-lits-i-klyuchevykh-sotr/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/sl-soft-fabricaone-ai-aktsioner-gk-softline-predstavila-ii-assistent-dlya-avtomaticheskogo-opoveshch/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/sl-soft-fabricaone-ai-aktsioner-gk-softline-zapustila-marketpleys-ii-agentov-i-resheniy-dlya-intelle/?utm_source=Telegram&utm_medium=Softline",
+        "https://telegram.me/Inferit_official",
+        "https://softlinegroup.com/news/inferit-tekhnika-klaster-sf-tekh-gk-softline-rasshirila-partnerskuyu-programmu-dlya-servisnykh-kompa/?utm_source=Telegram&utm_medium=Softline",
+        "https://t.me/testit_tms",
+        "https://softlinegroup.com/news/test-it-develonika-fabricaone-ai-aktsioner-gk-softline-vypustila-novuyu-versiyu-5-8-fornax-s-podderzh/?utm_source=Telegram&utm_medium=Softline",
+        "https://t.me/develonica",
+        "https://softlinegroup.com/news/develonika-fabricaone-ai-aktsioner-gk-softline-predstavila-develonika-gpt-zashchishchennyy-kontur-so/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/softlayn-resheniya-gk-softline-zapuskaet-softlayn-tsifrovoy-aktiv-ekosistemu-dlya-upravleniya-it-zak/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/softlayn-resheniya-gk-softline-popolnila-produktovyy-portfel-platformoy-uvatron-lite/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/ooo-uts-profi-stalo-partnerom-tekhnologicheskoy-kompanii-inferit-klaster-sf-tekh-gk-softline/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/inferit-klaster-sf-tekh-gk-softline-i-integrator-infosistemy-dzhet-obyavili-o-partnerstve/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/inferit-klaster-sf-tekh-gk-softline-i-inframenedzher-zaklyuchili-tekhnologicheskoe-partnerstvo/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/norbit-i-inferit-klaster-sf-tekh-gk-softline-vnedryayut-kompleksnyy-podkhod-k-upravleniyu-it-uslugam/",
+        "https://softlinegroup.com/news/rossiyskiy-vendor-inferit-klaster-sf-tekh-softline-stal-partnerom-mgk-informproekt/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/inferit-klaster-sf-tekh-gk-softline-i-kompaniya-str-obyavili-o-sotrudnichestve-v-oblasti-postroeniya/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/inferit-klaster-sf-tekh-gk-softline-i-agentstvo-tsifrovogo-razvitiya-obyavili-o-sotrudnichestve/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/gk-softline-i-mintsifry-voronezhskoy-oblasti-planiruyut-razvivat-sotrudnichestvo-v-sfere-tekhnologiy/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/gk-softline-mintsifry-chelyabinskoy-oblasti-i-yuurgu-dogovorilis-o-sotrudnichestve-v-sfere-tsifrovoy/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/gruppa-borlas-gk-softline-i-niu-mgsu-obedinyayut-usiliya-v-razvitii-tekhnologiy-ii-i-tsifrovizatsii-/?utm_source=Telegram&utm_medium=Softline",
+        "https://softlinegroup.com/news/gk-softline-i-rossiyskiy-federalnyy-tsentr-sudebnoy-ekspertizy-imeni-professora-a-r-shlyakhova-pri-m/?utm_source=Telegram&utm_medium=Softline",
+        "https://max.ru/Softline",
+        "https://vk.com/softlinecompany",
+        "https://t.me/Softline"
+      ],
+      "forwards": 4,
+      "from_id": -1001098739288,
+      "grouped_id": null,
+      "id": 3347,
+      "media_type": "MessageMediaPhoto",
+      "message": "Собрали важные новости июля в одном посте.\n\nНовости Группы \n\nПАО «Софтлайн» проведет День инвестора и опубликует основные финансовые показатели Компании за 6 месяцев 2026 года 27 августа 2026 года \n\nГК Softline вошла в топ крупнейших ИТ-компаний России рейтинга CNews Analytics \n\nГК Softline вошла в число лидеров российского ИТ-рынка в рейтинге агентства TAdviser\n\nГК Softline заняла первое место среди крупнейших ИТ-поставщиков в российском ритейле \n\nРешение ExeMES от Exeplant fabricaONE.AI (акционер - ГК Softline) вошло в топ российского рынка систем управления производством (MES) по версии TAdviser \n\nПроекты\n\nГК Softline разработала ИИ-классификатор для автоматической обработки обращений \n\nMD Audit (SL Soft FabricaONE.AI, акционер – ГК Softline) провел исследование развития ERP-систем и определил, как ИИ трансформирует управление бизнесом в 2026–2028 годах \n\nBell Integrator fabricaONE.AI (акционер – ГК Softline) реализует проект по доработке интеграционной шины для энергосбытовой компании \n\nГК Softline создала для машиностроительного предприятия единую цифровую среду конструкторско-технологической подготовки производства \n\nBell Integrator FabricaONE.AI (акционер – ГК Softline) модернизировала ИТ-инфраструктуру среды разработки в одном из крупных российских ритейлеров \n\nSL Soft FabricaONE.AI (акционер — ГК Softline) помогла сети «О'КЕЙ» снизить затраты на планирование ротации на 13% с помощью модуля нормирования операций MD Audit \n\nРЕХАУ перевела управление проектами с Jira на отечественную платформу EvaTeam с помощью «Софтлайн Решений» (ГК Softline) \n\nПродукты и решения\n\nActiveCloud запустил в России мониторинг ИТ-инфраструктуры по подписке \n\n«Инферит ИТМен» (кластер «СФ Тех» ГК Softline) выпустил обновление 7.2 с самодиагностикой и упрощенной настройкой сетевого сканирования \n\nГК Softline выстраивает собственный сквозной стек ИИ-разработки и масштабирует его на всю группу компаний \n\nInfosecurity (ГК Softline) представила услугу для цифровой защиты первых лиц и ключевых сотрудников компаний – CYBERID \n\nSL Soft fabricaONE.AI (акционер – ГК Softline) представила ИИ-ассистент для автоматического оповещения об атаках и чрезвычайных ситуациях \n\nSL Soft fabricaONE.AI (акционер – ГК Softline) запустила маркетплейс ИИ-агентов и решений для интеллектуальной автоматизации \n\n«Инферит Техника» (кластер «СФ Тех» ГК Softline) расширила партнерскую программу для сервисных компаний \n\nTest IT («Девелоника» fabricaONE.AI, акционер – ГК Softline) выпустила новую версию 5.8 Fornax с поддержкой MCP \n\n«Девелоника» (fabricaONE.AI, акционер – ГК Softline) представила Девелоника-GPT: защищенный контур, сохранение экспертизы и минимум рутины \n\n«Софтлайн Решения» (ГК Softline) запускает «Софтлайн Цифровой Актив» – экосистему для управления ИТ-закупками и поддержки в едином окне ПО и оборудования \n\nСтатусы и соглашения\n\n«Софтлайн Решения» (ГК Softline) пополнила продуктовый портфель платформой UVATRON Lite \n\n«Инферит» (кластер «СФ Тех» ГК Softline) заключает партнерские соглашения с ООО «УЦ ПРОФИ», «Инфосистемы Джет», «ИнфраМенеджер», НОРБИТ, МГК «Информпроект», компанией СТР и Агентством цифрового развития.\n\nГК Softline и Минцифры Воронежской области планируют развивать сотрудничество в сфере технологий \n\nГК Softline, Минцифры Челябинской области и ЮУрГУ договорились о сотрудничестве в сфере цифровой трансформации региона и роботизации \n\nГруппа «Борлас» (ГК Softline) и НИУ МГСУ объединяют усилия в развитии технологий ИИ и цифровизации строительства \n\nГК Softline и Российский федеральный центр судебной экспертизы имени профессора А.Р. Шляхова при Минюсте России договорились о сотрудничестве \n\nПодпишитесь на ГК Softline: в MAX, VK, Telegram\n\n#дайджест",
+      "original_url": "https://t.me/Softline/3347",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "👏"
+        },
+        {
+          "count": 2,
+          "reaction": "🤝"
+        },
+        {
+          "count": 2,
+          "reaction": "custom:5325988381681799819"
+        },
+        {
+          "count": 1,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "🥰"
+        }
+      ],
+      "replies_count": null,
+      "views": 1297
+    },
+    {
+      "chat": "YakovPartners",
+      "comments_enabled": null,
+      "date": "2026-08-03T11:01:52+00:00",
+      "edit_date": "2026-08-03T11:01:59+00:00",
+      "external_links": [],
+      "forwards": 16,
+      "from_id": -1001083076359,
+      "grouped_id": null,
+      "id": 3850,
+      "media_type": "MessageMediaPhoto",
+      "message": "Поздравляем с Днем железнодорожника!\n\nВаш труд — основа бесперебойной работы транспортной системы страны, надежности перевозок и связи регионов. Благодаря вашей ответственности, точности и преданности делу каждый день миллионы людей и грузов достигают пункта назначения.\n\nПусть каждый рейс проходит гладко, а профессиональные достижения приносят радость и уверенность в завтрашнем дне.",
+      "original_url": "https://t.me/YakovPartners/3850",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 10,
+          "reaction": "❤"
+        },
+        {
+          "count": 7,
+          "reaction": "❤‍🔥"
+        },
+        {
+          "count": 6,
+          "reaction": "👍"
+        },
+        {
+          "count": 2,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "🥰"
+        }
+      ],
+      "replies_count": null,
+      "views": 1217
+    },
+    {
+      "chat": "delret",
+      "comments_enabled": null,
+      "date": "2026-08-03T15:58:00+00:00",
+      "edit_date": "2026-08-03T15:59:19+00:00",
+      "external_links": [],
+      "forwards": 71,
+      "from_id": -1001629949228,
+      "grouped_id": null,
+      "id": 2859,
+      "media_type": "MessageMediaPhoto",
+      "message": "С глубоким прискорбием сообщаем, что ушел из жизни наш коллега, партнер, руководитель налогово-юридического департамента ДРТ Сергей Щелкалин.\n\nСергей более 25 лет посвятил сфере консалтинга и был признанным экспертом в области налогового и финансового консультирования. За годы своей профессиональной деятельности он руководил крупными проектами, возглавлял практику налогового и финансового консультирования в СНГ одной из ведущих европейских юридических компаний, участвовал в реализации масштабных проектов по финансовому оздоровлению банковского сектора, а также являлся основателем и управляющим партнером консалтинговой компании MICG.\n\nС 2023 года Сергей руководил рабочей группой Экспертного совета Торгово-промышленной палаты Российской Федерации по международным вопросам и входил в состав Российско-оманского делового совета.\n\nК ДРТ Сергей присоединился в 2025 году, и с тех пор заслужил искреннее уважение коллег как выдающийся профессионал, мудрый руководитель и человек, всегда готовый поддержать окружающих.\n\nВыражаем глубокие соболезнования семье, родным, близким, друзьям и всем, кто знал Сергея. Светлая память.\n\nПрощание с Сергеем Щелкалиным состоится 5 августа 2026 года с 10:50 на Троекуровском кладбище по адресу: Москва, Рябиновая улица, 24, стр. 1, этаж 2. \n\n\nГруппа ДРТ",
+      "original_url": "https://t.me/delret/2859",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 79,
+          "reaction": "🕊"
+        }
+      ],
+      "replies_count": null,
+      "views": 1095
+    },
+    {
+      "chat": "tedo_business",
+      "comments_enabled": null,
+      "date": "2026-08-03T14:49:07+00:00",
+      "edit_date": "2026-08-03T14:49:24+00:00",
+      "external_links": [
+        "https://tass.ru/ekonomika/27968315",
+        "https://www.vedomosti.ru/newspaper/articles/2026/08/03/1218262-krupnii-biznes-stolknulsya-s-donachisleniyami-iz-za-sovmescheniya-investlgot",
+        "https://vkvideo.ru/video-210986399_456245683",
+        "https://probankrotstvo.ru/news/ks-pravo-kdl-po-osparivaniiu-trebovanii-vliiaiushhix-na-razmer-subsidiarki-ne-bezgranicno-10931",
+        "https://vk.ru/tedo_business",
+        "https://max.ru/id7705051102_biz",
+        "https://t.me/tedo_business"
+      ],
+      "forwards": 1,
+      "from_id": -1001137754878,
+      "grouped_id": null,
+      "id": 4466,
+      "media_type": "MessageMediaDocument",
+      "message": "Эксперты ⚡️ТеДо комментируют новости в СМИ:\n\n🔹 Анвар Гафиатуллин, партнер, лидер нефтегазовой отрасли практики бизнес-консультирования: Эксперт Гафиатуллин: Россию не ждут на рынке СПГ «с распростертыми объятиями» \n\n🔹 Раиса Алексахина, партнер, руководитель практики по урегулированию споров с государственными органами и разрешению коммерческих споров: Крупный бизнес столкнулся с доначислениями из-за совмещения инвестльгот\n\n🔹 Наталия Пархамович, директор отдела налогообложения физических лиц: Плюсы и ограничения ИИС-3. Можно ли открыть несколько счетов и почему это нужно сделать в 2026 году? \n\n🔹 Артем Шаманов, юрист практики по разрешению коммерческих споров: КС: право КДЛ по оспариванию требований, влияющих на размер субсидиарки, не безгранично\n\n⚡️ТеДо в 💙ВК | 📲MAX | ✈️Telegram\n\n#ВзглядТеДо",
+      "original_url": "https://t.me/tedo_business/4466",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 6,
+          "reaction": "custom:5465206993507597808"
+        },
+        {
+          "count": 4,
+          "reaction": "❤"
+        },
+        {
+          "count": 4,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": null,
+      "views": 550
+    },
+    {
+      "chat": "tedo_business",
+      "comments_enabled": null,
+      "date": "2026-08-03T10:00:40+00:00",
+      "edit_date": "2026-08-03T10:00:47+00:00",
+      "external_links": [
+        "http://crowd.fom.ru/project/premiadoc2026",
+        "https://vk.ru/tedo_business",
+        "https://max.ru/id7705051102_biz",
+        "https://t.me/tedo_business"
+      ],
+      "forwards": 1,
+      "from_id": -1001137754878,
+      "grouped_id": null,
+      "id": 4465,
+      "media_type": "MessageMediaPhoto",
+      "message": "Объявлен лонг-лист литературной премии в области медицины «Здравомыслие»\n \nВ лонг-лист вошли как фундаментальные научные труды, так и прикладные издания для широкого круга читателей. Из более чем 170 заявок, поданных на соискание премии, к голосованию допущено 93 книги. Также в специальной номинации «Лучшая идея книги» представлены 25 идей будущих книг о здоровье и медицине.\n\n3 августа стартует этап народного голосования Премии, по итогам которого определятся тройки финалистов в каждой номинации:\n🔹 «Рецепт здоровья»\n🔹 «Шаг вперед» \n🔹 «Эскулап»\n🔹 «Наука долголетия»\n \n📅 Народное голосование продлится до 4 октября\n➡️ Ознакомиться с книгами и проголосовать — на сайте\n \n💡 Премия «Здравомыслие» направлена на популяризацию биомедицинских знаний, поддержку авторов, которые пишут о медицине и здоровом образе жизни, а также на содействие развитию врачебной практики. Организаторы — Минобрнауки России, «Технологии Доверия», Фонд «Росконгресс» и телеканал «Доктор».\n\n⚡️ТеДо в 💙ВК | 📲MAX | ✈️Telegram\n \n#ТеДо",
+      "original_url": "https://t.me/tedo_business/4465",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 6,
+          "reaction": "❤"
+        },
+        {
+          "count": 5,
+          "reaction": "🔥"
+        },
+        {
+          "count": 4,
+          "reaction": "custom:5465206993507597808"
+        }
+      ],
+      "replies_count": null,
+      "views": 692
+    },
+    {
+      "chat": "kept_business",
+      "comments_enabled": null,
+      "date": "2026-08-03T13:22:06+00:00",
+      "edit_date": null,
+      "external_links": [
+        "https://kept.ru/news/opyt-primeneniya-transporta-na-spg-toplive-v-raznykh-stranakh-mira//?utm_source=telegram&utm_medium=smo&utm_campaign=transport_deal_research_spg-toplivo_aug2026"
+      ],
+      "forwards": 2,
+      "from_id": -1001657341909,
+      "grouped_id": 14286106610462242,
+      "id": 3422,
+      "media_type": "MessageMediaPhoto",
+      "message": "Газ в пол: почему мир выбирает СПГ\n\nТранспортная отрасль переходит от традиционных видов топлива к новым источникам энергии. Они должны быть более экономически эффективными и снижать негативное воздействие на окружающую среду. \n\nСПГ-топливо сокращает выбросы в среднем на ~20% и уменьшает эксплуатационные расходы от ~10 до 40% в зависимости от вида транспорта.\n\nКак развивается отрасль СПГ-транспорта в мире?\nСтраны-лидеры — Китай и США — получают активную поддержку государства: субсидирование покупки транспортных средств на СПГ (сжиженном природном газе), снижение налоговой нагрузки, стимулирование развития инфраструктуры и пр. \n\nАбсолютный мировой лидер по количеству СПГ-грузовиков и заправочных станций СПГ — Китай. Самая большая плотность инфраструктуры заправочных станций — в ЕС, во многом за счет Директивы по инфраструктуре альтернативных видов топлива. Индия развивает рынок автобусов на СПГ, Норвегия запустила первый в мире паром на СПГ.\n\nКакие перспективы у СПГ в России? \nДоля автотранспорта на СПГ в общем количестве машин на природном газе составляет ~2%. При этом в РФ есть сырьевая и технологическая база, рынок грузовых перевозок в размере около 5,5 трлн руб. и необходимость постепенного обновления парка грузового автотранспорта. \n\nДля реализации данных преимуществ необходимо синхронное развитие трех направлений: \n🔸 стимулировать спрос на СПГ-транспорт со стороны транспортных и логистических компаний; \n🔸 расширять производство транспортных средств на СПГ, обеспеченное спросом со стороны перевозчиков; \n🔸 развивать производство малотоннажного СПГ и заправочной     инфраструктуры на основных транспортных маршрутах. \n\nЦелевая господдержка данных направлений — эффективное решение для перевода транспорта на альтернативные источники энергии. По оценкам Kept, эффект от таких мер в динамичном сценарии развития отрасли потенциально составит около 1,3–1,9 трлн руб. инвестиций в обновление парка грузовых автомобилей и развитие инфраструктуры за 10 лет и снижение стоимости перевозки грузов до 20%.\n\nПодробнее о международном опыте внедрения и будущем СПГ-транспорта — в новом исследовании.",
+      "original_url": "https://t.me/kept_business/3422",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 484
+    },
+    {
+      "chat": "kept_business",
+      "comments_enabled": null,
+      "date": "2026-08-03T13:22:06+00:00",
+      "edit_date": "2026-08-04T06:22:13+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001657341909,
+      "grouped_id": 14286106610462242,
+      "id": 3421,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/kept_business/3421",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 480
+    },
+    {
+      "chat": "kept_business",
+      "comments_enabled": null,
+      "date": "2026-08-03T13:22:06+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001657341909,
+      "grouped_id": 14286106610462242,
+      "id": 3420,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/kept_business/3420",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 481
+    },
+    {
+      "chat": "kept_business",
+      "comments_enabled": null,
+      "date": "2026-08-03T13:22:06+00:00",
+      "edit_date": "2026-08-03T13:45:03+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001657341909,
+      "grouped_id": 14286106610462242,
+      "id": 3419,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/kept_business/3419",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "👍"
+        },
+        {
+          "count": 3,
+          "reaction": "custom:5363850687354527732"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": null,
+      "views": 466
+    },
+    {
+      "chat": "Reksoft_group",
+      "comments_enabled": null,
+      "date": "2026-08-03T09:25:19+00:00",
+      "edit_date": "2026-08-03T09:52:59+00:00",
+      "external_links": [
+        "https://pro.rbc.ru/demo/6a6a18769a7947dbb1d22148",
+        "https://dairy-news.ru/news/super-el-nino-uzhe-blizko-blago-dlya-rossii-i-beda.html",
+        "https://www.comnews.ru/content/246666/2026-07-31/2026-w31/1008/it-ipotekoy-vospolzovalos-bolee-100-tys-chelovek",
+        "https://www.kommersant.ru/doc/8860647",
+        "https://t.me/+BzN9yWu5D6hiNGVi"
+      ],
+      "forwards": 1,
+      "from_id": -1001509197707,
+      "grouped_id": null,
+      "id": 1748,
+      "media_type": "MessageMediaPhoto",
+      "message": "Рексофт за пределами цифровых технологий — это прикладная аналитика для бизнеса. В еженедельном дайджесте – анализ, цифры и мнения наших экспертов по актуальным отраслевым вопросам.\n\n🔴Карточный бизнес в России достиг зрелости: рост числа карт и транзакций замедлился, а с 1 января 2026 года НДС на обслуживание карт и эквайринг стимулирует бизнес переходить на СБП и QR. Дополнительное давление создают конкуренция, переговорная позиция крупных сетей и маркетплейсов, а также рост расходов на лояльность и кибербезопасность, перечисляет Антон Спирин. По его мнению, классический карточный бизнес приблизился к пределу по удельной доходности, хотя номинальные сборы еще могут расти за счет инфляции и расширения базы.\n\n🔴На планету надвигается мощное климатическое явление Эль-Ниньо, которое может стать самым сильным за последние годы и привести к засухе на ряде континентов. Однако Россия, по словам Дмитрия Краснова, остается одним из наименее уязвимых крупных производителей: урожай в стране определяется локальными факторами, а не тихоокеанским сигналом. При этом возможен скачок цен по отдельным биржевым товарам (как это было с какао и кофе), но не по всей потребительской корзине в целом.\n\n🔴С лета 2024 года ИТ-ипотекой воспользовались более 22 тыс. человек, приобретя недвижимость на 150 млрд рублей. По оценке Минцифры, до конца 2026 года программой воспользуются еще не менее 11 тыс. россиян. Дмитрий Скрипкин отмечает, что в Рексофт более половины кандидатов интересуются ИТ-ипотекой – и технические специалисты, и административный персонал. Cущественная разница в ставках с обычной ипотекой делает программу важным инструментом мотивации и сохранения штата аккредитованных ИТ-компаний.\n\n🔴Оптовые цены на курятину в России после роста сменились снижением: за 14 дней стоимость тушки бройлера потеряла 6,3%, опустившись до 222 руб. за 1 кг. Как отмечает Марк Бойчук, в первом полугодии волатильность могли сдерживать запасы замороженной птицы, но к июню они иссякли. По его прогнозу, ценовые максимумы в этом году уже пройдены, и в дальнейшем стоимость будет мягко снижаться\n\n🖥️ Аналитика и тренды ИТ-рынка",
+      "original_url": "https://t.me/Reksoft_group/1748",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 179
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-08-03T16:55:32+00:00",
+      "edit_date": "2026-08-03T17:00:11+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/775741",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 28,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6076,
+      "media_type": "MessageMediaPhoto",
+      "message": "Сбер преобразовал модель угроз ИИ в матрицу\nhttps://www.tadviser.ru/a/775741\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/6076",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": 1,
+      "views": 1444
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-08-03T10:12:47+00:00",
+      "edit_date": "2026-08-03T10:12:53+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/946923",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 4,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6075,
+      "media_type": "MessageMediaPhoto",
+      "message": "Производитель компьютеров «ИнтехПро» увеличил годовую выручку на треть. Она достигла 2,6 млрд рублей https://www.tadviser.ru/a/946923\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/6075",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": 0,
+      "views": 1732
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-08-03T08:30:08+00:00",
+      "edit_date": "2026-08-03T08:32:34+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/959355"
+      ],
+      "forwards": 25,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6074,
+      "media_type": "MessageMediaPhoto",
+      "message": "Константин Нахимовский, «Аквариус»: У нас новые амбиции, но те же принципы глубокого проектирования и уважения к инженерии\n\nГК «Аквариус» последовательно развивает модель производителя полного цикла, охватывающую все уровни ИТ-инфраструктуры: телекоммуникационное оборудование и беспроводные сети, вычислительное ядро из серверов и СХД, клиентские устройства и решения для корпоративной мобильности. \n\nО том, как перезагрузка бизнеса дала новый импульс развитию продуктового портфеля, почему импортозамещение — это не самоцель, а инструмент, и как превратить набор отдельных устройств в комплексное решение мирового уровня, которому можно доверять, в интервью TAdviser рассказал директор по продуктам ГК «Аквариус» Константин Нахимовский.\n\nЧитать >>>",
+      "original_url": "https://t.me/tadviser/6074",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 8,
+          "reaction": "❤"
+        },
+        {
+          "count": 5,
+          "reaction": "🔥"
+        },
+        {
+          "count": 4,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": 1,
+      "views": 1973
+    }
+  ],
+  "profile": "profile_178"
+}

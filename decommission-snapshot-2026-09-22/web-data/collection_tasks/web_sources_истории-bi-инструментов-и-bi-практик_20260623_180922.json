@@ -1,0 +1,17 @@
+{
+  "kind": "web_sources",
+  "subject": "истории BI-инструментов и BI-практик",
+  "output_format": "dashboard",
+  "fields": [],
+  "since_date": "",
+  "items": [
+    "https://www.microsoft.com/de-de/power-platform/products/power-bi/topics/business-intelligence/what-is-business-intelligence?msockid=0b12f7dd4fe8604514e9e05c4eb86194",
+    "https://de.wikipedia.org/wiki/Business_Intelligence",
+    "https://www.ibm.com/de-de/think/topics/business-intelligence",
+    "https://www.sap.com/germany/resources/what-is-business-intelligence",
+    "https://asana.com/de/resources/business-intelligence",
+    "https://www.infor.com/de-de/platform/data-insights/birst-analytics/what-is-business-intelligence",
+    "https://www.datacamp.com/de/blog/what-is-business-intelligence",
+    "https://wirtschaftslexikon.gabler.de/definition/business-intelligence-29438"
+  ]
+}

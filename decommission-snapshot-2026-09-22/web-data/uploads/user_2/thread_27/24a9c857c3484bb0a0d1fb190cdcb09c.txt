@@ -1,0 +1,2 @@
+Smoke file for Hermes Web MVP UI verification.
+This file is attached during browser smoke to verify local upload and profile file contour.

@@ -1,0 +1,1021 @@
+{
+  "config": "daily_178",
+  "count": 41,
+  "messages": [
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-07-14T14:15:07+00:00",
+      "edit_date": "2026-07-14T14:16:54+00:00",
+      "external_links": [
+        "https://anketa.b1.ru/e/8081/nSOeblpB"
+      ],
+      "forwards": 1,
+      "from_id": -1001512457804,
+      "grouped_id": null,
+      "id": 3570,
+      "media_type": "MessageMediaPhoto",
+      "message": "Группа компаний Б1 проводит экспресс-исследование, посвященное переходу на кадровый электронный документооборот (КЭДО)⌨️\n \nИсследование включает в себя 29 вопросов и охватывает следующие темы:\n\n▶️Качественные и количественные метрики для оценки эффектов от внедрения КЭДО\n▶️Популярные HR-сервисы \n▶️Ключевые барьеры \n \nПройти опрос можно по ссылке до 31 июля 2026 года включительно. \n \nВсе участники получат итоговый отчет на безвозмездной основе, позволяющий сравнить уровень цифровизации кадровых процессов и ключевых бизнес-эффектов по результатам внедрения КЭДО. Данные респондентов будут представлены в обезличенном формате. \n \n➡️По всем возникающим вопросам обращайтесь к нашим сотрудникам: \n\n✉️Дарина Соколова, директор\nDarina.Sokolova@b1.ru\n✉️Диана Долганева, старший консультант\nDiana.Dolganeva@b1.ru",
+      "original_url": "https://t.me/b1_news/3570",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": null,
+      "views": 440
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T12:03:25+00:00",
+      "edit_date": "2026-07-14T12:03:29+00:00",
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001745559336,
+      "grouped_id": 14272244833405058,
+      "id": 3466,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3466",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 365
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T12:03:24+00:00",
+      "edit_date": "2026-07-14T12:03:29+00:00",
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001745559336,
+      "grouped_id": 14272244833405058,
+      "id": 3465,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3465",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 363
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T12:03:24+00:00",
+      "edit_date": "2026-07-14T12:03:29+00:00",
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001745559336,
+      "grouped_id": 14272244833405058,
+      "id": 3464,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3464",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 355
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T12:03:24+00:00",
+      "edit_date": "2026-07-14T12:03:29+00:00",
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001745559336,
+      "grouped_id": 14272244833405058,
+      "id": 3463,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3463",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 355
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T12:03:24+00:00",
+      "edit_date": "2026-07-14T12:03:29+00:00",
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001745559336,
+      "grouped_id": 14272244833405058,
+      "id": 3462,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3462",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 356
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-07-14T12:03:24+00:00",
+      "edit_date": "2026-07-14T12:18:13+00:00",
+      "external_links": [
+        "https://aebrus.ru/ru/aeb-publications/business_quarterly_summer_2026/",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 4,
+      "from_id": -1001745559336,
+      "grouped_id": 14272244833405058,
+      "id": 3461,
+      "media_type": "MessageMediaPhoto",
+      "message": "Мультиагентность — тип архитектуры, в которой отдельные ИИ-агенты выполняют различные задачи и обмениваются результатами работы, находясь под управлением агента-оркестратора. \n\nМультиагентные системы пришли на смену обособленным LLM и агентам, которые в силу своих ограничений не могут работать с комплексными задачами.\n\nАнна-Мария Лонь, старший менеджер практики Data & AI Strategy AXENIX, подготовила подбробный обзор мультиагентного подхода для журнала Business Quarterly Ассоциации европейского бизнеса от Ассоциации Европейского Бизнеса, членом которой является наша компания. \n\nПриводим краткое изложение на карточках и рекомендуем обязательно прочитать полную версию!\n\n#AXai \n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3461",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 4,
+          "reaction": "❤"
+        },
+        {
+          "count": 3,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "👎"
+        }
+      ],
+      "replies_count": 0,
+      "views": 346
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T09:05:18+00:00",
+      "edit_date": "2026-07-14T09:05:23+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14272159345338946,
+      "id": 3460,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3460",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 376
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T09:05:18+00:00",
+      "edit_date": "2026-07-14T09:05:23+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14272159345338946,
+      "id": 3459,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3459",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 376
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T09:05:18+00:00",
+      "edit_date": "2026-07-14T09:05:23+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14272159345338946,
+      "id": 3458,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3458",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 361
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T09:05:18+00:00",
+      "edit_date": "2026-07-14T09:05:23+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14272159345338946,
+      "id": 3457,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3457",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 361
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T09:05:18+00:00",
+      "edit_date": "2026-07-14T09:05:23+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14272159345338946,
+      "id": 3456,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3456",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 357
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-07-14T09:05:18+00:00",
+      "edit_date": "2026-07-14T09:18:15+00:00",
+      "external_links": [
+        "https://t.me/Axenix_Ru/3357",
+        "https://axenix.pro/razrabotka-programmnogo-obespechenija?utm_source=telegram&utm_medium=ai_sdlc_offering_post2",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14272159345338946,
+      "id": 3455,
+      "media_type": "MessageMediaPhoto",
+      "message": "Для масштабирования ИИ в разработке компании нужен не только доступ к инструментам. Устойчивый эффект предполагает новую операционную модель, которая будет включать:\n🔸 роли;\n🔸 процессы;\n🔸 точки принятия решений;\n🔸 модель управления;\n🔸 метрики и правила использования ИИ.\n\nAXENIX помогает сформировать эти элементы для стандартизированного применения ИИ с измеримым эффектом. \n\nДетально о том, как наша команда выстраивает индивидуальную целевую модель разработки для каждой компании — в наших карточках. \n\nУслуга по оценке готовности к применению ИИ в разработке входит в пакет услуг AXENIX по целевому внедрению ИИ. Подробнее о нем читайте здесь. \n\nЕсли у вас остались вопросы или нужна консультация по услуге — обязательно свяжитесь с нами через форму на сайте!\n\n#AX_soft #AXai\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3455",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 1,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": 0,
+      "views": 338
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T07:04:38+00:00",
+      "edit_date": "2026-07-14T07:04:44+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14272101424967610,
+      "id": 3454,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3454",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 390
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T07:04:38+00:00",
+      "edit_date": "2026-07-14T07:04:44+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14272101424967610,
+      "id": 3453,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3453",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 394
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T07:04:38+00:00",
+      "edit_date": "2026-07-14T07:04:44+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14272101424967610,
+      "id": 3452,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3452",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 394
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T07:04:38+00:00",
+      "edit_date": "2026-07-14T07:04:44+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14272101424967610,
+      "id": 3451,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3451",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 390
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T07:04:38+00:00",
+      "edit_date": "2026-07-14T07:04:44+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14272101424967610,
+      "id": 3450,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3450",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 393
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T07:04:38+00:00",
+      "edit_date": "2026-07-14T07:04:44+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14272101424967610,
+      "id": 3449,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3449",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 384
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-07-14T07:04:38+00:00",
+      "edit_date": "2026-07-14T07:17:40+00:00",
+      "external_links": [
+        "https://axenix.pro/banks?utm_source=telegram&utm_medium=banks_marketplaces_post_2#research",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": 14272101424967610,
+      "id": 3448,
+      "media_type": "MessageMediaPhoto",
+      "message": "У банков, запущенных крупными отечественными маркетплейсами, есть уникальные преимущества перед классическими конкурентами. Это и огромная аудитория, и большой объем транзакционных данных, и высокая рентабельность при отсутствии ощутимого кредитного риска. \n\nОднако выход в классические банковские продукты вне сценария покупки требуют более высоких затрат на привлечение клиентов и не дает преимуществ цифровой платформе.\n\nКакие стратегические перспективы есть у банков маркетплейсов, рассказываем на фото. \n\nБольше деталей – в полной версии аналитического обзора по ссылке >>\n\n#AXstrategy #AXfinance\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3448",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": 0,
+      "views": 379
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-07-14T14:03:43+00:00",
+      "edit_date": "2026-07-14T15:06:29+00:00",
+      "external_links": [
+        "https://k2tech.io/2mj",
+        "https://k2tech.io/2a5"
+      ],
+      "forwards": 3,
+      "from_id": -1001569311808,
+      "grouped_id": null,
+      "id": 2071,
+      "media_type": "MessageMediaPhoto",
+      "message": "🤖🖥 Масштабируем ИИ: как эффективно выстроить инфраструктуру в контуре бизнеса  \n\nОбсудим 21 июля на вебинаре К2 НейроТех и Яндекс. \n\nСпикеры:\n▫️ Вячеслав Дегтярев, руководитель по развитию продуктовых решений, К2 НейроТех\n▫️ Тарас Юзефович, тимлид по работе с партнерами направления ML&AI, Yandex Cloud\n\nЧто в фокусе:\n🟢 ИИ-агенты и стратегии 2026: как перевести инициативы из презентаций в работающий продакшн\n🟢 Кадровая независимость: способы ускорить запуск проектов, снизив потребность в ML-экспертах\n🟢 Борьба с «зоопарком» технологий: как объединить разрозненный стек в единую управляемую систему\n🟢 Экономика ПАК–AI: разберем модели поставки и способы оптимизации ИТ-бюджета\n🟢 Разберем, как это реализовано на кейсах бьюти-ритейла, а также страховой и финансовой отраслей.\n\n21 июля | 11:00–12:30 | Онлайн\n\n📠 Регистрация по ссылке\n\n📺 Наш канал теперь доступен в MAX. Подписывайтесь, чтобы быть в курсе всех новостей.",
+      "original_url": "https://t.me/k2_tech/2071",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "🔥"
+        },
+        {
+          "count": 4,
+          "reaction": "⚡"
+        },
+        {
+          "count": 4,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": null,
+      "views": 167
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-07-14T06:33:28+00:00",
+      "edit_date": "2026-07-14T06:53:08+00:00",
+      "external_links": [
+        "https://k2tech.io/2md",
+        "https://k2tech.io/2a5"
+      ],
+      "forwards": 1,
+      "from_id": -1001569311808,
+      "grouped_id": null,
+      "id": 2070,
+      "media_type": "MessageMediaPhoto",
+      "message": "🧱🖥 Комплексная безопасность промышленных объектов: от охраны периметра до защиты информации \n\n🛠 Современные угрозы требуют комплексного подхода к безопасности промышленных объектов. Сегодня важно защищать не только ИТ-инфраструктуру, но и физический периметр, инженерные системы и критически важные данные — как элементы единой системы.\n\n29 июля эксперты К2Тех, К2 Кибербезопасность и технологических партнеров расскажут, как выстроить комплексную систему защиты промышленного предприятия, разберут актуальные сценарии угроз и поделятся практическими рекомендациями по снижению рисков и восстановлению после инцидентов.\n\nКлючевые темы\n\n🟢 Действующие сценарии атак на промышленные предприятия\n🟢 Как выстроить систему комплексной безопасности в текущих условиях\n🟢 Чек-листы по созданию системы безопасности и восстановлению после инцидентов\n🟢 Интеллектуальные решения для защиты промышленных объектов и дата-центров на российском рынке\n\nПриглашаем руководителей промышленных предприятий, руководителей службы безопасности, ИТ-, ИБ- директоров — всех, кто отвечает за безопасность людей, инфраструктуры, активов и информации.\n\n29 июля, 10:00–11:30\n\n📠 Подробности программы вебинара и регистрация — по ссылке.\n\n📺 Наш канал теперь доступен в MAX. Подписывайтесь, чтобы быть в курсе всех новостей.",
+      "original_url": "https://t.me/k2_tech/2070",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 6,
+          "reaction": "❤"
+        },
+        {
+          "count": 3,
+          "reaction": "❤‍🔥"
+        },
+        {
+          "count": 2,
+          "reaction": "⚡"
+        },
+        {
+          "count": 1,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": null,
+      "views": 205
+    },
+    {
+      "chat": "YakovPartners",
+      "comments_enabled": null,
+      "date": "2026-07-14T15:35:23+00:00",
+      "edit_date": "2026-07-14T15:40:00+00:00",
+      "external_links": [],
+      "forwards": 31,
+      "from_id": -1001083076359,
+      "grouped_id": null,
+      "id": 3832,
+      "media_type": "MessageMediaPhoto",
+      "message": "Армянские овощи и фрукты под запретом: последствия для российского рынка\n\nРоссия ввела ограничения на ввоз овощей, фруктов и другой продукции из Армении. Запрет коснулся томатов, огурцов, перца, зелени, клубники и других категорий. Причиной стали многочисленные нарушения фитосанитарных норм со стороны армянских поставщиков — с начала года выявили 181 случай. Меры затронули не только сельхозпродукцию, но и рыбу, цветы и некоторые напитки.\n\nРуководитель проектов «Яков и Партнёры» Мария Вить отметила, что для российского рынка это не станет системным шоком. Объемы импорта из Армении относительно невелики и могут быть замещены другими поставщиками или внутренним производством. Для Армении же последствия серьезнее — падение закупочных цен,\nпотери фермеров и сложности с поиском альтернативных рынков, особенно для скоропортящейся продукции.\n\nПо словам Вить, ситуация напоминает прошлые торговые конфликты России с Грузией, где ограничения сильно ударили по чувствительным категориям экспорта — вину, минеральной воде и сельхозпродукции. Для российского потребителя основные категории останутся доступными, хотя возможен временный рост цен на отдельные позиции. Эксперты приходят к выводу, что рынок в целом сохранит стабильность, хотя возможен временный рост цен на отдельные позиции. Однако Армении придется быстро искать новые каналы сбыта.",
+      "original_url": "https://t.me/YakovPartners/3832",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 17,
+          "reaction": "👎"
+        },
+        {
+          "count": 4,
+          "reaction": "👍"
+        },
+        {
+          "count": 3,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "💯"
+        }
+      ],
+      "replies_count": null,
+      "views": 1290
+    },
+    {
+      "chat": "YakovPartners",
+      "comments_enabled": null,
+      "date": "2026-07-14T13:31:36+00:00",
+      "edit_date": "2026-07-14T13:31:40+00:00",
+      "external_links": [
+        "https://yandex.cloud/ru/events/1543?utm_referrer=https%3A%2F%2Fwww.google.com%2F&utm_referrer=https%3A%2F%2Fyandex.cloud%2Fshowcaptchafast%3Fd%3D03D68D2A064548D6E1BDBFCCA0FD612B822540832CDF916050B6A52FFC19EC194F20425D2132F404AAE18D8AC83E8EA89703B097BA%26retpath%3DaHR0cHM6Ly95YW5kZXguY2xvdWQvcnUvZXZlbnRzLzE1NDM_dXRtX3JlZmVycmVyPWh0dHBzJTNBLy93d3cuZ29vZ2xlLmNvbS8%252C_f1bfdecb8d5c9155f1ddec64a8e05583%26s%3Dcaedaeed3cca255e6c808cbb5d3c0603"
+      ],
+      "forwards": 25,
+      "from_id": -1001083076359,
+      "grouped_id": null,
+      "id": 3831,
+      "media_type": "MessageMediaWebPage",
+      "message": "Рынок ИИ: от трендов к реальным результатам\n\n16 июля Yandex Cloud проведет открытый вебинар «Взгляд на рынок ИИ: от глобальных трендов к российской практике». Эксперты разберут актуальное состояние рынка искусственного интеллекта в России и мире, ключевые тренды 2026 года, а также реальную экономическую отдачу от внедрения технологий. Особый акцент будет сделан на практике применения генеративного ИИ в бизнесе.\n\nВ мероприятии примут участие партнер и руководитель практики ИИ и высоких технологий «Яков и Партнёры» Максим Болотских, руководитель группы стратегии и исследований Yandex Cloud Екатерина Узлова, руководитель Yandex AI Studio Yandex Cloud Артур Самигуллин и Software, Data & AI инвестор Международного фонда Аида Чушкина.\n\nМероприятие особенно важно в момент активного роста рынка ИИ, когда компаниям нужно быстро ориентироваться в трендах и отделять эффективные решения от хайпа. Оно будет полезно руководителям компаний, CDO, CTO, руководителям цифровой трансформации и всем специалистам, кто внедряет или планирует внедрять ИИ в бизнес-процессы.",
+      "original_url": "https://t.me/YakovPartners/3831",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 8,
+          "reaction": "❤‍🔥"
+        },
+        {
+          "count": 6,
+          "reaction": "❤"
+        },
+        {
+          "count": 3,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "🥰"
+        }
+      ],
+      "replies_count": null,
+      "views": 1523
+    },
+    {
+      "chat": "delret",
+      "comments_enabled": null,
+      "date": "2026-07-14T14:08:21+00:00",
+      "edit_date": "2026-07-14T14:08:29+00:00",
+      "external_links": [
+        "https://www.forbes.ru/finansy/564133-eek-poscitala-avansovyj-platez-importerov-bar-erom-na-rynke-evrazijskogo-souza",
+        "https://delret.ru/tax/tamozhennoe-regulirovanie?utm_source=telegram&utm_medium=business&utm_campaign=service",
+        "https://t.me/delret",
+        "https://max.ru/delret"
+      ],
+      "forwards": 3,
+      "from_id": -1001629949228,
+      "grouped_id": null,
+      "id": 2851,
+      "media_type": "MessageMediaPhoto",
+      "message": "СПОТ под вопросом: ЕЭК усмотрела признаки барьера для торговли в ЕАЭС \n\nЕвразийская экономическая комиссия (ЕЭК) считает, что механизм СПОТ, предусматривающий оформление документа о предстоящей поставке и внесение обеспечительного платежа при импорте товаров из стран ЕАЭС, создает дополнительные барьеры для представителей бизнеса. Как сообщает Forbes, Минфин России с такой оценкой не согласен, указывая, что система направлена на предотвращение уклонения от уплаты косвенных налогов и не формирует новых финансовых обременений. \n\nПо мнению партнера Департамента налогов и права ДРТ Татьяны Кофановой, новый механизм фактически меняет привычный порядок работы импортеров: «Действительно, СПОТ существенно меняет режим «доверия» при импорте из ЕАЭС, который существовал ранее. Причем отсутствие оплаты обеспечительного платежа, а также ошибки при заполнении ДОПП могут обойтись очень дорого, из-за того, что таможенные органы не допустят дальнейшего продвижения транспорта. Кроме того, внесение обеспечительного платежа — это отвлечение средств. Поэтому доводы ЕЭК отчасти справедливы».\n\n📌 Эксперт также отмечает, что по мере применения СПОТ отдельные вопросы, связанные с работой механизма, будут постепенно решаться. В частности, дальнейшая донастройка может затронуть перечень компаний, освобожденных от внесения обеспечительного платежа, сроки формирования ДОПП и возможность оперативно вносить изменения в этот документпосле его оформления.\n➖➖\nДРТ оказывает консультационную поддержку по вопросам применения таможенного законодательства, регулирования торговли в рамках ЕАЭС и сопровождения импортных операций. Подробнее — на нашем сайте.\n#Лица_ДРТ\n\nДРТ в Telegram, МАХ.",
+      "original_url": "https://t.me/delret/2851",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": null,
+      "views": 294
+    },
+    {
+      "chat": "kept_business",
+      "comments_enabled": null,
+      "date": "2026-07-14T13:00:59+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 8,
+      "from_id": -1001657341909,
+      "grouped_id": 14272272477990066,
+      "id": 3397,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/kept_business/3397",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 496
+    },
+    {
+      "chat": "kept_business",
+      "comments_enabled": null,
+      "date": "2026-07-14T13:00:59+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 8,
+      "from_id": -1001657341909,
+      "grouped_id": 14272272477990066,
+      "id": 3396,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/kept_business/3396",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 494
+    },
+    {
+      "chat": "kept_business",
+      "comments_enabled": null,
+      "date": "2026-07-14T13:00:59+00:00",
+      "edit_date": "2026-07-14T13:01:01+00:00",
+      "external_links": [
+        "https://t.me/creon_group/2487",
+        "https://t.me/kept_business/3394"
+      ],
+      "forwards": 8,
+      "from_id": -1001657341909,
+      "grouped_id": 14272272477990066,
+      "id": 3395,
+      "media_type": "MessageMediaPhoto",
+      "message": "Цена на золото 53 раза обновила исторический максимум в 2025 г. Мировой спрос впервые превысил отметку в 5000 тонн в год.\n \nПервый квартал 2026 г. начался беспрецедентным ростом, сменившись последующей коррекцией вниз из-за денежно-кредитной политики США и ближневосточного конфликта. Чего ждать дальше?\n\nКлючевые тренды\nГеополитика и торговые пошлины создают риски поставок. Санкции вытесняют российские металлы с LME, LBMA в Азию, передавая ценовую власть покупателям. На этом фоне усугубляется структурный дефицит металлов из-за обеднения руды и недоинвестирования.\n\nИИ и дата-центры становятся новым драйвером спроса на металлы, в энергопереходе ESS обгоняет EV, золото укрепляется как защитный актив и инструмент де-долларизации, растет инвестиционный интерес к натуральным бриллиантам. Китай остается одновременно и покупателем, и конкурентом для российских компаний.\n\nКонсенсус-прогноз\nВ стрессовом сценарии рост цены на золото будет сдерживаться под влиянием ситуации на Ближнем Востоке, политики ФРС США и рисков мировой рецессии. \n\nЮниоры\n115 млрд руб. частных инвестиций получила геологоразведка в 2025 г. Доля юниоров составила 11%. Кроме того, появилась нормативная база для юниорных компаний и механизм поддержки через Юниорный Акселератор. Среди ключевых барьеров — отсутствие правового статуса, избыточная административная нагрузка, закрытый доступ к геоданным и сложности с инвестициями.\n\nЦифровизация\n81% отраслевых компаний внедряют цифровые технологии фрагментарно, при этом активно интересуются инновациями. Три четверти сохранили или увеличили бюджет на цифровизацию в 2026 г. Среди самых востребованных решений для инвестиций до 2030 г. — диспетчеризация, интеграционные платформы, ИИ-советчики и системы АРС.\n\nВызовы\nВ 60% случаев работодателям не хватает геологов, горных инженеров, буровиков. Кроме того, существует конкуренция за кадры между проектами по добыче золота. Развитию отрасли также мешают сложная логистика и финансирование, санкции, экологические и социальные ограничения.\n\n🟣 Антон Вернигора, директор Департамента инжиниринга Kept, рассказывал о трендах и перспективах золотодобычи в России на конференции Creon «Золото 2026». Организаторы мероприятия поделились подробными тезисами и выводами его выступления в своей публикации. Как менялась цена в июне, рассказывали в этом посте.\n\n#MetalsMining",
+      "original_url": "https://t.me/kept_business/3395",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "❤"
+        },
+        {
+          "count": 3,
+          "reaction": "👍"
+        },
+        {
+          "count": 3,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "👎"
+        },
+        {
+          "count": 1,
+          "reaction": "👏"
+        }
+      ],
+      "replies_count": null,
+      "views": 472
+    },
+    {
+      "chat": "Reksoft_group",
+      "comments_enabled": null,
+      "date": "2026-07-14T10:09:45+00:00",
+      "edit_date": "2026-07-14T10:10:06+00:00",
+      "external_links": [
+        "https://www.comnews.ru/content/246196/2026-07-06/2026-w28/1008/ekonomiya-diktuet-vybor-55-enterprise-kompaniy-rf-rassmatrivayut-perekhod-chastnoe-oblako",
+        "https://t.me/+BzN9yWu5D6hiNGVi"
+      ],
+      "forwards": 1,
+      "from_id": -1001509197707,
+      "grouped_id": null,
+      "id": 1716,
+      "media_type": "MessageMediaPhoto",
+      "message": "55% enterprise-компаний в России рассматривают переход на частное облако, пишет ComNews со ссылкой на исследование Orion Soft.\n \n👀 По данным опроса, самые острые вызовы для инфраструктуры в 2026 году – повышение эффективности использования оборудования (35,5%) и оптимизация CAPEX и OPEX (32,3%). При этом 19,4% респондентов сомневаются в переходе из-за высокого порога входа, а 29% готовы внедряться только поэтапно, без резкой перестройки процессов.\n \n🗣Анна Кузякина, заместитель коммерческого директора Рексофт, считает выводы исследования спорными. По ее словам, разные категории заказчиков по-разному относятся к использованию внешних облаков или построению собственной распределенной инфраструктуры – многое зависит от отрасли, регуляторных требований и внутренних политик безопасности.\n \nПочему компании откладывают переход?\n \nЧаще всего построение частного облака откладывается по причине дороговизны железа и его быстрого устаревания. Через 2-3 месяца выходит сравнимое по стоимости и в полтора-два раза более мощное железо\n \nПри этом, по мнению эксперта, на горизонте 3-5 лет стоимость становится непринципиальной – в зависимости от правил амортизации можно обосновать выгоду любого из сценариев. Ключевой фактор при принятии решения – это разница в степени контроля над инфраструктурой.\n\n🖥️ Аналитика и тренды ИТ-рынка",
+      "original_url": "https://t.me/Reksoft_group/1716",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 1,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "👏"
+        }
+      ],
+      "replies_count": null,
+      "views": 183
+    },
+    {
+      "chat": "norbit_ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T12:59:51+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 0,
+      "from_id": -1001717006094,
+      "grouped_id": 14272271928388234,
+      "id": 821,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/norbit_ru/821",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 90
+    },
+    {
+      "chat": "norbit_ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T12:59:51+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 0,
+      "from_id": -1001717006094,
+      "grouped_id": 14272271928388234,
+      "id": 820,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/norbit_ru/820",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 89
+    },
+    {
+      "chat": "norbit_ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T12:59:51+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 0,
+      "from_id": -1001717006094,
+      "grouped_id": 14272271928388234,
+      "id": 819,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/norbit_ru/819",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 89
+    },
+    {
+      "chat": "norbit_ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T12:59:51+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 0,
+      "from_id": -1001717006094,
+      "grouped_id": 14272271928388234,
+      "id": 818,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/norbit_ru/818",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 89
+    },
+    {
+      "chat": "norbit_ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T12:59:51+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 0,
+      "from_id": -1001717006094,
+      "grouped_id": 14272271928388234,
+      "id": 817,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/norbit_ru/817",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 89
+    },
+    {
+      "chat": "norbit_ru",
+      "comments_enabled": null,
+      "date": "2026-07-14T12:59:51+00:00",
+      "edit_date": "2026-07-14T13:04:46+00:00",
+      "external_links": [
+        "https://www.norbit.ru/?showpopup=true&utm_source=tg_norbit"
+      ],
+      "forwards": 0,
+      "from_id": -1001717006094,
+      "grouped_id": 14272271928388234,
+      "id": 816,
+      "media_type": "MessageMediaPhoto",
+      "message": "Как заменить глобальную систему гарантийного обслуживания и не остановить работу дилеров? 🔄\n\nНОРБИТ и BPMSoft реализовали масштабный проект для автомобильного дистрибьютора АО «МБ РУС». После отключения международной системы нужно было в сжатые сроки перевести гарантийные процессы сотен тысяч автомобилей на новую цифровую инфраструктуру.\n\nНа базе low-code платформы BPMSoft мы совместно с вендором создали гибкое импортонезависимое решение. Оно не просто полностью восстановило работу гарантийного контура, но и стало базой для подключения новых автомобильных брендов в портфеле компании 💼\n\nО целях проекта, его масштабе, количестве лицензий и 100+ правилах автоматической проверки — читайте в карточках! ➡️\n\nА чтобы обсудить свой проект и узнать ответы на интересующие вас вопросы, оставьте заявку на нашем сайте 👆\n\n#Norbit_кейсы #ретейл",
+      "original_url": "https://t.me/norbit_ru/816",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 6,
+          "reaction": "👍"
+        },
+        {
+          "count": 2,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": null,
+      "views": 82
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-07-14T17:10:51+00:00",
+      "edit_date": "2026-07-14T17:11:57+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/956739",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 7,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6022,
+      "media_type": "MessageMediaPhoto",
+      "message": "Проукраинская группировка взяла ответственность за взлом «СиАйТи Терминал» с помощью «инсайдера»\nhttps://www.tadviser.ru/a/956739\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/6022",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 6,
+          "reaction": "🤬"
+        },
+        {
+          "count": 1,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": 1,
+      "views": 1438
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-07-14T14:22:31+00:00",
+      "edit_date": "2026-07-14T14:26:10+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/956730",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 14,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6021,
+      "media_type": "MessageMediaPhoto",
+      "message": "«Россети» разработает автономных БПЛА-инспекторов на базе ИИ для повышения защищённости линий электропередач https://www.tadviser.ru/a/956730\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/6021",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": 1,
+      "views": 1901
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-07-14T13:31:58+00:00",
+      "edit_date": "2026-07-14T13:33:47+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/465155",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 18,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6020,
+      "media_type": "MessageMediaPhoto",
+      "message": "Подрядчик Минздрава «Цифромед» нарастил выручку, но закончил год с убытком почти на миллиард рублей https://www.tadviser.ru/a/465155 \n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/6020",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1852
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-07-14T10:01:48+00:00",
+      "edit_date": "2026-07-14T10:03:28+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/956604",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 49,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6019,
+      "media_type": "MessageMediaPhoto",
+      "message": "«Россети» отказывается от СУБД Postgres Pro в ИТ-системе, которой пользуются 80 тыс. сотрудников, чтобы сэкономить https://www.tadviser.ru/a/956604\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/6019",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 12,
+          "reaction": "😁"
+        },
+        {
+          "count": 3,
+          "reaction": "👍"
+        },
+        {
+          "count": 2,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "🤔"
+        }
+      ],
+      "replies_count": 0,
+      "views": 2216
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-07-14T09:21:39+00:00",
+      "edit_date": "2026-07-14T10:03:19+00:00",
+      "external_links": [
+        "https://promo.k2.tech/vebinar-kompleksnaya-prombezopasnost?utm_source=press&utm_medium=email&utm_campaign=vebinar-prombez&utm_term=tadviser/?erid=2W5zFGQERyT"
+      ],
+      "forwards": 4,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6018,
+      "media_type": "MessageMediaPhoto",
+      "message": "💡 Вебинар «От охраны периметра до защиты информации. Комплексная безопасность промышленных объектов в текущих условиях»\n\nКак в условиях растущих физических и кибер-угроз гарантировать бесперебойную работу промышленного предприятия? \n\nОпределим ключевые риски и новые вызовы для систем безопасности промышленных объектов, обсудим инструменты профилактики и восстановления на вебинаре 29 июля 2026 г.\n\nПриглашаем руководителей промышленных предприятий, руководителей службы безопасности, ИТ-, ИБ- директоров — всех, кто отвечает за безопасность людей, инфраструктуры, активов и информации\n\nКЛЮЧЕВЫЕ ТЕМЫ:\n\n• действующие сценарии атак на промышленные предприятия\n• как выстроить систему комплексной безопасности в текущих условиях\n• чек-листы по созданию системы безопасности и восстановлению после инцидентов\n• интеллектуальные решения для защиты промышленных объектов и дата-центров на российском рынке\n\nВремя: 10:00 – 11:30\n\n👉 Программа и регистрация\n\nПо всем вопросам обращайтесь: \nЮрканова Анастасия aiurkanova@k2.tech",
+      "original_url": "https://t.me/tadviser/6018",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": 0,
+      "views": 1891
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-07-14T08:45:24+00:00",
+      "edit_date": "2026-07-14T09:10:15+00:00",
+      "external_links": [
+        "https://promoit.club/?utm_source=tg&utm_medium=anons"
+      ],
+      "forwards": 14,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6017,
+      "media_type": "MessageMediaPhoto",
+      "message": "Учреждена первая премия за достижения в B2B-маркетинге и PR ИТ-продуктов и услуг «Продвигай ИТ»\n\nСообщество «Продвигай ИТ», объединяющее более 4500 экспертов в области B2B-продвижения, директоров по маркетингу и PR российских ИТ-компаний, объявляет о старте первой отраслевой премии, призванной выявить и наградить лучшие проекты, руководителей и команды, отвечающие за продвижение в ИТ-компаниях.\n\nСайт премии >\n\nПремия «Продвигай ИТ» будет вручена в 12 номинациях, победители  определятся в ходе народного голосования и экспертной оценки. \n\nВ экспертный совет премии войдут авторитетные CMO и PR-директора крупнейших ИТ-компаний России.\n\nНоминации премии: \n\n⚡️Лучшая стратегия продвижения\n⚡️PR-кампания года\n⚡️Digital-кампания года\n⚡️Product marketing. Кейс года \n⚡️Event года\n⚡️Маркетинг «с нулевым бюджетом»\n⚡️Маркетинг красного океана \n💜СМО года\n💜PR-директор года\n💜Лучшая маркетинговая команда\n💜Лучшая PR-команда\n💜Наш краш \n\nПодведение итогов и награждение лауреатов состоится на кейс-конференции 1 октября 2026 года в деловом пространстве МосХаб.Сколково Департамента информационных технологий города Москвы. \n\n📣Ключевая особенность премии «Продвигай ИТ» - медийность. Итоги премии появятся на первых страницах главного информационного партнера — портала TAdviser и других медиа-партнеров: Хабр, Рейтинг Рунета, ПроБизнес, SecPost.\n\nГлавным креативным и digital-партнером премии выступило агентство ИТ и промышленного маркетинга PROТЕХНО.\n\nПартнерами премии «Продвигай ИТ» также стали компания F6, ведущий российский разработчик технологий для борьбы с киберпреступностью, предотвращения атак, реагирования на инциденты и расследования \nкиберпреступлений и «Базальт СПО» — один из ведущих российских разработчиков системного ПО.  \nB2B-маркетинг в ИТ перестает быть набором тактических активностей с малоизмеримым результатом и становится стратегической функцией, способной повлиять на выручку и позиции компании на рынке. Это сила, которая превращает сложные продукты в понятные решения, а длинные сделки — в партнёрства на годы, — отмечает Надежда Левашова, основатель сообщества «Продвигай ИТ». — B2B-маркетинг в ИТ — отдельная вселенная со своими светилами: гигантами и новыми звездами (для которых мы предусмотрели отдельную номинацию). Премия призвана дать им заслуженное публичное признание, показать, что большие и креативные проекты есть не только в B2C, и помочь руководителям ИТ- компаний сформировать правильные ожидания от команд, отвечающих за продвижение.\n\nОзнакомиться с условиями участия и подать заявку на премию можно на сайте promoit.club до 14 августа 2026 года.",
+      "original_url": "https://t.me/tadviser/6017",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "👍"
+        },
+        {
+          "count": 4,
+          "reaction": "❤"
+        },
+        {
+          "count": 3,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1747
+    }
+  ],
+  "profile": "profile_178"
+}

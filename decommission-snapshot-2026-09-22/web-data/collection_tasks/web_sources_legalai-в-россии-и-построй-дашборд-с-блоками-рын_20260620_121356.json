@@ -1,0 +1,14 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI в России и построй дашборд с блоками рынок",
+  "output_format": "dashboard",
+  "fields": [],
+  "since_date": "",
+  "items": [
+    "https://companies.rbc.ru/news/wTDoPFmArS/ryinok-legaltech-v-rossii-itogi-2025-i-perspektivyi-2026",
+    "https://tenchat.ru/media/4363184-rynok-legaltech-v-rossii-itogi-2025-i-perspektivy-2026",
+    "https://you-right.ru/stati/yuridicheskie-neyroseti-i-chatboty",
+    "http://legalei.ru/blog/0d50gtu7c1-ii-i-legaltech-v-rossii-3-klyuchevih-tre",
+    "https://cyberleninka.ru/article/n/tendentsii-globalnogo-rynka-legal-ai-i-faktory-razvitiya-ego-rossiyskogo-segmenta"
+  ]
+}

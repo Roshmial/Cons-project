@@ -1,0 +1,17 @@
+{
+  "kind": "web_sources",
+  "subject": "Проанализируй данные в интернете и собери дашборд по истории развития BI-решений и BI-практик",
+  "output_format": "dashboard",
+  "fields": [],
+  "since_date": "",
+  "items": [
+    "https://www.ciosoft.ru/articles/business-intelligence-history/",
+    "https://www.ibm.com/ru-ru/topics/business-intelligence",
+    "https://www.tableau.com/ru-ru/about/blog/2023/9/history-of-business-intelligence-12345",
+    "https://www.sas.com/ru_ru/insights/articles/business-intelligence.html",
+    "https://www.qlik.com/ru-ru/products/qlik-sense/business-intelligence",
+    "https://www.microsoft.com/ru-ru/microsoft-power-bi/what-is-power-bi",
+    "https://ru.wikipedia.org/wiki/Бизнес-аналитика",
+    "https://habr.com/ru/articles/560302/"
+  ]
+}

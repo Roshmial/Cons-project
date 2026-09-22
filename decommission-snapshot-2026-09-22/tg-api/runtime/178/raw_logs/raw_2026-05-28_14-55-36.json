@@ -1,0 +1,238 @@
+{
+  "config": "daily",
+  "count": 10,
+  "messages": [
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-05-28T14:47:29+00:00",
+      "edit_date": null,
+      "external_links": [
+        "https://www.kommersant.ru/doc/8690993",
+        "https://raex-rr.com/b2b/consulting/biggest_consulting_companies_and_groups/2026/opinions/timonina_inretview_2026/",
+        "https://www.kommersant.ru/doc/8690984",
+        "https://raex-rr.com/b2b/consulting/biggest_consulting_companies_and_groups/2026/opinions/kuzmin_interview_2026/",
+        "https://raex-rr.com/b2b/consulting/biggest_consulting_companies_and_groups/2026/opinions/tomishev_interview_2026/",
+        "https://raex-rr.com/b2b/consulting/biggest_consulting_companies_and_groups/2026/opinions/okulov_interview_2026/"
+      ],
+      "forwards": 1,
+      "from_id": -1001512457804,
+      "grouped_id": 14239837189063602,
+      "id": 3460,
+      "media_type": "MessageMediaPhoto",
+      "message": "Дайджест интервью с экспертами Б1 к выходу рэнкинга RAEX\n\nСегодня вышел ежегодный рэнкинг крупнейших консалтинговых компаний и групп от рейтингового агентства RAEX. Партнеры и руководители направлений Группы компаний Б1 традиционно поделились своими комментариями о текущем состоянии рынка и прогнозами на будущее.\n\n▶️ Большое интервью с управляющим партером Группы компаний Б1 Марчелло Гелашвили о сопровождении клиентов в условиях постоянных экономических изменений. \n\n▶️Юлия Тимонина объясняет, почему на фоне постоянных изменений в экономике и законодательстве бизнесу сейчас нужны не точечные решения, а комплексная консалтинговая поддержка.\n\n▶️Михаил Хачатурян рассказывает о растущей роли ИТ в работе аудиторов и рассуждает о перспективах внедрения новых решений\n\n▶️Андрей Кузьмин делится мнением об изменениях в запросах клиентов, смещении приоритетов в сторону операционной оптимизации и автоматизации рутинных задач для достижения быстрой окупаемости проектов.\n\n▶️Андрей Томышев в своем интервью объясняет, как бизнес перешел от экстренной адаптации к системной перестройке и почему компаниям сейчас так нужны новые стратегии роста и финансовой устойчивости.\n\n▶️Юрий Окулов рассуждает в статье о том, как меняются предпочтения клиентов, и рассказывает о связанных с этим трендах.",
+      "original_url": "https://t.me/b1_news/3460",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 87
+    },
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-05-28T14:47:28+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001512457804,
+      "grouped_id": 14239837189063602,
+      "id": 3459,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/b1_news/3459",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 84
+    },
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-05-28T14:47:28+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001512457804,
+      "grouped_id": 14239837189063602,
+      "id": 3458,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/b1_news/3458",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 87
+    },
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-05-28T14:47:28+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001512457804,
+      "grouped_id": 14239837189063602,
+      "id": 3457,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/b1_news/3457",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 82
+    },
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-05-28T14:47:28+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001512457804,
+      "grouped_id": 14239837189063602,
+      "id": 3456,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/b1_news/3456",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 83
+    },
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-05-28T14:47:28+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001512457804,
+      "grouped_id": 14239837189063602,
+      "id": 3455,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/b1_news/3455",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 84
+    },
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-05-28T14:47:28+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001512457804,
+      "grouped_id": 14239837189063602,
+      "id": 3454,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/b1_news/3454",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 86
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-05-28T14:23:07+00:00",
+      "edit_date": "2026-05-28T14:24:16+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001569311808,
+      "grouped_id": null,
+      "id": 1968,
+      "media_type": "MessageMediaDocument",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/1968",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "👍"
+        },
+        {
+          "count": 5,
+          "reaction": "🔥"
+        },
+        {
+          "count": 4,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": null,
+      "views": 99
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-05-28T14:22:26+00:00",
+      "edit_date": "2026-05-28T14:24:22+00:00",
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001569311808,
+      "grouped_id": null,
+      "id": 1967,
+      "media_type": null,
+      "message": "🤖 Прямое включение с конференции AI2Business от Yandex B2B Tech, Вячеслав Дегтярев, руководитель по развитию продуктовых решений К2 НейроТех:",
+      "original_url": "https://t.me/k2_tech/1967",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 4,
+          "reaction": "🔥"
+        },
+        {
+          "count": 3,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "👏"
+        }
+      ],
+      "replies_count": null,
+      "views": 104
+    },
+    {
+      "chat": "delret",
+      "comments_enabled": null,
+      "date": "2026-05-28T14:51:44+00:00",
+      "edit_date": "2026-05-28T14:51:49+00:00",
+      "external_links": [
+        "https://www.kommersant.ru/doc/8671577",
+        "https://delret.ru/services/finance?utm_source=telegram&utm_medium=business&utm_campaign=service",
+        "https://t.me/delret",
+        "https://max.ru/delret"
+      ],
+      "forwards": 1,
+      "from_id": -1001629949228,
+      "grouped_id": null,
+      "id": 2815,
+      "media_type": "MessageMediaPhoto",
+      "message": "Импортозамещение и цифровой рубль: где финансовый сектор теряет скорость роста\n\nНесмотря на высокий уровень импортозамещения программного обеспечения в банковском секторе в 2026 году, отрасль сталкивается с новыми трудностями — от внедрения цифрового рубля до развития аппаратной инфраструктуры, сообщает «Коммерсант». На этом фоне растет нагрузка на бюджеты и требования к качеству решений.\n\n«Уровень импортозамещения в банковском секторе пока нельзя назвать высоким, если говорить об аппаратной инфраструктуре. На примере банкоматов доля отечественного парка остается незначительной. Однако по итогам 2026 года мы ожидаем заметный рост этого показателя», — отмечает Алексей Караванов, руководитель направления коммерческого анализа Департамента финансового консультирования ДРТ.\n\nПо словам эксперта, ключевым драйвером станет требование обеспечивать не менее 50% государственных банков отечественным оборудованием. При этом рынок уже сейчас оценивается примерно в 115 тыс. банкоматов, и ежегодно требуется поставка около 15 тыс. устройств — значительная часть которых должна быть локализована.\n\nПараллельно банки инвестируют в цифровой рубль и ИИ, что дополнительно повышает нагрузку на бюджеты и ИТ-ресурсы. При этом «тяжелая» инфраструктура — банкоматы, серверы и системы хранения данных — замещается медленнее, чем программные решения. Среди ключевых ограничений — технологическая сложность, высокая стоимость перехода и вопросы совместимости.\n\nВ результате ключевой задачей для отрасли становится не только выполнение регуляторных требований, но и поиск баланса между скоростью трансформации и устойчивостью ИТ-ландшафта.\n➖➖\nКоманда ДРТ оказывает услуги в области коммерческого дью-дилидженса, предынвестиционного анализа и исследования рынков — от оценки конкурентной среды до проверки бизнес-гипотез и прогнозирования отраслевых трендов. Подробнее — на нашем сайте.\n#ЛицаДРТ\n\nДРТ в Telegram, MAX.",
+      "original_url": "https://t.me/delret/2815",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "custom:5442990330276254276"
+        }
+      ],
+      "replies_count": null,
+      "views": 46
+    }
+  ],
+  "profile": "profile_1"
+}

@@ -1,0 +1,19 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI",
+  "output_format": "csv",
+  "fields": [
+    "компания",
+    "тип",
+    "похожий_продукт",
+    "summary"
+  ],
+  "since_date": "",
+  "items": [
+    "https://legalai.com/",
+    "https://proai.legal/",
+    "https://www.legalai.software/",
+    "https://pitchbook.com/profiles/company/464464-27",
+    "https://legalai-review.com/"
+  ]
+}

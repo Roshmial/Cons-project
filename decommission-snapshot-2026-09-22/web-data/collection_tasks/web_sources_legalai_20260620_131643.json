@@ -1,0 +1,14 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI",
+  "output_format": "dashboard",
+  "fields": [],
+  "since_date": "",
+  "items": [
+    "https://legalai.com/",
+    "https://na.linkedin.com/company/legalai",
+    "https://proai.legal/",
+    "https://ailegalassistant.cloud/",
+    "https://legalai-review.com/"
+  ]
+}

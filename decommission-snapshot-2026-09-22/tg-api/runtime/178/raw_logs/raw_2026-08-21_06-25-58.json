@@ -1,0 +1,1062 @@
+{
+  "config": "daily_178",
+  "count": 42,
+  "messages": [
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-20T09:52:23+00:00",
+      "edit_date": "2026-08-20T09:54:27+00:00",
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001745559336,
+      "grouped_id": 14297756343965578,
+      "id": 3655,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3655",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 388
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-20T09:52:23+00:00",
+      "edit_date": "2026-08-20T09:54:18+00:00",
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001745559336,
+      "grouped_id": 14297756343965578,
+      "id": 3654,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3654",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 385
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-08-20T09:52:23+00:00",
+      "edit_date": "2026-08-20T09:56:20+00:00",
+      "external_links": [
+        "https://dis-group.ru/",
+        "https://axenix.pro/realizacija-transformacii-v-data-driven-organizaciju?utm_source=telegram&utm_medium=20_08_2026",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 4,
+      "from_id": -1001745559336,
+      "grouped_id": 14297756343965578,
+      "id": 3653,
+      "media_type": "MessageMediaPhoto",
+      "message": "Не просто эксперты, а Капитаны данных. Команда практики Data&AI AXENIX приняла участие в парусной регате нашего партнера DIS Group.\n\nПомимо обсуждения вопросов яхтенного спорта, представители ИТ-компаний и аналитики крупных российских корпораций поговорили на актуальные темы управления данными. В частности, наша коллега Татьяна Кириленко, директор, руководитель направления «Инженерия и архитектура данных», представила доклад «В эпоху AI побеждают те, кто управляет смыслами».\n\nВ рамках своего выступления Татьяна предложила перейти от разрозненного хранения знаний и данных к управляемому «семантическому контракту»: бизнес заранее определяет смысл показателя или объекта, его владельца, источники, формулу, правила расчета и допустимую трактовку. Затем этот смысл проходит через весь цикл разработки, включая реализацию, тестирование и контроль выпуска.\n\nТатьяна подчеркнула:\n\nВ эпоху ИИ конкурентное преимущество дает не сама технология, а способность бизнеса управлять смыслами, которые стоят за данными, показателями и решениями. Технологии ускоряют анализ и автоматизацию, но без четкого понимания целей, определений и ответственности они будут лишь быстрее вести бизнес в неверном направлении.\n\n@dis_group_news, благодарим за отличное мероприятие! \n\nМы всегда будем рады продолжить дискуссию о том, как превратить бизнес в AI-driven. Узнайте больше об экспертизе AXENIX в области управления данными на официальном сайте >>\n\n#AXai\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3653",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "👏"
+        }
+      ],
+      "replies_count": 0,
+      "views": 371
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-08-20T08:13:23+00:00",
+      "edit_date": "2026-08-20T13:00:47+00:00",
+      "external_links": [
+        "https://in-plan.ru/webinars/planirovanie-postavok-v-neftekhimii/?utm_source=telegram&utm_medium=planirovanie_postavok_v_neftekhimii_post_4#form",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": null,
+      "id": 3652,
+      "media_type": "MessageMediaPhoto",
+      "message": "Коллеги, сегодня, в 16:00 (мск) мы ждем вас на вебинаре In.Plan «Планирование поставок в нефтехимии — как найти баланс между эффективностью, маржинальностью и доступностью».\n\nОбсудим модель цепочки поставок нефтехимического производства, приоритезацию марочного портфеля, расчёт оптимального плана и сравнение сценариев в In.Plan и, конечно, ответим на ваши вопросы.\n\n☑️ Если еще не зарегистрировались — сделайте это сейчас!\n\n#AX_InPlan\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3652",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": 0,
+      "views": 422
+    },
+    {
+      "chat": "Softline",
+      "comments_enabled": null,
+      "date": "2026-08-20T11:48:34+00:00",
+      "edit_date": "2026-08-20T11:53:00+00:00",
+      "external_links": [
+        "https://t.me/in4security",
+        "https://softlinegroup.com/news/infosecurity-gk-softline-predstavila-uslugu-dlya-tsifrovoy-zashchity-pervykh-lits-i-klyuchevykh-sotr/?utm_source=Telegram&utm_medium=Softline",
+        "https://max.ru/Softline",
+        "https://vk.com/softlinecompany",
+        "https://t.me/Softline"
+      ],
+      "forwards": 5,
+      "from_id": -1001098739288,
+      "grouped_id": null,
+      "id": 3359,
+      "media_type": "MessageMediaPhoto",
+      "message": "Цифровой след руководителя может стать точкой входа для атаки на бизнес.\n\nInfosecurity «Софтлайн Решения» (ГК Softline) представила «CYBERID» — новую услугу для защиты руководителей, собственников бизнеса, членов советов директоров и других ключевых сотрудников компаний от угроз, возникающих из-за их публичного цифрового следа.\n\nВ рамках услуги «CYBERID» специалисты Infosecurity:\n\n🔎 анализируют упоминания в СМИ, социальных сетях, мессенджерах, поисковых системах и других открытых источниках;\n\n🌐 проверяют базы утечек, профильные площадки, закрытые форумы и ресурсы даркнета;\n\n⚠️ определяют, какие данные могут использоваться для целевого фишинга, социальной инженерии, мошенничества и других атак от имени руководителя и сотрудников;\n\n🛡️ помогают устранить выявленные угрозы;\n\n📡 взаимодействуют с интернет-площадками для удаления компрометирующих материалов, инициируют блокировку фейковых аккаунтов и мошеннических профилей.\n\nНовая услуга «CYBERID» расширяет портфель сервисов Infosecurity в области защиты от внешних цифровых угроз и дополняет существующие решения компании, позволяя выстраивать комплексную защиту не только корпоративной инфраструктуры, но и ключевых сотрудников организаций.\n\nПодпишитесь на ГК Softline: в MAX, VK, Telegram\n\n#кибербезопасность #Infosecurity #CYBERID #СофтлайнРешения",
+      "original_url": "https://t.me/Softline/3359",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 4,
+          "reaction": "👍"
+        },
+        {
+          "count": 3,
+          "reaction": "🔥"
+        },
+        {
+          "count": 3,
+          "reaction": "custom:5325988381681799819"
+        },
+        {
+          "count": 1,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "🎉"
+        },
+        {
+          "count": 1,
+          "reaction": "🤝"
+        }
+      ],
+      "replies_count": null,
+      "views": 1053
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-08-20T08:30:17+00:00",
+      "edit_date": "2026-08-20T08:30:27+00:00",
+      "external_links": [],
+      "forwards": 1,
+      "from_id": -1001569311808,
+      "grouped_id": null,
+      "id": 2167,
+      "media_type": null,
+      "message": "🖥🧱 Как меняются требования к ИТ-инфраструктуре: риски, дефицит, ИИ\n\nЭксперты К2Тех стали гостями нового выпуска подкаста «Багрепорт».\n\n🤖 Сергей Верченов, руководитель практики технологического консалтинга, и Михаил Косцов, руководитель практики вычислительной инфраструктуры, СХД и СРК, обсудили, как бизнесу сохранять устойчивость ИТ-инфраструктуры в условиях кибер- и физических рисков, дефицита компонентов и растущих требований со стороны ИИ.\n\n❤️ Делимся отрывком со съемок, а другие интересные фрагменты подкаста скоро опубликуем в канале!",
+      "original_url": "https://t.me/k2_tech/2167",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "👍"
+        },
+        {
+          "count": 5,
+          "reaction": "🔥"
+        },
+        {
+          "count": 3,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "⚡"
+        }
+      ],
+      "replies_count": null,
+      "views": 183
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-08-20T08:27:41+00:00",
+      "edit_date": "2026-08-20T08:27:48+00:00",
+      "external_links": [],
+      "forwards": 3,
+      "from_id": -1001569311808,
+      "grouped_id": null,
+      "id": 2166,
+      "media_type": "MessageMediaDocument",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2166",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 7,
+          "reaction": "❤"
+        },
+        {
+          "count": 7,
+          "reaction": "👍"
+        },
+        {
+          "count": 7,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": null,
+      "views": 190
+    },
+    {
+      "chat": "InnotechCompany",
+      "comments_enabled": null,
+      "date": "2026-08-20T08:01:01+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001542392271,
+      "grouped_id": 14297702888614218,
+      "id": 1292,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/InnotechCompany/1292",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 275
+    },
+    {
+      "chat": "InnotechCompany",
+      "comments_enabled": null,
+      "date": "2026-08-20T08:01:01+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001542392271,
+      "grouped_id": 14297702888614218,
+      "id": 1291,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/InnotechCompany/1291",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 273
+    },
+    {
+      "chat": "InnotechCompany",
+      "comments_enabled": null,
+      "date": "2026-08-20T08:01:01+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001542392271,
+      "grouped_id": 14297702888614218,
+      "id": 1290,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/InnotechCompany/1290",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 273
+    },
+    {
+      "chat": "InnotechCompany",
+      "comments_enabled": null,
+      "date": "2026-08-20T08:01:01+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001542392271,
+      "grouped_id": 14297702888614218,
+      "id": 1289,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/InnotechCompany/1289",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 273
+    },
+    {
+      "chat": "InnotechCompany",
+      "comments_enabled": null,
+      "date": "2026-08-20T08:01:01+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001542392271,
+      "grouped_id": 14297702888614218,
+      "id": 1288,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/InnotechCompany/1288",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 271
+    },
+    {
+      "chat": "InnotechCompany",
+      "comments_enabled": null,
+      "date": "2026-08-20T08:01:01+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001542392271,
+      "grouped_id": 14297702888614218,
+      "id": 1287,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/InnotechCompany/1287",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 272
+    },
+    {
+      "chat": "InnotechCompany",
+      "comments_enabled": null,
+      "date": "2026-08-20T08:01:01+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001542392271,
+      "grouped_id": 14297702888614218,
+      "id": 1286,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/InnotechCompany/1286",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 271
+    },
+    {
+      "chat": "InnotechCompany",
+      "comments_enabled": null,
+      "date": "2026-08-20T08:01:01+00:00",
+      "edit_date": "2026-08-20T08:09:47+00:00",
+      "external_links": [
+        "http://government.ru/rugovclassifier/923/about/",
+        "https://t1.ru/about/units/t1-innotech?utm_source=smm&utm_medium=tg&utm_campaign=post&utm_content=prompt&utm_term=20.08.2026",
+        "https://max.ru/join/vhhid2lG-I39qD_l8hz6m8HkHsIRkMW3fDbeJNsb2Q8"
+      ],
+      "forwards": 2,
+      "from_id": -1001542392271,
+      "grouped_id": 14297702888614218,
+      "id": 1285,
+      "media_type": "MessageMediaPhoto",
+      "message": "👀 Зачем технологический суверенитет среднему и крупному бизнесу?\n\nК 2030 году в рамках нацпроекта «Экономика данных и цифровая трансформация государства» до 80% российских компаний ключевых отраслей должны перейти на отечественное ПО. Но ждать 2030 года не стоит — технологический суверенитет уже перестал быть темой отчетов для регулятора и стал частью обычной ИТ-стратегии, рядом с бюджетом и дорожной картой продукта. \n\nКомпании всё чаще отказываются от подхода «заместить и забыть». Сегодня приоритет — не просто найти аналоги ушедшим вендорам, а выстроить независимую технологическую архитектуру.\n\nВ карточках разбираем: \n➖ что значит технологический суверенитет для среднего и крупного бизнеса, \n➖ с чего начать, если в вашем ИТ-ландшафте еще остались уязвимые внешние зависимости. \n\n📌 Сохраняйте, если формируете стратегию на следующий год и закладываете в нее вопрос независимости от поставщиков.\n\n💙 Т1 Иннотех\n💬 Мы в МАХ",
+      "original_url": "https://t.me/InnotechCompany/1285",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 1,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": null,
+      "views": 275
+    },
+    {
+      "chat": "YakovPartners",
+      "comments_enabled": null,
+      "date": "2026-08-20T15:10:19+00:00",
+      "edit_date": "2026-08-20T15:14:35+00:00",
+      "external_links": [],
+      "forwards": 23,
+      "from_id": -1001083076359,
+      "grouped_id": null,
+      "id": 3866,
+      "media_type": "MessageMediaPhoto",
+      "message": "Почему рост производительности от ИИ редко приводит к сокращению штата\n\nРост производительности от внедрения ИИ на уровне отдельных задач часто оказывается значительным: в лабораторных условиях решение может ускоряться на 55% и более. Однако на уровне всей компании этот эффект почти всегда затухает. Причина в том, что ускорение одной операции не устраняет узкие места в смежных процессах, не меняет роли сотрудников и не перестраивает систему показателей. В результате общая пропускная способность организации остается прежней.\n\nМассовое использование ИИ уже стало нормой — 88% компаний применяют его хотя бы в одной функции. При этом значимый финансовый результат на уровне EBIT получают лишь 6% организаций в мире, а в России прирост EBITDA выше 5% фиксируют только 9%. Большинство компаний видят локальное ускорение работы, но не готовы или не могут перевести его в сокращение штата. Ожидания массовых увольнений за последние годы снизились с 49% до 12%, а 83% организаций прямо заявляют, что не планируют уменьшать численность персонала.\n\nГлавный вывод состоит в том, что производительность сама по себе не приводит к экономии на фонде оплаты труда. Чтобы эффект дошел до уровня компании, необходимо перестраивать процессы, менять KPI и роли. Без этого ускорение отдельных задач лишь перераспределяет нагрузку, но не создает предпосылок для сокращения сотрудников. Именно поэтому стратегический акцент смещается с оптимизации затрат на персонал в сторону роста выручки и увеличения пропускной способности.",
+      "original_url": "https://t.me/YakovPartners/3866",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 4,
+          "reaction": "❤"
+        },
+        {
+          "count": 3,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "❤‍🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "💯"
+        }
+      ],
+      "replies_count": null,
+      "views": 1176
+    },
+    {
+      "chat": "delret",
+      "comments_enabled": null,
+      "date": "2026-08-20T11:08:02+00:00",
+      "edit_date": "2026-08-20T11:15:22+00:00",
+      "external_links": [],
+      "forwards": 20,
+      "from_id": -1001629949228,
+      "grouped_id": 14297792654697810,
+      "id": 2874,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/delret/2874",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 400
+    },
+    {
+      "chat": "delret",
+      "comments_enabled": null,
+      "date": "2026-08-20T11:08:02+00:00",
+      "edit_date": "2026-08-20T11:15:06+00:00",
+      "external_links": [],
+      "forwards": 20,
+      "from_id": -1001629949228,
+      "grouped_id": 14297792654697810,
+      "id": 2873,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/delret/2873",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 400
+    },
+    {
+      "chat": "delret",
+      "comments_enabled": null,
+      "date": "2026-08-20T11:08:02+00:00",
+      "edit_date": null,
+      "external_links": [
+        "https://t.me/delret",
+        "https://max.ru/delret"
+      ],
+      "forwards": 20,
+      "from_id": -1001629949228,
+      "grouped_id": 14297792654697810,
+      "id": 2872,
+      "media_type": "MessageMediaPhoto",
+      "message": "Две недели внутри ДРТ: как прошла первая стажировка для детей сотрудников 💻\n\nЭтим летом в ДРТ впервые прошла двухнедельная стажировка для детей сотрудников 15–17 лет. Мы хотели дать ребятам возможность увидеть изнутри, как устроена работа большой компании, познакомиться с разными профессиями и получить первый практический опыт еще до выбора будущей специальности.\n\n🗓️ В течение двух недель юные стажеры знакомились с разными направлениями ДРТ — аудитом, консалтингом, налогообложением, финансами, юриспруденцией, а также с работой внутренних служб компании. Ребята общались с экспертами, узнавали о реальных рабочих задачах и участвовали в практических и интерактивных форматах.\n\nПо итогам стажировки многие ребята отметили, что стали лучше понимать, чем занимаются специалисты разных направлений. А кто-то из стажеров уже назвал аудит и консалтинг среди сфер, с которыми могли бы связать свое будущее 💚\n\n«Для нас было важно не только рассказать ребятам о разных профессиях, но и дать возможность увидеть настоящую работу изнутри, пообщаться с нашими коллегам и самим принять участие в решении рабочих задач. И особенно приятно, что за две недели у ребят появились новые профессиональные интересы. Надеемся, этот опыт поможет им сделать первые шаги к выбору будущей профессии. А еще эта стажировка — возможность поддержать наших сотрудников и помочь их детям ближе познакомиться с компанией, в которой работают их родители», — отметила Юлия Франц, директор по персоналу ДРТ.\n➖➖\n#ДРТ_Новости\n\nДРТ в Telegram, МАХ.",
+      "original_url": "https://t.me/delret/2872",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 391
+    },
+    {
+      "chat": "delret",
+      "comments_enabled": null,
+      "date": "2026-08-20T11:08:02+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 20,
+      "from_id": -1001629949228,
+      "grouped_id": 14297792654697810,
+      "id": 2871,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/delret/2871",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 390
+    },
+    {
+      "chat": "delret",
+      "comments_enabled": null,
+      "date": "2026-08-20T11:08:01+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 20,
+      "from_id": -1001629949228,
+      "grouped_id": 14297792654697810,
+      "id": 2870,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/delret/2870",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 390
+    },
+    {
+      "chat": "delret",
+      "comments_enabled": null,
+      "date": "2026-08-20T11:08:01+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 21,
+      "from_id": -1001629949228,
+      "grouped_id": 14297792654697810,
+      "id": 2869,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/delret/2869",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 390
+    },
+    {
+      "chat": "delret",
+      "comments_enabled": null,
+      "date": "2026-08-20T11:08:01+00:00",
+      "edit_date": "2026-08-20T11:08:06+00:00",
+      "external_links": [],
+      "forwards": 20,
+      "from_id": -1001629949228,
+      "grouped_id": 14297792654697810,
+      "id": 2868,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/delret/2868",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 11,
+          "reaction": "custom:5442990330276254276"
+        },
+        {
+          "count": 9,
+          "reaction": "👏"
+        },
+        {
+          "count": 7,
+          "reaction": "🔥"
+        },
+        {
+          "count": 3,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": null,
+      "views": 397
+    },
+    {
+      "chat": "tedo_business",
+      "comments_enabled": null,
+      "date": "2026-08-20T13:15:27+00:00",
+      "edit_date": "2026-08-20T13:15:34+00:00",
+      "external_links": [
+        "https://vk.ru/video/playlist/-211471286_2",
+        "https://podster.fm/podcasts/ot-spora-k-delu",
+        "https://music.yandex.ru/album/20959657?ref_id=7C857FD9-1513-4434-9A5B-A7A727F52A7E&utm_medium=copy_link",
+        "https://podster.fm/podcasts/tedo-pro/e/469960/tedo-pro-kak-banki-zarabatyvayut-na-finansovyh-riskah",
+        "https://podster.fm/podcasts/tedo-pro",
+        "https://music.yandex.ru/album/42696509",
+        "https://vk.ru/tedo_business",
+        "https://max.ru/id7705051102_biz",
+        "https://t.me/tedo_business"
+      ],
+      "forwards": 5,
+      "from_id": -1001137754878,
+      "grouped_id": null,
+      "id": 4480,
+      "media_type": "MessageMediaPhoto",
+      "message": "Аналитика из первых уст: слушайте экспертов «Технологий Доверия» в авторских подкастах:\n\n🔹 «ФинИнсайт: подкаст о банках и людях»\nВ интервью с командой ТеДо эксперты финансового сектора делятся не только инсайтами о рынке, но и личным опытом принятия решений.\n\n➡️  VK Видео \n\n🔹 «От спора к делу»\nВ подкасте эксперты практики ТеДо по разрешению споров с госорганами обсуждают актуальную судебную практику, новости в области разрешения налоговых, административных и таможенных споров, а также изменения в законодательстве.\n\n➡️ Podster \n➡️ Яндекс Музыка \n\n🔹 «ТеДо-про»\nПодкаст о профессии консультанта, бизнесе и людях, которые помогают компаниям решать сложные задачи. В выпусках — как устроены разные индустрии, какие карьерные возможности они открывают и какие навыки помогают строить успешную карьеру.\n\n➡️ Podster \n➡️ Яндекс Музыка\n\n⚡️ТеДо в 💙ВК | 📲MAX | ✈️Telegram\n\n#ГолосТеДо",
+      "original_url": "https://t.me/tedo_business/4480",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "🔥"
+        },
+        {
+          "count": 4,
+          "reaction": "custom:5465206993507597808"
+        },
+        {
+          "count": 3,
+          "reaction": "custom:5192935934143774621"
+        },
+        {
+          "count": 1,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": null,
+      "views": 505
+    },
+    {
+      "chat": "kept_business",
+      "comments_enabled": null,
+      "date": "2026-08-20T14:12:01+00:00",
+      "edit_date": "2026-08-20T14:13:57+00:00",
+      "external_links": [
+        "https://raex-rr.com/news/press-reliz/kgo_start_2026/",
+        "https://raex-rr.com/events/2026/start_KGO_2026/#registration"
+      ],
+      "forwards": 2,
+      "from_id": -1001657341909,
+      "grouped_id": null,
+      "id": 3453,
+      "media_type": "MessageMediaPhoto",
+      "message": "⚡ Рейтинговое агентство RAEX и представители независимого жюри приглашают на вебинар о подготовке к новому конкурсу годовых отчетов для компаний, НКО и образовательных учреждений.\n\nГодовые, интегрированные и отчеты об устойчивом развитии можно прислать на оценку до 1 октября.\n\nНа вебинаре выступит Мария Калиновсская, директор Группы операционных рисков и устойчивого развития. Эксперты и представители жюри расскажут:\n🔸 как подготовить заявку и избежать частых ошибок;\n🔸 какие номинации представлены на конкуре и по каким критериям их оценивают;\n🔸 какие тренды развиваются в нефинансовой отчетности и устойчивом развитии.\n\n🟣 Регистрируйтесь и присоединяйтесь к вебинару 26 августа в 14:00. Участие бесплатное.",
+      "original_url": "https://t.me/kept_business/3453",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": null,
+      "views": 498
+    },
+    {
+      "chat": "kept_business",
+      "comments_enabled": null,
+      "date": "2026-08-20T09:20:03+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 7,
+      "from_id": -1001657341909,
+      "grouped_id": 14297740828015058,
+      "id": 3452,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/kept_business/3452",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 603
+    },
+    {
+      "chat": "kept_business",
+      "comments_enabled": null,
+      "date": "2026-08-20T09:20:03+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 7,
+      "from_id": -1001657341909,
+      "grouped_id": 14297740828015058,
+      "id": 3451,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/kept_business/3451",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 601
+    },
+    {
+      "chat": "kept_business",
+      "comments_enabled": null,
+      "date": "2026-08-20T09:20:03+00:00",
+      "edit_date": "2026-08-20T14:44:08+00:00",
+      "external_links": [
+        "https://kept.ru/news/obzor-rossiyskogo-rynka-kommercheskoy-meditsiny-i-prognoz-ego-razvitiya/?utm_source=telegram&utm_medium=smo&utm_campaign=pharma_consulting_research_commercial-medicine_20aug2026&utm_content=tg_kept"
+      ],
+      "forwards": 10,
+      "from_id": -1001657341909,
+      "grouped_id": 14297740828015058,
+      "id": 3450,
+      "media_type": "MessageMediaPhoto",
+      "message": "Рынок медицинских услуг в 2020–2025 гг. рос в среднем на 10,3% в год, сегмент коммерческой медицины — на 15,9%. Благодаря опережающим темпам роста доля отрасли выросла с 19% до 25% за пять лет.\n\nДелимся ключевыми цифрами и тенденциями.\n\nРынок коммерческой медицины будет расти с CAGR 12,8% — до 4 360 млрд руб. к 2030 г. за счет ряда драйверов:\n🔸 макроэкономики,\n🔸 роста продолжительности жизни и старения населения,\n🔸 развитие диагностики заболеваний,\n🔸 популяризации здорового образа жизни,\n🔸 господдержки и реализации нацпроектов,\n🔸 цифровизации,\n🔸 роста числа пациентов коммерческой медицины и среднего чека.\n\nПри этом топ-50 многопрофильных игроков, которые в 2025 г. занимали около 17% рынка, будут расти опережающими темпами относительно всей отрасли и достигнут доли в 22% к 2030 г.\n\n📈 Рынок лабораторной диагностики будет расти в среднем на 12,5% в год — до 332 млрд руб. в 2030 г.\n\nСегмент будет развиваться как под влиянием драйверов рынка коммерческой медицины, так и ряда специфических факторов: расширения спектра и технологичности услуг, улучшения уровня сервиса, развития первичного звена здравоохранения и роста количества тестов на одного пациента.\n\nДоля топ-5 игроков рынка лабораторной диагностики вырастет с 66% в 2025 г. до 73% в 2030 г. за счет экспансии и сделок по приобретению региональных организаций.\n \nПодробнее — в новом исследовании Kept.",
+      "original_url": "https://t.me/kept_business/3450",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 608
+    },
+    {
+      "chat": "kept_business",
+      "comments_enabled": null,
+      "date": "2026-08-20T09:20:03+00:00",
+      "edit_date": "2026-08-20T09:22:13+00:00",
+      "external_links": [],
+      "forwards": 7,
+      "from_id": -1001657341909,
+      "grouped_id": 14297740828015058,
+      "id": 3449,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/kept_business/3449",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "👏"
+        },
+        {
+          "count": 4,
+          "reaction": "custom:5364143840347313961"
+        },
+        {
+          "count": 3,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": null,
+      "views": 578
+    },
+    {
+      "chat": "Reksoft_group",
+      "comments_enabled": null,
+      "date": "2026-08-20T13:29:41+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 3,
+      "from_id": -1001509197707,
+      "grouped_id": 14297860653079850,
+      "id": 1782,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Reksoft_group/1782",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 173
+    },
+    {
+      "chat": "Reksoft_group",
+      "comments_enabled": null,
+      "date": "2026-08-20T13:29:41+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001509197707,
+      "grouped_id": 14297860653079850,
+      "id": 1781,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Reksoft_group/1781",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 172
+    },
+    {
+      "chat": "Reksoft_group",
+      "comments_enabled": null,
+      "date": "2026-08-20T13:29:41+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001509197707,
+      "grouped_id": 14297860653079850,
+      "id": 1780,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Reksoft_group/1780",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 169
+    },
+    {
+      "chat": "Reksoft_group",
+      "comments_enabled": null,
+      "date": "2026-08-20T13:29:41+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001509197707,
+      "grouped_id": 14297860653079850,
+      "id": 1779,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Reksoft_group/1779",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 169
+    },
+    {
+      "chat": "Reksoft_group",
+      "comments_enabled": null,
+      "date": "2026-08-20T13:29:41+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 2,
+      "from_id": -1001509197707,
+      "grouped_id": 14297860653079850,
+      "id": 1778,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Reksoft_group/1778",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 169
+    },
+    {
+      "chat": "Reksoft_group",
+      "comments_enabled": null,
+      "date": "2026-08-20T13:29:41+00:00",
+      "edit_date": "2026-08-20T13:29:51+00:00",
+      "external_links": [
+        "https://www.finversia.ru/publication/experts/infrastruktura-mezhbankovskikh-i-transgranichnykh-raschetov-vozmozhen-li-opyt-swift-v-rossiiskikh-realiyakh-176291"
+      ],
+      "forwards": 2,
+      "from_id": -1001509197707,
+      "grouped_id": 14297860653079850,
+      "id": 1777,
+      "media_type": "MessageMediaPhoto",
+      "message": "В начале августа президент подписал закон о легализации криптовалют – с 1 сентября цифровые валюты признаны имуществом, регулятором назначен Банк России, а внешнеторговые расчеты через лицензированных посредников получили четкую правовую рамку. Буквально за несколько дней до этого SWIFT объявил о готовности своего блокчейн-леджера, который уже пилотируют 17 крупнейших банков на шести континентах. Для российских банков этот леджер, очевидно, закрыт. Но в самой новости важно другое: SWIFT публично подтвердил модель, к которой российский рынок и так уже двигался.\n\n🗣Артем Баев, руководитель практики «Цифровые активы» Рексофт Консалтинг, в колонке для Finversia разбирает, возможен ли опыт SWIFT в российских реалиях и какие компоненты предстоит собрать в единую архитектуру.",
+      "original_url": "https://t.me/Reksoft_group/1777",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "👏"
+        },
+        {
+          "count": 1,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "🆒"
+        }
+      ],
+      "replies_count": null,
+      "views": 172
+    },
+    {
+      "chat": "norbit_ru",
+      "comments_enabled": null,
+      "date": "2026-08-20T13:04:31+00:00",
+      "edit_date": "2026-08-20T13:07:21+00:00",
+      "external_links": [
+        "https://www.norbit.ru/blog/kak-wfm-menyaet-pravila-igry-na-rynke-truda-trendy-vyzovy-i-resheniya/?utm_source=tg_norbit"
+      ],
+      "forwards": 1,
+      "from_id": -1001717006094,
+      "grouped_id": null,
+      "id": 858,
+      "media_type": "MessageMediaPhoto",
+      "message": "38 000 отделений, 195 250 рабочих мест — и вручную это уже не рассчитать. С такой задачей столкнулась даже Почта России: WFM-система сама спрогнозировала нагрузку и построила графики — в итоге полезное время сотрудников выросло на 7%, а очереди сократились на 15% 📊\n\nИ это не единичный кейс, а симптом того, что происходит на рынке труда прямо сейчас. По итогам 2025 года: безработица — 2,2%, кадровый резерв за пять лет сжался с 7 до 4 млн человек. По прогнозам, в 2026 году трудоспособных станет меньше еще на 1,4 млн. \n\nСтарая схема «увидели дыру в смене — бросили клич — закрыли в авральном режиме» больше не работает:\n\n🔘 уровень сервиса падает на 20–40%\n🔘 расходы на срочный аутсорс растут на 50–80%\n🔘 до 11% рабочего времени оплачивается впустую\n🔘 штат выгорает, клиенты уходят\n\n78% компаний уже испытывают кадровый дефицит, среди крупного бизнеса — 84%. И большинство руководителей не ждут улучшений в ближайший год ❌\n\nИменно поэтому WFM перестаёт быть «просто программой для графиков» и становится стратегическим инструментом: система прогнозирует нехватку персонала на 7–14 дней вперед и сама запускает цепочку решений — от подработки внутри штата до заявки аутстафф-партнеру.\n\nКак выстроить WFM нового поколения в своем бизнесе и что дальше будет с рынком труда — разбираем на цифрах и кейсах в статье. Заходите, если не хотите узнавать о кадровом дефиците на собственном опыте 👇\n\nЧитать статью 👆\n\n#Norbit_экспертиза",
+      "original_url": "https://t.me/norbit_ru/858",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "🤝"
+        }
+      ],
+      "replies_count": null,
+      "views": 86
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-08-20T16:08:23+00:00",
+      "edit_date": "2026-08-20T18:03:24+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/62706",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 33,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6149,
+      "media_type": "MessageMediaPhoto",
+      "message": "Через уязвимость в VMware vCenter злоумышленники начали устанавливать кибершпионские закладки\nhttps://www.tadviser.ru/a/62706\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/6149",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": 0,
+      "views": 1191
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-08-20T12:35:39+00:00",
+      "edit_date": "2026-08-20T12:37:58+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/962181"
+      ],
+      "forwards": 5,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6148,
+      "media_type": "MessageMediaPhoto",
+      "message": "Эксперты К2Тех: Как связать системы офиса в единый автоматизированный контур\n\nВ офисе могут быть современные переговорные, система бронирования, ВКС, автоматическое освещение и климат-контроль. \n\nНо наличие этих решений еще не означает, что пространство готово к работе. \n\nЕсли перед встречей сотруднику приходится вручную настраивать свет, шторы, климат и оборудование, а при сбое искать, какая из систем не отработала, офис остается набором независимых технологий.\n\nПодробнее >>>",
+      "original_url": "https://t.me/tadviser/6148",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1479
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-08-20T11:38:14+00:00",
+      "edit_date": "2026-08-20T11:41:08+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/962217",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 10,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6147,
+      "media_type": "MessageMediaPhoto",
+      "message": "Генпрокуратура решила повысить эффективность исполнения задач и коммуникаций за счёт внедрения единой CRM https://www.tadviser.ru/a/962217\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/6147",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1558
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-08-20T10:59:44+00:00",
+      "edit_date": "2026-08-20T11:03:53+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/196989",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 10,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6146,
+      "media_type": "MessageMediaPhoto",
+      "message": "ПО ФГИС «Соцстрах» накатят на другое «железо», пока Oracle Exadata весом почти 2 тонны переезжает на новую площадку https://www.tadviser.ru/a/196989\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/6146",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 1,
+          "reaction": "🤣"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1606
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-08-20T10:21:16+00:00",
+      "edit_date": "2026-08-20T16:09:13+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/98183",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 16,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6145,
+      "media_type": "MessageMediaPhoto",
+      "message": "НКЦКИ предупредил о многочисленных целевых атаках на пользователей необновлённых TrueConf Server\nhttps://www.tadviser.ru/a/98183\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/6145",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 1,
+          "reaction": "😱"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1780
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-08-20T06:47:35+00:00",
+      "edit_date": "2026-08-20T06:47:53+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/962118",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 38,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 6144,
+      "media_type": "MessageMediaPhoto",
+      "message": "Сбер создаёт цифровую платформу для поставки иностранной рабочей силы в Россию. Фокус — на Индию  https://www.tadviser.ru/a/962118\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/6144",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 7,
+          "reaction": "🥴"
+        },
+        {
+          "count": 5,
+          "reaction": "😁"
+        },
+        {
+          "count": 1,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": 1,
+      "views": 2076
+    }
+  ],
+  "profile": "profile_178"
+}

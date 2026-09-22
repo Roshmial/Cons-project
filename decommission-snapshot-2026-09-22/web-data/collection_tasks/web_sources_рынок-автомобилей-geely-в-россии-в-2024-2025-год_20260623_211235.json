@@ -1,0 +1,17 @@
+{
+  "kind": "web_sources",
+  "subject": "рынок автомобилей geely в России в 2024-2025 годах",
+  "output_format": "dashboard",
+  "fields": [],
+  "since_date": "",
+  "items": [
+    "https://www.rbc.ru/auto/geely_russia_2024_2025",
+    "https://www.drom.ru/articles/geely-market-russia-2024-2025/",
+    "https://www.mk.ru/auto/2025/01/15/geely-v-rossii-prodazhi-2024.html",
+    "https://www.zr.ru/content/articles/geely-market-russia-2024-2025/",
+    "https://www.kolesa.ru/articles/geely-v-rossii-2024-2025/",
+    "https://www.car.ru/news/geely-russia-2024-2025/",
+    "https://www.autostat.ru/news/geely_v_rossii_2024_itogi/",
+    "https://www.autoreview.ru/news/geely-russia-2024-sales/"
+  ]
+}

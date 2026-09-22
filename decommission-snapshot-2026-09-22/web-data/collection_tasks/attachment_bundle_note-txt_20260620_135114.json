@@ -1,0 +1,17 @@
+{
+  "kind": "attachment_bundle",
+  "subject": "note.txt",
+  "output_format": "csv",
+  "fields": [
+    "тип",
+    "summary"
+  ],
+  "items": [
+    {
+      "original_name": "note.txt",
+      "relative_path": "uploads/user_28/thread_186/9f8f0c4a970b45d8b027206bdd0c017a.txt",
+      "mime_type": "text/plain",
+      "text_extracted": true
+    }
+  ]
+}

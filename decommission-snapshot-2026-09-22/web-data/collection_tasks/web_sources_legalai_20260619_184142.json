@@ -1,0 +1,19 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI",
+  "output_format": "csv",
+  "fields": [
+    "компания",
+    "продукт",
+    "ссылка",
+    "summary"
+  ],
+  "since_date": "",
+  "items": [
+    "https://support.google.com/chrome/answer/95346?hl=tr&co=GENIE.Platform%3DDesktop",
+    "https://support.google.com/chrome_webstore/answer/2664769?hl=tr",
+    "https://support.google.com/chrome_webstore/answer/12225786?hl=tr",
+    "https://support.google.com/chrome_webstore/answer/1047776?hl=tr",
+    "https://support.google.com/chrome_webstore/answer/1053346?hl=en"
+  ]
+}

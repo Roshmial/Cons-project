@@ -1,0 +1,19 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI",
+  "output_format": "csv",
+  "fields": [
+    "компания",
+    "продукт",
+    "ссылка",
+    "summary"
+  ],
+  "since_date": "",
+  "items": [
+    "https://www.krone.at/",
+    "https://www.krone.at/nachrichten",
+    "http://meinabo.krone.at/",
+    "https://www.krone.at/oberoesterreich",
+    "https://www.krone.at/tirol"
+  ]
+}

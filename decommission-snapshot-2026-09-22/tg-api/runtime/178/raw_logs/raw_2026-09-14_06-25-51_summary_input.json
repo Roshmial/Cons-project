@@ -1,0 +1,80 @@
+{
+  "raw_log": "/home/hermes/workspace/TG-API/runtime/178/raw_logs/raw_2026-09-14_06-25-51.json",
+  "config_name": "daily_178",
+  "profile_name": "profile_178",
+  "total_messages": 3,
+  "non_empty_messages": 2,
+  "empty_messages_skipped": 1,
+  "messages": [
+    {
+      "chat": "Axenix_Ru",
+      "id": 3719,
+      "date": "2026-09-13T17:56:14+00:00",
+      "original_url": "https://t.me/Axenix_Ru/3719",
+      "external_links": [],
+      "metadata": {
+        "views": 508,
+        "forwards": 18,
+        "replies_count": 3,
+        "comments_enabled": true,
+        "reactions": [
+          {
+            "count": 13,
+            "reaction": "❤"
+          },
+          {
+            "count": 7,
+            "reaction": "❤‍🔥"
+          },
+          {
+            "count": 7,
+            "reaction": "👍"
+          },
+          {
+            "count": 3,
+            "reaction": "🔥"
+          }
+        ],
+        "edit_date": "2026-09-13T17:56:48+00:00",
+        "media_type": "MessageMediaPhoto"
+      },
+      "text": "С ДНЕМ ПРОГРАММИСТА!\n\nСегодня мы поздравляем с праздником тех, кто превращает нули и единички в красоту — работающие решения, которые меняют мир к лучшему.\n\nС праздником, коллеги!\n\n#AXteam"
+    },
+    {
+      "chat": "YakovPartners",
+      "id": 3884,
+      "date": "2026-09-13T09:32:45+00:00",
+      "original_url": "https://t.me/YakovPartners/3884",
+      "external_links": [],
+      "metadata": {
+        "views": 1195,
+        "forwards": 26,
+        "reactions": [
+          {
+            "count": 11,
+            "reaction": "❤"
+          },
+          {
+            "count": 5,
+            "reaction": "❤‍🔥"
+          },
+          {
+            "count": 4,
+            "reaction": "🔥"
+          },
+          {
+            "count": 3,
+            "reaction": "👍"
+          },
+          {
+            "count": 1,
+            "reaction": "💯"
+          }
+        ],
+        "edit_date": "2026-09-13T09:33:04+00:00",
+        "media_type": "MessageMediaPhoto"
+      },
+      "text": "Поздравляем с Днем программиста!\n\nЗа платежами и банками, больницами и записью к врачу, транспортом и логистикой, связью, госуслугами, картами, магазинами и привычными приложениями стоит чей-то код.\n\nЕго пишут люди, которые думают на годы вперед, берут ответственность за свои решения и делают сложное понятным."
+    }
+  ]
+}

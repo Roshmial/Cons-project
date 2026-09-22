@@ -1,0 +1,50 @@
+{
+  "started_at": "2026-09-19T06:25:12.310121+00:00",
+  "status": "ok",
+  "ensure_api": {
+    "exit_code": 0,
+    "stdout": "api_status=already_running",
+    "stderr": ""
+  },
+  "monitor_client": {
+    "exit_code": 0,
+    "stdout": "=== Сбор данных [2026-09-19T06:25:12] ===\nЗапрос к API: http://localhost:8001/export?profile=profile_178&config=daily_178&since=%7B%22b1_news%22%3A%203712%2C%20%22Axenix_Ru%22%3A%203737%2C%20%22beringpro%22%3A%20697%2C%20%22Softline%22%3A%203388%2C%20%22k2_tech%22%3A%202253%2C%20%22Lanit_life%22%3A%203820%2C%20%22InnotechCompany%22%3A%201304%2C%20%22YakovPartners%22%3A%203892%2C%20%22delret%22%3A%202897%2C%20%22tedo_business%22%3A%204490%2C%20%22kept_business%22%3A%203535%2C%20%22Reksoft_group%22%3A%201832%2C%20%22norbit_ru%22%3A%20886%2C%20%22tadviser%22%3A%206244%7D\nНайдено новых сообщений: 36\nСырые данные сохранены в: /home/hermes/workspace/TG-API/runtime/178/raw_logs/raw_2026-09-19_06-25-15.json\nФайл для сводки сохранен в: /home/hermes/workspace/TG-API/runtime/178/raw_logs/raw_2026-09-19_06-25-15_summary_input.json\nДля сводки: 20 непустых, 16 пустых сообщений пропущено.\nАрхив JSONL дополнен: /home/hermes/workspace/TG-API/runtime/178/archive/telegram_messages.jsonl\nСостояние (since.json) успешно обновлено.\n=== Сбор завершен ===\n\n{\"status\": \"ok\", \"config_name\": \"daily_178\", \"profile_name\": \"profile_178\", \"collection_ts\": \"2026-09-19T06:25:12\", \"raw_log\": \"/home/hermes/workspace/TG-API/runtime/178/raw_logs/raw_2026-09-19_06-25-15.json\", \"summary_input\": \"/home/hermes/workspace/TG-API/runtime/178/raw_logs/raw_2026-09-19_06-25-15_summary_input.json\", \"archive\": \"/home/hermes/workspace/TG-API/runtime/178/archive/telegram_messages.jsonl\", \"total_messages\": 36, \"non_empty_messages\": 20, \"empty_messages_skipped\": 16, \"since_updated\": true}",
+    "stderr": ""
+  },
+  "collector_payload": {
+    "status": "ok",
+    "config_name": "daily_178",
+    "profile_name": "profile_178",
+    "collection_ts": "2026-09-19T06:25:12",
+    "raw_log": "/home/hermes/workspace/TG-API/runtime/178/raw_logs/raw_2026-09-19_06-25-15.json",
+    "summary_input": "/home/hermes/workspace/TG-API/runtime/178/raw_logs/raw_2026-09-19_06-25-15_summary_input.json",
+    "archive": "/home/hermes/workspace/TG-API/runtime/178/archive/telegram_messages.jsonl",
+    "total_messages": 36,
+    "non_empty_messages": 20,
+    "empty_messages_skipped": 16,
+    "since_updated": true
+  },
+  "artifact_checks": {
+    "raw_log": {
+      "path": "/home/hermes/workspace/TG-API/runtime/178/raw_logs/raw_2026-09-19_06-25-15.json",
+      "exists": true,
+      "is_fresh": true,
+      "modified_at": "2026-09-19T06:25:15.192101+00:00"
+    },
+    "summary_input": {
+      "path": "/home/hermes/workspace/TG-API/runtime/178/raw_logs/raw_2026-09-19_06-25-15_summary_input.json",
+      "exists": true,
+      "is_fresh": true,
+      "modified_at": "2026-09-19T06:25:15.194101+00:00"
+    },
+    "archive": {
+      "path": "/home/hermes/workspace/TG-API/runtime/178/archive/telegram_messages.jsonl",
+      "exists": true,
+      "is_fresh": true,
+      "modified_at": "2026-09-19T06:25:15.196101+00:00"
+    },
+    "non_empty_matches_messages": true,
+    "latest_summary_input": "/home/hermes/workspace/TG-API/runtime/178/raw_logs/raw_2026-09-19_06-25-15_summary_input.json"
+  },
+  "finished_at": "2026-09-19T06:25:15.225217+00:00"
+}

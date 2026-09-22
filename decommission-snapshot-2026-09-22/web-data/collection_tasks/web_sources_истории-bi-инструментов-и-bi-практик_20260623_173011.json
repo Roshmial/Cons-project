@@ -1,0 +1,17 @@
+{
+  "kind": "web_sources",
+  "subject": "истории BI-инструментов и BI-практик",
+  "output_format": "dashboard",
+  "fields": [],
+  "since_date": "",
+  "items": [
+    "https://en.wikipedia.org/wiki/Business_intelligence",
+    "https://www.ibm.com/topics/business-intelligence",
+    "https://www.oracle.com/business-intelligence/",
+    "https://www.sas.com/en_us/insights/analytics/business-intelligence.html",
+    "https://www.microstrategy.com/ru/what-is-business-intelligence",
+    "https://www.qlik.com/us/products/qlik-sense/business-intelligence",
+    "https://www.datasciencecentral.com/profiles/blogs/a-brief-history-of-business-intelligence",
+    "https://www.tableau.com/learn/training/20231"
+  ]
+}

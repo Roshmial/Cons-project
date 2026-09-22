@@ -1,0 +1,19 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI",
+  "output_format": "csv",
+  "fields": [
+    "компания",
+    "продукт",
+    "ссылка",
+    "summary"
+  ],
+  "since_date": "",
+  "items": [
+    "https://www.tripadvisor.com.tr/Attractions-g60880-Activities-Anchorage_Alaska.html",
+    "https://www.tripadvisor.com/Attractions-g60880-Activities-Anchorage_Alaska.html",
+    "https://gezimanya.com/anchorage",
+    "https://alaskaitinerary.com/anchorage-travel-guide/",
+    "https://gezimanya.com/alaska/anchorageda-gezilecek-yerler"
+  ]
+}

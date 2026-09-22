@@ -1,0 +1,14 @@
+{
+  "kind": "web_sources",
+  "subject": "Проанализируй данные в интернете и собери дашборд по истории развития BI-решений и BI-практик",
+  "output_format": "dashboard",
+  "fields": [],
+  "since_date": "",
+  "items": [
+    "https://en.wikipedia.org/wiki/Business_intelligence",
+    "https://www.gartner.com/en/articles/what-is-business-intelligence",
+    "https://tdwi.org/articles/2020/03/01/the-history-of-business-intelligence.aspx",
+    "https://www.ibm.com/topics/business-intelligence",
+    "https://www.microsoft.com/en-us/power-platform/power-bi"
+  ]
+}

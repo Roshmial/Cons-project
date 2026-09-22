@@ -1,0 +1,19 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI",
+  "output_format": "csv",
+  "fields": [
+    "компания",
+    "продукт",
+    "ссылка",
+    "summary"
+  ],
+  "since_date": "",
+  "items": [
+    "https://www.legalai.com",
+    "https://legalai.com/platform",
+    "https://legalai.com/solutions",
+    "https://legalai.com/blog",
+    "https://legalai.com/about"
+  ]
+}

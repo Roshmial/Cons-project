@@ -1,0 +1,98 @@
+{
+  "config": "daily_178",
+  "count": 3,
+  "messages": [
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-08-08T11:03:40+00:00",
+      "edit_date": "2026-08-08T11:08:46+00:00",
+      "external_links": [
+        "https://in-plan.ru/webinars/planirovanie-postavok-v-neftekhimii/?utm_source=telegram&utm_medium=planirovanie_postavok_v_neftekhimii_post_1#form",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 3,
+      "from_id": -1001745559336,
+      "grouped_id": null,
+      "id": 3591,
+      "media_type": "MessageMediaPhoto",
+      "message": "Supply Network Planning или SNP в нефтехимии связывает спрос, производство, запасы и дистрибуцию в единый сбалансированный план. В данной отрасли это особенно важно, потому что одно решение влияет на всю цепочку. Например, если увеличить выпуск одной марки на установке, может измениться доступность другой марки, загрузка мощностей, объем запасов и возможность выполнить заказы клиентов.\n\nНа вебинаре покажем, как платформа интегрированного планирования In.Plan помогает выстроить оптимальный производственно-логистический план для полиэтиленового бизнеса.\n\nПройдите бесплатную регистрацию по ссылке и подключайтесь к нам 20 августа в 16:00 (мск).\n\n#AX_InPlan\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3591",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 4,
+          "reaction": "👍"
+        },
+        {
+          "count": 2,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 0,
+      "views": 318
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": null,
+      "date": "2026-08-08T08:45:06+00:00",
+      "edit_date": "2026-08-08T08:45:10+00:00",
+      "external_links": [],
+      "forwards": 3,
+      "from_id": -1001745559336,
+      "grouped_id": 14289429647975058,
+      "id": 3590,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Axenix_Ru/3590",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 369
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-08-08T08:45:06+00:00",
+      "edit_date": "2026-08-08T09:48:04+00:00",
+      "external_links": [
+        "https://www.gazeta.ru/twz/budushee/odnoi-neironkoi-ne-oboidetes.htm?utm_auth=false",
+        "https://www.gazeta.ru/twz/budushee/odnoi-neironkoi-ne-oboidetes.htm",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 3,
+      "from_id": -1001745559336,
+      "grouped_id": 14289429647975058,
+      "id": 3589,
+      "media_type": "MessageMediaPhoto",
+      "message": "Нейросети умеют справляться с множеством самых разнообразных задач, но из-за особенностей каждой отдельной модели под конкретную цель имеет смысл подбирать свой ИИ, а не пытаться найти один универсальный вариант. Более того, так как модели постоянно развиваются и обновляются, важно периодически делать «ревизию» своего набора ИИ-инструментов. \n\nСейчас для составления писем и планов, поиска идей для текста вполне достаточно одного мощного чат-бота такого как ChatGPT, Claude, Алиса AI или GigaChat; с поиском в интернете в реальном времени лучше справляются Perplexity или Grok; в работе с изображениями сильная репутация у Midjourney, GPT Image, Nano Banana и, например, у китайских Seedream и Qwen Image; а для написания кода эксперты советуют в зависимости от задачи в том числе Codex, Claude Code и Cursor.\n\nСтоимость использования нескольких нейросетей может составлять от пары десятков до нескольких сотен долларов в месяц. \n\nНаш коллега Андрей Мальков, эксперт по ГенИИ AXENIX, рассказал «Газете.ру», что тратит на подписки около $60 в месяц — сюда входят платные версии ChatGPT и Claude Code. Также он пользуется корпоративной нейросетью, которую предоставляет компания.\n\nБольше экспертных советов о том, как подобрать нейросети, подходящие именно под ваши задачи, читайте в материале «Газеты.ру».\n\n#AXai\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3589",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "👏"
+        },
+        {
+          "count": 1,
+          "reaction": "😁"
+        }
+      ],
+      "replies_count": 0,
+      "views": 371
+    }
+  ],
+  "profile": "profile_178"
+}

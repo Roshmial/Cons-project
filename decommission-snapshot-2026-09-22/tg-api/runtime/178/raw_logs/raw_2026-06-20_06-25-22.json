@@ -1,0 +1,990 @@
+{
+  "config": "daily_178",
+  "count": 34,
+  "messages": [
+    {
+      "chat": "b1_news",
+      "comments_enabled": null,
+      "date": "2026-06-19T08:54:35+00:00",
+      "edit_date": "2026-06-19T09:01:33+00:00",
+      "external_links": [
+        "https://b1.ru/insights/news/video/ilya-sukharnikov-b1-rbc-tv-18-june-2026/",
+        "https://tv.rbc.ru/archive/news/68f0f13c2ae596f4d682921a"
+      ],
+      "forwards": 3,
+      "from_id": -1001512457804,
+      "grouped_id": null,
+      "id": 3505,
+      "media_type": "MessageMediaDocument",
+      "message": "В эфире программы «Что это значит» на РБК-ТВ Илья Сухарников, партнер отдела консультирования в сфере недвижимости, строительства и развития территорий Группы компаний Б1, рассказал о возможных причинах задержек передачи новостроек покупателям.\n\n📎Подробнее смотрите в разделе «Ролики» на нашем сайте, а полная версия эфира уже доступна по ссылке.",
+      "original_url": "https://t.me/b1_news/3505",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "custom:5273775400567189528"
+        },
+        {
+          "count": 1,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": null,
+      "views": 369
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-06-19T16:22:12+00:00",
+      "edit_date": "2026-06-19T16:23:28+00:00",
+      "external_links": [
+        "https://vkvideo.ru/video-215827776_456239281",
+        "https://axenix.pro/news/17-ijunja-proshjol-vebinar-o-tom-kak-upravljat-trejd-promo-i-schitat-jelastichnost-v-odnoj-sisteme",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": null,
+      "id": 3333,
+      "media_type": "MessageMediaDocument",
+      "message": "Благодарим всех, кто присоединился к нам на вебинаре «Как управлять трейд промо и считать эластичность в одной системе»!\n\nВместе мы обсудили:\n \n🔸 Возможности модуля In.Plan Трейд Промо\n🔸 Как рассчитать инкрементальный эффект, P&L промо по клиенту и SKU и оценить реальный вклад акции в бизнес-результат\n🔸 Как рассчитать ценовую эластичность на данных клиента, не используя внешние бенчмарки\n🔸 Как учесть кросс-эластичность и каннибализацию в период акции\n🔸 Какие математические модели используются в модуле Трейд Промо\n\nА также посмотрели демо работы модуля, чтобы узнать, как происходит полный цикл работы с промо в In.Plan — от планирования и расчета прогноза до анализа завершённой акции.\n\nВы можете посмотреть запись вебинара в нашем посте, в ВК Видео или на сайте AXENIX. А если у вас останутся вопросы, мы всегда будет рады ответить!\n\nЖелаем приятного просмотра!\n\n#AX_InPlan\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3333",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 0,
+      "views": 288
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-06-19T15:14:10+00:00",
+      "edit_date": "2026-06-19T16:18:17+00:00",
+      "external_links": [
+        "https://music.yandex.ru/album/35560851/track/152840920?utm_source=web&utm_medium=copy_link",
+        "https://t.me/mavestreambot/app?startapp=dvoeretail_117",
+        "https://vk.ru/podcast-231773175_456239102",
+        "https://podcasts.apple.com/ru/podcast/%D0%B4%D0%B2%D0%BE%D0%B5-%D0%BE-%D0%B2%D0%BE%D0%B4%D0%B5-%D0%B4%D0%BB%D1%8F-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D0%BD%D0%B0-ai-%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D0%BA%D0%B5-lamoda-%D1%80%D1%8B%D0%B1%D0%BD%D0%BE%D0%BC-%D1%81%D0%BF%D1%80%D0%BE%D1%81%D0%B5/id1797842759?i=1000773384947",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 1,
+      "from_id": -1001745559336,
+      "grouped_id": null,
+      "id": 3332,
+      "media_type": "MessageMediaDocument",
+      "message": "🎧 Новый выпуск подкаста «Двое и ритейл»\n\nПокупатели берут воду не только из-за жажды, ИИ-примерочные обещают упростить выбор одежды, а книжные магазины снова ищут новый формат — от мини-точек до кафе и подписок.\n\nАлексей Сидоров и Григорий Акулов разбирают для вас самые свежие новости ритейла!\n\n👉 Полный эпизод доступен здесь:\nЯндекс Музыка\nTG-плеер Mave\nВК Музыка\nApple Podcasts\n\nВ этом выпуске:\n🔸Почему люди покупают воду, если не хотят пить? Исследование «Кавминвод»\n🔸Как Lamoda планирует развивать ИИ-примерку онлайн? \n🔸Что стало причиной роста спроса на соленую рыбу, крабовые палочки и рыбные полуфабрикаты?\n🔸Какие десерты чаще всего выбирают покупатели «Пятёрочки» и «Перекрёстка»?\n🔸За счет чего «Буквоед» хочет покорить рынок Москвы?  \n🔸Смогут ли книжные кафе, подписки и мини-библиотеки спасти книжные магазины?\n\nВключайте, чтобы быть в курсе!\n\n#AXpodcasts #AXtwo\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3332",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 0,
+      "views": 307
+    },
+    {
+      "chat": "Axenix_Ru",
+      "comments_enabled": true,
+      "date": "2026-06-19T08:05:06+00:00",
+      "edit_date": "2026-06-19T08:12:18+00:00",
+      "external_links": [
+        "https://retailweek.ru/for-participants.html",
+        "https://retailweek.ru/program.html",
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "forwards": 2,
+      "from_id": -1001745559336,
+      "grouped_id": null,
+      "id": 3331,
+      "media_type": "MessageMediaPhoto",
+      "message": "AXENIX на «Неделе Российского Ритейла»\n\nПриглашаем вас на экспертный разговор по трансформации ритейла под влиянием искусственного интеллекта.\n\n📍24 июня, 14:00, Центр Международной торговли, зал «Байкал»\n\nАнтон Меркулов, директор практики AI для направления «Потребительские товары и услуги» AXENIX, вместе с приглашенными экспертами и членами «Руссофт» обсудит, как глобальная турбулентность и давление экосистем меняют правила игры для российского ритейла, где искусственный интеллект может дать реальный результат, как не наплодить «зоопарк пилотов» и соблюсти все риски и, главное, как честно измерить успех внедренных ИИ-инициатив.\n\nЖдем вас на сессии «Ритейл-2026: вызовы глобальной неопределенности и трансформация под влиянием ИИ»!\n\nПодробная информация об условиях участия в конференции доступна по ссылке. \n\nОзнакомиться с программой всех выступлений можно здесь.\n\nДо встречи!\n\n#AXretail #AXai\n\n🔥 AXENIX: Telegram | MAX | ВК",
+      "original_url": "https://t.me/Axenix_Ru/3331",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "👍"
+        }
+      ],
+      "replies_count": 1,
+      "views": 410
+    },
+    {
+      "chat": "beringpro",
+      "comments_enabled": null,
+      "date": "2026-06-19T08:09:06+00:00",
+      "edit_date": "2026-06-19T08:09:21+00:00",
+      "external_links": [
+        "https://vesfinteh.ru/proekty/keys-nornickel-upravlenie-likvidnostyu-1c-uh/",
+        "https://t.me/treasury_news/1879"
+      ],
+      "forwards": 13,
+      "from_id": -1002080584357,
+      "grouped_id": null,
+      "id": 671,
+      "media_type": "MessageMediaPhoto",
+      "message": "Антон Поляков, старший менеджер BeringPro (ГК Softline) для «Вестника финансовых технологий» сделал подробный разбор пилотного проекта по внедрению Единого казначейского решения (ЕКР) на 1С:УХ для ПАО «ГМК Норильский никель».\n\nВ статье Антон освещает первую часть решения на 1С:УХ, рассказывает, в чем уникальность решения ЕКР, что «под капотом», с какими проблемами столкнулась команда и как теперь всего 10 человек управляют денежными потоками и долговым портфелем из 80+ юрлиц и 35+ учетных систем.\n\nРезюмируя: \n\n📍Проект доказывает, что 1С:УХ при целевых доработках в правильных руках способна заменить западные TMS в крупных холдингах.\n\n📍Ключевая ценность — не просто автоматизация, а сценарное моделирование, версионность прогнозов ликвидности и долгового портфеля.\n\n📍Технологический стек (Astra Linux, Postgres Pro, 1С) полностью соответствует требованиям импортозамещения для критической ИТ-инфраструктуры.\n\n📍Решение нацелено на управленческий контур, оставляя первичный транзакционный учет в системах-источниках.\n\n📍Блок «Планирование и управление финансовыми рисками» (ПиУФР), который будет освещен в отдельной статье, расширяет контур до полного сквозного корпоративного финансового управления, включая риски.\n\nТакже читайте пост-резюме от коллег «Казначейские новости» 📣",
+      "original_url": "https://t.me/beringpro/671",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 10,
+          "reaction": "🔥"
+        },
+        {
+          "count": 7,
+          "reaction": "❤"
+        },
+        {
+          "count": 5,
+          "reaction": "👍"
+        },
+        {
+          "count": 3,
+          "reaction": "🤩"
+        },
+        {
+          "count": 2,
+          "reaction": "👏"
+        }
+      ],
+      "replies_count": null,
+      "views": 174
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-06-19T11:59:49+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 7,
+      "from_id": -1001569311808,
+      "grouped_id": 14254963112490402,
+      "id": 2022,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2022",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 158
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-06-19T11:59:49+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 7,
+      "from_id": -1001569311808,
+      "grouped_id": 14254963112490402,
+      "id": 2021,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2021",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 158
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-06-19T11:59:49+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 7,
+      "from_id": -1001569311808,
+      "grouped_id": 14254963112490402,
+      "id": 2020,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2020",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 159
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-06-19T11:59:49+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 7,
+      "from_id": -1001569311808,
+      "grouped_id": 14254963112490402,
+      "id": 2019,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2019",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 159
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-06-19T11:59:49+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 7,
+      "from_id": -1001569311808,
+      "grouped_id": 14254963112490402,
+      "id": 2018,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2018",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 160
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-06-19T11:59:49+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 7,
+      "from_id": -1001569311808,
+      "grouped_id": 14254963112490402,
+      "id": 2017,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2017",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 160
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-06-19T11:59:49+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 7,
+      "from_id": -1001569311808,
+      "grouped_id": 14254963112490402,
+      "id": 2016,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/k2_tech/2016",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 158
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-06-19T11:59:49+00:00",
+      "edit_date": "2026-06-19T12:58:45+00:00",
+      "external_links": [
+        "https://k2tech.io/2a5"
+      ],
+      "forwards": 7,
+      "from_id": -1001569311808,
+      "grouped_id": 14254963112490402,
+      "id": 2015,
+      "media_type": "MessageMediaPhoto",
+      "message": "🖥🛠 Как системы архивирования помогают ускорить миграцию и сберечь ресурсы\n\n🧱 При переезде корпоративных систем и обновлении ИТ‑инфраструктуры на первый план выходят сроки, риски и стоимость. Архивирование при этом часто воспринимают как «фоновую» задачу, хотя при грамотном подходе оно заметно упрощает миграцию, снижает TCO и помогает закрыть требования регуляторов.\n\nВместе с партнерами из Скайфолл мы разобрали, в каких сценариях архивные системы реально помогают пройти переезд спокойнее: от оптимизации ресурсов и ускорения миграции до управления рисками и выполнением нормативных требований. \n\n🔥 Ключевые выводы — в карточках.\n\n📺 Наш канал теперь доступен в MAX. Присоединяйтесь, чтобы оставаться на связи!",
+      "original_url": "https://t.me/k2_tech/2015",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 2,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": null,
+      "views": 161
+    },
+    {
+      "chat": "k2_tech",
+      "comments_enabled": null,
+      "date": "2026-06-19T09:14:49+00:00",
+      "edit_date": "2026-06-19T09:15:18+00:00",
+      "external_links": [
+        "https://ict-online.ru/interview/Roman-Sevruk-K2Tekh-Rynok-SUBD-vyshel-iz-rezhima-ekstrennogo-importozameshcheniya-i-perekhodit-k-proverke-na-zrelost-328207",
+        "https://max.ru/join/M85-9s0bD04d359QioJAEszyrON-239k-efdz-IB2vw"
+      ],
+      "forwards": 1,
+      "from_id": -1001569311808,
+      "grouped_id": null,
+      "id": 2014,
+      "media_type": "MessageMediaPhoto",
+      "message": "По данным экспертов, объем российского рынка СУБД в 2025 году превысил 100 млрд рублей с приростом около 14 %. Примерно такой же темп роста может сохраниться в ближайшие годы. Это означает, что рынок уже вышел из режима экстренного импортозамещения и переходит к более зрелому и предсказуемому этапу.\n\nОб этом говорит менеджер по развитию решений СУБД компании К2Тех Роман Севрук и отвечает на вопросы:\n\n▫️Какова текущая динамика российского рынка СУБД, какие драйверы определяют его развитие?\n\n▫️На ЦИПРе было заявлено, что сроки импортозамещения сдвигаются до 2036 года. Как это отразится на рынке СУБД? \n\n▫️После ухода западных вендоров заказчики столкнулись с тем, что ни одна российская СУБД не закрывает все задачи. Как развиваются сейчас российские решения?\n\n▫️С какими еще вызовами сталкивается развитие российских СУБД?\n\n▫️Какие российские СУБД в ближайшие 2-3 года смогут реально претендовать на enterprise-сегмент, и за счет чего именно?\n\n▫️Допустим, заказчик решил мигрировать с западной СУБД. Зачем ему вообще нанимать интегратора? Разве нельзя всё сделать своими силами?\n\n▫️А как самому выбрать решение, если нет возможности тестировать все варианты? Что спросить у вендора, чтобы отсеять маркетинг?\n\n▫️Как рынок будет развиваться в перспективе 2-3 лет? Какие запросы будут у бизнеса?\n\nПодробности — в рубрике «Интервью»\n\n😀  Мы в МАХ",
+      "original_url": "https://t.me/k2_tech/2014",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 4,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "👏"
+        }
+      ],
+      "replies_count": null,
+      "views": 172
+    },
+    {
+      "chat": "Lanit_life",
+      "comments_enabled": null,
+      "date": "2026-06-19T14:03:01+00:00",
+      "edit_date": "2026-06-19T14:08:09+00:00",
+      "external_links": [
+        "https://habr.com/ru/companies/lanit/articles/1037386/",
+        "https://vk.com/lanit_life",
+        "https://max.ru/id7727004113_biz"
+      ],
+      "forwards": 3,
+      "from_id": -1001381217620,
+      "grouped_id": null,
+      "id": 3799,
+      "media_type": "MessageMediaPhoto",
+      "message": "👨‍🔧 Обратная связь в дизайне: почему «мне не нравится» – это не аргумент \n\nСубъективная оценка визуала – главный барьер между заказчиком и дизайнером.\n\nКогда обсуждение строится на эмоциях и личных впечатлениях, страдают и сроки, и результат. В статье в блоге ЛАНИТ на Хабре руководитель отдела дизайна рассказывает, как перевести обсуждение макетов в профессиональное русло:\n\n🌈 Ключевой принцип – оценивать дизайн по его эффективности, а не по личному вкусу. Макет должен решать конкретную задачу и совпадать с интересами целевой аудитории.\n\n🌈 Визуальная иерархия – критический фактор. Если взгляд пользователя хаотично скользит по изображению, не выделяя главного, дизайн теряет функциональность. Главным не может быть всё: конкуренция акцентов разрушает восприятие. \n\n🌈 Контекст определяет визуальный стиль. Дизайн может быть грамотным с точки зрения композиции и колористики. Но он не сработает, если идёт вразрез со средой размещения, ожиданиями аудитории или характером продукта.\n\nПолный разбор шагов, которые переведут обсуждение дизайна на язык задач – по ссылке ⬅️\n\n🍀 Читайте нас в VK | MAX",
+      "original_url": "https://t.me/Lanit_life/3799",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 4,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "👍"
+        },
+        {
+          "count": 2,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "👏"
+        },
+        {
+          "count": 1,
+          "reaction": "🙏"
+        }
+      ],
+      "replies_count": null,
+      "views": 227
+    },
+    {
+      "chat": "Lanit_life",
+      "comments_enabled": null,
+      "date": "2026-06-19T10:52:44+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001381217620,
+      "grouped_id": 14254930914637930,
+      "id": 3798,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Lanit_life/3798",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 287
+    },
+    {
+      "chat": "Lanit_life",
+      "comments_enabled": null,
+      "date": "2026-06-19T10:52:44+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001381217620,
+      "grouped_id": 14254930914637930,
+      "id": 3797,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Lanit_life/3797",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 286
+    },
+    {
+      "chat": "Lanit_life",
+      "comments_enabled": null,
+      "date": "2026-06-19T10:52:44+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001381217620,
+      "grouped_id": 14254930914637930,
+      "id": 3796,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Lanit_life/3796",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 286
+    },
+    {
+      "chat": "Lanit_life",
+      "comments_enabled": null,
+      "date": "2026-06-19T10:52:44+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001381217620,
+      "grouped_id": 14254930914637930,
+      "id": 3795,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Lanit_life/3795",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 283
+    },
+    {
+      "chat": "Lanit_life",
+      "comments_enabled": null,
+      "date": "2026-06-19T10:52:44+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001381217620,
+      "grouped_id": 14254930914637930,
+      "id": 3794,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Lanit_life/3794",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 283
+    },
+    {
+      "chat": "Lanit_life",
+      "comments_enabled": null,
+      "date": "2026-06-19T10:52:44+00:00",
+      "edit_date": null,
+      "external_links": [],
+      "forwards": 4,
+      "from_id": -1001381217620,
+      "grouped_id": 14254930914637930,
+      "id": 3793,
+      "media_type": "MessageMediaPhoto",
+      "message": "",
+      "original_url": "https://t.me/Lanit_life/3793",
+      "post_author": null,
+      "reactions": [],
+      "replies_count": null,
+      "views": 281
+    },
+    {
+      "chat": "Lanit_life",
+      "comments_enabled": null,
+      "date": "2026-06-19T10:52:44+00:00",
+      "edit_date": "2026-06-19T10:52:47+00:00",
+      "external_links": [
+        "https://trends.aic.ru/",
+        "https://vk.com/lanit_life",
+        "https://max.ru/id7727004113_biz"
+      ],
+      "forwards": 4,
+      "from_id": -1001381217620,
+      "grouped_id": 14254930914637930,
+      "id": 3792,
+      "media_type": "MessageMediaPhoto",
+      "message": "Топ-7 трендов в сфере ИИ 🤖\n\nКомпании усиливают надзор за нейросетями, переходят на открытый код, строят комплексные системы и многое другое. Бизнес внедряет умные технологии, какие именно — ищите в нашей подборке.\n\nСобрали актуальные тренды в сфере ИИ в карточках ⬆️\n\nБольше тенденций и исследований найдёте у коллег из aic (входит в ЛАНИТ).\n\n🍀 Читайте нас в VK | MAX",
+      "original_url": "https://t.me/Lanit_life/3792",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "👍"
+        },
+        {
+          "count": 2,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": null,
+      "views": 287
+    },
+    {
+      "chat": "YakovPartners",
+      "comments_enabled": null,
+      "date": "2026-06-19T15:01:38+00:00",
+      "edit_date": "2026-06-19T15:01:48+00:00",
+      "external_links": [],
+      "forwards": 11,
+      "from_id": -1001083076359,
+      "grouped_id": null,
+      "id": 3810,
+      "media_type": "MessageMediaPhoto",
+      "message": "ИИ как инструмент спасения строительной отрасли\n\nНа форуме недвижимости «Движение» Анна Данченок, партнер и глава практики «Недвижимость и развитие территорий» «Яков и Партнёры», представила результаты исследования по внедрению ИИ в девелопменте. По оценкам экспертов, сквозное использование искусственного интеллекта может принести отрасли до 0,9 трлн рублей ежегодного, что позволит компенсировать до 5–6% падения маржинальности и вернуть ее к уровню 2022 года.\n\nПока большинство девелоперов (64%) находятся на стадии экспериментов с ИИ, в основном в продажах и маркетинге. Однако лишь каждая пятая компания может точно посчитать финансовый результат, а масштабировать решения удается менее 10% игроков. Главная проблема — не в самих технологиях, а в качестве данных, управлении изменениями и отсутствии четкой стратегии.\n\nАнна Данченок подчеркнула, что ИИ — это не волшебная кнопка, а управленческая дисциплина. Успех получат те компании, которые проведут аудит процессов, выберут приоритетные сценарии и встроят ИИ в реальную экономику проекта. Только в этом случае технология из красивой презентации превратится в реальный инструмент повышения эффективности и конкурентоспособности.",
+      "original_url": "https://t.me/YakovPartners/3810",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 9,
+          "reaction": "🔥"
+        },
+        {
+          "count": 5,
+          "reaction": "❤"
+        },
+        {
+          "count": 5,
+          "reaction": "❤‍🔥"
+        },
+        {
+          "count": 3,
+          "reaction": "👍"
+        },
+        {
+          "count": 2,
+          "reaction": "💯"
+        }
+      ],
+      "replies_count": null,
+      "views": 1080
+    },
+    {
+      "chat": "kept_business",
+      "comments_enabled": null,
+      "date": "2026-06-19T11:40:17+00:00",
+      "edit_date": "2026-06-19T11:40:41+00:00",
+      "external_links": [
+        "https://kept.ru/industries/neftegazovaya-otrasl/",
+        "https://t.me/kept_business",
+        "https://vk.com/kept_business",
+        "https://max.ru/id7703816719_biz"
+      ],
+      "forwards": 2,
+      "from_id": -1001657341909,
+      "grouped_id": null,
+      "id": 3363,
+      "media_type": "MessageMediaWebPage",
+      "message": "Как эффективно управлять сетями АЗС?\nБез целостной картины рынка — никак.\n\nОтсутствие единой картины розничного рынка нефтепродуктов снижает эффективность операционной деятельности и точность управления сетями АЗС, а также не позволяет бизнесу быстро принимать решения в условиях меняющегося рынка.\n\n✔️ Сформировать целостную картину возможно в кооперации с независимым и доверенным аналитическим оператором.\n\nКак это работает?\n▫ Независимые АЗС, сети АЗС ВИНК и их франчайзи передают первичные данные независимому аналитическому оператору.\n▫ Оператор собирает данные на условиях строгой конфиденциальности, обрабатывает их и формирует единую базу.\n▫ Оператор передает консолидированные, обезличенные отчеты участникам рынка.\n\nФормирование базы «больших данных» помогает строить достоверные прогнозы и модели рынка на основе факторного анализа и отраслевого моделирования по ключевым секторам.\n\nЧто это дает бизнесу?\nЦелостная картина рынка — основа эффективного управления сетями АЗС, позволяющая выстраивать операционные процессы, оптимизировать логистику и запасы, проводить анализ рынка и операционной деятельности в модели план-факт-прогноз.\n\nКоманда Kept работает с ведущими компаниями России и мира по всей цепочке создания ценности. Подробнее о наших услугах для нефтегазовой отрасли можно узнать по ссылке.\n\n🛢️ #OilGas #Нефтегаз\n\nKept в Telegram | VK | Max",
+      "original_url": "https://t.me/kept_business/3363",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "❤"
+        },
+        {
+          "count": 3,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "👏"
+        }
+      ],
+      "replies_count": null,
+      "views": 476
+    },
+    {
+      "chat": "Reksoft_group",
+      "comments_enabled": null,
+      "date": "2026-06-19T12:27:19+00:00",
+      "edit_date": "2026-06-19T12:29:21+00:00",
+      "external_links": [
+        "https://incrussia.ru/share/kak-malyj-biznes-stroit-feshn-rynok-v-regionah/",
+        "https://incrussia.ru/share/kak-malyj-biznes-stroit-feshn-rynok-v-regionah/%22%20%5Co%20%22https://incrussia.ru/share/kak-malyj-biznes-stroit-feshn-rynok-v-regionah/",
+        "https://t.me/+BzN9yWu5D6hiNGVi"
+      ],
+      "forwards": 4,
+      "from_id": -1001509197707,
+      "grouped_id": null,
+      "id": 1665,
+      "media_type": "MessageMediaPhoto",
+      "message": "За развитием региональной моды в России стоят не только креативные идеи, но и производственные мощности, логистика и цифровые платформы для продаж. Анна Тарасенко, менеджер практики «Государственные и социальные инициативы» Рексофт Консалтинг, в статье для «Инк.» разбирает, как малый бизнес перестраивает фэшн-рынок в регионах.\n\n👀 70% потребителей сознательно выбирают локальные бренды, находя в них историю, качество и идентичность. Однако каналы сбыта зачастую ограничены – не хватает офлайн-площадок и шоурумов. Здесь на помощь приходят маркетплейсы и цифровые платформы. 94% одежды и обуви в России сегодня продается через маркетплейсы. Онлайн-продажи в этой категории в 2025 году выросли на Ozon на 97% год к году, а на Wildberries – на 66%.\n\nНо вместе с географическим барьером исчезла и защита от конкуренции: теперь бренд из Екатеринбурга на одной карточке маркетплейса соревнуется с брендом из Казани и московскими игроками. Все борются за одну аудиторию.\n\nТри принципа, которые помогают локальным брендам не утонуть среди тысяч карточек\n⏺ Работать над визуалом и упаковкой – первое впечатление на маркетплейсе решает все.\n⏺ Выстраивать коммуникацию с покупателем – отзывы, обратная связь, брендирование заказа.\n⏺ Использовать производственную гибкость – искать фабрики, готовые к малым партиям, как это уже делают в Екатеринбурге.\n\n🗣Еще одна конкретная проблема для малого бизнеса, по словам эксперта: фабрики в регионах есть, но зачастую они не готовы шить 50 единиц экспериментальной коллекции с нестандартным кроем, поскольку исторически заточены под крупные тиражи и спецодежду. Поэтому многие региональные бренды уже отшиваются в Екатеринбурге, где производства развиваются вместе с модной индустрией. \n\nЭто подтверждает: при правильной технологической связке региональный fashion-рынок способен расти и масштабироваться. Успех локальных брендов – не только про креатив, но и про грамотное использование цифровых инструментов для производства, логистики и продаж.\n\nНе обязательно строить производство там, где живешь. Нужно выстроить цепочку: идея и бренд – в регионе, производство – там, где есть компетенции и объемы, сбыт – через маркетплейсы и партнерские магазины федерального масштаба.\n\n#Консалтинг\n\n🖥️ Аналитика и тренды ИТ-рынка",
+      "original_url": "https://t.me/Reksoft_group/1665",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 4,
+          "reaction": "❤"
+        },
+        {
+          "count": 2,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "👏"
+        },
+        {
+          "count": 1,
+          "reaction": "🆒"
+        }
+      ],
+      "replies_count": null,
+      "views": 176
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-19T13:30:03+00:00",
+      "edit_date": "2026-06-19T13:54:34+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/492428",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 11,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5942,
+      "media_type": "MessageMediaPhoto",
+      "message": "Как GenAI изменит ключевые профессии российской экономики и ритейл. «Магнит» представил большое исследование на TAdviser SummIT https://www.tadviser.ru/a/492428\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/5942",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 14,
+          "reaction": "🔥"
+        },
+        {
+          "count": 3,
+          "reaction": "👏"
+        },
+        {
+          "count": 1,
+          "reaction": "🤡"
+        }
+      ],
+      "replies_count": 1,
+      "views": 1030
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-19T12:57:19+00:00",
+      "edit_date": "2026-06-19T13:16:44+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/948210"
+      ],
+      "forwards": 7,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5941,
+      "media_type": "MessageMediaPhoto",
+      "message": "Тенденции развития технологий искусственного интеллекта в России. Обзор TAdviser https://www.tadviser.ru/a/948210",
+      "original_url": "https://t.me/tadviser/5941",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 8,
+          "reaction": "👍"
+        },
+        {
+          "count": 3,
+          "reaction": "🔥"
+        },
+        {
+          "count": 2,
+          "reaction": "👏"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1172
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-19T12:21:08+00:00",
+      "edit_date": "2026-06-19T12:23:34+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/464691",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 15,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5940,
+      "media_type": "MessageMediaPhoto",
+      "message": "«Роснефть» спрогнозировала годовой экономический эффект от цифровых технологий в 100 млрд рублей https://www.tadviser.ru/a/464691\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/5940",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 9,
+          "reaction": "🤣"
+        },
+        {
+          "count": 5,
+          "reaction": "😁"
+        },
+        {
+          "count": 5,
+          "reaction": "🥴"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "👏"
+        }
+      ],
+      "replies_count": 1,
+      "views": 1432
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-19T11:03:28+00:00",
+      "edit_date": "2026-06-19T11:07:58+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/951422"
+      ],
+      "forwards": 13,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5939,
+      "media_type": "MessageMediaPhoto",
+      "message": "Иван Бурдело, VK Tech: Аттестованные облака становятся базовой инфраструктурой для бизнеса и государства\n\nНадежность, отказоустойчивость и безопасность ИТ-инфраструктуры уже стали базовым требованием со стороны бизнеса и государства. На этом фоне выбор аттестованной облачной платформы становится более тщательным, потому что стабильность ее работы напрямую влияет на скорость запуска продуктов и масштабирования бизнеса. \n\nДиректор бизнес-сегмента B2G VK Tech Иван Бурдело объясняет, что изменилось на рынке и чего сегодня ждут от гиперскейлеров самые требовательные заказчики.\n\nЧитать >>>",
+      "original_url": "https://t.me/tadviser/5939",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 4,
+          "reaction": "👍"
+        },
+        {
+          "count": 3,
+          "reaction": "👎"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "👏"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1513
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-19T10:27:06+00:00",
+      "edit_date": "2026-06-19T10:28:40+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/559954",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 8,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5938,
+      "media_type": "MessageMediaPhoto",
+      "message": "В Генпрокуратуре предложили ограничить онлайн-трансляции из судов и подняли проблему «пожизненного цифрового клейма» https://www.tadviser.ru/a/559954\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/5938",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "🤨"
+        },
+        {
+          "count": 3,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "🙈"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1480
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-19T09:52:24+00:00",
+      "edit_date": "2026-06-19T10:37:43+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/951745"
+      ],
+      "forwards": 2,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5937,
+      "media_type": "MessageMediaPhoto",
+      "message": "Техноускорение для бизнеса: какие ИТ-решения дают эффект сейчас и куда смотреть на горизонте 10–15 лет\n\nВ условиях сжатия инвестиционных программ бизнес пересматривает ИТ-приоритеты: на первый план выходят решения с измеримым эффектом не через два-три года, а сразу. \n\nГде искать точки роста, почему технологии не раскрывают потенциал и каким станет основной драйвер эффективности через 10–15 лет, обсудили на пленарной сессии «Техноускорение: где искать точки роста российскому бизнесу». Она прошла в рамках конференции «Искусство бизнеса», организованной Контуром.\n\nПодробнее >>>",
+      "original_url": "https://t.me/tadviser/5937",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 3,
+          "reaction": "👍"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1510
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-19T09:21:53+00:00",
+      "edit_date": "2026-06-19T09:22:34+00:00",
+      "external_links": [
+        "https://www.tadviser.ru/a/793493",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 19,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5936,
+      "media_type": "MessageMediaPhoto",
+      "message": "ИТ-компания «Авроид» Дмитрия Комиссарова признана банкротом https://www.tadviser.ru/a/793493\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/5936",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 9,
+          "reaction": "😁"
+        },
+        {
+          "count": 2,
+          "reaction": "❤"
+        },
+        {
+          "count": 1,
+          "reaction": "🔥"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1596
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-19T09:00:04+00:00",
+      "edit_date": "2026-06-19T09:13:33+00:00",
+      "external_links": [
+        "Cloud.ru",
+        "https://www.tadviser.ru/a/404847",
+        "https://max.ru/tadviser",
+        "https://vk.com/tadviser"
+      ],
+      "forwards": 29,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5935,
+      "media_type": "MessageMediaPhoto",
+      "message": "Cloud.ru начал строительство нового дата-центра в Московской области https://www.tadviser.ru/a/404847\n\n—————————— \nTAdviser в MAX и ВК",
+      "original_url": "https://t.me/tadviser/5935",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 5,
+          "reaction": "👍"
+        },
+        {
+          "count": 2,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": 0,
+      "views": 2100
+    },
+    {
+      "chat": "tadviser",
+      "comments_enabled": true,
+      "date": "2026-06-19T08:11:09+00:00",
+      "edit_date": "2026-06-19T09:47:41+00:00",
+      "external_links": [
+        "https://t.me/basealtspo",
+        "https://www.tadviser.ru/a/951426"
+      ],
+      "forwards": 7,
+      "from_id": -1001001793461,
+      "grouped_id": null,
+      "id": 5934,
+      "media_type": "MessageMediaPhoto",
+      "message": "Интервью ICL Техно и «Базальт СПО» — о падении рынка, дефиците чипов и как с этим совладать в новых стратегических тактиках\n\nРынок оборудования в России за прошлый год сократился на 15–20%, дефицит чипов из-за бума ИИ все еще дает о себе знать, а рост ключевой ставки заставляет пересматривать любые долгосрочные проекты. \n\nВ интервью Дарии Беседы, директора по маркетингу «Базальт СПО», с генеральным директором ICL Техно Евгением Степановым и руководителем серверного направления ICL Техно Алексеем Легостаевым — о том, что на самом деле происходит с параллельным импортом, повлияет ли маркировка «Честный Знак» на стоимость продуктов и где у российского оборудования болит по-настоящему.\n\nЧитать >>>",
+      "original_url": "https://t.me/tadviser/5934",
+      "post_author": null,
+      "reactions": [
+        {
+          "count": 4,
+          "reaction": "🔥"
+        },
+        {
+          "count": 1,
+          "reaction": "❤"
+        }
+      ],
+      "replies_count": 0,
+      "views": 1670
+    }
+  ],
+  "profile": "profile_178"
+}

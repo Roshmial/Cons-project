@@ -1,0 +1,17 @@
+{
+  "kind": "web_sources",
+  "subject": "Проанализируй данные в интернете и собери дашборд по истории развития BI-решений и BI-практик",
+  "output_format": "dashboard",
+  "fields": [],
+  "since_date": "",
+  "items": [
+    "https://en.wikipedia.org/wiki/Business_intelligence",
+    "https://www.ibm.com/topics/business-intelligence",
+    "https://www.zdnet.com/article/a-brief-history-of-business-intelligence/",
+    "https://www.cio.com/article/3237629/the-evolution-of-business-intelligence.html",
+    "https://www.gartner.com/en/documents/3991237/history-of-business-intelligence-and-analytics",
+    "https://www.dataversity.net/history-of-business-intelligence/",
+    "https://www.tableau.com/learn/articles/history-of-bi",
+    "https://www.microsoft.com/en-us/power-platform/power-bi/history"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI и построй дашборд",
+  "output_format": "dashboard",
+  "fields": [
+    "компания",
+    "type",
+    "summary"
+  ],
+  "since_date": "",
+  "items": [
+    "https://legalai.com/",
+    "https://legalai.dev/",
+    "https://legalai-review.com/",
+    "https://na.linkedin.com/company/legalai",
+    "https://www.legalai.associates/pricing"
+  ]
+}

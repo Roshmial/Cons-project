@@ -1,0 +1,17 @@
+{
+  "kind": "web_sources",
+  "subject": "Проанализируй данные в интернете и собери дашборд по истории развития BI-решений и BI-практик",
+  "output_format": "dashboard",
+  "fields": [],
+  "since_date": "",
+  "items": [
+    "https://www.commonsensemedia.org/articles",
+    "https://www.centerforonlinesafety.com/blog/family-tech-agreement",
+    "https://www.qustodio.com/en/blog/family-digital-agreement/",
+    "https://news.google.com/swg/ui/v1/serviceiframe",
+    "https://www.telegraph.co.uk/news/main.jhtml?msockid=201dcd52988c64521218dad3991e65cb",
+    "https://technologyandsociety.org/children-and-technology-guidelines-for-parents-rules-for-every-age/",
+    "https://www.unicef.org.au/unicef-youth/staying-safe-online/social-media-ban-explainer",
+    "https://www.bbc.com/news/articles/cwyp9d3ddqyo"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "raw_log": "/home/hermes/workspace/TG-API/runtime/178/raw_logs/raw_2026-06-23_06-25-36.json",
+  "config_name": "daily_178",
+  "profile_name": "profile_178",
+  "total_messages": 1,
+  "non_empty_messages": 1,
+  "empty_messages_skipped": 0,
+  "messages": [
+    {
+      "chat": "tadviser",
+      "id": 5948,
+      "date": "2026-06-23T05:53:41+00:00",
+      "original_url": "https://t.me/tadviser/5948",
+      "external_links": [
+        "https://www.tadviser.ru/a/952273"
+      ],
+      "metadata": {
+        "views": 426,
+        "forwards": 3,
+        "replies_count": 0,
+        "comments_enabled": true,
+        "edit_date": "2026-06-23T05:53:44+00:00",
+        "media_type": "MessageMediaPhoto"
+      },
+      "text": "Максим Ефремов, «ИТ-Экспертиза»: САКУРА 3 — путь к автоматизации без границ и «вечер пятницы» для ИБ-отдела\n\nПрошел год с момента анонса САКУРА редакции 3, и за это время продукт эволюционировал из программного комплекса в полноценную платформу для принятия решений на основе контекста. \n\nВ интервью TAdviser Максим Ефремов рассказывает, как решение помогает ИБ-специалистам не «воевать с собой», а эффективно выстраивать концепцию «нулевого доверия» (Zero Trust).\n\nЧитать >>>"
+    }
+  ]
+}

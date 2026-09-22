@@ -1,0 +1,18 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI",
+  "output_format": "dashboard",
+  "fields": [
+    "компания",
+    "продукт",
+    "ссылка"
+  ],
+  "since_date": "",
+  "items": [
+    "https://www.netcologne.de/privatkunden/hilfe/aus-mail-cloud-wird-netmail/",
+    "https://www.netaachen.de/privatkunden/hilfe/aus-mail-cloud-wird-netmail/",
+    "https://www.koeln.de/koelnmail/",
+    "https://netcologne.telefon-tv-internet.de/anschluss/extras/netcologne-mail-cloud",
+    "https://www.netcologne.de/privatkunden/faq/netmail/"
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "raw_log": "/home/hermes/workspace/TG-API/runtime/178/raw_logs/raw_2026-09-13_06-25-47.json",
+  "config_name": "daily_178",
+  "profile_name": "profile_178",
+  "total_messages": 2,
+  "non_empty_messages": 2,
+  "empty_messages_skipped": 0,
+  "messages": [
+    {
+      "chat": "Axenix_Ru",
+      "id": 3718,
+      "date": "2026-09-12T13:10:20+00:00",
+      "original_url": "https://t.me/Axenix_Ru/3718",
+      "external_links": [
+        "https://t.me/Axenix_Ru",
+        "https://max.ru/Axenix_Ru",
+        "https://vk.com/axenix_ru"
+      ],
+      "metadata": {
+        "views": 458,
+        "forwards": 5,
+        "replies_count": 0,
+        "comments_enabled": true,
+        "reactions": [
+          {
+            "count": 25,
+            "reaction": "❤"
+          },
+          {
+            "count": 11,
+            "reaction": "🔥"
+          },
+          {
+            "count": 7,
+            "reaction": "👍"
+          }
+        ],
+        "edit_date": "2026-09-12T13:12:45+00:00",
+        "media_type": "MessageMediaDocument"
+      },
+      "text": "AXENIX — 4 года! \n\nЧетыре года роста, сложных задач и больших проектов. Новые отрасли. Новые технологии. Новые решения для бизнеса.\n\nЗа всем этим — доверие наших клиентов и партнеров и сильная команда профессионалов.\n\nСпасибо каждому, кто работает с нами, поддерживает нас и вместе с нами создает проекты, которые становятся эталоном для отрасли.\n\nМы продолжаем расти, развивать экспертизу и помогать бизнесу проходить технологическую трансформацию.\n\n4 года — важная отметка. Но впереди — гораздо больше.\n\nС днем рождения, AXENIX!\n\n#AXteam\n\n🔥 AXENIX: Telegram | MAX | ВК"
+    },
+    {
+      "chat": "tadviser",
+      "id": 6222,
+      "date": "2026-09-12T12:31:10+00:00",
+      "original_url": "https://t.me/tadviser/6222",
+      "external_links": [
+        "https://www.tadviser.ru/a/50300"
+      ],
+      "metadata": {
+        "views": 1206,
+        "forwards": 11,
+        "replies_count": 2,
+        "comments_enabled": true,
+        "edit_date": "2026-09-12T13:23:45+00:00",
+        "media_type": "MessageMediaPhoto"
+      },
+      "text": "Экс-министра связи Николая Никифорова объявили в розыск https://www.tadviser.ru/a/50300"
+    }
+  ]
+}

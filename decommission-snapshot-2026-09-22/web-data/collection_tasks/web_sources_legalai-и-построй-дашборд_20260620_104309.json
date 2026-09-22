@@ -1,0 +1,18 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI и построй дашборд",
+  "output_format": "dashboard",
+  "fields": [
+    "компания",
+    "type",
+    "summary"
+  ],
+  "since_date": "",
+  "items": [
+    "https://www.legalai.co.in/",
+    "https://www.legalai.software/",
+    "https://legalai.dev/",
+    "https://www.checkbox.ai/blog/ultimate-guide-to-legal-dashboard-analytics-software",
+    "https://atlaslegalai.com/"
+  ]
+}

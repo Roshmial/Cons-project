@@ -1,0 +1,13 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI",
+  "output_format": "csv",
+  "fields": [
+    "компания",
+    "продукт",
+    "ссылка",
+    "summary"
+  ],
+  "since_date": "",
+  "items": []
+}

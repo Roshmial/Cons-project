@@ -1,0 +1,78 @@
+{
+  "raw_log": "/home/hermes/workspace/TG-API/runtime/178/raw_logs/raw_2026-09-07_06-25-18.json",
+  "config_name": "daily_178",
+  "profile_name": "profile_178",
+  "total_messages": 2,
+  "non_empty_messages": 2,
+  "empty_messages_skipped": 0,
+  "messages": [
+    {
+      "chat": "YakovPartners",
+      "id": 3878,
+      "date": "2026-09-06T09:04:31+00:00",
+      "original_url": "https://t.me/YakovPartners/3878",
+      "external_links": [],
+      "metadata": {
+        "views": 1213,
+        "forwards": 24,
+        "reactions": [
+          {
+            "count": 11,
+            "reaction": "❤"
+          },
+          {
+            "count": 6,
+            "reaction": "👍"
+          },
+          {
+            "count": 2,
+            "reaction": "❤‍🔥"
+          },
+          {
+            "count": 2,
+            "reaction": "💔"
+          },
+          {
+            "count": 1,
+            "reaction": "🔥"
+          }
+        ],
+        "edit_date": "2026-09-06T09:07:44+00:00",
+        "media_type": "MessageMediaPhoto"
+      },
+      "text": "Поздравляем с Днем работника нефтяной, газовой и топливной промышленности!\n\nЗа каждым литром топлива и кубометром газа стоит труд людей, которые запускают скважины, ведут трубы и держат производство в рабочем ритме.\n\nЖелаем безопасных смен, надежной техники, уверенных решений и справедливого результата за вложенные силы. Спасибо за профессионализм и ответственность на каждом этапе работы."
+    },
+    {
+      "chat": "kept_business",
+      "id": 3497,
+      "date": "2026-09-06T07:02:33+00:00",
+      "original_url": "https://t.me/kept_business/3497",
+      "external_links": [],
+      "metadata": {
+        "views": 511,
+        "forwards": 6,
+        "reactions": [
+          {
+            "count": 10,
+            "reaction": "🔥"
+          },
+          {
+            "count": 3,
+            "reaction": "❤"
+          },
+          {
+            "count": 2,
+            "reaction": "custom:5364143840347313961"
+          },
+          {
+            "count": 1,
+            "reaction": "👏"
+          }
+        ],
+        "edit_date": "2026-09-06T07:57:29+00:00",
+        "media_type": "MessageMediaPhoto"
+      },
+      "text": "За каждым добытым, переработанным и доставленным баррелем и кубометром стоят профессионализм и высочайшая ответственность тысяч специалистов.\n\nВы обеспечиваете работу предприятий, движение транспорта, свет и тепло в домах людей. Спасибо за ваш труд, стойкость и умение работать в самых сложных условиях.\n\nС Днем работников нефтяной, газовой и топливной промышленности!"
+    }
+  ]
+}

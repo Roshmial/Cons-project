@@ -1,0 +1,24 @@
+{
+  "started_at": "2026-09-21T06:25:21.524731+00:00",
+  "status": "no_new_messages",
+  "ensure_api": {
+    "exit_code": 0,
+    "stdout": "api_status=already_running",
+    "stderr": ""
+  },
+  "monitor_client": {
+    "exit_code": 0,
+    "stdout": "=== Сбор данных [2026-09-21T06:25:21] ===\nЗапрос к API: http://localhost:8001/export?profile=profile_178&config=daily_178&since=%7B%22b1_news%22%3A%203717%2C%20%22Axenix_Ru%22%3A%203746%2C%20%22beringpro%22%3A%20697%2C%20%22Softline%22%3A%203389%2C%20%22k2_tech%22%3A%202261%2C%20%22Lanit_life%22%3A%203820%2C%20%22InnotechCompany%22%3A%201304%2C%20%22YakovPartners%22%3A%203893%2C%20%22delret%22%3A%202897%2C%20%22tedo_business%22%3A%204491%2C%20%22kept_business%22%3A%203539%2C%20%22Reksoft_group%22%3A%201833%2C%20%22norbit_ru%22%3A%20886%2C%20%22tadviser%22%3A%206250%7D\nНовых сообщений нет.\n{\"status\": \"no_new_messages\", \"config_name\": \"daily_178\", \"profile_name\": \"profile_178\", \"collection_ts\": \"2026-09-21T06:25:21\", \"total_messages\": 0, \"non_empty_messages\": 0, \"empty_messages_skipped\": 0}",
+    "stderr": ""
+  },
+  "collector_payload": {
+    "status": "no_new_messages",
+    "config_name": "daily_178",
+    "profile_name": "profile_178",
+    "collection_ts": "2026-09-21T06:25:21",
+    "total_messages": 0,
+    "non_empty_messages": 0,
+    "empty_messages_skipped": 0
+  },
+  "finished_at": "2026-09-21T06:25:25.323663+00:00"
+}

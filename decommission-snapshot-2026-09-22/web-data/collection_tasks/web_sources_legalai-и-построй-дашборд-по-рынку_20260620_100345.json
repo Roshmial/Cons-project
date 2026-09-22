@@ -1,0 +1,13 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI и построй дашборд по рынку",
+  "output_format": "dashboard",
+  "fields": [],
+  "since_date": "",
+  "items": [
+    "https://www.thebusinessresearchcompany.com/report/legal-ai-software-global-market-report",
+    "https://intentmarketresearch.com/latest-reports/legal-ai-market-7525",
+    "https://legalaioffice.com/",
+    "https://www.crunchbase.com/organization/legalai-group-limited"
+  ]
+}

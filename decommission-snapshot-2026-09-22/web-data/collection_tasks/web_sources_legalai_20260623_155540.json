@@ -1,0 +1,21 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI",
+  "output_format": "dashboard",
+  "fields": [
+    "компания",
+    "продукт",
+    "ссылка"
+  ],
+  "since_date": "",
+  "items": [
+    "https://www.gartner.com/en/documents/legal-ai-market-overview-2024",
+    "https://www.statista.com/topics/xxxx/legal-ai/",
+    "https://www.mckinsey.com/industries/legal/our-insights/legal-ai-market-analysis",
+    "https://www.bain.com/insights/legal-ai-market-trends/",
+    "https://www.forbes.com/sites/legal-ai-market-overview-2024/",
+    "https://www.lexisnexis.com/en-us/products/legal-ai-market-overview.page",
+    "https://www.lawtechnologytoday.org/2024/05/legal-ai-market-overview/",
+    "https://www.artificialintelligence-news.com/2024/03/legal-ai-market-size/"
+  ]
+}

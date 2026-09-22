@@ -1,0 +1,17 @@
+[Unit]
+Description=Hermes Web backend 8791
+After=network.target hermes-gateway.service
+Requires=hermes-gateway.service
+
+[Service]
+Type=simple
+WorkingDirectory=/home/hermes/workspace/hermes-web-mvp-react-8793
+ExecStart=/usr/bin/bash /home/hermes/workspace/hermes-web-mvp-react-8793/run_backend_service.sh
+Restart=always
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+KillMode=mixed
+TimeoutStopSec=20
+
+[Install]
+WantedBy=default.target

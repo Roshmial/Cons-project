@@ -1,0 +1,17 @@
+{
+  "kind": "web_sources",
+  "subject": "LegalAI и построй дашборд",
+  "output_format": "dashboard",
+  "fields": [
+    "компания",
+    "type",
+    "summary"
+  ],
+  "since_date": "",
+  "items": [
+    "https://proai.legal/",
+    "https://legalai.com/",
+    "https://www.checkbox.ai/blog/ultimate-guide-to-legal-dashboard-analytics-software",
+    "https://www.legalai.law/en/services.html"
+  ]
+}
